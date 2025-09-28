@@ -1,0 +1,28 @@
+{
+    "name": "T.K赤色巨星",
+    "id": "tk-theme-redgiant",
+    "description": "赤色巨星の壮大な赤とオレンジ。星の晩年の情熱的な輝き。",
+    "colors": {
+        "primary_color": "#dc2626",
+        "secondary_color": "#8b4513",
+        "accent_color": "#f97316",
+        "background_color": "#fef2f2",
+        "background_secondary": "#fef3c7",
+        "text_primary": "#0f172a",
+        "text_secondary": "#1e293b",
+        "text_light": "#5d2626",
+        "link_color": "#f97316",
+        "link_hover_color": "#10b981",
+        "header_link_color": "#fef3c7",
+        "header_link_hover_color": "#fbbf24",
+        "footer_link_color": "#fef3c7",
+        "footer_link_hover_color": "#fbbf24",
+        "border_color": "#7f1d1d",
+        "button_background_color": "#10b981",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#059669",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#0f172a",
+        "search_button_color": "#10b981"
+    }
+}

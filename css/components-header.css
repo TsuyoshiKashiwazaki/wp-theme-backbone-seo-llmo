@@ -1,0 +1,273 @@
+/* ========================================
+   ヘッダー
+======================================== */
+
+/* ヘッダー用CSS変数 */
+:root {
+    --header-padding-vertical: 1.25rem;
+    --header-padding-horizontal-desktop: 2.5rem;
+    --header-padding-horizontal-tablet: 2.5rem; /* タブレットもPCと同じ */
+    --header-padding-horizontal-mobile: 0.9375rem;
+    --header-border-decoration-height: 2px;
+    --logo-height: 3.125rem;
+    --text-logo-size: 1.5rem;
+    --logo-margin-bottom: 0.5rem;
+    --site-description-margin-top: 0.5rem;
+    --admin-bar-height-desktop: 32px;
+    --admin-bar-height-mobile: 46px;
+    --main-content-margin-no-js: 30px;
+    --main-content-margin-admin-bar: 62px;
+    --main-content-margin-admin-bar-mobile: 76px;
+}
+.site-header {
+    background: var(--primary-color);
+    color: var(--text-primary);
+    /* 全レイアウト統一：画面端まで広げる */
+    width: 100% !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    z-index: 100;
+    box-sizing: border-box;
+    min-height: auto;
+    max-height: none;
+}
+
+
+/* 管理バー対応の標準設定を使用 */
+
+/* 1カラムレイアウト：統一のため特別設定を削除 */
+
+/* 装飾用のグラデーションボーダー */
+.site-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-border-decoration-height);
+    background: linear-gradient(90deg, var(--accent-color) 0%, transparent 25%, transparent 75%, var(--accent-color) 100%);
+    z-index: 101;
+}
+
+.site-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-border-decoration-height);
+    background: linear-gradient(90deg, var(--accent-color) 0%, transparent 25%, transparent 75%, var(--accent-color) 100%);
+    z-index: 101;
+}
+
+/* 不要な右上の装飾を削除 */
+
+/* ヘッダーコンテナ：全レイアウトで統一（最高優先度） */
+body .site-header .container {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding-left: var(--header-padding-horizontal-desktop) !important;
+    padding-right: var(--header-padding-horizontal-desktop) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+}
+
+/* 各レイアウト用の追加保証 */
+body.layout-full-width .site-header .container,
+body.layout-single-column .site-header .container,
+body.layout-two-columns .site-header .container,
+body.layout-three-columns .site-header .container {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding-left: var(--header-padding-horizontal-desktop) !important;
+    padding-right: var(--header-padding-horizontal-desktop) !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+}
+
+
+
+/* タブレット：PCと同じ仕様 */
+@media (min-width: 768px) and (max-width: 1279px) {
+    .site-header {
+        width: 100% !important;
+        position: relative !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    
+    body .site-header .container,
+    body.layout-full-width .site-header .container,
+    body.layout-single-column .site-header .container,
+    body.layout-two-columns .site-header .container,
+    body.layout-three-columns .site-header .container {
+        padding-left: var(--header-padding-horizontal-desktop) !important;
+        padding-right: var(--header-padding-horizontal-desktop) !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+/* スマホ用のヘッダー幅設定 */
+@media (max-width: 767px) {
+    body .site-header .container,
+    body.layout-full-width .site-header .container,
+    body.layout-single-column .site-header .container,
+    body.layout-two-columns .site-header .container,
+    body.layout-three-columns .site-header .container {
+        padding-left: var(--header-padding-horizontal-mobile) !important;
+        padding-right: var(--header-padding-horizontal-mobile) !important;
+    }
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    position: relative;
+    z-index: 1;
+    /* ヘッダーコンテンツの縦スクロールを防止 */
+    overflow: visible;
+    overflow-y: visible;
+    min-height: auto;
+    max-height: none;
+}
+
+/* メニュー内検索ボタン（メインレベルのみ表示） */
+.menu-item-search {
+    list-style: none;
+    display: inline-block;
+}
+
+/* サブメニュー内の検索ボタンを非表示 */
+.sub-menu .menu-item-search {
+    display: none !important;
+}
+
+.menu-item-search .search-toggle {
+    background: transparent;
+    border: 2px solid var(--header-link-color);
+    cursor: pointer;
+    padding: 5px;
+    color: var(--header-link-color);
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+
+.menu-item-search .search-toggle:hover {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--header-link-hover-color);
+}
+
+.menu-item-search .search-icon {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+}
+
+.site-branding {
+    display: block;
+    /* サイトブランディングの縦スクロールを防止 */
+    overflow: visible;
+    overflow-y: visible;
+}
+
+/* WordPressカスタムロゴのサイズ調整 */
+.custom-logo-link {
+    display: block;
+    flex-shrink: 0;
+}
+
+.custom-logo {
+    height: var(--logo-height);
+    width: auto;
+    object-fit: contain;
+    margin-bottom: var(--logo-margin-bottom);
+    display: block;
+}
+
+/* テキストロゴ用（カスタムロゴがない場合） */
+.site-logo {
+    width: var(--text-logo-size);
+    height: var(--text-logo-size);
+    background: var(--accent-color);
+    /* border-radius はデコレーションパターンで管理 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* font-weight はタイポグラフィパターンで管理 */
+    color: var(--secondary-color);
+    /* font-size はタイポグラフィパターンで管理 */
+    flex-shrink: 0;
+}
+
+.site-info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.site-title {
+    /* font-size, font-weight はタイポグラフィパターンで管理 */
+    margin: 0;
+    position: relative;
+}
+
+.site-title a {
+    color: var(--header-link-color);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.site-title a:hover {
+    color: var(--header-link-hover-color);
+}
+
+.site-description {
+    color: var(--text-light);
+    /* font-size はタイポグラフィパターンで管理 */
+    margin-top: var(--site-description-margin-top);
+    opacity: 0.9;
+    white-space: nowrap;
+}
+
+/* ヘッダー内のすべてのリンクに統一したカラーテーマを適用 */
+body .site-header a {
+    color: var(--header-link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+body .site-header a:hover {
+    color: var(--header-link-hover-color);
+}

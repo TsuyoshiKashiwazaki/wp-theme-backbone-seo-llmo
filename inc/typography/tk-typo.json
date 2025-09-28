@@ -1,0 +1,173 @@
+{
+    "name": "T.Kタイポ・ベーシック",
+    "id": "tk-typo",
+    "description": "標準的なNoto Sans JPフォントを使用したベーシックなタイポグラフィ",
+    "google_fonts": [
+        "Noto+Sans+JP:wght@300;400;500;600;700;800;900"
+    ],
+    "font_family": "Noto Sans JP, sans-serif",
+    "entry_content": {
+        "font_size": "1rem",
+        "line_height": "1.8",
+        "letter_spacing": "0.02em",
+        "font_weight": "400",
+        "word_spacing": "0.05em"
+    },
+    "headings": {
+        "h1": {
+            "font_size": "1.8rem",
+            "font_weight": "700",
+            "line_height": "1.2",
+            "letter_spacing": "0.01em",
+            "margin_top": "3rem",
+            "margin_bottom": "1.5rem",
+            "word_spacing": "0.1em",
+            "text_indent": "0.5rem"
+        },
+        "h2": {
+            "font_size": "1.5rem",
+            "font_weight": "600",
+            "line_height": "1.3",
+            "letter_spacing": "0.015em",
+            "margin_top": "2.5rem",
+            "margin_bottom": "1.2rem",
+            "word_spacing": "0.08em",
+            "text_indent": "0.5rem"
+        },
+        "h3": {
+            "font_size": "1.2rem",
+            "font_weight": "600",
+            "line_height": "1.4",
+            "letter_spacing": "0.02em",
+            "margin_top": "2rem",
+            "margin_bottom": "1rem",
+            "word_spacing": "0.06em",
+            "text_indent": "0.5rem"
+        },
+        "h4": {
+            "font_size": "1.25rem",
+            "font_weight": "500",
+            "line_height": "1.5",
+            "letter_spacing": "0.025em",
+            "margin_top": "1.8rem",
+            "margin_bottom": "0.8rem",
+            "word_spacing": "0.04em",
+            "text_indent": "0.5rem"
+        },
+        "h5": {
+            "font_size": "1.1rem",
+            "font_weight": "500",
+            "line_height": "1.6",
+            "letter_spacing": "0.03em",
+            "margin_top": "1.5rem",
+            "margin_bottom": "0.6rem",
+            "word_spacing": "0.02em",
+            "text_indent": "0.5rem"
+        },
+        "h6": {
+            "font_size": "1rem",
+            "font_weight": "400",
+            "line_height": "1.7",
+            "letter_spacing": "0.035em",
+            "margin_top": "1.2rem",
+            "margin_bottom": "0.5rem",
+            "word_spacing": "0.01em",
+            "text_indent": "0.5rem"
+        }
+    },
+    "paragraphs": {
+        "margin_bottom": "1.5em",
+        "text_indent": "0.5rem",
+        "word_spacing": "0.02em"
+    },
+    "lists": {
+        "margin_bottom": "1.5em",
+        "margin_top": "1em",
+        "line_height": "1.8",
+        "letter_spacing": "0.01em",
+        "text_indent": "0.5rem"
+    },
+    "elements": {
+        "site_title": {
+            "font_size": "1.8rem",
+            "font_weight": "600",
+            "line_height": "1.2",
+            "text_indent": "0.5rem"
+        },
+        "site_description": {
+            "font_size": "0.9rem",
+            "font_weight": "400",
+            "line_height": "1.4",
+            "text_indent": "0.5rem"
+        },
+        "entry_meta": {
+            "font_size": "0.9rem",
+            "font_weight": "400",
+            "line_height": "1.5"
+        },
+        "widget_title": {
+            "font_size": "1.3rem",
+            "font_weight": "600",
+            "line_height": "1.3",
+            "text_indent": "0.5rem"
+        },
+        "comments_title": {
+            "font_size": "1.8rem",
+            "font_weight": "600",
+            "line_height": "1.2",
+            "text_indent": "0.5rem"
+        },
+        "comment_meta": {
+            "font_size": "0.9rem",
+            "font_weight": "400",
+            "line_height": "1.4"
+        },
+        "comment_reply_link": {
+            "font_size": "0.9rem",
+            "font_weight": "500",
+            "line_height": "1.4"
+        },
+        "wp_caption_text": {
+            "font_size": "0.9rem",
+            "font_weight": "400",
+            "line_height": "1.4"
+        },
+        "archive_description": {
+            "font_size": "1rem",
+            "font_weight": "400",
+            "line_height": "1.8",
+            "text_indent": "0.5rem"
+        },
+        "footer_text": {
+            "font_size": "0.85rem",
+            "font_weight": "400",
+            "line_height": "1.5",
+            "text_indent": "0.5rem"
+        },
+        "navigation_menu": {
+            "font_size": "1rem",
+            "font_weight": "500",
+            "line_height": "1.4"
+        },
+        "navigation_icon": {
+            "font_size": "0.6rem",
+            "font_weight": "400",
+            "line_height": "1"
+        },
+        "button": {
+            "font_size": "1rem",
+            "font_weight": "600",
+            "line_height": "1.4"
+        },
+        "form_input": {
+            "font_size": "1rem",
+            "font_weight": "400",
+            "line_height": "1.4"
+        },
+        "skip_link": {
+            "font_size": "0.9rem",
+            "font_weight": "600",
+            "line_height": "1.3"
+        }
+    }
+}

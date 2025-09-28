@@ -1,0 +1,29 @@
+/* ========================================
+   Components CSS File Index
+
+   This file imports the following split CSS files:
+   - components-header.css: Header-related styles
+   - components-navigation.css: Navigation-related styles
+   - components-sidebar.css: Sidebar and widget styles
+   - components-footer.css: Footer-related styles
+   - components-forms.css: Search form and comment form styles
+   - components-content.css: Pagination and accessibility styles
+======================================== */
+
+/* Header-related styles */
+@import url('components-header.css');
+
+/* Navigation-related styles */
+@import url('components-navigation.css');
+
+/* Sidebar and widget styles */
+@import url('components-sidebar.css');
+
+/* Footer-related styles */
+@import url('components-footer.css');
+
+/* Search form and comment form styles */
+@import url('components-forms.css');
+
+/* Pagination and accessibility styles */
+@import url('components-content.css');

@@ -1,0 +1,97 @@
+{
+    "name": "フィンセント・ファン・ゴッホ",
+    "id": "tk-design-van-gogh",
+    "description": "情熱的な筆使い！80年代風のカラフルでノスタルジックなデザイン",
+    "layout": {
+        "type": "retro_rainbow",
+        "content_width": "100%",
+        "sidebar_width": "auto",
+        "sidebar_enabled": false,
+        "container_padding": "0 1%"
+    },
+    "header": {
+        "layout": "retro_gradient",
+        "height": "auto",
+        "padding": "2%",
+        "position": "static",
+        "alignment": "center",
+        "margin": "1% auto",
+        "border_radius": "20px",
+        "box_shadow": "retro_glow",
+        "retro_style": true,
+        "background": "var(--gradient-primary, linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color)))",
+        "rainbow_border": true
+    },
+    "content": {
+        "main_padding": "0 2%",
+        "article_spacing": "2%",
+        "section_margins": "2% 0",
+        "margin": "0 auto",
+        "retro_patterns": true
+    },
+    "article": {
+        "retro_style": true,
+        "padding": "2%",
+        "margin": "0 0 2% 0",
+        "border_radius": "15px",
+        "box_shadow": "retro_soft",
+        "background": "rgba(255, 255, 255, 0.9)",
+        "border": "3px solid var(--primary-color)",
+        "retro_gradient": true
+    },
+    "footer": {
+        "layout": "retro_gradient",
+        "padding": "2%",
+        "margin": "2% auto",
+        "border_radius": "20px",
+        "box_shadow": "retro_glow",
+        "background": "var(--gradient-secondary, linear-gradient(45deg, var(--accent-color), var(--secondary-color)))",
+        "retro_style": true,
+        "rainbow_border": true
+    },
+    "containers": {
+        "border_radius": "15px",
+        "spacing": "2%",
+        "alignment": "center",
+        "retro_rainbow": true,
+        "nostalgic_style": true
+    },
+    "columns": {
+        "border": {
+            "style": "dashed",
+            "width": "1px",
+            "color": "var(--primary-color, transparent)",
+            "position": "left,right",
+            "radius": "15px"
+        },
+        "shadow": {
+            "type": "inner",
+            "intensity": "medium",
+            "color": "var(--shadow-color, transparent)",
+            "blur": "8px",
+            "spread": "2px",
+            "x_offset": "0",
+            "y_offset": "0"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "1.5%",
+                "background": "var(--background-color, transparent)"
+            }
+        }
+    },
+    "effects": {
+        "retro_hover": true,
+        "rainbow_glow": true,
+        "nostalgic_animations": true,
+        "retro_transitions": true,
+        "gradient_shifts": true
+    }
+}

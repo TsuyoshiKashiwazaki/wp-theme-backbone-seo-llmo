@@ -1,0 +1,153 @@
+/* ========================================
+   デザインパターン切り替え（パターン一覧）
+======================================== */
+
+/* 1. クラシック - 既存のスタイルを使用 */
+
+/* 2. ミニマル */
+.design-sharp .post,
+.design-sharp .page,
+.design-sharp article,
+.design-sharp .sidebar,
+.design-sharp .widget {
+    /* border-radius はデコレーションパターンで管理 */
+}
+
+/* 3. ソフト */
+.design-round .post,
+.design-round .page,
+.design-round article,
+.design-round .sidebar,
+.design-round .widget {
+    /* border-radius はデコレーションパターンで管理 */
+}
+
+/* 4. プレーン */
+.design-flat .post,
+.design-flat .page,
+.design-flat article,
+.design-flat .sidebar,
+.design-flat .widget {
+    border: 0;
+    /* border-radius はデコレーションパターンで管理 */
+}
+
+/* 5. アウトライン */
+.design-elegant .post,
+.design-elegant .page,
+.design-elegant article,
+.design-elegant .sidebar,
+.design-elegant .widget {
+    border: 0;
+    /* border-radius はデコレーションパターンで管理 */
+    /* 線の重なり太りを防ぐため、内側に描画 */
+    box-shadow: inset 0 0 0 1px var(--border-color);
+    background: inherit;
+    background-clip: padding-box;
+}
+
+/* 6. ナチュラル */
+.design-natural .post,
+.design-natural .page,
+.design-natural article,
+.design-natural .sidebar,
+.design-natural .widget {
+    border: 0;
+    /* border-radius はデコレーションパターンで管理 */
+    background-clip: padding-box;
+}
+
+/* ========================================
+   タイポグラフィは inc/typography/*.json パターンで完全管理
+======================================== */
+
+/* タイポグラフィ関連のCSSは一切記述せず、JSONパターンシステムに委譲 */
+
+/* ========================================
+   ユーティリティクラス
+======================================== */
+.mt-30 {
+    margin-top: 30px;
+}
+
+.hidden {
+    display: none;
+}
+
+
+/* ========================================
+   印刷スタイル
+======================================== */
+@media print {
+
+    .site-header,
+    .site-footer,
+    .sidebar {
+        display: none;
+    }
+
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 0;
+    }
+
+    /* 印刷時は全て1カラムに強制 */
+    body.layout-single-column .main-content,
+    body.layout-two-columns .main-content,
+    body.layout-three-columns .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .post,
+    .page,
+    article {
+        margin-bottom: 20px;
+        page-break-inside: avoid;
+    }
+
+
+    .entry-meta {
+        display: none;
+    }
+
+    a {
+        text-decoration: underline;
+    }
+}
+
+/* ========================================
+   WordPress管理画面でのウィジェット編集対応
+======================================== */
+
+/* 管理画面のウィジェット管理では、すべてのサイドバーを表示 */
+body.wp-admin .sidebar-1,
+body.wp-admin .sidebar-2,
+body.wp-admin .sidebar {
+    visibility: visible;
+    position: static;
+    left: auto;
+    display: block;
+    /* 管理画面では適切に表示 */
+}
+
+/* ウィジェット管理画面での特別な表示 */
+body.widgets-php .sidebar-1,
+body.widgets-php .sidebar-2,
+body.widgets-php .sidebar {
+    visibility: visible;
+    position: static;
+    left: auto;
+    display: block;
+    /* ウィジェット管理画面では確実に表示 */
+}
+
+/* カスタマイザーのウィジェットセクションでも表示 */
+body.customize-control-widget_form .sidebar-1,
+body.customize-control-widget_form .sidebar-2,
+body.customize-control-widget_form .sidebar {
+    visibility: visible;
+    position: static;
+    left: auto;
+    display: block;
+}

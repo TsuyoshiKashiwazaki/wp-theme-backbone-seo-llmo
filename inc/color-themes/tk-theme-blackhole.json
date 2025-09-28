@@ -1,0 +1,28 @@
+{
+    "name": "T.Kブラックホール",
+    "id": "tk-theme-blackhole",
+    "description": "ブラックホールの究極の暗闇。降着円盤のオレンジの輝きと事象の地平線。",
+    "colors": {
+        "primary_color": "#000000",
+        "secondary_color": "#e5e5e5",
+        "accent_color": "#f97316",
+        "background_color": "#f8fafc",
+        "background_secondary": "#dcfce7",
+        "text_primary": "#0f172a",
+        "text_secondary": "#1e293b",
+        "text_light": "#cccccc",
+        "link_color": "#f97316",
+        "link_hover_color": "#10b981",
+        "header_link_color": "#fef3c7",
+        "header_link_hover_color": "#fbbf24",
+        "footer_link_color": "#fef3c7",
+        "footer_link_hover_color": "#fbbf24",
+        "border_color": "#404040",
+        "button_background_color": "#10b981",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#059669",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#0f172a",
+        "search_button_color": "#10b981"
+    }
+}

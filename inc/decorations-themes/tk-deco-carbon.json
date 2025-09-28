@@ -1,0 +1,86 @@
+{
+    "name": "T.Kカーボン",
+    "id": "tk-deco-carbon",
+    "description": "カーボンの多様性と有機的結合を表現する深みのあるデザイン",
+    "headings": {
+        "h1": {
+            "border": "2px solid var(--accent-color)",
+            "background": "repeating-linear-gradient(45deg, rgba(var(--accent-color), 0.03), rgba(var(--accent-color), 0.01) 3px, transparent 3px, transparent 6px), repeating-linear-gradient(-45deg, rgba(var(--accent-color), 0.02), transparent 2px, transparent 4px)",
+            "border_radius": "12px",
+            "box_shadow": "0 4px 12px rgba(var(--accent-color), 0.2)"
+        },
+        "h2": {
+            "border_left": "4px solid var(--accent-color)",
+            "background": "repeating-linear-gradient(90deg, rgba(var(--accent-color), 0.025), transparent 2px, transparent 4px), repeating-linear-gradient(180deg, rgba(var(--accent-color), 0.015), transparent 1px, transparent 2px)",
+            "border_radius": "0 10px 10px 0",
+            "box_shadow": "2px 0 10px rgba(var(--accent-color), 0.15)"
+        },
+        "h3": {
+            "border_bottom": "2px solid var(--accent-color)",
+            "background": "repeating-linear-gradient(45deg, rgba(var(--accent-color), 0.02), transparent 2px, transparent 4px)",
+            "border_radius": "0 0 8px 0",
+            "box_shadow": "0 2px 8px rgba(var(--accent-color), 0.1)"
+        },
+        "h4": {
+            "border_left": "3px solid var(--accent-color)",
+            "background": "repeating-linear-gradient(90deg, rgba(var(--accent-color), 0.02), transparent 2px, transparent 4px)",
+            "border_radius": "0 6px 6px 0",
+            "box_shadow": "1px 0 6px rgba(var(--accent-color), 0.1)"
+        },
+        "h5": {
+            "border_bottom": "1px dotted var(--accent-color)",
+            "background": "repeating-linear-gradient(180deg, rgba(var(--accent-color), 0.015), transparent 1px, transparent 2px)",
+            "border_radius": "0 0 4px 0"
+        },
+        "h6": {
+            "border_bottom": "1px solid var(--accent-color)",
+            "background": "repeating-linear-gradient(180deg, rgba(var(--accent-color), 0.01), transparent 1px, transparent 2px)"
+        }
+    },
+    "lists": {
+        "ul": {
+            "background": "repeating-linear-gradient(45deg, rgba(var(--accent-color), 0.02), transparent 2px, transparent 4px), repeating-linear-gradient(-45deg, rgba(var(--accent-color), 0.015), transparent 1px, transparent 2px)",
+            "item_position": "relative",
+            "item_padding_left": "2.6em",
+            "item_before": {
+                "content": "▣",
+                "position": "absolute",
+                "left": "0",
+                "top": "15px",
+                "transform": "translateY(-50%) rotate(45deg)",
+                "width": "auto",
+                "height": "auto",
+                "color": "var(--accent-color)",
+                "font_size": "0.8em",
+                "text_shadow": "2px 2px 4px rgba(0,0,0,0.3), -1px -1px 2px rgba(255,255,255,0.1)"
+            },
+            "list_style_type": "none"
+        },
+        "ol": {
+            "background": "repeating-linear-gradient(90deg, rgba(var(--accent-color), 0.02), transparent 2px, transparent 4px), repeating-linear-gradient(180deg, rgba(var(--accent-color), 0.01), transparent 1px, transparent 2px)",
+            "counter_reset": "carbon-counter",
+            "item_counter_increment": "carbon-counter",
+            "item_position": "relative",
+            "item_padding_left": "3.2em",
+            "item_before": {
+                "content": "counter(carbon-counter)",
+                "position": "absolute",
+                "left": "0",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "width": "2em",
+                "height": "1.5em",
+                "background": "var(--background-secondary)",
+                "color": "var(--text-secondary)",
+                "border_radius": "0 0.75em 0.75em 0",
+                "box_shadow": "0 0 0 2px rgba(var(--accent-color), 0.4), inset 0 0 0 1px rgba(var(--accent-color), 0.1)",
+                "display": "flex",
+                "align_items": "center",
+                "justify_content": "center",
+                "font_size": "0.8em",
+                "font_weight": "bold"
+            },
+            "list_style_type": "none"
+        }
+    }
+}

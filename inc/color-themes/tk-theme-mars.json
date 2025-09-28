@@ -1,0 +1,28 @@
+{
+    "name": "T.Kマーズ",
+    "id": "tk-theme-mars",
+    "description": "火星マーズの赤い大地。力強い赤とオレンジのコントラスト。",
+    "colors": {
+        "primary_color": "#991b1b",
+        "secondary_color": "#ffb3b3",
+        "accent_color": "#fed7d7",
+        "background_color": "#fef2f2",
+        "background_secondary": "#fef3c7",
+        "text_primary": "#0f172a",
+        "text_secondary": "#1e293b",
+        "text_light": "#f5b3b3",
+        "link_color": "#b91c1c",
+        "link_hover_color": "#3b82f6",
+        "header_link_color": "#fef3c7",
+        "header_link_hover_color": "#fbbf24",
+        "footer_link_color": "#fef3c7",
+        "footer_link_hover_color": "#fbbf24",
+        "border_color": "#fecaca",
+        "button_background_color": "#3b82f6",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#2563eb",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#3b82f6",
+        "search_button_color": "#3b82f6"
+    }
+}

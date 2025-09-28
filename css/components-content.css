@@ -1,0 +1,59 @@
+/* ========================================
+   ページネーション
+======================================== */
+.pagination-wrapper {
+    margin: 50px 0;
+    text-align: center;
+}
+
+.pagination-wrapper ul {
+    display: inline-flex;
+    gap: 5px;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination-wrapper li {
+    margin: 0;
+}
+
+.pagination-wrapper a,
+.pagination-wrapper span {
+    display: block;
+    padding: 10px 15px;
+    border: 2px solid var(--border-color);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.pagination-wrapper a:hover,
+.pagination-wrapper .current {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* ========================================
+   スキップリンク・アクセシビリティ
+======================================== */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 6px;
+    z-index: 999999;
+    text-decoration: none;
+    background: var(--accent-color);
+    padding: 8px 16px;
+}
+
+.skip-link:focus {
+    left: 6px;
+}
+
+body .screen-reader-text {
+    clip: rect(1px, 1px, 1px, 1px);
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}

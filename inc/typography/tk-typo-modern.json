@@ -1,0 +1,167 @@
+{
+    "name": "T.Kタイポ・モダン",
+    "id": "tk-typo-modern",
+    "description": "Inter フォントを使用した現代的でクリーンなタイポグラフィ",
+    "google_fonts": [
+        "Inter:wght@300;400;500;600;700;800;900"
+    ],
+    "font_family": "Inter, -apple-system, BlinkMacSystemFont, sans-serif",
+    "entry_content": {
+        "font_size": "1rem",
+        "line_height": "1.7",
+        "letter_spacing": "0.005em",
+        "font_weight": "400",
+        "word_spacing": "0.03em"
+    },
+    "headings": {
+        "h1": {
+            "font_size": "2.8rem",
+            "font_weight": "800",
+            "line_height": "1.1",
+            "letter_spacing": "-0.01em",
+            "margin_top": "3rem",
+            "margin_bottom": "1.5rem",
+            "text_indent": "0.5rem",
+            "word_spacing": "0.05em"
+        },
+        "h2": {
+            "font_size": "2.2rem",
+            "font_weight": "700",
+            "line_height": "1.2",
+            "letter_spacing": "-0.005em",
+            "margin_top": "2.5rem",
+            "margin_bottom": "1.2rem",
+            "text_indent": "0.5rem",
+            "word_spacing": "0.04em"
+        },
+        "h3": {
+            "font_size": "1.8rem",
+            "font_weight": "600",
+            "line_height": "1.3",
+            "letter_spacing": "0em",
+            "margin_top": "2rem",
+            "margin_bottom": "1rem",
+            "text_indent": "0.5rem",
+            "word_spacing": "0.03em"
+        },
+        "h4": {
+            "font_size": "1.4rem",
+            "font_weight": "600",
+            "line_height": "1.4",
+            "letter_spacing": "0.01em",
+            "margin_top": "1.8rem",
+            "margin_bottom": "0.8rem",
+            "text_indent": "0.5rem",
+            "word_spacing": "0.02em"
+        },
+        "h5": {
+            "font_size": "1.2rem",
+            "font_weight": "500",
+            "line_height": "1.5",
+            "letter_spacing": "0.015em",
+            "margin_top": "1.5rem",
+            "margin_bottom": "0.6rem",
+            "text_indent": "0.5rem",
+            "word_spacing": "0.01em"
+        },
+        "h6": {
+            "font_size": "1.1rem",
+            "font_weight": "500",
+            "line_height": "1.6",
+            "letter_spacing": "0.02em",
+            "margin_top": "1.2rem",
+            "margin_bottom": "0.5rem",
+            "text_indent": "0.5rem",
+            "word_spacing": "0em"
+        }
+    },
+    "paragraphs": {
+        "margin_bottom": "1.4em",
+        "text_indent": "0.5rem",
+        "word_spacing": "0.01em"
+    },
+    "lists": {
+        "margin_bottom": "1.4em",
+        "margin_top": "0.8em",
+        "line_height": "1.7",
+        "letter_spacing": "0.005em",
+        "text_indent": "0.5rem"
+    },
+    "elements": {
+        "site_title": {
+            "font_size": "1.8rem",
+            "font_weight": "700",
+            "line_height": "1.1"
+        },
+        "site_description": {
+            "font_size": "0.9rem",
+            "font_weight": "400",
+            "line_height": "1.4"
+        },
+        "entry_meta": {
+            "font_size": "0.9rem",
+            "font_weight": "400",
+            "line_height": "1.5"
+        },
+        "widget_title": {
+            "font_size": "1.3rem",
+            "font_weight": "600",
+            "line_height": "1.3"
+        },
+        "comments_title": {
+            "font_size": "1.8rem",
+            "font_weight": "600",
+            "line_height": "1.2"
+        },
+        "comment_meta": {
+            "font_size": "0.9rem",
+            "font_weight": "400",
+            "line_height": "1.4"
+        },
+        "comment_reply_link": {
+            "font_size": "0.9rem",
+            "font_weight": "500",
+            "line_height": "1.4"
+        },
+        "wp_caption_text": {
+            "font_size": "0.9rem",
+            "font_weight": "400",
+            "line_height": "1.4"
+        },
+        "archive_description": {
+            "font_size": "1rem",
+            "font_weight": "400",
+            "line_height": "1.7"
+        },
+        "footer_text": {
+            "font_size": "0.85rem",
+            "font_weight": "400",
+            "line_height": "1.5"
+        },
+        "navigation_menu": {
+            "font_size": "1rem",
+            "font_weight": "500",
+            "line_height": "1.3"
+        },
+        "navigation_icon": {
+            "font_size": "0.6rem",
+            "font_weight": "400",
+            "line_height": "1"
+        },
+        "button": {
+            "font_size": "1rem",
+            "font_weight": "600",
+            "line_height": "1.3"
+        },
+        "form_input": {
+            "font_size": "1rem",
+            "font_weight": "400",
+            "line_height": "1.4"
+        },
+        "skip_link": {
+            "font_size": "0.9rem",
+            "font_weight": "600",
+            "line_height": "1.2"
+        }
+    }
+}

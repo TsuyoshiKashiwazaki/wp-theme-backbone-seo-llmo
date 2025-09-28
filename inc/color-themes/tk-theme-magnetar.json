@@ -1,0 +1,28 @@
+{
+    "name": "T.Kマグネター",
+    "id": "tk-theme-magnetar",
+    "description": "マグネターの強力な磁場。青白と紫の神秘的な輝き。",
+    "colors": {
+        "primary_color": "#1e1b4b",
+        "secondary_color": "#b3c7ff",
+        "accent_color": "#c7d2fe",
+        "background_color": "#f8fafc",
+        "background_secondary": "#e0f2fe",
+        "text_primary": "#0f172a",
+        "text_secondary": "#1e293b",
+        "text_light": "#c4bbf0",
+        "link_color": "#c7d2fe",
+        "link_hover_color": "#f59e0b",
+        "header_link_color": "#fef3c7",
+        "header_link_hover_color": "#fbbf24",
+        "footer_link_color": "#fef3c7",
+        "footer_link_hover_color": "#fbbf24",
+        "border_color": "#4c1d95",
+        "button_background_color": "#f59e0b",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#d97706",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#c7d2fe",
+        "search_button_color": "#f59e0b"
+    }
+}

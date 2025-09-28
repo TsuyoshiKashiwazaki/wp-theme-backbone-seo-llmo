@@ -1,0 +1,73 @@
+/* ========================================
+   タイポグラフィのレスポンシブ追加調整
+======================================== */
+
+/* モバイルサイズ（767px以下）の微調整 */
+@media (max-width: 767px) {
+    /* iOS Safariでのズーム防止（最小16px） */
+    body {
+        font-size: 16px !important;
+    }
+    
+    /* 入力フィールドのズーム防止 */
+    input[type="text"],
+    input[type="email"],
+    input[type="search"],
+    input[type="password"],
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+    
+    /* サイトタイトルの調整 */
+    .site-title {
+        word-break: break-word;
+        hyphens: auto;
+    }
+    
+    /* 長い単語の改行処理 */
+    .entry-content {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+}
+
+/* タブレットサイズ（768px〜1279px）の調整 */
+@media (min-width: 768px) and (max-width: 1279px) {
+    /* 基本フォントサイズをわずかに小さく */
+    body {
+        font-size: 15px;
+    }
+}
+
+/* 大画面（1920px以上）の調整 */
+@media (min-width: 1920px) {
+    /* コンテンツの最大幅を制限して読みやすさを保つ */
+    .entry-content {
+        max-width: 75ch;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    /* フルワイドレイアウトでは最大幅制限を解除 */
+    .layout-full-width .entry-content {
+        max-width: none;
+    }
+}
+
+/* 印刷用スタイル */
+@media print {
+    body {
+        font-size: 12pt;
+    }
+    
+    h1 { font-size: 18pt; }
+    h2 { font-size: 16pt; }
+    h3 { font-size: 14pt; }
+    h4, h5, h6 { font-size: 12pt; }
+    
+    .entry-content {
+        font-size: 11pt;
+        line-height: 1.5;
+    }
+}

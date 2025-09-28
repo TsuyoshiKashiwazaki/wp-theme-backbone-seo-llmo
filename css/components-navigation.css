@@ -1,0 +1,375 @@
+/* ========================================
+   ナビゲーション
+======================================== */
+body .main-navigation ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+    position: relative;
+    /* ナビゲーションの縦スクロールを防止 */
+    overflow: visible;
+    overflow-y: visible;
+    min-height: auto;
+    max-height: none;
+}
+
+body .main-navigation {
+    /* ナビゲーション全体の縦スクロールを防止 */
+    overflow: visible;
+    overflow-y: visible;
+    min-height: auto;
+    max-height: none;
+    /* 背景を透明に設定 */
+    background: transparent !important;
+}
+
+/* 各メニュー項目に下線装飾を適用 */
+body .main-navigation li::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+body .main-navigation li:hover::after {
+    width: 80%;
+}
+
+body .main-navigation li {
+    position: relative;
+}
+
+body .main-navigation a {
+    color: var(--header-link-color);
+    text-decoration: none;
+    /* font-weight はタイポグラフィパターンで管理 */
+    padding: 10px 15px;
+    /* border-radius はデコレーションパターンで管理 */
+    transition: all 0.2s ease;
+    display: block;
+    border: 1px solid transparent;
+    white-space: normal;
+    word-wrap: break-word;
+    hyphens: auto;
+    line-height: 1.1;
+}
+
+body .main-navigation a:hover {
+    color: var(--header-link-hover-color);
+    border-color: var(--accent-color);
+}
+
+/* サブメニュー（ドロップダウン） */
+body .main-navigation .sub-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    min-width: 200px;
+    padding: 10px 0;
+    /* border-radius はデコレーションパターンで管理 */
+    border: 1px solid var(--border-color);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 9999;
+    display: block;
+    flex-direction: column;
+    gap: 0;
+    /* メインコンテンツにめり込まないようにする */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* フルワイドレイアウトでのサブメニュー表示修正 */
+body .layout-full-width .main-navigation .sub-menu {
+    z-index: 99999;
+    /* フルワイドレイアウトではより高いz-indexを設定 */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    /* メインコンテンツにめり込まないようにする */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background: var(--primary-color);
+    border: 1px solid var(--border-color);
+}
+
+body .main-navigation li:hover>.sub-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+body .main-navigation .sub-menu li {
+    width: 100%;
+}
+
+body .main-navigation .sub-menu a {
+    color: var(--header-link-color);
+    padding: 12px 20px;
+    /* border-radius はデコレーションパターンで管理 */
+    /* font-weight はタイポグラフィパターンで管理 */
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+body .main-navigation .sub-menu li:last-child a {
+    border-bottom: none;
+}
+
+body .main-navigation .sub-menu a:hover {
+    color: var(--header-link-hover-color);
+    background-color: var(--accent-color);
+}
+
+/* サブメニューの矢印アイコン */
+body .main-navigation .menu-item-has-children>a::after {
+    content: "▼";
+    /* font-size はタイポグラフィパターンで管理 */
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+}
+
+body .main-navigation .menu-item-has-children:hover>a::after {
+    transform: rotate(180deg);
+}
+
+/* ハンバーガーメニューの基本レイアウト改善 */
+body .main-navigation ul.active {
+    /* 基本レイアウト */
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    /* メニューパネルの基本スタイル（カラーテーマのヘッダー色を使用） */
+    background: var(--primary-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 16px;
+    min-width: 260px;
+    margin-top: 8px;
+
+    /* 位置とサイズ */
+    width: auto;
+    text-align: left;
+    position: relative;
+    top: auto;
+    left: auto;
+    z-index: 10001;
+    /* メインコンテンツにめり込まないようにする */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* フルワイドレイアウトでのハンバーガーメニュー表示修正 */
+body .layout-full-width .main-navigation ul.active {
+    z-index: 999999;
+    /* フルワイドレイアウトではより高いz-indexを設定 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* メインメニュー項目の差別化 */
+body .main-navigation ul.active>li {
+    margin: 0 0 8px 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+body .main-navigation ul.active>li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+body .main-navigation ul.active>li>a {
+    display: block;
+    padding: 12px 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--header-link-color);
+    text-decoration: none;
+    border-radius: 4px;
+    background: var(--primary-color);
+}
+
+body .main-navigation ul.active>li>a:hover {
+    background: var(--accent-color);
+    color: var(--header-link-hover-color);
+}
+
+/* サブメニューの差別化 */
+body .main-navigation ul.active .sub-menu {
+    margin: 8px 0 0 0;
+    padding: 0 0 0 20px;
+    border-left: 1px solid var(--border-color);
+}
+
+body .main-navigation ul.active .sub-menu li {
+    margin: 0 0 8px 0;
+    border-bottom: 2px solid var(--border-color);
+}
+
+body .main-navigation ul.active .sub-menu li:last-child {
+    border-bottom: none;
+}
+
+body .main-navigation ul.active .sub-menu a {
+    display: block;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--header-link-color);
+    text-decoration: none;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+body .main-navigation ul.active .sub-menu a:hover {
+    background: var(--accent-color);
+    border: none;
+    color: var(--header-link-hover-color);
+}
+
+/* 3階層目以降のサブメニューを横展開（デスクトップ） */
+body .main-navigation .sub-menu .sub-menu {
+    position: absolute;
+    top: -10px;
+    left: calc(100% + 2px);
+    margin: 0;
+    transform: translateY(0);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 99999;
+    background: var(--primary-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    min-width: 200px;
+    padding: 10px 0;
+}
+
+body .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* サブメニューの矢印を右向きに（回転しないよう固定） */
+body .main-navigation .sub-menu .menu-item-has-children>a::after {
+    content: "▶";
+    float: right;
+    margin-left: 8px;
+    margin-right: 0;
+    transform: none !important;
+    transition: none !important;
+}
+
+/* 3階層目のサブメニュー（モバイル用） */
+body .main-navigation ul.active .sub-menu .sub-menu {
+    margin: 4px 0 0 0;
+    padding: 0 0 0 18px;
+    border-left: 1px solid var(--border-color);
+    position: static;
+    opacity: 1;
+    visibility: visible;
+}
+
+body .main-navigation ul.active .sub-menu .sub-menu li {
+    border-bottom: 1px solid var(--border-color);
+}
+
+body .main-navigation ul.active .sub-menu .sub-menu li:last-child {
+    border-bottom: none;
+}
+
+body .main-navigation ul.active .sub-menu .sub-menu a {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--header-link-color);
+    background: transparent;
+    border: none;
+    border-radius: 0;
+}
+
+body .main-navigation ul.active .sub-menu .sub-menu a:hover {
+    background: var(--accent-color);
+    border: none;
+    color: var(--header-link-hover-color);
+}
+
+/* メニュー項目のアイコン */
+body .main-navigation ul.active .menu-item-has-children>a::after {
+    content: '▼';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.6rem;
+    color: var(--text-light);
+    opacity: 0.6;
+}
+
+/* アクティブなメニュー項目 */
+body .main-navigation ul.active .current-menu-item>a,
+body .main-navigation ul.active .current_page_item>a {
+    background: var(--accent-color);
+    color: var(--background-color);
+    font-weight: 700;
+    position: relative;
+    z-index: 9998;
+}
+
+/* アクティブなメニュー項目に小さなマーク（«）を追加 */
+body .main-navigation ul.active .current-menu-item>a::after,
+body .main-navigation ul.active .current_page_item>a::after {
+    content: '«';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    z-index: 9999;
+}
+
+/* サブメニュー内のアクティブ項目にも小さなマーク（«）を追加 */
+body .main-navigation ul.active .sub-menu .current-menu-item>a::after,
+body .main-navigation ul.active .sub-menu .current_page_item>a::after {
+    content: '«';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 3階層目のサブメニュー内のアクティブ項目にも小さなマーク（«）を追加 */
+body .main-navigation ul.active .sub-menu .sub-menu .current-menu-item>a::after,
+body .main-navigation ul.active .sub-menu .sub-menu .current_page_item>a::after {
+    content: '«';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.65rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+}
+
+/* モバイルメニューのスタイルはJSONファイルで管理 */
