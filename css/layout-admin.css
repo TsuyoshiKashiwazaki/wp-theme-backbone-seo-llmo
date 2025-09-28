@@ -1,0 +1,49 @@
+/* ========================================
+   ウィジェット編集時用の特別なルール
+======================================== */
+
+/* WordPressのカスタマイザーやウィジェット管理画面では、すべてのサイドバーを表示 */
+body.customize-preview .sidebar-1,
+body.customize-preview .sidebar-2,
+body.customize-preview .sidebar,
+body.wp-customizer .sidebar-1,
+body.wp-customizer .sidebar-2,
+body.wp-customizer .sidebar,
+body.wp-admin .sidebar-1,
+body.wp-admin .sidebar-2,
+body.wp-admin .sidebar {
+    visibility: visible;
+    position: static;
+    left: auto;
+    display: block;
+}
+
+/* カスタマイザーのプレビュー時は、レイアウトに応じて適切に表示 */
+body.customize-preview.layout-single-column .sidebar-1,
+body.customize-preview.layout-single-column .sidebar-2,
+body.customize-preview.layout-full-width .sidebar-1,
+body.customize-preview.layout-full-width .sidebar-2 {
+    visibility: visible;
+    position: static;
+    left: auto;
+    display: block;
+    /* プレビュー時は一時的に表示 */
+    background: rgba(0, 0, 0, 0.05);
+    border: 2px dashed #ccc;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+/* カスタマイザーのプレビュー時、2カラムレイアウトでもサイドバー2を表示 */
+body.customize-preview.layout-two-columns .sidebar-2 {
+    visibility: visible;
+    position: static;
+    left: auto;
+    display: block;
+    /* プレビュー時は一時的に表示 */
+    background: rgba(0, 0, 0, 0.05);
+    border: 2px dashed #ccc;
+    padding: 20px;
+    margin: 10px 0;
+}
+

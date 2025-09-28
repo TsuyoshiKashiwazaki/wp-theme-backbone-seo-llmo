@@ -1,0 +1,128 @@
+/* ========================================
+   サイドバー
+======================================== */
+.sidebar {
+    /* border-radius はデコレーションパターンで管理 */
+    overflow: hidden;
+    background-color: transparent;
+}
+
+/* 3カラムレイアウト時のサイドバー設定 */
+.layout-three-columns .sidebar {
+    width: auto;
+    min-height: 400px;
+    background-color: transparent;
+}
+
+/* 3カラム：タブレットサイズではサイドバーの高さを調整 */
+@media (max-width: 1279px) {
+    .layout-three-columns .sidebar {
+        min-height: auto;
+    }
+}
+
+/* 2カラムレイアウト時のサイドバー設定 */
+.layout-two-columns .sidebar {
+    min-width: 0;
+    max-width: none;
+    background-color: transparent;
+}
+
+.widget {
+    padding: 30px;
+    margin-bottom: 20px;
+    min-height: 200px;
+    word-wrap: break-word;
+}
+
+/* タブレットサイズではサイドバーとウィジェットをフル幅表示 */
+@media (max-width: 1279px) {
+    :root {
+        --sidebar-width: 100% !important;
+    }
+    
+    .sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+    
+    .widget {
+        margin-bottom: 10px;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 30px !important;
+    }
+}
+
+/* サイドバーウィジェットのみにカード効果を適用（フッターウィジェットは除外） */
+.widget:not(.footer-widget) {
+    background-color: var(--background-color);
+    /* border-radius はデコレーションパターンで管理 */
+    border: 1px solid transparent;
+}
+
+/* 3カラム時のウィジェット調整 */
+.layout-three-columns .widget {
+    padding: 20px;
+    min-height: 150px;
+}
+
+/* 3カラム：タブレットサイズではパディングと余白を調整し、フル幅表示 */
+@media (max-width: 1279px) {
+    .layout-three-columns .sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 100% !important;
+    }
+    
+    .layout-three-columns .widget {
+        padding: 30px !important;
+        margin-bottom: 10px;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+
+.widget:last-child {
+    margin-bottom: 0;
+}
+
+.widget-title {
+    /* font-size, font-weight はタイポグラフィパターンで管理 */
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+/* タブレットサイズではタイトルの余白を調整 */
+@media (max-width: 1279px) {
+    .widget-title {
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+    }
+}
+
+.widget ul {
+    list-style: none;
+}
+
+.widget li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.widget li:last-child {
+    border-bottom: none;
+}
+
+.widget a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.widget a:hover {
+    color: var(--link-hover-color);
+}

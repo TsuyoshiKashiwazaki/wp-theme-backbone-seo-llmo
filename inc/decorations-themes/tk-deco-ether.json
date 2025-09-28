@@ -1,0 +1,84 @@
+{
+    "name": "T.Kエーテル",
+    "id": "tk-deco-ether",
+    "description": "エーテルの流動性とエネルギーの伝達を表現する軽快なデザイン",
+    "headings": {
+        "h1": {
+            "border_bottom": "2px solid var(--accent-color)",
+            "background": "repeating-linear-gradient(45deg, rgba(var(--accent-color-rgb), 0.02), rgba(var(--accent-color-rgb), 0.01) 3px, transparent 3px, transparent 6px)",
+            "border_radius": "0 0 15px 0",
+            "box_shadow": "0 4px 8px rgba(var(--accent-color-rgb), 0.2)"
+        },
+        "h2": {
+            "border_left": "3px solid var(--accent-color)",
+            "background": "repeating-linear-gradient(90deg, rgba(var(--accent-color-rgb), 0.015), transparent 2px, transparent 4px)",
+            "border_radius": "0 12px 12px 0",
+            "box_shadow": "2px 0 8px rgba(var(--accent-color-rgb), 0.2)"
+        },
+        "h3": {
+            "border_bottom": "1px solid var(--accent-color)",
+            "background": "linear-gradient(90deg, rgba(var(--accent-color-rgb), 0.02), rgba(var(--accent-color-rgb), 0.005), rgba(var(--accent-color-rgb), 0.02))",
+            "border_radius": "0 0 8px 0"
+        },
+        "h4": {
+            "border_left": "2px solid var(--accent-color)",
+            "background": "radial-gradient(circle at left, rgba(var(--accent-color-rgb), 0.02), transparent)",
+            "border_radius": "0 6px 6px 0"
+        },
+        "h5": {
+            "border_bottom": "1px dotted var(--accent-color)",
+            "background": "linear-gradient(180deg, rgba(var(--accent-color-rgb), 0.01), transparent)"
+        },
+        "h6": {
+            "border_bottom": "1px solid var(--accent-color)",
+            "background": "rgba(var(--accent-color-rgb), 0.01)"
+        }
+    },
+    "lists": {
+        "ul": {
+            "background": "repeating-linear-gradient(45deg, rgba(var(--accent-color-rgb), 0.02), transparent 2px, transparent 4px)",
+            "item_position": "relative",
+            "item_padding_left": "2.2em",
+            "item_before": {
+                "content": "✦",
+                "position": "absolute",
+                "left": "0",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "width": "auto",
+                "height": "auto",
+                "color": "var(--accent-color)",
+                "font_size": "0.7em",
+                "filter": "blur(0.3px)",
+                "text_shadow": "0 0 5px rgba(var(--accent-color-rgb), 0.8)"
+            },
+            "list_style_type": "none"
+        },
+        "ol": {
+            "background": "repeating-linear-gradient(90deg, rgba(var(--accent-color-rgb), 0.015), transparent 2px, transparent 4px)",
+            "counter_reset": "ether-counter",
+            "item_counter_increment": "ether-counter",
+            "item_position": "relative",
+            "item_padding_left": "2.8em",
+            "item_before": {
+                "content": "counter(ether-counter)",
+                "position": "absolute",
+                "left": "0",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "width": "1.5em",
+                "height": "1em",
+                "background": "var(--background-secondary)",
+                "color": "var(--text-secondary)",
+                "border_radius": "0 0.5em 0.5em 0",
+                "box_shadow": "0 0 0 2px rgba(var(--accent-color-rgb), 0.3)",
+                "display": "flex",
+                "align_items": "center",
+                "justify_content": "center",
+                "font_size": "0.7em",
+                "font_weight": "bold"
+            },
+            "list_style_type": "none"
+        }
+    }
+}

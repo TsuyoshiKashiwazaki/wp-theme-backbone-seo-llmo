@@ -1,0 +1,159 @@
+/* ========================================
+   全幅レイアウト（フルワイド）
+======================================== */
+
+/* Main grid layout for full width - same as single-column */
+body.layout-full-width .main-content {
+    grid-template-columns: 1fr !important;
+    padding: 0 !important;
+    gap: 0 !important;
+}
+
+/* Hide sidebars in full-width layout */
+body.layout-full-width .sidebar-1,
+body.layout-full-width .sidebar-2 {
+    display: none;
+}
+
+/* フルワイドレイアウト：PCサイズでも余白を削除 */
+body.layout-full-width main .container {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* フルワイドレイアウト：content-areaのmargin-topを削除 */
+body.layout-full-width .content-area {
+    margin-top: 0 !important;
+}
+
+/* フルワイドレイアウト：ヘッダー内のpadding-verticalも削除 */
+body.layout-full-width .header-content {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+/* フルワイドレイアウト：entry-contentのmargin-topを削除 */
+body.layout-full-width .entry-content {
+    margin-top: 0 !important;
+}
+
+/* フルワイドレイアウト：.page .entry-headerの余白を削除 */
+body.layout-full-width .page .entry-header {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    border: none !important;
+}
+
+/* フルワイドレイアウト：ヘッダーの余白もPC時に削除 */
+@media (min-width: 1280px) {
+    body.layout-full-width {
+        --header-padding-vertical: 0 !important;
+    }
+    
+    /* ヘッダー自体のpaddingを削除 */
+    body.layout-full-width .site-header {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    body.layout-full-width .site-header .container {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    
+    body.layout-full-width .header-content {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+    }
+    
+    /* PCサイズでもcontent-areaの上部マージンを削除 */
+    body.layout-full-width .content-area {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    
+    /* entry-contentのmargin-topを強制的に削除 */
+    body.layout-full-width .entry-content {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+    
+    /* 最初の要素の余白も削除 */
+    body.layout-full-width .entry-content > *:first-child,
+    body.layout-full-width .entry-header > *:first-child,
+    body.layout-full-width .content-area > *:first-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+}
+
+/* フルワイドレイアウト時は枠線デコレーションを削除 */
+body.layout-full-width .content-area,
+body.layout-full-width .entry-content,
+body.layout-full-width .entry-header,
+body.layout-full-width .post,
+body.layout-full-width .page,
+body.layout-full-width article {
+    border: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* デザインパターンのpadding設定を上書き（PC用） */
+@media (min-width: 1280px) {
+    body.design-tk-design-picasso.layout-full-width .site-header,
+    body.design-tk-design-painting.layout-full-width .site-header,
+    body.design-tk-design-gauguin.layout-full-width .site-header,
+    body.design-tk-design-monet.layout-full-width .site-header,
+    body.design-tk-design-vangogh.layout-full-width .site-header,
+    body.design-tk-design-cezanne.layout-full-width .site-header,
+    body.design-tk-design-matisse.layout-full-width .site-header,
+    body.design-tk-design-mondrian.layout-full-width .site-header,
+    body.design-tk-design-pollock.layout-full-width .site-header,
+    body.design-tk-design-rothko.layout-full-width .site-header {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+    }
+}
+
+/* フルワイドレイアウト：タブレットサイズでも左右の余白を削除 */
+@media (min-width: 768px) and (max-width: 1279px) {
+    body.layout-full-width .main-content {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    body.layout-full-width .content-area {
+        padding: 0 !important;
+    }
+    
+    body.layout-full-width .entry-content,
+    body.layout-full-width .entry-header {
+        padding: 0 !important;
+    }
+    
+    body.layout-full-width .post,
+    body.layout-full-width .page,
+    body.layout-full-width article {
+        padding: 0 !important;
+    }
+    
+    body.layout-full-width .entry-title {
+        padding: 0 !important;
+    }
+    
+    body.layout-full-width .entry-meta {
+        padding: 0 !important;
+    }
+}

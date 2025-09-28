@@ -1,0 +1,29 @@
+/* ========================================
+   レイアウトCSSファイルのインデックス
+
+   このファイルは以下の分割されたCSSファイルを読み込みます：
+   - layout-base.css: 基本レイアウト設定
+   - layout-single-column.css: 1カラムレイアウト
+   - layout-full-width.css: フルワイドレイアウト
+   - layout-two-columns.css: 2カラムレイアウト
+   - layout-three-columns.css: 3カラムレイアウト
+   - layout-admin.css: ウィジェット編集時用の特別ルール
+======================================== */
+
+/* 基本レイアウト設定 */
+@import url('layout-base.css');
+
+/* 1カラムレイアウト */
+@import url('layout-single-column.css');
+
+/* フルワイドレイアウト */
+@import url('layout-full-width.css');
+
+/* 2カラムレイアウト */
+@import url('layout-two-columns.css');
+
+/* 3カラムレイアウト */
+@import url('layout-three-columns.css');
+
+/* ウィジェット編集時用の特別ルール */
+@import url('layout-admin.css');

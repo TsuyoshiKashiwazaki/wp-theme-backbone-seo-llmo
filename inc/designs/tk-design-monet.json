@@ -1,0 +1,77 @@
+{
+    "name": "クロード・モネ",
+    "id": "tk-design-monet",
+    "description": "光と色彩の魔術師！2段ヘッダー・ナビゲーション下部配置の縦積み構造",
+    "layout": {
+        "type": "stacked_header",
+        "content_width": "100%",
+        "sidebar_enabled": false,
+        "container_padding": "0 1rem"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "2rem 0 1rem",
+        "position": "static",
+        "alignment": "stack",
+        "margin": "0 auto",
+        "nav_position": "below",
+        "structure": "two_tier"
+    },
+    "navigation": {
+        "position": "below_header",
+        "padding": "1rem 0 2rem",
+        "alignment": "center",
+        "background": "transparent",
+        "border_top": "1px solid var(--border-color)"
+    },
+    "content": {
+        "main_padding": "2rem",
+        "article_spacing": "3rem",
+        "section_margins": "2rem 0",
+        "margin": "0 auto"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "2rem 0",
+        "margin_top": "3rem",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "4px",
+        "spacing": "2rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "double",
+            "width": "4px",
+            "color": "var(--border-color)",
+            "position": "left,right",
+            "radius": "4px"
+        },
+        "shadow": {
+            "type": "outer",
+            "intensity": "light",
+            "color": "var(--shadow-color, rgba(0,0,0,0.08))",
+            "blur": "6px",
+            "spread": "1px",
+            "x_offset": "0",
+            "y_offset": "2px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "1rem",
+                "background": "var(--background-color, transparent)"
+            }
+        }
+    }
+}

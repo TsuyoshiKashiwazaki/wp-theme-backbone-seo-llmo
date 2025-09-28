@@ -1,0 +1,71 @@
+{
+    "name": "T.Kダイヤモンド",
+    "id": "tk-deco-diamond",
+    "description": "ダイヤモンドの純粋性と輝きを表現する高級感のあるデザイン",
+    "headings": {
+        "h1": {
+            "border_bottom": "2px solid var(--accent-color)",
+            "background": "rgba(var(--accent-color-rgb), 0.02)"
+        },
+        "h2": {
+            "border_left": "3px solid var(--accent-color)",
+            "background": "rgba(var(--accent-color-rgb), 0.02)"
+        },
+        "h3": {
+            "border_bottom": "1px solid var(--accent-color)",
+            "background": "rgba(var(--accent-color-rgb), 0.02)"
+        },
+        "h4": {
+            "border_left": "2px solid var(--accent-color)",
+            "background": "rgba(var(--accent-color-rgb), 0.02)"
+        },
+        "h5": {
+            "border_bottom": "1px dotted var(--accent-color)",
+            "background": "rgba(var(--accent-color-rgb), 0.02)"
+        },
+        "h6": {
+            "border_bottom": "1px solid var(--accent-color)",
+            "background": "rgba(var(--accent-color-rgb), 0.02)"
+        }
+    },
+    "lists": {
+        "ul": {
+            "background": "rgba(var(--accent-color-rgb), 0.02)",
+            "item_position": "relative",
+            "item_padding_left": "1.5em",
+            "item_before": {
+                "content": "❖",
+                "position": "absolute",
+                "left": "0",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "width": "auto",
+                "height": "auto",
+                "color": "var(--accent-color)",
+                "font_size": "0.6em",
+                "text_shadow": "1px 1px 2px rgba(0,0,0,0.1)"
+            },
+            "list_style_type": "none"
+        },
+        "ol": {
+            "background": "rgba(var(--accent-color-rgb), 0.02)",
+            "counter_reset": "elegant-counter",
+            "item_counter_increment": "elegant-counter",
+            "item_position": "relative",
+            "item_padding_left": "1.5em",
+            "item_before": {
+                "content": "counter(elegant-counter)",
+                "position": "absolute",
+                "left": "0",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "background": "var(--background-secondary)",
+                "color": "var(--text-secondary)",
+                "padding": "auto",
+                "border_radius": "inherit",
+                "box_shadow": "0 0 0 1px rgba(var(--accent-color-rgb), 0.2)"
+            },
+            "list_style_type": "none"
+        }
+    }
+}

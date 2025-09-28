@@ -1,0 +1,430 @@
+/* ========================================
+   コンテンツエリア
+======================================== */
+.content-area {
+    overflow: hidden;
+    width: 100%;
+    min-height: 400px;
+    margin-top: 30px;
+}
+
+/* タブレットサイズではコンテンツエリアの高さを調整 */
+@media (max-width: 1279px) {
+    .content-area {
+        min-height: auto;
+    }
+}
+
+/* 3カラム時：コンテンツエリアを強調 */
+.layout-three-columns .content-area {
+    grid-column: 2;
+    width: 100%;
+    min-width: 300px;
+}
+
+.post,
+.page,
+article {
+    background-color: var(--background-color, transparent);
+    padding: 0;
+    margin-bottom: 30px;
+    /* border-radius はデコレーションパターンで管理 */
+    position: relative;
+}
+
+/* 1カラムレイアウト：投稿の余白を調整 */
+.layout-single-column .post,
+.layout-single-column .page,
+.layout-single-column article {
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+/* 1カラムレイアウト：投稿一覧ページの個別記事も統一 */
+.layout-single-column article.post,
+.layout-single-column article.page,
+.layout-single-column article {
+    /* border-radius はデコレーションパターンで管理 */
+    margin-bottom: 20px;
+    border: none;
+}
+
+/* 固定ページの見出しにも投稿と同じスタイルを適用 */
+.page .entry-header {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+}
+
+/* 固定ページのタイトルも投稿と同じスタイル */
+.page .entry-title {
+    /* font-size, line-height はタイポグラフィパターンで管理 */
+    color: var(--text-primary);
+    margin-bottom: 20px;
+}
+
+.entry-title {
+    /* font-size, font-weight, line-height はタイポグラフィパターンで管理 */
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    /* 削除：JSONで管理すべきスタイルをstyle.cssに記載するのは設計の誤り */
+}
+
+.entry-meta {
+    margin-bottom: 30px;
+    color: var(--text-primary);
+    /* font-size はタイポグラフィパターンで管理 */
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.entry-meta span {
+    padding: 5px 12px;
+    color: var(--primary-color);
+    /* border-radius はデコレーションパターンで管理 */
+    /* font-weight はタイポグラフィパターンで管理 */
+    opacity: 0.9;
+}
+
+.entry-content {
+    /* font-size, line-height はタイポグラフィパターンで管理 */
+}
+
+/* 見出しのサイズ・フォント・フォントウェイトはタイポグラフィパターンで完全管理 */
+/* タイポグラフィパターンが「なし」の場合はブラウザのデフォルト */
+
+.entry-content p {
+    margin-bottom: 18px;
+    /* 段落間隔をやや広めに */
+}
+
+/* テキストレイアウト改善 */
+.entry-content {
+    /* 行長を適切にして読みやすくする */
+}
+
+/* 1カラムレイアウト：コンテンツエリアの最大化 */
+.layout-single-column .entry-content {
+    max-width: none;
+    /* 72ch制限を解除 */
+}
+
+/* 固定ページと投稿で同じコンテンツエリアスタイル */
+.single .content-area,
+.page .content-area {
+    overflow: hidden;
+}
+
+/* 全ての1カラムレイアウトで統一されたコンテンツエリアスタイル */
+body .layout-single-column .content-area {
+    overflow: visible;
+}
+
+.entry-content p,
+.entry-content li {
+    /* letter-spacing はタイポグラフィパターンで管理 */
+    /* 字間をわずかに広げる */
+}
+
+/* リスト項目の改行時にマーカーを1行目に揃える */
+.entry-content ul,
+.entry-content ol {
+    list-style-position: outside;
+    padding-left: 1.2em;
+    margin-left: 0;
+}
+
+.entry-content strong,
+.entry-content b {
+    /* font-weight はタイポグラフィパターンで管理 */
+}
+
+.entry-content em,
+.entry-content i {
+    /* font-style はタイポグラフィパターンで管理 */
+}
+
+.entry-content blockquote {
+    margin: 10px 0;
+    padding: 8px 12px;
+    border-left: 1px solid var(--accent-color);
+    background-color: var(--background-color);
+}
+
+.entry-content hr {
+    margin: 32px 0;
+    border: none;
+    height: 1px;
+    background: var(--border-color);
+}
+
+/* 行揃えと余白 */
+.entry-content img,
+.entry-content figure {
+    display: block;
+    margin: 16px auto;
+}
+
+/* 段組みに対応可能なコンポーネント向け */
+.entry-content.columns-2 {
+    columns: 2;
+    column-gap: 32px;
+}
+
+.entry-content.columns-3 {
+    columns: 3;
+    column-gap: 32px;
+}
+
+.entry-content a {
+    color: var(--link-color);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-bottom 0.3s ease;
+}
+
+.entry-content a:hover {
+    color: var(--link-hover-color);
+    border-bottom-color: var(--link-hover-color);
+}
+
+/* ========================================
+   アイキャッチ画像・メディア要素のレスポンシブ対応======================================== */
+
+/* 基本画像レスポンシブ設定 */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* アイキャッチ画像コンテナ */
+.post-thumbnail {
+    margin-bottom: 20px;
+    overflow: hidden;
+    /* border-radius はデコレーションパターンで管理 */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-thumbnail:hover {
+    transform: translateY(-2px);
+}
+
+/* アイキャッチ画像 */
+.post-thumbnail img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.post-thumbnail a:hover img {
+    transform: scale(1.05);
+}
+
+/* 投稿・ページでのアイキャッチ画像サイズ調整 */
+.single .post-thumbnail,
+.page .post-thumbnail {
+    max-width: 100%;
+    margin-bottom: 30px;
+}
+
+.single .post-thumbnail img,
+.page .post-thumbnail img {
+    max-height: 400px;
+    object-fit: cover;
+    /* border-radius はデコレーションパターンで管理 */
+}
+
+/* アーカイブページでのアイキャッチ */
+.archive .post-thumbnail,
+.search .post-thumbnail,
+.home .post-thumbnail {
+    margin-bottom: 15px;
+}
+
+.archive .post-thumbnail img,
+.search .post-thumbnail img,
+.home .post-thumbnail img {
+    max-height: 200px;
+    object-fit: cover;
+}
+
+/* WordPress画像キャプション */
+.wp-caption {
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.wp-caption img {
+    margin-bottom: 10px;
+}
+
+.wp-caption-text {
+    margin: 0;
+    padding: 0 10px;
+}
+
+/* ギャラリー要素 */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.gallery-item {
+    text-align: center;
+}
+
+.gallery-icon img {
+    /* border-radius はデコレーションパターンで管理 */
+}
+
+/* ========================================
+   404ページ・エラーページ
+======================================== */
+.error-404 {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+/* アーカイブページヘッダー：テーマ用汎用設計 */
+.page-header {
+    margin-bottom: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* ページタイトル共通スタイル：テーマ用汎用設計 */
+.page-title {
+    /* font-size はタイポグラフィパターンで管理 */
+    /* font-weight はタイポグラフィパターンで管理 */
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    /* line-height はタイポグラフィパターンで管理 */
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 15px;
+}
+
+/* アーカイブ説明文：固定ページ風デザイン */
+.archive-description {
+    background-color: var(--background-color);
+    /* font-size, line-height はタイポグラフィパターンで管理 */
+    color: var(--text-primary);
+    margin: 15px 0 20px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-left: 1px solid var(--accent-color);
+    /* border-radius はデコレーションパターンで管理 */
+    position: relative;
+}
+
+.archive-description::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-color, transparent) 0%, transparent 100%);
+    /* border-radius はデコレーションパターンで管理 */
+}
+
+/* アーカイブページの投稿一覧スタイル */
+.archive article,
+.home article {
+    margin-bottom: 40px;
+}
+
+.archive article:last-child,
+.home article:last-child {
+    margin-bottom: 0;
+}
+
+/* アーカイブページのentry-headerスタイル */
+.archive .entry-header,
+.home .entry-header {
+    margin-bottom: 20px;
+}
+
+/* アーカイブページ専用スタイル削除 - 他のページと同じスタイルを使用 */
+
+.home .entry-title {
+    /* font-size はタイポグラフィパターンで管理 */
+    margin-bottom: 12px;
+}
+
+.archive .entry-title a,
+.home .entry-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.archive .entry-title a:hover,
+.home .entry-title a:hover {
+    color: var(--accent-color);
+}
+
+.error-404 .page-title {
+    /* font-size はタイポグラフィパターンで管理 */
+    color: var(--accent-color);
+    margin-bottom: 20px;
+}
+
+.error-404 .error-message h2 {
+    /* font-size はタイポグラフィパターンで管理 */
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.error-404 .error-search,
+.error-404 .error-suggestions,
+.error-404 .error-categories {
+    margin: 40px 0;
+}
+
+.error-404 .error-actions {
+    margin-top: 40px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    margin: 0 10px;
+    /* border-radius はデコレーションパターンで管理 */
+    text-decoration: none;
+    /* font-weight はタイポグラフィパターンで管理 */
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+}
+
+.btn-primary:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
+
+.btn-secondary:hover {
+    background: var(--accent-color);
+}
+
+/* フロントページでタイトル非表示時のスタイル調整 */
+.entry-header.no-title {
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.entry-header.no-title:empty {
+    display: none;
+}

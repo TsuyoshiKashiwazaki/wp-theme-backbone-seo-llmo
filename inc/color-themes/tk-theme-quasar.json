@@ -1,0 +1,28 @@
+{
+    "name": "T.Kクエーサー",
+    "id": "tk-theme-quasar",
+    "description": "クエーサーの強力な光。宇宙で最も明るい天体のエネルギッシュな白と青の輝き。",
+    "colors": {
+        "primary_color": "#475569",
+        "secondary_color": "#d4d7dc",
+        "accent_color": "#e2e8f0",
+        "background_color": "#f8fafc",
+        "background_secondary": "#f1f5f9",
+        "text_primary": "#0f172a",
+        "text_secondary": "#1e293b",
+        "text_light": "#b8c2cc",
+        "link_color": "#3b82f6",
+        "link_hover_color": "#ec4899",
+        "header_link_color": "#fef3c7",
+        "header_link_hover_color": "#fbbf24",
+        "footer_link_color": "#fef3c7",
+        "footer_link_hover_color": "#fbbf24",
+        "border_color": "#cbd5e1",
+        "button_background_color": "#ec4899",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#db2777",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#ec4899",
+        "search_button_color": "#ec4899"
+    }
+}

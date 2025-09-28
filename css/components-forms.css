@@ -1,0 +1,204 @@
+/* ========================================
+   検索フォーム
+======================================== */
+.search-form {
+    position: relative;
+    display: flex;
+}
+
+.search-form-wrapper {
+    display: flex;
+    width: 100%;
+}
+
+.search-field {
+    flex: 1;
+    padding: 12px 40px 12px 15px;
+    background-color: var(--form-background-color);
+    border: 2px solid var(--border-color);
+    /* border-radius はデコレーションパターンで管理 */
+    /* font-size はタイポグラフィパターンで管理 */
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.search-field:focus {
+    outline: none;
+    border-color: var(--form-focus-color);
+}
+
+.search-submit {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--search-button-color);
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    /* border-radius はデコレーションパターンで管理 */
+    color: var(--button-text-color);
+    transition: all 0.3s ease;
+}
+
+.search-submit:hover {
+    background: var(--button-hover-background-color);
+    color: var(--button-text-color);
+}
+
+.search-submit svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+.search-form.focused .search-field {
+    border-color: var(--accent-color);
+}
+
+/* ========================================
+   コメント
+======================================== */
+.comments-area {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid var(--border-color);
+}
+
+.comments-title {
+    /* font-size はタイポグラフィパターンで管理 */
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+.comment-list {
+    margin: 0;
+    padding: 0;
+}
+
+.comment {
+    background-color: var(--background-secondary);
+    margin-bottom: 30px;
+    padding: 20px;
+    /* border-radius はデコレーションパターンで管理 */
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent-color);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.comment-body {
+    display: flex;
+    gap: 15px;
+}
+
+.comment-author .avatar {
+    /* border-radius はデコレーションパターンで管理 */
+}
+
+.comment-metadata {
+    flex: 1;
+}
+
+.comment-meta {
+    /* font-size はタイポグラフィパターンで管理 */
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.comment-content {
+    margin-top: 15px;
+    /* line-height はタイポグラフィパターンで管理 */
+}
+
+.comment-reply-link {
+    text-decoration: none;
+    /* font-size はタイポグラフィパターンで管理 */
+    /* font-weight はタイポグラフィパターンで管理 */
+}
+
+.comment-reply-link:hover {
+    text-decoration: underline;
+}
+
+.comment-form {
+    background-color: var(--background-secondary);
+    padding: 30px;
+    /* border-radius はデコレーションパターンで管理 */
+    border: 1px solid var(--border-color);
+    margin-top: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.comment-form label {
+    display: block;
+    margin-bottom: 5px;
+    /* font-weight はタイポグラフィパターンで管理 */
+    color: var(--primary-color);
+}
+
+.comment-form input,
+.comment-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: var(--form-background-color);
+    border: 2px solid var(--border-color);
+    /* border-radius はデコレーションパターンで管理 */
+    /* font-size はタイポグラフィパターンで管理 */
+    transition: border-color 0.3s ease;
+}
+
+.comment-form input:focus,
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--form-focus-color);
+}
+
+.comment-form .required {
+    color: var(--accent-color);
+}
+
+.comment-form .form-submit {
+    margin-top: 20px;
+}
+
+.comment-form .submit {
+    background: var(--button-background-color, var(--accent-color));
+    color: var(--button-text-color, #ffffff);
+    border: none;
+    padding: 12px 30px;
+    /* border-radius はデコレーションパターンで管理 */
+    cursor: pointer;
+    /* font-weight はタイポグラフィパターンで管理 */
+    transition: background 0.3s ease;
+}
+
+.comment-form .submit:hover {
+    background: var(--button-hover-background-color, var(--primary-color));
+}
+
+/* 汎用ボタンスタイル - カスタムカラー対応 */
+.btn,
+button,
+input[type="submit"],
+input[type="button"],
+.wp-block-button__link,
+.wp-element-button {
+    background: var(--button-background-color, var(--accent-color));
+    color: var(--button-text-color, #ffffff);
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn:hover,
+button:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.wp-block-button__link:hover,
+.wp-element-button:hover {
+    background: var(--button-hover-background-color, var(--primary-color));
+    color: var(--button-text-color, #ffffff);
+}

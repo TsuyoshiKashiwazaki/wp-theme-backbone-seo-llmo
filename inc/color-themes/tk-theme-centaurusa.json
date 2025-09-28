@@ -1,0 +1,28 @@
+{
+    "name": "T.KケンタウルスA",
+    "id": "tk-theme-centaurusa",
+    "description": "ケンタウルスA銀河の赤と黒。楕円銀河の神秘的な美しさ。",
+    "colors": {
+        "primary_color": "#991b1b",
+        "secondary_color": "#ffb3b3",
+        "accent_color": "#fed7d7",
+        "background_color": "#fef2f2",
+        "background_secondary": "#fef3c7",
+        "text_primary": "#0f172a",
+        "text_secondary": "#1e293b",
+        "text_light": "#f5b3b3",
+        "link_color": "#b91c1c",
+        "link_hover_color": "#10b981",
+        "header_link_color": "#fef3c7",
+        "header_link_hover_color": "#fbbf24",
+        "footer_link_color": "#fef3c7",
+        "footer_link_hover_color": "#fbbf24",
+        "border_color": "#fecaca",
+        "button_background_color": "#10b981",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#059669",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#10b981",
+        "search_button_color": "#10b981"
+    }
+}

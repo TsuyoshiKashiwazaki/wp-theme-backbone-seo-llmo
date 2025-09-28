@@ -1,0 +1,131 @@
+/* ========================================
+   レイアウト基本設定
+======================================== */
+
+/* 2カラムレイアウト：標準的なコンテンツ幅（ヘッダー以外） */
+.layout-two-columns main .container {
+    width: auto;
+    padding: 0 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* 3カラムレイアウト：幅設定（ヘッダー以外） */
+.layout-three-columns main .container {
+    width: auto;
+    padding: 0 20px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+body .site-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    box-sizing: border-box;
+}
+
+
+/* フルワイドレイアウト：bodyの高さ制限も解除 */
+body.layout-full-width {
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+    overflow-y: visible;
+}
+
+/* 全体の幅設定 */
+html,
+body {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    /* 横スクロールを防止 */
+}
+
+/* フルワイドレイアウト：htmlとbodyのoverflow設定を修正 */
+html.layout-full-width,
+body.layout-full-width {
+    overflow: visible;
+    overflow-x: visible;
+    overflow-y: visible;
+}
+
+/* タブレット用の幅設定（ヘッダー以外） */
+@media (max-width: 1279px) {
+
+    .layout-two-columns main .container,
+    .layout-three-columns main .container,
+    .layout-single-column main .container {
+        padding: 0 15px;
+    }
+}
+
+/* タブレットサイズでの余白調整 */
+@media (min-width: 768px) and (max-width: 1279px) {
+    .main-content {
+        padding: 20px 15px;
+        gap: 20px;
+    }
+    
+    .content-area {
+        padding: 15px !important;
+        margin-bottom: 20px !important;
+    }
+    
+    .entry-content,
+    .entry-header {
+        padding: 15px !important;
+        margin-bottom: 15px !important;
+    }
+}
+
+.main-content {
+    flex: 1;
+    display: grid;
+    gap: 10px;
+    padding: 20px;
+    /* デフォルトは1カラム（モバイル用） */
+    grid-template-columns: 1fr;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--background-color);
+    justify-content: center;
+}
+
+/* スマホサイズでメインコンテンツのパディングを除去 */
+@media (max-width: 767px) {
+    .main-content {
+        padding: 0;
+        width: 100%;
+        max-width: none;
+    }
+    
+    .content-area {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .entry-content,
+    .entry-header {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+    }
+}
+
+/* 3カラムレイアウト時の基本設定 */
+.layout-three-columns .main-content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    /* 上下のみ、左右はcontainerで制御 */
+    box-sizing: border-box;
+}

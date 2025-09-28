@@ -1,0 +1,76 @@
+{
+    "name": "パブロ・ピカソ",
+    "id": "tk-design-picasso",
+    "description": "革新的な巨匠！スティッキーヘッダー・スクロール追従型の動的構造",
+    "layout": {
+        "type": "sticky_system",
+        "content_width": "100%",
+        "sidebar_width": "auto",
+        "column_gap": "5%",
+        "container_padding": "0 1%"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "2.4% 0",
+        "position": "sticky",
+        "alignment": "spread",
+        "margin": "0 auto",
+        "top": "0",
+        "z_index": "999",
+        "transition": "all 0.3s ease"
+    },
+    "content": {
+        "main_padding": "2%",
+        "article_spacing": "3%",
+        "section_margins": "2% 0"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "3% 0",
+        "margin_top": "3%",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "8px",
+        "box_shadow": "0 3px 12px rgba(0,0,0,0.08)",
+        "spacing": "2%",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "double",
+            "width": "1px",
+            "color": "var(--border-color, transparent)",
+            "position": "left,right",
+            "radius": "8px"
+        },
+        "shadow": {
+            "type": "outer",
+            "intensity": "light",
+            "color": "var(--shadow-color, rgba(0,0,0,0.06))",
+            "blur": "8px",
+            "spread": "0",
+            "x_offset": "0",
+            "y_offset": "3px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "1.5%",
+                "background": "var(--background-color, transparent)"
+            }
+        }
+    },
+    "animations": {
+        "header_transition": "0.3s ease",
+        "scroll_behavior": "smooth"
+    }
+}

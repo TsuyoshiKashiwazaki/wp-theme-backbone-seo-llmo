@@ -1,0 +1,154 @@
+/* ========================================
+   1カラムレイアウト（メインコンテンツのみ表示）
+======================================== */
+
+body.layout-single-column .main-content {
+    grid-template-columns: 1fr;
+    max-width: none;
+    /* 制限解除、外側のcontainerで制御 */
+    margin: 0 auto;
+    width: 100%;
+    /* 幅は100%で使用 */
+    background-color: var(--background-color);
+}
+
+/* PCサイズで左右に適切な余白を追加（2カラム・3カラムと同じ） */
+@media (min-width: 1280px) {
+    body.layout-single-column .main-content {
+        padding: 0 20px;
+    }
+    
+    /* PCサイズでコンテンツエリアにタブレットと同じpaddingを適用 */
+    body.layout-single-column .content-area {
+        padding: 15px !important;
+    }
+    
+    body.layout-single-column .entry-content,
+    body.layout-single-column .entry-header {
+        padding: 15px !important;
+    }
+}
+
+/* 1カラム時、サイドバーは非表示（ウィジェット編集用にvisibility: hiddenで対応） */
+body.layout-single-column .sidebar-1,
+body.layout-single-column .sidebar-2 {
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+    /* ウィジェット編集時は表示されるように、display: noneではなくvisibility: hiddenを使用 */
+}
+
+/* 1カラム時、サイドバーを確実に非表示（ウィジェット編集用にvisibility: hiddenで対応） */
+body.layout-single-column .sidebar-1,
+body.layout-single-column .sidebar-2,
+body.layout-single-column .sidebar {
+    visibility: hidden;
+    position: absolute;
+    left: -9999px;
+}
+
+/* 1カラム時、コンテンツエリアの幅制限を解除 */
+body.layout-single-column .content-area {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 1カラム時、エントリーコンテンツの幅制限を解除 */
+body.layout-single-column .entry-content,
+body.layout-single-column .entry-header {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 1カラム時、コンテナの幅制限を解除（ヘッダー以外） */
+body.layout-single-column main .container {
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 1カラム時、サイト全体の幅制限を解除 */
+body.layout-single-column .site-wrapper,
+body.layout-single-column .site {
+    width: 100%;
+    max-width: none;
+    overflow: visible;
+}
+
+/* 1カラム時、メインコンテンツの基本調整（JavaScriptで動的に上書きされる） */
+body.layout-single-column main {
+    margin-top: 0;
+    /* JavaScriptで動的に設定される */
+    padding-top: 0;
+}
+
+/* 1カラム時、ヘッダーの高さに応じてスペースを確保 */
+/* 上記の最高優先度設定で統一されているため、個別設定は削除 */
+
+/* 1カラム時、コンテンツエリアの上部スペース調整は削除（完全に0にする） */
+
+/* JavaScriptが無効の場合のフォールバック */
+body.no-js.layout-single-column main {
+    margin-top: 30px;
+}
+
+body.no-js.admin-bar.layout-single-column main {
+    margin-top: 62px;
+}
+
+@media (max-width: 767px) {
+    body.no-js.admin-bar.layout-single-column main {
+        margin-top: 76px;
+    }
+}
+
+/* タブレットサイズでの余白調整 */
+@media (min-width: 768px) and (max-width: 1279px) {
+    body.layout-single-column .main-content {
+        padding: 20px 15px;
+    }
+    
+    body.layout-single-column .content-area {
+        padding: 15px !important;
+        margin-bottom: 25px !important;
+    }
+    
+    body.layout-single-column .entry-content,
+    body.layout-single-column .entry-header {
+        padding: 15px !important;
+    }
+    
+    body.layout-single-column article {
+        margin-bottom: 30px !important;
+        padding-bottom: 20px !important;
+        border-bottom: 1px solid #e0e0e0;
+    }
+}
+
+/* スマホサイズでコンテンツ幅を最大化 */
+@media (max-width: 767px) {
+    body.layout-single-column .main-content {
+        padding: 10px 0;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+    }
+    
+    body.layout-single-column .content-area {
+        width: 100% !important;
+        max-width: none !important;
+        padding: 10px 8px !important;
+        box-sizing: border-box !important;
+    }
+    
+    body.layout-single-column .entry-content,
+    body.layout-single-column .entry-header {
+        width: 100% !important;
+        max-width: none !important;
+    }
+}
+

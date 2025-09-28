@@ -1,0 +1,185 @@
+/* ========================================
+   フッター
+======================================== */
+.site-footer {
+    background: var(--primary-color);
+    color: var(--text-light);
+    padding: 40px 0 0;
+    /* 全レイアウト統一：ブラウザの左右端と下端にピタリ寄せる */
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    margin-top: 50px;
+    margin-bottom: 0 !important;
+    padding-bottom: 0;
+    box-sizing: border-box;
+}
+
+.site-footer .container {
+    margin: 0 auto;
+    padding: 0 40px 20px 40px;
+    /* 統一された余白 */
+    box-sizing: border-box;
+}
+
+/* タブレット：PCと同じ仕様 */
+@media (min-width: 768px) and (max-width: 1279px) {
+    .site-footer {
+        width: 100vw !important;
+        position: relative !important;
+        left: 50% !important;
+        right: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .site-footer .container {
+        padding: 0 40px;
+        box-sizing: border-box;
+    }
+}
+
+/* スマホ用のフッター幅設定 */
+@media (max-width: 767px) {
+    .site-footer .container {
+        padding: 0 15px;
+        box-sizing: border-box;
+    }
+}
+
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-color, transparent), var(--secondary-color, transparent), var(--accent-color, transparent));
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-content p {
+    margin: 10px 0;
+    opacity: 0.8;
+}
+
+/* フッターナビゲーション */
+.footer-navigation {
+    margin-bottom: 20px;
+}
+
+.footer-navigation ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-navigation a {
+    color: var(--footer-link-color);
+    text-decoration: none;
+    /* font-weight はタイポグラフィパターンで管理 */
+    padding: 8px 12px;
+    /* border-radius はデコレーションパターンで管理 */
+    transition: all 0.3s ease;
+}
+
+.footer-navigation a:hover {
+    color: var(--footer-link-hover-color);
+}
+
+/* フッターリンクのテーマカラー適用 */
+.footer-content a {
+    color: var(--footer-link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-content a:hover {
+    color: var(--footer-link-hover-color);
+    text-decoration: underline;
+}
+
+/* フッター区切り */
+.footer-content .sep {
+    color: var(--text-light);
+    opacity: 0.6;
+    margin: 0 8px;
+}
+
+/* 著作権表記とテーマ情報のスタイル統一 */
+.footer-content .site-info,
+.footer-content .powered-by {
+    color: var(--text-light);
+    /* font-size はタイポグラフィパターンで管理 */
+}
+
+.footer-content .powered-by span {
+    color: var(--text-light);
+    opacity: 0.8;
+}
+
+/* フッター内のすべてのリンクに統一したカラーテーマを適用 */
+body .site-footer a {
+    color: var(--footer-link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+body .site-footer a:hover {
+    color: var(--footer-link-hover-color);
+}
+
+/* フッターウィジェット */
+.site-footer .widget {
+    padding: 30px;
+    margin-bottom: 20px;
+    min-height: 200px;
+    word-wrap: break-word;
+    background-color: var(--background-color);
+    border: 1px solid transparent;
+}
+
+.site-footer .widget:last-child {
+    margin-bottom: 0;
+}
+
+.site-footer .widget-title {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.site-footer .widget ul {
+    list-style: none;
+}
+
+.site-footer .widget li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.site-footer .widget li:last-child {
+    border-bottom: none;
+}
+
+.site-footer .widget a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.site-footer .widget a:hover {
+    color: var(--link-hover-color);
+}
