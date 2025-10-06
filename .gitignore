@@ -27,3 +27,11 @@ desktop.ini
 *.tmp
 *.temp
 .cache/
+
+# Uploads directory
+uploads/
+
+# Development files
+gh_*/
+*.tar.gz
+*.zip
