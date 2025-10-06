@@ -1,0 +1,182 @@
+/**
+ * サブディレクトリ設定の動的セクション管理
+ * サブディレクトリのパスが入力されたときにリアルタイムでデザイン設定セクションを表示
+ */
+(function($, api) {
+    'use strict';
+
+    // 初期化フラグ
+    var initialized = false;
+
+    // デザイン設定セクションを動的に追加する関数
+    function addDesignSection(index, path) {
+        if (!path) return;
+
+        var sectionId = 'backbone_subdirectory_design_' + index;
+        var sectionTitle = 'サブディレクトリ ' + index + ' のデザイン設定 (' + path + ')';
+
+        // セクションが既に存在する場合はスキップ
+        if (api.section(sectionId)) {
+            // タイトルを更新
+            var section = api.section(sectionId);
+            section.params.title = sectionTitle;
+            if (section.container && section.container.find('.accordion-section-title').length) {
+                section.container.find('.accordion-section-title').text(sectionTitle);
+            }
+            return;
+        }
+
+        // 新しいセクションを作成
+        api.section.add(
+            new api.Section(sectionId, {
+                title: sectionTitle,
+                priority: 30 + index,
+                description: 'サブディレクトリ「' + path + '」専用のデザイン設定です。'
+            })
+        );
+
+        // デザイン設定コントロールを追加
+        var controls = [
+            {
+                id: 'subdirectory_' + index + '_color_theme',
+                label: 'カラーテーマ',
+                type: 'select',
+                choices: window.backboneCustomizerData ? window.backboneCustomizerData.colorThemeChoices : {
+                    'none': 'デフォルト',
+                    'light': 'ライト',
+                    'dark': 'ダーク'
+                },
+                description: 'このサブディレクトリ専用の色彩設計を選択できます。',
+                priority: 10
+            },
+            {
+                id: 'subdirectory_' + index + '_design_pattern',
+                label: 'デザインパターン',
+                type: 'select',
+                choices: window.backboneCustomizerData ? window.backboneCustomizerData.designPatternChoices : {
+                    'none': 'デフォルト',
+                    'modern': 'モダン',
+                    'classic': 'クラシック'
+                },
+                description: 'このサブディレクトリ専用のレイアウトデザインを選択できます。',
+                priority: 20
+            },
+            {
+                id: 'subdirectory_' + index + '_text_pattern',
+                label: 'タイポグラフィパターン',
+                type: 'select',
+                choices: window.backboneCustomizerData ? window.backboneCustomizerData.typographyPatternChoices : {
+                    'none': 'デフォルト',
+                    'serif': 'セリフ',
+                    'sans-serif': 'サンセリフ'
+                },
+                description: 'このサブディレクトリ専用の文字スタイルを選択できます。',
+                priority: 30
+            },
+            {
+                id: 'subdirectory_' + index + '_decoration_pattern',
+                label: 'デコレーションパターン',
+                type: 'select',
+                choices: window.backboneCustomizerData ? window.backboneCustomizerData.decorationPatternChoices : {
+                    'none': 'デフォルト',
+                    'simple': 'シンプル',
+                    'ornate': '装飾的'
+                },
+                description: 'このサブディレクトリ専用の見出しやリストの装飾スタイルを選択できます。',
+                priority: 40
+            }
+        ];
+
+        // 各コントロールを追加
+        controls.forEach(function(controlConfig) {
+            // 設定が存在しない場合は作成
+            if (!api(controlConfig.id)) {
+                api.add(
+                    new api.Setting(controlConfig.id, {
+                        default: 'none',
+                        transport: 'postMessage'
+                    })
+                );
+            }
+
+            // コントロールが存在しない場合は作成
+            if (!api.control(controlConfig.id)) {
+                api.control.add(
+                    new api.Control(controlConfig.id, {
+                        section: sectionId,
+                        label: controlConfig.label,
+                        description: controlConfig.description,
+                        type: controlConfig.type,
+                        choices: controlConfig.choices,
+                        priority: controlConfig.priority,
+                        setting: controlConfig.id
+                    })
+                );
+            }
+        });
+
+        // セクションを再レンダリング
+        api.section(sectionId).container.trigger('init');
+    }
+
+    // デザイン設定セクションを削除する関数
+    function removeDesignSection(index) {
+        var sectionId = 'backbone_subdirectory_design_' + index;
+
+        // セクションが存在する場合は削除
+        if (api.section(sectionId)) {
+            // セクションのコンテナを非表示
+            var section = api.section(sectionId);
+            if (section.container) {
+                section.container.hide();
+            }
+        }
+    }
+
+    // サブディレクトリパスの変更を監視
+    function watchSubdirectoryPath(index) {
+        var settingId = 'subdirectory_path_' + index;
+
+        api(settingId, function(setting) {
+            // 初期値をチェック
+            var initialValue = setting.get();
+            if (initialValue && initialValue.trim() !== '') {
+                addDesignSection(index, initialValue);
+            }
+
+            // 値の変更を監視
+            setting.bind(function(newValue) {
+                if (newValue && newValue.trim() !== '') {
+                    // パスが入力されたらデザイン設定セクションを追加
+                    addDesignSection(index, newValue);
+                } else {
+                    // パスが削除されたらデザイン設定セクションを削除
+                    removeDesignSection(index);
+                }
+            });
+        });
+    }
+
+    // カスタマイザーが準備できたら初期化
+    api.bind('ready', function() {
+        if (initialized) return;
+        initialized = true;
+
+        // 最大10個のサブディレクトリを監視
+        for (var i = 1; i <= 10; i++) {
+            watchSubdirectoryPath(i);
+        }
+
+        // サブディレクトリ追加ボタンのクリックイベントも監視
+        $(document).on('click', 'button[onclick*="backboneAddSubdirectory"]', function() {
+            setTimeout(function() {
+                // 新しく追加されたサブディレクトリの監視を開始
+                var count = api('subdirectory_count') ? api('subdirectory_count').get() : 1;
+                for (var j = 1; j <= count; j++) {
+                    watchSubdirectoryPath(j);
+                }
+            }, 100);
+        });
+    });
+
+})(jQuery, wp.customize);

@@ -2,6 +2,24 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.1] - 2025-10-06
+
+### Fixed
+
+- Improved title tag generation for pages with empty titles
+- Enhanced archive page title formatting (removed redundant prefixes like "Archive:", "Category:", etc.)
+- Fixed title tag handling for various page types (category, tag, author, date archives, search results, 404 pages)
+
+### Improved
+
+- Better SEO optimization through more appropriate title tag generation
+- Japanese date format support for date-based archives
+
+### Changed
+
+- Updated `.gitignore` to exclude `uploads/` directory and development files
+- Removed development files (`cp.sh`, `readme.html`) from repository
+
 ## [1.0.0] - 2025-09-28
 
 ### Added

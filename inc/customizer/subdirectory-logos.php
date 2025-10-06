@@ -673,9 +673,66 @@ function backbone_get_tagline() {
 add_filter('document_title_parts', function($title_parts) {
     $settings = backbone_get_subdirectory_settings();
 
-    // サブディレクトリの設定がある場合はサイト名を置き換える
+    // タイトル部分が空の場合、適切なタイトルを設定
+    if (!isset($title_parts['title']) || empty($title_parts['title'])) {
+        if (is_page()) {
+            // 固定ページの場合
+            $title_parts['title'] = get_the_title();
+        } elseif (is_single()) {
+            // 投稿の場合
+            $title_parts['title'] = get_the_title();
+        } elseif (is_category()) {
+            // カテゴリーアーカイブ
+            $title_parts['title'] = single_cat_title('', false);
+        } elseif (is_tag()) {
+            // タグアーカイブ
+            $title_parts['title'] = single_tag_title('', false);
+        } elseif (is_author()) {
+            // 著者アーカイブ
+            $title_parts['title'] = get_the_author();
+        } elseif (is_year()) {
+            // 年別アーカイブ
+            $title_parts['title'] = get_the_date('Y年');
+        } elseif (is_month()) {
+            // 月別アーカイブ
+            $title_parts['title'] = get_the_date('Y年n月');
+        } elseif (is_day()) {
+            // 日別アーカイブ
+            $title_parts['title'] = get_the_date('Y年n月j日');
+        } elseif (is_post_type_archive()) {
+            // カスタム投稿タイプアーカイブ
+            $title_parts['title'] = post_type_archive_title('', false);
+        } elseif (is_search()) {
+            // 検索結果
+            $title_parts['title'] = '「' . get_search_query() . '」の検索結果';
+        } elseif (is_404()) {
+            // 404ページ
+            $title_parts['title'] = 'ページが見つかりません';
+        } elseif (is_archive()) {
+            // その他のアーカイブページ
+            // get_the_archive_title()から適切にタイトルを取得
+            $archive_title = get_the_archive_title();
+            // WordPressが追加する "アーカイブ:" などのプレフィックスを削除
+            // 日本語と英語のプレフィックスに対応
+            $archive_title = preg_replace('/^(アーカイブ|Archive|カテゴリー|Category|タグ|Tag):\s*/iu', '', $archive_title);
+            $title_parts['title'] = $archive_title ?: 'アーカイブ';
+        }
+
+        // それでもタイトルが空の場合、H1から取得を試みる
+        if (empty($title_parts['title'])) {
+            // クエリから最初の投稿のタイトルを取得
+            if (have_posts()) {
+                $title_parts['title'] = 'ページ';
+            }
+        }
+    }
+
+    // サブディレクトリの設定がある場合はサイト名部分を置き換える
     if ($settings['is_subdirectory'] && !empty($settings['site_title'])) {
-        $title_parts['site'] = $settings['site_title'];
+        // サイト名部分のみを置き換え（個別ページタイトルは維持）
+        if (isset($title_parts['site'])) {
+            $title_parts['site'] = $settings['site_title'];
+        }
     }
 
     return $title_parts;

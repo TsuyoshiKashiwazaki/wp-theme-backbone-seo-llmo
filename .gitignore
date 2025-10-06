@@ -1,0 +1,37 @@
+# WordPress
+*.log
+.htaccess
+sitemap.xml
+sitemap.xml.gz
+wp-config.php
+wp-content/cache/
+wp-content/backups/
+
+# Node
+node_modules/
+npm-debug.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Uploads directory
+uploads/
+
+# Development files
+gh_*/
+*.tar.gz
+*.zip
