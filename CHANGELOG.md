@@ -2,6 +2,27 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.2] - 2025-10-13
+
+### Added
+
+- Subdirectory settings: Added page/post selection functionality to display specific content at subdirectory root paths
+- Customizer controls for selecting display type (none/page/post) and choosing specific pages/posts for each subdirectory (1-10)
+- Helper functions `backbone_get_pages_choices()` and `backbone_get_posts_choices()` for retrieving page and post lists
+- Support for hierarchical page display in customizer dropdowns (Parent > Child format)
+- Japanese date format support (Y/m/d) for post listings in customizer
+
+### Improved
+
+- Query rewriting implementation to display different content while maintaining subdirectory URL structure
+- Enhanced subdirectory functionality to support dynamic content assignment without URL changes
+
+### Technical Details
+
+- Implemented `parse_request` and `parse_query` hooks for early URL interception and query manipulation
+- Global variables for passing selected page/post IDs between hooks
+- Settings deletion handlers updated to include new subdirectory display options
+
 ## [1.0.1] - 2025-10-06
 
 ### Fixed

@@ -10,6 +10,52 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * 固定ページの選択肢を取得
+ */
+function backbone_get_pages_choices() {
+    $pages = get_pages(array(
+        'sort_column' => 'post_title',
+        'sort_order' => 'ASC',
+    ));
+
+    $choices = array('' => __('選択しない', 'backbone-seo-llmo'));
+
+    foreach ($pages as $page) {
+        // 階層構造を表示
+        $title = $page->post_title;
+        if ($page->post_parent) {
+            $parent = get_post($page->post_parent);
+            if ($parent) {
+                $title = $parent->post_title . ' > ' . $title;
+            }
+        }
+        $choices[$page->ID] = $title;
+    }
+
+    return $choices;
+}
+
+/**
+ * 投稿の選択肢を取得
+ */
+function backbone_get_posts_choices() {
+    $posts = get_posts(array(
+        'posts_per_page' => 50,
+        'orderby' => 'date',
+        'order' => 'DESC',
+    ));
+
+    $choices = array('' => __('選択しない', 'backbone-seo-llmo'));
+
+    foreach ($posts as $post) {
+        $date = get_the_date('Y/m/d', $post);
+        $choices[$post->ID] = $date . ' - ' . $post->post_title;
+    }
+
+    return $choices;
+}
+
+/**
  * サブディレクトリ設定を追加
  */
 function backbone_add_subdirectory_logo_settings($wp_customize) {
@@ -71,6 +117,53 @@ function backbone_add_subdirectory_logo_settings($wp_customize) {
             'mime_type'   => 'image',
             'priority'    => 12,
         )));
+
+        // サブディレクトリ1のトップページ表示タイプ
+        $wp_customize->add_setting("subdirectory_top_display_type_1", array(
+            'default'           => 'none',
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("subdirectory_top_display_type_1", array(
+            'label'       => __('サブディレクトリ 1 のトップページ表示', 'backbone-seo-llmo'),
+            'section'     => 'subdirectory_logos',
+            'type'        => 'radio',
+            'choices'     => array(
+                'none' => __('指定しない', 'backbone-seo-llmo'),
+                'page' => __('固定ページ', 'backbone-seo-llmo'),
+                'post' => __('投稿', 'backbone-seo-llmo'),
+            ),
+            'description' => __('このサブディレクトリのトップページとして表示するコンテンツを選択', 'backbone-seo-llmo'),
+            'priority'    => 12.1,
+        ));
+
+        // サブディレクトリ1の固定ページ選択
+        $wp_customize->add_setting("subdirectory_top_page_1", array(
+            'default'           => '',
+            'sanitize_callback' => 'absint',
+        ));
+
+        $wp_customize->add_control("subdirectory_top_page_1", array(
+            'label'       => __('表示する固定ページ', 'backbone-seo-llmo'),
+            'section'     => 'subdirectory_logos',
+            'type'        => 'select',
+            'choices'     => backbone_get_pages_choices(),
+            'priority'    => 12.2,
+        ));
+
+        // サブディレクトリ1の投稿選択
+        $wp_customize->add_setting("subdirectory_top_post_1", array(
+            'default'           => '',
+            'sanitize_callback' => 'absint',
+        ));
+
+        $wp_customize->add_control("subdirectory_top_post_1", array(
+            'label'       => __('表示する投稿', 'backbone-seo-llmo'),
+            'section'     => 'subdirectory_logos',
+            'type'        => 'select',
+            'choices'     => backbone_get_posts_choices(),
+            'priority'    => 12.3,
+        ));
 
         // サブディレクトリ1のホームURL（オプション）
         $wp_customize->add_setting("subdirectory_home_1", array(
@@ -297,6 +390,11 @@ function backbone_handle_delete_subdirectory() {
     remove_theme_mod("subdirectory_header_message_{$index}");
     remove_theme_mod("subdirectory_footer_message_{$index}");
 
+    // トップページ表示設定もクリア
+    remove_theme_mod("subdirectory_top_display_type_{$index}");
+    remove_theme_mod("subdirectory_top_page_{$index}");
+    remove_theme_mod("subdirectory_top_post_{$index}");
+
     // デザイン設定もクリア
     remove_theme_mod("subdirectory_{$index}_color_theme");
     remove_theme_mod("subdirectory_{$index}_design_pattern");
@@ -315,6 +413,11 @@ function backbone_handle_delete_subdirectory() {
         set_theme_mod("subdirectory_header_message_{$i}", get_theme_mod("subdirectory_header_message_{$next}", ''));
         set_theme_mod("subdirectory_footer_message_{$i}", get_theme_mod("subdirectory_footer_message_{$next}", ''));
 
+        // トップページ表示設定もコピー
+        set_theme_mod("subdirectory_top_display_type_{$i}", get_theme_mod("subdirectory_top_display_type_{$next}", 'none'));
+        set_theme_mod("subdirectory_top_page_{$i}", get_theme_mod("subdirectory_top_page_{$next}", ''));
+        set_theme_mod("subdirectory_top_post_{$i}", get_theme_mod("subdirectory_top_post_{$next}", ''));
+
         // デザイン設定もコピー
         set_theme_mod("subdirectory_{$i}_color_theme", get_theme_mod("subdirectory_{$next}_color_theme", 'none'));
         set_theme_mod("subdirectory_{$i}_design_pattern", get_theme_mod("subdirectory_{$next}_design_pattern", 'none'));
@@ -330,6 +433,11 @@ function backbone_handle_delete_subdirectory() {
         remove_theme_mod("subdirectory_home_{$current_count}");
         remove_theme_mod("subdirectory_header_message_{$current_count}");
         remove_theme_mod("subdirectory_footer_message_{$current_count}");
+
+        // トップページ表示設定も削除
+        remove_theme_mod("subdirectory_top_display_type_{$current_count}");
+        remove_theme_mod("subdirectory_top_page_{$current_count}");
+        remove_theme_mod("subdirectory_top_post_{$current_count}");
 
         // デザイン設定も削除
         remove_theme_mod("subdirectory_{$current_count}_color_theme");
@@ -394,6 +502,53 @@ add_action('customize_register', function($wp_customize) {
             'mime_type'   => 'image',
             'priority'    => ($i * 10 + 2),
         )));
+
+        // トップページ表示タイプ
+        $wp_customize->add_setting("subdirectory_top_display_type_{$i}", array(
+            'default'           => 'none',
+            'sanitize_callback' => 'sanitize_text_field',
+        ));
+
+        $wp_customize->add_control("subdirectory_top_display_type_{$i}", array(
+            'label'       => sprintf(__('サブディレクトリ %d のトップページ表示', 'backbone-seo-llmo'), $i),
+            'section'     => 'subdirectory_logos',
+            'type'        => 'radio',
+            'choices'     => array(
+                'none' => __('指定しない', 'backbone-seo-llmo'),
+                'page' => __('固定ページ', 'backbone-seo-llmo'),
+                'post' => __('投稿', 'backbone-seo-llmo'),
+            ),
+            'description' => __('このサブディレクトリのトップページとして表示するコンテンツを選択', 'backbone-seo-llmo'),
+            'priority'    => ($i * 10 + 2.1),
+        ));
+
+        // 固定ページ選択
+        $wp_customize->add_setting("subdirectory_top_page_{$i}", array(
+            'default'           => '',
+            'sanitize_callback' => 'absint',
+        ));
+
+        $wp_customize->add_control("subdirectory_top_page_{$i}", array(
+            'label'       => __('表示する固定ページ', 'backbone-seo-llmo'),
+            'section'     => 'subdirectory_logos',
+            'type'        => 'select',
+            'choices'     => backbone_get_pages_choices(),
+            'priority'    => ($i * 10 + 2.2),
+        ));
+
+        // 投稿選択
+        $wp_customize->add_setting("subdirectory_top_post_{$i}", array(
+            'default'           => '',
+            'sanitize_callback' => 'absint',
+        ));
+
+        $wp_customize->add_control("subdirectory_top_post_{$i}", array(
+            'label'       => __('表示する投稿', 'backbone-seo-llmo'),
+            'section'     => 'subdirectory_logos',
+            'type'        => 'select',
+            'choices'     => backbone_get_posts_choices(),
+            'priority'    => ($i * 10 + 2.3),
+        ));
 
         // ホームURL（オプション）
         $wp_customize->add_setting("subdirectory_home_{$i}", array(
@@ -737,6 +892,107 @@ add_filter('document_title_parts', function($title_parts) {
 
     return $title_parts;
 }, 10);
+
+/**
+ * サブディレクトリトップページで選択されたコンテンツを表示
+ */
+function backbone_subdirectory_top_page_redirect() {
+    // この関数はparse_requestで処理されるため、空にする
+    return;
+}
+// より早い段階でキャッチするため、priorityを5に設定
+add_action('template_redirect', 'backbone_subdirectory_top_page_redirect', 5);
+// 念のため、parse_requestでも試す
+add_action('parse_request', 'backbone_subdirectory_top_page_redirect_early');
+
+/**
+ * より早い段階でサブディレクトリトップページをチェック
+ */
+function backbone_subdirectory_top_page_redirect_early($wp) {
+    // 管理画面では処理しない
+    if (is_admin()) {
+        return;
+    }
+
+    $current_url = $_SERVER['REQUEST_URI'];
+    $current_path = parse_url($current_url, PHP_URL_PATH);
+
+    if ($current_path === null || $current_path === false) {
+        return;
+    }
+
+    // サブディレクトリ設定をチェック
+    $subdirectory_count = get_theme_mod('subdirectory_count', 0);
+
+    for ($i = 1; $i <= min($subdirectory_count, 10); $i++) {
+        $subdirectory_path = get_theme_mod("subdirectory_path_{$i}");
+
+        if (!empty($subdirectory_path)) {
+            // スラッシュの正規化
+            $subdirectory_path = '/' . trim($subdirectory_path, '/');
+
+            // サブディレクトリのトップページ（末尾スラッシュあり/なし両対応）かチェック
+            if ($current_path === $subdirectory_path || $current_path === $subdirectory_path . '/') {
+                // トップページ表示設定を取得
+                $display_type = get_theme_mod("subdirectory_top_display_type_{$i}", 'none');
+
+                if ($display_type === 'page') {
+                    $page_id = get_theme_mod("subdirectory_top_page_{$i}");
+
+                    if (!empty($page_id)) {
+                        // グローバル変数を使ってページIDを保存
+                        global $backbone_subdirectory_page_id;
+                        $backbone_subdirectory_page_id = $page_id;
+
+                        // クエリを書き換えて選択されたページを表示
+                        $wp->query_vars['page_id'] = $page_id;
+                        $wp->query_vars['pagename'] = null;
+                        $wp->query_vars['error'] = null;
+                    }
+                } elseif ($display_type === 'post') {
+                    $post_id = get_theme_mod("subdirectory_top_post_{$i}");
+
+                    if (!empty($post_id)) {
+                        // グローバル変数を使って投稿IDを保存
+                        global $backbone_subdirectory_post_id;
+                        $backbone_subdirectory_post_id = $post_id;
+
+                        // クエリを書き換えて選択された投稿を表示
+                        $wp->query_vars['p'] = $post_id;
+                        $wp->query_vars['name'] = null;
+                        $wp->query_vars['error'] = null;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * サブディレクトリトップページのクエリを書き換え
+ */
+function backbone_subdirectory_parse_query($query) {
+    global $backbone_subdirectory_page_id, $backbone_subdirectory_post_id;
+
+    if (!is_admin() && $query->is_main_query()) {
+        if (!empty($backbone_subdirectory_page_id)) {
+            $query->set('page_id', $backbone_subdirectory_page_id);
+            $query->set('post_type', 'page');
+            $query->is_page = true;
+            $query->is_singular = true;
+            $query->is_404 = false;
+            $query->is_home = false;
+        } elseif (!empty($backbone_subdirectory_post_id)) {
+            $query->set('p', $backbone_subdirectory_post_id);
+            $query->set('post_type', 'post');
+            $query->is_single = true;
+            $query->is_singular = true;
+            $query->is_404 = false;
+            $query->is_home = false;
+        }
+    }
+}
+add_action('parse_query', 'backbone_subdirectory_parse_query');
 
 /**
  * bloginfo('name')の出力をフィルター
