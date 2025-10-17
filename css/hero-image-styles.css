@@ -1,0 +1,299 @@
+/* ========================================
+   メインビジュアル（ヒーローイメージ）スタイル
+======================================== */
+
+/* 共通設定 */
+.hero-image {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.hero-image-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero-image-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* ========================================
+   画像配置
+======================================== */
+.hero-align-left .hero-image-container {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.hero-align-center .hero-image-container {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-align-right .hero-image-container {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* フルワイドスタイルでは配置設定を無効化 */
+.hero-fullwidth.hero-align-left .hero-image-container,
+.hero-fullwidth.hero-align-center .hero-image-container,
+.hero-fullwidth.hero-align-right .hero-image-container {
+    margin-left: -50vw;
+    margin-right: -50vw;
+}
+
+/* サークルスタイルでは配置設定をflexboxで制御 */
+.hero-circle.hero-align-left {
+    justify-content: flex-start;
+}
+
+.hero-circle.hero-align-center {
+    justify-content: center;
+}
+
+.hero-circle.hero-align-right {
+    justify-content: flex-end;
+}
+
+
+/* ========================================
+   スタイル: 標準
+======================================== */
+.hero-standard .hero-image-container {
+    max-width: 100%;
+}
+
+.hero-standard .hero-image-img {
+    max-height: 400px;
+}
+
+/* ========================================
+   スタイル: フルワイド
+======================================== */
+.hero-fullwidth {
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    max-width: 100vw;
+}
+
+.hero-fullwidth .hero-image-container {
+    width: 100%;
+}
+
+.hero-fullwidth .hero-image-img {
+    width: 100%;
+    height: 450px;
+    object-fit: cover;
+}
+
+/* ========================================
+   スタイル: サークル（円形）
+======================================== */
+.hero-circle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: visible;
+}
+
+.hero-circle .hero-image-container {
+    width: 400px;
+    height: 400px;
+    max-width: 90%;
+    max-height: 90vw;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.hero-circle .hero-image-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    max-width: none !important;
+    max-height: none !important;
+    object-fit: cover;
+}
+
+/* ========================================
+   スタイル: カード型
+======================================== */
+.hero-card {
+    max-width: 800px;
+}
+
+/* カード型での配置設定 */
+.hero-card.hero-align-left {
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.hero-card.hero-align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-card.hero-align-right {
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* ========================================
+   デコレーション: 枠線
+======================================== */
+.hero-border-thin .hero-image-container {
+    border: 1px solid;
+}
+
+.hero-border-thick .hero-image-container {
+    border: 3px solid;
+}
+
+/* ========================================
+   デコレーション: 角丸
+======================================== */
+.hero-radius-small .hero-image-img {
+    border-radius: 4px;
+}
+
+.hero-radius-medium .hero-image-img {
+    border-radius: 8px;
+}
+
+.hero-radius-large .hero-image-img {
+    border-radius: 16px;
+}
+
+.hero-radius-circle .hero-image-img {
+    border-radius: 50%;
+}
+
+/* ========================================
+   アニメーション
+======================================== */
+.hero-animation-fade-in {
+    animation: heroFadeIn 1s ease-out;
+}
+
+@keyframes heroFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.hero-animation-slide-up {
+    animation: heroSlideUp 0.8s ease-out;
+}
+
+@keyframes heroSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-animation-zoom-in {
+    animation: heroZoomIn 0.8s ease-out;
+}
+
+@keyframes heroZoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ========================================
+   レスポンシブ対応
+======================================== */
+
+/* タブレット（1024px以下） */
+@media (max-width: 1024px) {
+    .hero-fullwidth .hero-image-img {
+        height: 350px;
+    }
+
+    .hero-circle .hero-image-container {
+        width: 300px;
+        height: 300px;
+        max-width: 90%;
+        max-height: 90vw;
+    }
+}
+
+/* モバイル（768px以下） */
+@media (max-width: 768px) {
+    .hero-standard .hero-image-img {
+        max-height: 300px;
+    }
+
+    .hero-fullwidth .hero-image-img {
+        height: 250px;
+    }
+
+    .hero-circle .hero-image-container {
+        width: 250px;
+        height: 250px;
+        max-width: 90%;
+        max-height: 90vw;
+    }
+}
+
+/* スマートフォン（480px以下） */
+@media (max-width: 480px) {
+    .hero-standard .hero-image-img {
+        max-height: 250px;
+    }
+
+    .hero-fullwidth .hero-image-img {
+        height: 200px;
+    }
+
+    .hero-circle .hero-image-container {
+        width: 200px;
+        height: 200px;
+        max-width: 90%;
+        max-height: 90vw;
+    }
+}
+
+/* ========================================
+   ホバーエフェクト
+======================================== */
+.hero-image:hover .hero-image-img {
+    transform: scale(1.02);
+}
+
+/* サークルのホバーエフェクトは translate を保持 */
+.hero-circle:hover .hero-image-img {
+    transform: translate(-50%, -50%) scale(1.05);
+}

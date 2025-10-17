@@ -91,13 +91,13 @@
 
                 <p class="powered-by">
                     <span>WP Theme: </span>
-                    <a href="https://tsuyoshikashiwazaki.jp" target="_blank" rel="noopener">
-                        Kashiwazaki SearchCraft
+                    <a href="https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo" target="_blank" rel="noopener">
+                        Backbone Theme for SEO + LLMO
                     </a>
                     <span class="sep"> | </span>
                     <span>Creator: </span>
-                    <a href="https://tsuyoshikashiwazaki.jp" target="_blank" rel="noopener">
-                        Kashiwazaki Team
+                    <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">
+                        柏崎剛
                     </a>
                 </p>
             </div>

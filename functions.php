@@ -21,6 +21,7 @@ $inc_files = array(
     'utilities/decoration-utilities.php', // デコレーション関連の関数
     'utilities/design-utilities.php',     // デザインパターン関連の関数
     'utilities/color-utilities.php',      // カラーテーマ関連の関数
+    'utilities/hero-image-utilities.php', // メインビジュアル関連の関数
     'theme-setup.php',          // テーマ基本設定
     'widgets.php',              // ウィジェット関連
     'customizer/index.php',     // カスタマイザー設定（utilities.phpの関数を使用）
@@ -28,6 +29,7 @@ $inc_files = array(
     'css-output.php',           // CSS出力関数（utilities.phpの関数を使用）
     'admin-pages.php',          // 管理画面設定
     'rest-api-fix.php',         // REST API JSONエラー修正
+    'meta-boxes/hero-image-meta.php', // メインビジュアルのメタボックス
 );
 
 foreach ($inc_files as $file) {
@@ -189,3 +191,125 @@ function backbone_enqueue_customizer_modules() {
     );
 }
 add_action('customize_controls_enqueue_scripts', 'backbone_enqueue_customizer_modules');
+
+/**
+ * 誤ったリダイレクトのみを防ぐ（正常なリダイレクトは許可）
+ */
+function backbone_fix_archive_pagination_redirect($redirect_url, $requested_url) {
+    // 新しいページネーション形式 /page-2/ が使われている場合、リダイレクトをブロック
+    if (strpos($requested_url, '/page-') !== false) {
+        // /page-2/ から /page-2/page/2/ へのリダイレクトをブロック
+        if ($redirect_url && preg_match('#/page-\d+/page/\d+/#', $redirect_url)) {
+            return false;
+        }
+        // /page-2/ 形式のURLはそのまま許可（リダイレクトしない）
+        return false;
+    }
+
+    // ページネーションURLからページネーションURLへのリダイレクトの場合、
+    // リクエストURLとリダイレクト先URLが大きく異なる場合のみブロック
+    if (strpos($requested_url, '/page/') !== false && $redirect_url) {
+        // リクエストURLのベースパスを取得
+        $requested_base = preg_replace('#/page/\d+/?#', '', $requested_url);
+        $redirect_base = preg_replace('#/page/\d+/?#', '', $redirect_url);
+
+        // ベースパスが異なる場合はブロック（異なるアーカイブへのリダイレクト）
+        if ($requested_base !== $redirect_base) {
+            return false;
+        }
+    }
+
+    return $redirect_url;
+}
+add_filter('redirect_canonical', 'backbone_fix_archive_pagination_redirect', 10, 2);
+
+/**
+ * カスタムページネーションルールを追加
+ */
+function backbone_add_custom_pagination_rules() {
+    // カテゴリーアーカイブのページネーション（カテゴリーベースなし）
+    add_rewrite_rule(
+        '([^/]+)/page-([0-9]{1,})/?$',
+        'index.php?category_name=$matches[1]&paged=$matches[2]',
+        'top'
+    );
+
+    // タグアーカイブのページネーション
+    add_rewrite_rule(
+        'tag/([^/]+)/page-([0-9]{1,})/?$',
+        'index.php?tag=$matches[1]&paged=$matches[2]',
+        'top'
+    );
+
+    // カテゴリーアーカイブのページネーション（カテゴリーベースあり）
+    add_rewrite_rule(
+        'category/(.+?)/page-([0-9]{1,})/?$',
+        'index.php?category_name=$matches[1]&paged=$matches[2]',
+        'top'
+    );
+
+    // 日付アーカイブのページネーション
+    add_rewrite_rule(
+        '([0-9]{4})/([0-9]{1,2})/([0-9]{1,2})/page-([0-9]{1,})/?$',
+        'index.php?year=$matches[1]&monthnum=$matches[2]&day=$matches[3]&paged=$matches[4]',
+        'top'
+    );
+
+    add_rewrite_rule(
+        '([0-9]{4})/([0-9]{1,2})/page-([0-9]{1,})/?$',
+        'index.php?year=$matches[1]&monthnum=$matches[2]&paged=$matches[3]',
+        'top'
+    );
+
+    add_rewrite_rule(
+        '([0-9]{4})/page-([0-9]{1,})/?$',
+        'index.php?year=$matches[1]&paged=$matches[2]',
+        'top'
+    );
+
+    // 作者アーカイブのページネーション
+    add_rewrite_rule(
+        'author/([^/]+)/page-([0-9]{1,})/?$',
+        'index.php?author_name=$matches[1]&paged=$matches[2]',
+        'top'
+    );
+}
+add_action('init', 'backbone_add_custom_pagination_rules');
+
+/**
+ * カスタムクエリ変数を登録
+ */
+function backbone_add_query_vars($vars) {
+    $vars[] = 'old_pagination';
+    return $vars;
+}
+add_filter('query_vars', 'backbone_add_query_vars');
+
+/**
+ * 旧ページネーション形式から新形式へリダイレクト
+ */
+function backbone_redirect_old_pagination() {
+    if (get_query_var('old_pagination') == '1' && get_query_var('paged')) {
+        $paged = get_query_var('paged');
+        $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        $new_url = preg_replace('#/page/(\d+)/?#', '/page-$1/', $current_url);
+
+        if ($new_url !== $current_url) {
+            wp_redirect($new_url, 301);
+            exit;
+        }
+    }
+}
+add_action('template_redirect', 'backbone_redirect_old_pagination');
+
+/**
+ * Rewriteルールを一度だけフラッシュ（初回のみ実行）
+ */
+function backbone_flush_rewrite_rules_once() {
+    $flushed = get_option('backbone_rewrite_flushed_v14');
+    if (!$flushed) {
+        flush_rewrite_rules(false);
+        update_option('backbone_rewrite_flushed_v14', true);
+    }
+}
+add_action('init', 'backbone_flush_rewrite_rules_once', 20);
