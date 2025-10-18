@@ -2,6 +2,45 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.3] - 2025-10-18
+
+### Added
+
+- Hero Image (Main Visual) feature: Customizable hero images for pages and posts
+  - Customizer settings for height, width, position, overlay, and text alignment
+  - Responsive support with mobile/desktop breakpoints
+  - Meta box for per-page/post hero image customization
+  - Template part system for reusable hero image display
+- Archive Grid Layout feature: Responsive grid layout for category/archive pages
+  - 2/3/4 column grid selection via Customizer
+  - Responsive breakpoints (desktop: selected columns, tablet: 2 columns, mobile: 1 column)
+  - Subtle border design using opacity for card elements
+- Custom Pagination format: Changed from /page/2/ to /page-2/ format
+  - Custom rewrite rules for new pagination format
+  - 301 redirect from old format to new format for backward compatibility
+
+### Improved
+
+- Archive page layout: Removed author information and "Read more" button
+- Archive page spacing: Reduced spacing between elements for compact layout
+- Single post template: Removed meta information and post navigation
+- Page template: Replaced post thumbnail with hero image system
+
+### Fixed
+
+- Archive page: Added conditional check for plugin function kspb_display_breadcrumbs()
+- Pagination redirect issue: Fixed incorrect redirects to /dictionary/page-experience/
+
+### Changed
+
+- Pagination URL structure: /page/2/ to /page-2/ (more semantic and cleaner URLs)
+
+### Technical Details
+
+- New files: 7 files (CSS: 2, Customizer: 2, Utilities: 1, Meta boxes: 1, Template parts: 1)
+- New directories: inc/meta-boxes/, inc/template-parts/
+- Functions.php: Added redirect handling, custom rewrite rules, query variable registration
+
 ## [1.0.2] - 2025-10-13
 
 ### Added

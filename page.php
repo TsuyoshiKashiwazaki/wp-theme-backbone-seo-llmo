@@ -24,11 +24,10 @@ get_header(); ?>
                         <?php the_title('<h1 class="entry-title">', '</h1>'); ?>
                     <?php endif; ?>
 
-                    <?php if (has_post_thumbnail()) : ?>
-                        <div class="post-thumbnail">
-                            <?php the_post_thumbnail('large'); ?>
-                        </div>
-                    <?php endif; ?>
+                    <?php
+                    // メインビジュアルを表示
+                    require get_template_directory() . '/inc/template-parts/hero-image.php';
+                    ?>
                 </header>
 
                 <div class="entry-content">

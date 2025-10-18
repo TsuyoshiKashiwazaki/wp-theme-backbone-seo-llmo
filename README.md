@@ -1,15 +1,15 @@
-# 🚀 Backbone Theme for SEO + LLMO
+# Backbone Theme for SEO + LLMO
 
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.2--dev-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.3--dev-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
 A minimal WordPress base theme optimized for media sites with built-in SEO and LLMO support, designed for plugin-based extensibility.
 
-> 🎯 **A lightweight foundation theme for efficient media operations, designed to work seamlessly with specialized plugins**
+> A lightweight foundation theme for efficient media operations, designed to work seamlessly with specialized plugins
 
 ## Overview
 
@@ -26,7 +26,7 @@ Backbone Theme for SEO + LLMO is a streamlined WordPress base theme specifically
 - **Responsive** - Mobile-first design approach
 - **Developer-Friendly** - Cache busting functionality included
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Installation
 
@@ -158,8 +158,8 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 
 <div align="center">
 
-**🔍 Keywords**: WordPress theme, base theme, SEO, LLMO, media optimization, plugin-extensible, lightweight, responsive, customizer, blog theme
+**Keywords**: WordPress theme, base theme, SEO, LLMO, media optimization, plugin-extensible, lightweight, responsive, customizer, blog theme
 
-Made with ❤️ by [Tsuyoshi Kashiwazaki](https://github.com/TsuyoshiKashiwazaki)
+Made by [Tsuyoshi Kashiwazaki](https://github.com/TsuyoshiKashiwazaki)
 
 </div>

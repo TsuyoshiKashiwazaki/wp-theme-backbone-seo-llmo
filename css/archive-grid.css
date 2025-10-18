@@ -1,0 +1,196 @@
+/* ========================================
+   アーカイブページグリッドレイアウト
+======================================== */
+
+/* グリッドコンテナ */
+.archive-grid-container {
+    display: grid;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+/* 2列グリッド */
+.archive-grid-columns-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 3列グリッド */
+.archive-grid-columns-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* 4列グリッド */
+.archive-grid-columns-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+/* グリッド内の記事カード */
+.archive-grid-container article {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+    height: 100%;
+    position: relative;
+    padding: 12px;
+    background: var(--background-color);
+    border: none !important;
+}
+
+/* 枠線を疑似要素で実装（透明度を適用するため） */
+.archive-grid-container article::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid var(--border-color);
+    opacity: 0.3;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+/* カードホバー時 */
+.archive-grid-container article:hover::before {
+    opacity: 0.6;
+}
+
+/* カードのサムネイル */
+.archive-grid-container article .post-thumbnail {
+    order: 1;
+    margin-bottom: 6px;
+}
+
+/* カードの日付・投稿者 */
+.archive-grid-container article .entry-meta {
+    order: 2;
+    margin-bottom: 4px;
+    font-size: 0.85em;
+}
+
+/* グリッド内のメタ情報のspan要素 */
+.archive-grid-container article .entry-meta span {
+    padding: 0;
+    margin: 0;
+}
+
+/* カードのタイトル */
+.archive-grid-container article .entry-title {
+    order: 3;
+    font-size: 1.3em;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    margin-top: 0;
+}
+
+/* カードの見出し（タイトルと日付を含む） */
+.archive-grid-container article .entry-header {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* カードのコンテンツ */
+.archive-grid-container article .entry-content {
+    order: 4;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 抜粋テキスト */
+.archive-grid-container article .entry-content > * {
+    flex-grow: 1;
+    margin-bottom: 0;
+}
+
+/* グリッド内の段落の余白を削減 */
+.archive-grid-container article .entry-content p {
+    margin-bottom: 6px;
+    margin-top: 0;
+    line-height: 1.6;
+}
+
+/* 最後の段落は下部余白なし */
+.archive-grid-container article .entry-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* ========================================
+   ページネーション
+======================================== */
+.archive-page .navigation.pagination,
+.archive .navigation.pagination {
+    margin-top: 40px;
+    clear: both;
+}
+
+.archive-page .nav-links,
+.archive .nav-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.archive-page .page-numbers,
+.archive .page-numbers {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: var(--background-color);
+    min-width: 40px;
+    text-align: center;
+}
+
+.archive-page .page-numbers:hover,
+.archive .page-numbers:hover {
+    background: var(--accent-color);
+    color: var(--background-color);
+    border-color: var(--accent-color);
+}
+
+.archive-page .page-numbers.current,
+.archive .page-numbers.current {
+    background: var(--primary-color);
+    color: var(--background-color);
+    border-color: var(--primary-color);
+}
+
+.archive-page .page-numbers.dots,
+.archive .page-numbers.dots {
+    border: none;
+    background: transparent;
+}
+
+/* ========================================
+   レスポンシブ対応
+======================================== */
+
+/* タブレット（768px〜1279px） - すべて2列に */
+@media (min-width: 768px) and (max-width: 1279px) {
+    .archive-grid-columns-2,
+    .archive-grid-columns-3,
+    .archive-grid-columns-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* モバイル（767px以下） - すべて1列に */
+@media (max-width: 767px) {
+    .archive-grid-columns-2,
+    .archive-grid-columns-3,
+    .archive-grid-columns-4 {
+        grid-template-columns: 1fr;
+    }
+
+    .archive-grid-container article .entry-title {
+        font-size: 1.4em;
+    }
+}

@@ -62,10 +62,13 @@ get_header(); ?>
                 </header>
 
                 <div class="entry-content">
+				<?php if (function_exists('kspb_display_breadcrumbs')) : kspb_display_breadcrumbs(); endif; ?>
+
                     <?php
-                    the_archive_description();
+                    // グリッド列数を取得
+                    $grid_columns = get_theme_mod('archive_grid_columns', '3');
                     ?>
-				<?php kspb_display_breadcrumbs(); ?>
+                    <div class="archive-grid-container archive-grid-columns-<?php echo esc_attr($grid_columns); ?>">
                     <?php while (have_posts()) : ?>
                         <?php the_post(); ?>
 
@@ -83,9 +86,6 @@ get_header(); ?>
                                                 <?php echo get_the_date(); ?>
                                             </time>
                                         </span>
-                                        <span class="byline">
-                                            <?php echo __('投稿者:', 'backbone-seo-llmo') . ' ' . get_the_author(); ?>
-                                        </span>
                                     </div>
                                 <?php endif; ?>
                             </header>
@@ -100,23 +100,43 @@ get_header(); ?>
 
                             <div class="entry-content">
                                 <?php the_excerpt(); ?>
-
-                                <p class="read-more">
-                                    <a href="<?php the_permalink(); ?>" class="more-link">
-                                        <?php _e('続きを読む', 'backbone-seo-llmo'); ?>
-                                    </a>
-                                </p>
                             </div>
                         </article>
 
                     <?php endwhile; ?>
+                    </div><!-- .archive-grid-container -->
 
                     <?php
-                    // ページネーション
-                    the_posts_pagination(array(
-                        'prev_text' => __('前のページ', 'backbone-seo-llmo'),
-                        'next_text' => __('次のページ', 'backbone-seo-llmo'),
-                    ));
+                    // ページネーション（カスタム /page-2/ 形式）
+                    global $wp_query;
+                    if ($wp_query->max_num_pages > 1) {
+                        $current_page = max(1, get_query_var('paged'));
+
+                        // 現在のアーカイブURLを取得（ページネーション部分を除去）
+                        $current_url = get_pagenum_link(1);
+                        $current_url = preg_replace('#/page/\d+/?#', '', $current_url);
+                        $current_url = preg_replace('#/page-\d+/?#', '', $current_url);
+                        $current_url = trailingslashit($current_url);
+
+                        echo '<nav class="navigation pagination" aria-label="Posts pagination">';
+                        echo '<h2 class="screen-reader-text">Posts pagination</h2>';
+                        echo '<div class="nav-links">';
+
+                        $pagination_args = array(
+                            'base' => $current_url . '%_%',
+                            'format' => 'page-%#%/',
+                            'current' => $current_page,
+                            'total' => $wp_query->max_num_pages,
+                            'prev_text' => __('前のページ', 'backbone-seo-llmo'),
+                            'next_text' => __('次のページ', 'backbone-seo-llmo'),
+                            'mid_size' => 2,
+                            'end_size' => 1,
+                            'add_args' => false,
+                        );
+
+                        echo paginate_links($pagination_args);
+                        echo '</div></nav>';
+                    }
                     ?>
                 </div>
             </article>

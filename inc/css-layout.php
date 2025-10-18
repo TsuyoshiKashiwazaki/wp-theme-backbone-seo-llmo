@@ -591,8 +591,8 @@ function backbone_dynamic_layout_output() {
         $css .= "    display: block !important;\n";
         $css .= "    padding: 1rem;\n";
         $css .= "    margin: 1rem 0;\n";
-        $css .= "    background: var(--background-secondary, #f8f9fa);\n";
-        $css .= "    border: 1px solid var(--border-color, #dee2e6);\n";
+        $css .= "    background: var(--background-secondary);\n";
+        $css .= "    border: 1px solid var(--border-color);\n";
         $css .= "    border-radius: 4px;\n";
         $css .= "}\n\n";
     }

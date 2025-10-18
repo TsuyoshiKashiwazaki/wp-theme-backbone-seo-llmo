@@ -94,6 +94,12 @@ function backbone_scripts() {
         wp_enqueue_style('seo-optimus-search-popup', get_template_directory_uri() . '/css/search-popup.css', array('seo-optimus-style'), $version);
     }
 
+    // メインビジュアル（ヒーローイメージ）のCSS
+    wp_enqueue_style('hero-image-styles', get_template_directory_uri() . '/css/hero-image-styles.css', array('seo-optimus-style'), $version);
+
+    // アーカイブページグリッドレイアウトのCSS
+    wp_enqueue_style('archive-grid-styles', get_template_directory_uri() . '/css/archive-grid.css', array('seo-optimus-style'), $version);
+
     // WordPress コア jQuery を明示的に読み込み
     wp_enqueue_script('jquery-core');
     wp_enqueue_script('jquery-migrate');

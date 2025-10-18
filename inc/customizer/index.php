@@ -20,6 +20,8 @@ require_once get_template_directory() . '/inc/customizer/custom-color-theme.php'
 require_once get_template_directory() . '/inc/customizer/layout-settings.php';
 require_once get_template_directory() . '/inc/customizer/subdirectory-logos.php';
 require_once get_template_directory() . '/inc/customizer/subdirectory-design-settings.php';
+require_once get_template_directory() . '/inc/customizer/hero-image-settings.php';
+require_once get_template_directory() . '/inc/customizer/archive-settings.php';
 // require_once get_template_directory() . '/inc/ajax/save-color-theme.php'; // カスタムカラー機能削除
 
 /**
@@ -34,6 +36,8 @@ function backbone_customize_register($wp_customize) {
     backbone_add_layout_settings($wp_customize);
     backbone_add_subdirectory_logo_settings($wp_customize);
     backbone_add_subdirectory_design_settings($wp_customize);
+    backbone_add_hero_image_settings($wp_customize);
+    backbone_add_archive_settings($wp_customize);
 
     // 既存の「サイト基本情報」セクションにカスタム設定を追加
     // セクションID: 'title_tagline' がWordPressの標準「サイト基本情報」セクション
@@ -168,11 +172,11 @@ function backbone_customize_controls_js() {
         }
         .color-preview {
             cursor: pointer;
-            border: 1px solid var(--border-color, #e1e1e1);
+            border: 1px solid var(--border-color);
             display: inline-block;
         }
         .color-preview:hover {
-            border-color: var(--accent-color, #dd9933);
+            border-color: var(--accent-color);
         }
         .wp-color-picker-container {
             position: absolute;
@@ -216,9 +220,9 @@ function backbone_customize_controls_js() {
                 'name' => 'Andromeda Theme',
                 'description' => 'Fallback theme for testing',
                 'colors' => array(
-                    'primary_color' => 'var(--primary-color, #000000)',
-                    'secondary_color' => 'var(--secondary-color, #ffffff)', 
-                    'accent_color' => 'var(--accent-color, #dd9933)'
+                    'primary_color' => 'var(--primary-color)',
+                    'secondary_color' => 'var(--secondary-color)',
+                    'accent_color' => 'var(--accent-color)'
                 ),
                 'created' => '2025-08-21',
                 'updated' => '2025-08-21'
