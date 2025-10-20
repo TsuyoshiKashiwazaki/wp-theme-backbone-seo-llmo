@@ -1,0 +1,315 @@
+/**
+ * カスタマイザー用CSS
+ *
+ * @package Backbone_SEO_LLMO
+ */
+
+/* ==========================================================================
+   WYSIWYGエディタコントロール
+   ========================================================================== */
+
+/* WYSIWYGエディタのラッパー */
+.customize-control-wysiwyg-wrapper {
+    margin-top: 8px;
+}
+
+/* エディタのテキストエリア */
+.customize-control-wysiwyg-wrapper .wp-editor-area {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 8px;
+}
+
+/* エディタのツールバー */
+.customize-control-wysiwyg-wrapper .mce-toolbar-grp {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    border-radius: 3px 3px 0 0;
+}
+
+/* エディタのコンテナ */
+.customize-control-wysiwyg-wrapper .mce-container {
+    border-radius: 3px;
+}
+
+/* エディタのiframe */
+.customize-control-wysiwyg-wrapper .mce-edit-area {
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 3px 3px;
+}
+
+/* ビジュアル/テキストタブ */
+.customize-control-wysiwyg-wrapper .wp-switch-editor {
+    background: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 3px 3px 0 0;
+    color: #555;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 13px;
+    line-height: 1;
+    margin: 0 5px 0 0;
+    padding: 5px 8px;
+    transition: all 0.2s;
+}
+
+.customize-control-wysiwyg-wrapper .wp-switch-editor:hover {
+    background: #fff;
+    border-color: #999;
+    color: #333;
+}
+
+.customize-control-wysiwyg-wrapper .wp-switch-editor.switch-tmce,
+.customize-control-wysiwyg-wrapper .wp-switch-editor.switch-html {
+    border-bottom-color: transparent;
+}
+
+/* アクティブなタブ */
+.customize-control-wysiwyg-wrapper .html-active .switch-html,
+.customize-control-wysiwyg-wrapper .tmce-active .switch-tmce {
+    background: #fff;
+    border-bottom-color: #fff;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Quickタグツールバー */
+.customize-control-wysiwyg-wrapper .quicktags-toolbar {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    border-bottom: none;
+    padding: 5px;
+}
+
+.customize-control-wysiwyg-wrapper .quicktags-toolbar input {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #555;
+    cursor: pointer;
+    font-size: 12px;
+    margin: 2px;
+    padding: 3px 6px;
+}
+
+.customize-control-wysiwyg-wrapper .quicktags-toolbar input:hover {
+    background: #f9f9f9;
+    border-color: #999;
+    color: #333;
+}
+
+/* エディタのフォーカス状態 */
+.customize-control-wysiwyg-wrapper .wp-editor-area:focus {
+    border-color: #5b9dd9;
+    box-shadow: 0 0 2px rgba(30, 140, 190, 0.8);
+    outline: none;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 640px) {
+    .customize-control-wysiwyg-wrapper .mce-toolbar .mce-btn {
+        padding: 4px 6px;
+    }
+
+    .customize-control-wysiwyg-wrapper .quicktags-toolbar input {
+        font-size: 11px;
+        padding: 2px 4px;
+    }
+}
+
+/* ==========================================================================
+   その他のカスタマイザースタイル
+   ========================================================================== */
+
+/* CSS変数定義（色のハードコードを避ける） */
+:root {
+    --customizer-section-bg: rgba(0, 115, 170, 0.03);
+    --customizer-section-border: rgba(0, 115, 170, 0.15);
+    --customizer-section-title-color: #0073aa;
+}
+
+/* カスタマイザーコントロールの間隔調整 */
+.customize-control {
+    margin-bottom: 20px;
+}
+
+/* 説明文のスタイル */
+.customize-control-description {
+    color: #666;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   フロントページセクションの区切り
+   ========================================================================== */
+
+/* セクション区切り用のコントロール */
+#customize-control-backbone_front_posts_section_divider,
+#customize-control-backbone_front_pickup_section_divider,
+#customize-control-backbone_front_services_section_divider,
+#customize-control-backbone_front_free_section_divider {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid var(--customizer-section-border);
+    background: var(--customizer-section-bg);
+    padding: 15px 12px 5px;
+    margin-left: -12px;
+    margin-right: -12px;
+    border-radius: 4px;
+}
+
+/* セクションのラベルスタイル */
+#customize-control-backbone_front_posts_section_divider .customize-control-title,
+#customize-control-backbone_front_pickup_section_divider .customize-control-title,
+#customize-control-backbone_front_services_section_divider .customize-control-title,
+#customize-control-backbone_front_free_section_divider .customize-control-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--customizer-section-title-color);
+    letter-spacing: 0.3px;
+    text-transform: none;
+}
+
+/* 最初のセクションは上部マージンなし */
+#customize-control-backbone_front_posts_section_divider {
+    margin-top: 0;
+}
+
+/* ==========================================================================
+   リピーターコントロール
+   ========================================================================== */
+
+.repeater-control-wrapper {
+    margin-top: 10px;
+}
+
+.repeater-items-container {
+    margin-bottom: 10px;
+}
+
+.repeater-empty-message {
+    color: #666;
+    font-style: italic;
+    font-size: 13px;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px dashed #ddd;
+    border-radius: 3px;
+    text-align: center;
+}
+
+.repeater-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.repeater-item-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #f7f7f7;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    user-select: none;
+}
+
+.repeater-item-handle {
+    color: #999;
+    cursor: move;
+    margin-right: 8px;
+}
+
+.repeater-item-title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.repeater-item-toggle {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    padding: 0;
+    margin: 0 5px;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.repeater-item-toggle:hover {
+    color: #0073aa;
+}
+
+.repeater-item-remove {
+    background: none;
+    border: none;
+    color: #a00;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.repeater-item-remove:hover {
+    color: #dc3232;
+}
+
+.repeater-item-content {
+    padding: 15px;
+    display: block;
+}
+
+.repeater-item.collapsed .repeater-item-content {
+    display: none;
+}
+
+.repeater-field {
+    margin-bottom: 15px;
+}
+
+.repeater-field:last-child {
+    margin-bottom: 0;
+}
+
+.repeater-field label {
+    display: block;
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.repeater-field input[type="text"],
+.repeater-field input[type="url"],
+.repeater-field select,
+.repeater-field textarea {
+    width: 100%;
+    font-size: 13px;
+}
+
+.repeater-add-item {
+    width: 100%;
+    text-align: center;
+}
+
+.repeater-add-item:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.repeater-item-placeholder {
+    background: #f0f0f1;
+    border: 2px dashed #0073aa;
+    height: 50px;
+    margin-bottom: 10px;
+}

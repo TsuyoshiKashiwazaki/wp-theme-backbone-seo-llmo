@@ -16,7 +16,7 @@ get_header(); ?>
 
                 <?php
                 // メインビジュアルを表示
-                require get_template_directory() . '/inc/template-parts/hero-image.php';
+                require get_template_directory() . '/template-parts/hero-image.php';
                 ?>
 
                 <div class="entry-content">

@@ -61,6 +61,19 @@ function backbone_enqueue_responsive_typography() {
 add_action('wp_enqueue_scripts', 'backbone_enqueue_responsive_typography', 25);
 
 /**
+ * フロントページセクション用CSSの追加
+ */
+function backbone_enqueue_front_page_sections() {
+    wp_enqueue_style(
+        'front-page-sections',
+        get_template_directory_uri() . '/css/front-page-sections.css',
+        array('seo-optimus-style'),
+        '1.0.1'
+    );
+}
+add_action('wp_enqueue_scripts', 'backbone_enqueue_front_page_sections', 26);
+
+/**
  * タイトルの区切り文字を変更（&#8211; → |）
  */
 function backbone_change_title_separator($sep) {

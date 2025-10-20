@@ -2,6 +2,31 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.4] - 2025-10-20
+
+### Added
+- Customizer repeater control feature for dynamic item management
+  - Pickup posts section: Unlimited posts with drag-and-drop sorting
+  - Services section: Unlimited service cards with drag-and-drop sorting
+- WYSIWYG support for text areas with HTML editing capabilities
+  - Available in free content area, descriptions, and service descriptions
+  - Supported tags: paragraph, bold, line break, italic, link, list
+  - Tag guide display and sample placeholders
+- Visual section dividers in customizer
+  - Added visual separators in front page settings (4 sections)
+  - Icon-based headings with subtle background colors for better identification
+
+### Improved
+- Unified layout options: All sections now use consistent 2col/3col/4col/list formats
+
+### Changed
+- Pickup posts: Changed from fixed 6 items to dynamic repeater system
+- Service cards: Changed from fixed 6 items to dynamic repeater system
+
+### Technical Details
+- New files: inc/customizer/class-repeater-control.php, class-wysiwyg-control.php, js/customizer-repeater.js, css/customizer.css
+- Updated files: inc/customizer/front-page-settings.php, template-parts/sections/pickup.php, services.php
+
 ## [1.0.3] - 2025-10-18
 
 ### Added

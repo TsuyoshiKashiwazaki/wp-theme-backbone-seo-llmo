@@ -1,0 +1,568 @@
+/**
+ * フロントページセクション用CSS
+ *
+ * @package Backbone_SEO_LLMO
+ */
+
+/* ==========================================================================
+   カスタムフロントページ全体
+   ========================================================================== */
+
+.custom-front-page {
+    width: 100%;
+}
+
+/* ==========================================================================
+   ヒーローセクション
+   ========================================================================== */
+
+.hero-section {
+    width: 100%;
+    margin-bottom: 3rem;
+}
+
+.hero-image {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: #fff;
+    padding: 2rem;
+    max-width: 800px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin: 0 0 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+.hero-catchphrase {
+    font-size: 1.5rem;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.hero-text-only {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+}
+
+.hero-text-only .hero-title {
+    font-size: 2.5rem;
+    margin: 0 0 1rem;
+}
+
+.hero-text-only .hero-catchphrase {
+    font-size: 1.25rem;
+}
+
+.hero-description {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    font-size: 1.125rem;
+    line-height: 1.8;
+}
+
+/* ==========================================================================
+   セクション共通スタイル
+   ========================================================================== */
+
+.posts-list-section,
+.pickup-section,
+.services-section,
+.free-content-section {
+    max-width: 1200px;
+    margin: 0 auto 4rem;
+    padding: 0 2rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 0 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--primary-color, #333);
+    text-align: center;
+}
+
+/* ==========================================================================
+   記事一覧セクション - グリッドレイアウト
+   ========================================================================== */
+
+/* 2カラムグリッド */
+.posts-layout-2col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+.posts-layout-2col .post-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.posts-layout-2col .post-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 3カラムグリッド */
+.posts-layout-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.posts-layout-3col .post-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.posts-layout-3col .post-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 4カラムグリッド */
+.posts-layout-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.posts-layout-4col .post-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.posts-layout-4col .post-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================================================
+   記事一覧セクション - リスト
+   ========================================================================== */
+
+.posts-layout-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.posts-layout-list .post-item {
+    display: flex;
+    gap: 1.5rem;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 1rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.posts-layout-list .post-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.posts-layout-list .post-thumbnail {
+    flex-shrink: 0;
+    width: 200px;
+}
+
+.posts-layout-list .post-content {
+    flex: 1;
+}
+
+/* ==========================================================================
+   記事アイテム共通（グリッド用）
+   ========================================================================== */
+
+.posts-layout-2col .post-thumbnail,
+.posts-layout-3col .post-thumbnail,
+.posts-layout-4col .post-thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.posts-layout-2col .post-thumbnail img,
+.posts-layout-3col .post-thumbnail img,
+.posts-layout-4col .post-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.posts-layout-2col .post-item:hover .post-thumbnail img,
+.posts-layout-3col .post-item:hover .post-thumbnail img,
+.posts-layout-4col .post-item:hover .post-thumbnail img {
+    transform: scale(1.05);
+}
+
+.post-thumbnail img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.post-content {
+    padding: 1.5rem;
+}
+
+.post-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0 0 0.5rem;
+    line-height: 1.4;
+}
+
+.post-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.post-title a:hover {
+    color: var(--primary-color, #0066cc);
+}
+
+.post-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.post-category {
+    background: var(--primary-color, #0066cc);
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+.post-excerpt {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* ==========================================================================
+   ピックアップセクション
+   ========================================================================== */
+
+/* 2カラムレイアウト */
+.pickup-layout-2col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+/* 3カラムレイアウト */
+.pickup-layout-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* 4カラムレイアウト */
+.pickup-layout-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+/* リストレイアウト */
+.pickup-layout-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.pickup-layout-list .pickup-item {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.pickup-layout-list .pickup-thumbnail {
+    flex-shrink: 0;
+    width: 200px;
+}
+
+.pickup-layout-list .pickup-content {
+    flex: 1;
+}
+
+.pickup-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.pickup-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.pickup-thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.pickup-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.pickup-item:hover .pickup-thumbnail img {
+    transform: scale(1.05);
+}
+
+.pickup-content {
+    padding: 1.5rem;
+}
+
+.pickup-title {
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin: 0 0 0.75rem;
+    line-height: 1.4;
+}
+
+.pickup-title a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.pickup-title a:hover {
+    color: var(--primary-color, #0066cc);
+}
+
+.pickup-excerpt {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+/* ==========================================================================
+   サービスセクション
+   ========================================================================== */
+
+/* 2カラムレイアウト */
+.services-layout-2col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+/* 3カラムレイアウト */
+.services-layout-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* 4カラムレイアウト */
+.services-layout-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+/* リストレイアウト */
+.services-layout-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.services-layout-list .service-item {
+    text-align: left;
+}
+
+.service-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.service-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.service-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 0 1rem;
+    color: var(--primary-color, #333);
+}
+
+.service-desc {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+}
+
+/* ==========================================================================
+   フリーコンテンツセクション
+   ========================================================================== */
+
+.free-content-section {
+    background: #f9f9f9;
+    padding: 3rem 2rem;
+    border-radius: 8px;
+}
+
+.free-content {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* ==========================================================================
+   レスポンシブ対応
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    /* 3カラムと4カラムは2カラムに */
+    .posts-layout-3col,
+    .posts-layout-4col,
+    .pickup-layout-3col,
+    .pickup-layout-4col,
+    .services-layout-3col,
+    .services-layout-4col {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-catchphrase {
+        font-size: 1.125rem;
+    }
+
+    .hero-text-only .hero-title {
+        font-size: 1.75rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+    }
+
+    /* すべてのグリッドレイアウトを1カラムに */
+    .posts-layout-2col,
+    .posts-layout-3col,
+    .posts-layout-4col,
+    .pickup-layout-2col,
+    .pickup-layout-3col,
+    .pickup-layout-4col,
+    .services-layout-2col,
+    .services-layout-3col,
+    .services-layout-4col {
+        grid-template-columns: 1fr;
+    }
+
+    /* リストレイアウトを縦並びに */
+    .posts-layout-list .post-item,
+    .pickup-layout-list .pickup-item {
+        flex-direction: column;
+    }
+
+    .posts-layout-list .post-thumbnail,
+    .pickup-layout-list .pickup-thumbnail {
+        width: 100%;
+    }
+
+    .posts-list-section,
+    .pickup-section,
+    .services-section,
+    .free-content-section {
+        padding: 0 1rem;
+        margin-bottom: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-content {
+        padding: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 1.5rem;
+    }
+
+    .hero-catchphrase {
+        font-size: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .post-content,
+    .pickup-content {
+        padding: 1rem;
+    }
+
+    .service-item {
+        padding: 1.5rem;
+    }
+}

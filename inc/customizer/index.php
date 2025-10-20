@@ -22,12 +22,17 @@ require_once get_template_directory() . '/inc/customizer/subdirectory-logos.php'
 require_once get_template_directory() . '/inc/customizer/subdirectory-design-settings.php';
 require_once get_template_directory() . '/inc/customizer/hero-image-settings.php';
 require_once get_template_directory() . '/inc/customizer/archive-settings.php';
+require_once get_template_directory() . '/inc/customizer/front-page-settings.php';
 // require_once get_template_directory() . '/inc/ajax/save-color-theme.php'; // カスタムカラー機能削除
 
 /**
  * カスタマイザーの設定
  */
 function backbone_customize_register($wp_customize) {
+    // カスタムコントロールクラスを読み込み（カスタマイザーのコンテキスト内で）
+    require_once get_template_directory() . '/inc/customizer/class-wysiwyg-control.php';
+    require_once get_template_directory() . '/inc/customizer/class-repeater-control.php';
+
     // 各設定セクションを追加
     backbone_add_design_settings($wp_customize);
     backbone_add_custom_color_theme_settings($wp_customize);
@@ -38,6 +43,7 @@ function backbone_customize_register($wp_customize) {
     backbone_add_subdirectory_design_settings($wp_customize);
     backbone_add_hero_image_settings($wp_customize);
     backbone_add_archive_settings($wp_customize);
+    backbone_add_front_page_settings($wp_customize);
 
     // 既存の「サイト基本情報」セクションにカスタム設定を追加
     // セクションID: 'title_tagline' がWordPressの標準「サイト基本情報」セクション
@@ -126,8 +132,12 @@ function backbone_customize_register($wp_customize) {
     $wp_customize->add_control('front_page_show_title', array(
         'label'       => __('フロントページでタイトルを表示', 'backbone-seo-llmo'),
         'section'     => 'static_front_page',
+        'priority'    => 110,
         'type'        => 'checkbox',
-        'description' => __('フロントページ（ホームページ）でページタイトルを表示するかどうかを設定します。', 'backbone-seo-llmo'),
+        'description' => __('フロントページ（ホームページ）でページタイトルを表示するかどうかを設定します。「既存のページを使用」モードの時に適用されます。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'page';
+        },
     ));
 
 }
@@ -189,6 +199,15 @@ function backbone_customize_controls_js() {
         get_template_directory_uri() . '/js/customizer-controls.js',
         array('customize-controls', 'jquery', 'jquery-core', 'jquery-migrate', 'wp-color-picker'),
         $cache_bust,
+        true
+    );
+
+    // リピーターコントロール用JavaScript
+    wp_enqueue_script(
+        'customizer-repeater',
+        get_template_directory_uri() . '/js/customizer-repeater.js',
+        array('customize-controls', 'jquery', 'jquery-ui-sortable'),
+        '1.0.0',
         true
     );
 

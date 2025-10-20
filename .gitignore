@@ -35,3 +35,6 @@ uploads/
 gh_*/
 *.tar.gz
 *.zip
+
+# Debug files and directories (hidden)
+.debug-parts/
