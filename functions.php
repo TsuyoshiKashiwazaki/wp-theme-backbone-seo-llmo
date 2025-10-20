@@ -240,12 +240,30 @@ add_filter('redirect_canonical', 'backbone_fix_archive_pagination_redirect', 10,
  * カスタムページネーションルールを追加
  */
 function backbone_add_custom_pagination_rules() {
-    // カテゴリーアーカイブのページネーション（カテゴリーベースなし）
-    add_rewrite_rule(
-        '([^/]+)/page-([0-9]{1,})/?$',
-        'index.php?category_name=$matches[1]&paged=$matches[2]',
-        'top'
-    );
+    // すべての登録済みカスタム投稿タイプを取得
+    $post_types = get_post_types(array('_builtin' => false, 'public' => true), 'objects');
+
+    foreach ($post_types as $post_type) {
+        if (!empty($post_type->rewrite) && isset($post_type->rewrite['slug'])) {
+            $slug = $post_type->rewrite['slug'];
+
+            // カスタム投稿タイプアーカイブのページネーション（単一階層）
+            // 例: /seo-note/page-2/
+            add_rewrite_rule(
+                $slug . '/page-([0-9]{1,})/?$',
+                'index.php?post_type=' . $post_type->name . '&paged=$matches[1]',
+                'top'
+            );
+
+            // カスタム投稿タイプアーカイブのページネーション（2階層）
+            // 例: /seo-note/report/page-2/ (reportは子の投稿タイプ)
+            add_rewrite_rule(
+                $slug . '/([^/]+)/page-([0-9]{1,})/?$',
+                'index.php?post_type=$matches[1]&paged=$matches[2]',
+                'top'
+            );
+        }
+    }
 
     // タグアーカイブのページネーション
     add_rewrite_rule(
@@ -286,6 +304,14 @@ function backbone_add_custom_pagination_rules() {
         'index.php?author_name=$matches[1]&paged=$matches[2]',
         'top'
     );
+
+    // カテゴリーアーカイブのページネーション（カテゴリーベースなし）
+    // ※汎用的なルールなので最後に配置
+    add_rewrite_rule(
+        '([^/]+)/page-([0-9]{1,})/?$',
+        'index.php?category_name=$matches[1]&paged=$matches[2]',
+        'top'
+    );
 }
 add_action('init', 'backbone_add_custom_pagination_rules');
 
@@ -319,10 +345,10 @@ add_action('template_redirect', 'backbone_redirect_old_pagination');
  * Rewriteルールを一度だけフラッシュ（初回のみ実行）
  */
 function backbone_flush_rewrite_rules_once() {
-    $flushed = get_option('backbone_rewrite_flushed_v14');
+    $flushed = get_option('backbone_rewrite_flushed_v18');
     if (!$flushed) {
         flush_rewrite_rules(false);
-        update_option('backbone_rewrite_flushed_v14', true);
+        update_option('backbone_rewrite_flushed_v18', true);
     }
 }
 add_action('init', 'backbone_flush_rewrite_rules_once', 20);

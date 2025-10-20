@@ -715,7 +715,7 @@ add_filter('document_title_parts', function($title_parts) {
             // WordPressが追加する "アーカイブ:" などのプレフィックスを削除
             // 日本語と英語のプレフィックスに対応
             $archive_title = preg_replace('/^(アーカイブ|Archive|カテゴリー|Category|タグ|Tag):\s*/iu', '', $archive_title);
-            $title_parts['title'] = $archive_title ?: 'アーカイブ';
+            $title_parts['title'] = $archive_title ?: __('Archive', 'backbone-seo-llmo');
         }
 
         // それでもタイトルが空の場合、H1から取得を試みる

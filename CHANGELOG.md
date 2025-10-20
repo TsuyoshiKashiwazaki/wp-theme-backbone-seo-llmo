@@ -2,6 +2,22 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.5] - 2025-10-21
+
+### Fixed
+- Fixed pagination 404 errors on custom post type archives
+  - Added dynamic rewrite rules for all registered custom post types
+  - Fixed single-level pagination (e.g., /seo-note/page-2/)
+  - Fixed hierarchical pagination (e.g., /seo-note/report/page-2/)
+  - Removed hardcoded directory names for generic implementation
+- Fixed hardcoded "Archive" text in title tags
+  - Changed to translatable string using __() function
+
+### Technical Details
+- Updated rewrite rules to dynamically detect all custom post types
+- Implemented automatic slug detection from post type configuration
+- Increased rewrite rules version to v18 for automatic flush
+
 ## [1.0.4] - 2025-10-20
 
 ### Added
