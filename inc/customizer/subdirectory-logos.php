@@ -16,7 +16,7 @@ function backbone_add_subdirectory_logo_settings($wp_customize) {
     // サブディレクトリ設定セクション
     $wp_customize->add_section('subdirectory_logos', array(
         'title'    => __('サブディレクトリ設定', 'backbone-seo-llmo'),
-        'priority' => 25,
+        'priority' => 100,
         'description' => __('特定のサブディレクトリ以下で異なるロゴやテキストを表示できます。空欄の場合はサイト基本情報の設定が使用されます。', 'backbone-seo-llmo'),
     ));
 

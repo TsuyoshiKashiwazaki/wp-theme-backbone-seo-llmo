@@ -23,6 +23,8 @@ require_once get_template_directory() . '/inc/customizer/subdirectory-design-set
 require_once get_template_directory() . '/inc/customizer/hero-image-settings.php';
 require_once get_template_directory() . '/inc/customizer/archive-settings.php';
 require_once get_template_directory() . '/inc/customizer/front-page-settings.php';
+require_once get_template_directory() . '/inc/customizer/custom-js-settings.php';
+require_once get_template_directory() . '/inc/customizer/custom-css-settings.php';
 // require_once get_template_directory() . '/inc/ajax/save-color-theme.php'; // カスタムカラー機能削除
 
 /**
@@ -44,6 +46,11 @@ function backbone_customize_register($wp_customize) {
     backbone_add_hero_image_settings($wp_customize);
     backbone_add_archive_settings($wp_customize);
     backbone_add_front_page_settings($wp_customize);
+    backbone_add_custom_js_settings($wp_customize);
+    backbone_add_custom_css_settings($wp_customize);
+
+    // WordPress標準の「追加CSS」セクションを削除
+    $wp_customize->remove_section('custom_css');
 
     // 既存の「サイト基本情報」セクションにカスタム設定を追加
     // セクションID: 'title_tagline' がWordPressの標準「サイト基本情報」セクション
@@ -107,7 +114,7 @@ function backbone_customize_register($wp_customize) {
     // 開発者向けセクション追加
     $wp_customize->add_section('developer_settings', array(
         'title'    => __('開発者設定', 'kashiwazaki-searchcraft'),
-        'priority' => 160,
+        'priority' => 200,
     ));
 
     // キャッシュバスティング設定

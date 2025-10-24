@@ -19,7 +19,7 @@ function backbone_add_archive_settings($wp_customize) {
     // アーカイブページ設定のセクションを追加
     $wp_customize->add_section('archive_settings', array(
         'title' => __('アーカイブページ設定', 'backbone-seo-llmo'),
-        'priority' => 35,
+        'priority' => 55,
         'description' => __('カテゴリ一覧ページなどのアーカイブページの表示設定を行います。', 'backbone-seo-llmo'),
     ));
 

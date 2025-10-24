@@ -27,6 +27,8 @@ $inc_files = array(
     'customizer/index.php',     // カスタマイザー設定（utilities.phpの関数を使用）
     'color-file-storage.php',   // ファイルベースカラー保存
     'css-output.php',           // CSS出力関数（utilities.phpの関数を使用）
+    'custom-js-output.php',     // カスタムJS出力（カスタマイザー設定を使用）
+    'custom-css-output.php',    // カスタムCSS出力（カスタマイザー設定を使用）
     'admin-pages.php',          // 管理画面設定
     'rest-api-fix.php',         // REST API JSONエラー修正
     'meta-boxes/hero-image-meta.php', // メインビジュアルのメタボックス

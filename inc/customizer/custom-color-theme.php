@@ -41,7 +41,7 @@ function backbone_add_custom_color_theme_settings($wp_customize) {
     // 常にセクションを追加し、active_callbackで表示制御を行う
     $wp_customize->add_section('backbone_custom_color_theme', array(
         'title'    => __('独自カラーテーマの設定', 'kashiwazaki-searchcraft'),
-        'priority' => 31,
+        'priority' => 35,
         'active_callback' => 'backbone_is_custom_color_theme_active'
     ));
 

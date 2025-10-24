@@ -183,6 +183,142 @@
 }
 
 /* ==========================================================================
+   追加JSセクションの区切り（シンプルなストライプ）
+   ========================================================================== */
+
+/* 追加JSセクション内の全コントロールに基本スタイル適用 */
+#accordion-section-backbone_custom_js .customize-control {
+    margin-left: -12px;
+    margin-right: -12px;
+    margin-bottom: 0;
+    padding: 12px 12px;
+}
+
+/* 偶数番目のコントロール - グレー背景 */
+#accordion-section-backbone_custom_js .customize-control:nth-child(even) {
+    background: #f7f7f7;
+}
+
+/* 奇数番目のコントロール - 白背景 */
+#accordion-section-backbone_custom_js .customize-control:nth-child(odd) {
+    background: #ffffff;
+}
+
+/* メインセクションヘッダー（全体共通JS、投稿タイプ別JS） */
+#customize-control-custom_js_global_header,
+#customize-control-custom_js_posttype_header {
+    margin-top: 20px;
+    padding: 10px 12px;
+    background: #e8e8e8 !important;
+    border-left: 4px solid #555;
+    font-weight: 600;
+}
+
+#customize-control-custom_js_global_header .customize-control-title,
+#customize-control-custom_js_posttype_header .customize-control-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+#customize-control-custom_js_global_header .customize-control-description,
+#customize-control-custom_js_posttype_header .customize-control-description {
+    color: #666;
+    font-style: normal;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* 最初のセクションは上部マージンなし */
+#customize-control-custom_js_global_header {
+    margin-top: 0;
+}
+
+/* 投稿タイプの区切り（▼ 投稿、▼ 固定ページなど） */
+.customize-control[id*="custom_js_separator_"] {
+    padding: 8px 12px;
+    background: #ddd !important;
+    border-left: 3px solid #666;
+    font-weight: 600;
+}
+
+.customize-control[id*="custom_js_separator_"] .customize-control-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #444;
+    margin: 0;
+}
+
+/* ==========================================================================
+   追加CSSセクションの区切り（シンプルなストライプ）
+   ========================================================================== */
+
+/* 追加CSSセクション内の全コントロールに基本スタイル適用 */
+#accordion-section-backbone_custom_css .customize-control {
+    margin-left: -12px;
+    margin-right: -12px;
+    margin-bottom: 0;
+    padding: 12px 12px;
+}
+
+/* 偶数番目のコントロール - グレー背景 */
+#accordion-section-backbone_custom_css .customize-control:nth-child(even) {
+    background: #f7f7f7;
+}
+
+/* 奇数番目のコントロール - 白背景 */
+#accordion-section-backbone_custom_css .customize-control:nth-child(odd) {
+    background: #ffffff;
+}
+
+/* メインセクションヘッダー（全体共通CSS、投稿タイプ別CSS） */
+#customize-control-custom_css_global_header,
+#customize-control-custom_css_posttype_header {
+    margin-top: 20px;
+    padding: 10px 12px;
+    background: #e8e8e8 !important;
+    border-left: 4px solid #555;
+    font-weight: 600;
+}
+
+#customize-control-custom_css_global_header .customize-control-title,
+#customize-control-custom_css_posttype_header .customize-control-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+#customize-control-custom_css_global_header .customize-control-description,
+#customize-control-custom_css_posttype_header .customize-control-description {
+    color: #666;
+    font-style: normal;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* 最初のセクションは上部マージンなし */
+#customize-control-custom_css_global_header {
+    margin-top: 0;
+}
+
+/* 投稿タイプの区切り（▼ 投稿、▼ 固定ページなど） */
+.customize-control[id*="custom_css_separator_"] {
+    padding: 8px 12px;
+    background: #ddd !important;
+    border-left: 3px solid #666;
+    font-weight: 600;
+}
+
+.customize-control[id*="custom_css_separator_"] .customize-control-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #444;
+    margin: 0;
+}
+
+/* ==========================================================================
    リピーターコントロール
    ========================================================================== */
 

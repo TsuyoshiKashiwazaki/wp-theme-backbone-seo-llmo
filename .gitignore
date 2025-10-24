@@ -37,4 +37,4 @@ gh_*/
 *.zip
 
 # Debug files and directories (hidden)
-.debug-parts/
+.debug-parts/CLAUDE.md

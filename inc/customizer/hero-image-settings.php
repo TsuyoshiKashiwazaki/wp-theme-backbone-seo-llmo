@@ -19,7 +19,7 @@ function backbone_add_hero_image_settings($wp_customize) {
     // メインビジュアル設定のセクションを追加
     $wp_customize->add_section('hero_image_settings', array(
         'title' => __('メインビジュアル設定', 'backbone-seo-llmo'),
-        'priority' => 30,
+        'priority' => 50,
         'description' => __('投稿タイプごとにメインビジュアル（アイキャッチ画像）の表示設定を行います。個別ページでの設定も可能です。', 'backbone-seo-llmo'),
     ));
 

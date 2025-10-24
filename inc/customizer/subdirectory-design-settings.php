@@ -78,7 +78,7 @@ function backbone_add_subdirectory_design_settings($wp_customize) {
             // セクション：サブディレクトリのデザイン設定
             $wp_customize->add_section($section_id, array(
                 'title'    => $section_title,
-                'priority' => 30 + $i,
+                'priority' => 105 + $i,
                 'description' => sprintf(__('サブディレクトリ「%s」専用のデザイン設定です。', 'backbone-seo-llmo'), $subdirectory_path),
             ));
 
