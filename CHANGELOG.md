@@ -2,23 +2,67 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.7] - 2025-10-25
+
+### Added
+- Archive layout settings in Customizer
+  - Category archive layout configuration
+  - Tag archive layout configuration
+  - Other archive layout configuration
+  - Search results page layout configuration
+  - Mutual navigation links between legacy widget interface (Customizer) and block widget interface (Appearance > Widgets)
+- Sorting options for front page and archive pages
+  - Publication date order (newest first)
+  - Modified date order (newest first)
+  - Random order
+- Display element controls for front page posts section
+  - Toggle visibility: thumbnail, publication date, modified date, category, excerpt
+- Display element controls for archive pages
+  - Toggle visibility: thumbnail, publication date, modified date, category, excerpt
+- Badge-style date display with CSS variables
+  - Publication date badge and modified date badge with distinct styling
+  - Dynamic badge order based on sort setting (primary sort criterion appears first)
+
+### Fixed
+- Widget editor compatibility: Fixed wp-editor script enqueueing error with block widgets
+  - Implemented error suppression for wp-editor conflict warnings
+  - Ensured both Customizer (legacy widgets) and Appearance > Widgets (block widgets) work properly
+
+### Changed
+- Widget management: Consolidated widget functionality into single working solution file
+- Date display styling: Replaced plain text with badge-style format for better readability
+
+### Removed
+- Deleted 8 unnecessary development widget implementation files
+- Deleted unused ajax directory and save-color-theme.php file
+- Cleaned up test archive layout file
+
+### Technical Details
+- Updated .gitignore to exclude .claude/ directory and CLAUDE.md
+- Widget solution implemented in inc/widget-working-solution.php
+- Archive settings added to inc/customizer/layout-settings.php
+- Display element controls: inc/customizer/front-page-settings.php, archive-settings.php
+- Badge styling: css/content.css
+- Dynamic badge ordering: template-parts/sections/posts-list.php, archive.php
+- Archive query modification: functions.php (backbone_modify_archive_query)
+
 ## [1.0.6] - 2025-10-24
 
 ### Added
-- カスタムJavaScript機能をカスタマイザーに追加
-  - サイト全体共通のJS追加機能
-  - 投稿タイプ別のJS追加機能（投稿、固定ページ、カスタム投稿タイプ）
-  - 出力位置の選択（ヘッダー/フッター）
-- カスタムCSS機能をカスタマイザーに追加
-  - サイト全体共通のCSS追加機能
-  - 投稿タイプ別のCSS追加機能（投稿、固定ページ、カスタム投稿タイプ）
-  - 出力位置の選択（ヘッダー/フッター）
-  - WordPress標準の追加CSSセクションを置き換え
+- Custom JavaScript functionality in Customizer
+  - Site-wide custom JS addition
+  - Post type specific JS (posts, pages, custom post types)
+  - Output position selection (header/footer)
+- Custom CSS functionality in Customizer
+  - Site-wide custom CSS addition
+  - Post type specific CSS (posts, pages, custom post types)
+  - Output position selection (header/footer)
+  - Replaced WordPress default Additional CSS section
 
 ### Improved
-- カスタマイザーメニューの並び順を論理的に整理
-  - 外観・デザイン系 → コンテンツ表示系 → 高度な設定 → カスタムコード → 開発者向けの流れ
-  - 関連性の高い項目を近くに配置
+- Logical reorganization of Customizer menu order
+  - Flow: Appearance/Design → Content Display → Advanced Settings → Custom Code → Developer
+  - Related items placed close together
 
 ## [1.0.5] - 2025-10-21
 

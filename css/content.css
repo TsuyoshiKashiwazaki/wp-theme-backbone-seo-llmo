@@ -428,3 +428,37 @@ img {
 .entry-header.no-title:empty {
     display: none;
 }
+
+/* ========================================
+   投稿日・更新日のバッジスタイル
+======================================== */
+.meta-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    margin-right: 10px;
+    margin-bottom: 4px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* 投稿日バッジ */
+.date-badge {
+    background: var(--date-badge-bg, var(--accent-color));
+    color: var(--date-badge-text, var(--badge-text-color));
+}
+
+/* 更新日バッジ */
+.modified-badge {
+    background: var(--modified-badge-bg, var(--secondary-color));
+    color: var(--modified-badge-text, var(--badge-text-color));
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .meta-badge {
+        font-size: 0.75rem;
+        padding: 2px 6px;
+    }
+}

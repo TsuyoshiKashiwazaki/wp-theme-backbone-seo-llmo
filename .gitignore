@@ -38,3 +38,7 @@ gh_*/
 
 # Debug files and directories (hidden)
 .debug-parts/CLAUDE.md
+
+# Claude Code設定
+.claude/
+CLAUDE.md

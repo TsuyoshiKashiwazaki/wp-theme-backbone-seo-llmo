@@ -64,6 +64,15 @@ function backbone_setup() {
     add_theme_support('custom-background', array(
         'default-color' => 'ffffff',
     ));
+
+    // ウィジェットブロックエディタのサポート
+    add_theme_support('widgets-block-editor');
+
+    // ブロックスタイルのサポート
+    add_theme_support('wp-block-styles');
+
+    // 外観ツールのサポート（ブロックエディタの詳細機能）
+    add_theme_support('appearance-tools');
 }
 add_action('after_setup_theme', 'backbone_setup');
 

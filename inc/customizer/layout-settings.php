@@ -81,6 +81,74 @@ function backbone_add_layout_settings($wp_customize) {
         ));
     }
 
+    // アーカイブページレイアウト設定の説明
+    $wp_customize->add_setting('archive_layout_info', array(
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('archive_layout_info', array(
+        'label'       => __('アーカイブページレイアウト設定', 'kashiwazaki-searchcraft'),
+        'section'     => 'backbone_layout',
+        'type'        => 'hidden',
+        'description' => __('各種アーカイブページのレイアウトを設定できます。', 'kashiwazaki-searchcraft'),
+    ));
+
+    // カテゴリーアーカイブレイアウト
+    $wp_customize->add_setting('post_type_layout_category', array(
+        'default'           => 'inherit',
+        'sanitize_callback' => 'backbone_sanitize_select',
+    ));
+
+    $wp_customize->add_control('post_type_layout_category', array(
+        'label'   => __('カテゴリーアーカイブ レイアウト', 'kashiwazaki-searchcraft'),
+        'section' => 'backbone_layout',
+        'type'    => 'select',
+        'choices' => backbone_get_post_type_layout_choices(),
+        'description' => __('カテゴリー一覧ページのレイアウトを設定します。', 'kashiwazaki-searchcraft'),
+    ));
+
+    // タグアーカイブレイアウト
+    $wp_customize->add_setting('post_type_layout_tag', array(
+        'default'           => 'inherit',
+        'sanitize_callback' => 'backbone_sanitize_select',
+    ));
+
+    $wp_customize->add_control('post_type_layout_tag', array(
+        'label'   => __('タグアーカイブ レイアウト', 'kashiwazaki-searchcraft'),
+        'section' => 'backbone_layout',
+        'type'    => 'select',
+        'choices' => backbone_get_post_type_layout_choices(),
+        'description' => __('タグ一覧ページのレイアウトを設定します。', 'kashiwazaki-searchcraft'),
+    ));
+
+    // その他のアーカイブレイアウト（日付、著者など）
+    $wp_customize->add_setting('post_type_layout_archive', array(
+        'default'           => 'inherit',
+        'sanitize_callback' => 'backbone_sanitize_select',
+    ));
+
+    $wp_customize->add_control('post_type_layout_archive', array(
+        'label'   => __('その他のアーカイブ レイアウト', 'kashiwazaki-searchcraft'),
+        'section' => 'backbone_layout',
+        'type'    => 'select',
+        'choices' => backbone_get_post_type_layout_choices(),
+        'description' => __('日付アーカイブ、著者アーカイブなど、その他のアーカイブページのレイアウトを設定します。', 'kashiwazaki-searchcraft'),
+    ));
+
+    // 検索結果ページレイアウト
+    $wp_customize->add_setting('post_type_layout_search', array(
+        'default'           => 'inherit',
+        'sanitize_callback' => 'backbone_sanitize_select',
+    ));
+
+    $wp_customize->add_control('post_type_layout_search', array(
+        'label'   => __('検索結果ページ レイアウト', 'kashiwazaki-searchcraft'),
+        'section' => 'backbone_layout',
+        'type'    => 'select',
+        'choices' => backbone_get_post_type_layout_choices(),
+        'description' => __('検索結果ページのレイアウトを設定します。', 'kashiwazaki-searchcraft'),
+    ));
+
     // ヘッダーメッセージ
     $wp_customize->add_setting('header_message', array(
         'default'           => '',

@@ -67,6 +67,16 @@ get_header(); ?>
                     <?php
                     // グリッド列数を取得
                     $grid_columns = get_theme_mod('archive_grid_columns', '3');
+
+                    // 並び順を取得
+                    $orderby = get_theme_mod('archive_orderby', 'date');
+
+                    // 表示要素の設定
+                    $show_thumbnail = get_theme_mod('archive_show_thumbnail', true);
+                    $show_date = get_theme_mod('archive_show_date', true);
+                    $show_modified = get_theme_mod('archive_show_modified', false);
+                    $show_category = get_theme_mod('archive_show_category', false);
+                    $show_excerpt = get_theme_mod('archive_show_excerpt', true);
                     ?>
                     <div class="archive-grid-container archive-grid-columns-<?php echo esc_attr($grid_columns); ?>">
                     <?php while (have_posts()) : ?>
@@ -76,21 +86,55 @@ get_header(); ?>
                             <header class="entry-header">
                                 <?php the_title('<h2 class="entry-title"><a href="' . esc_url(get_permalink()) . '" rel="bookmark">', '</a></h2>'); ?>
 
-                                <?php
-                                $current_post_type_obj = get_post_type_object(get_post_type());
-                                if ($current_post_type_obj && $current_post_type_obj->public) :
-                                ?>
-                                    <div class="entry-meta">
-                                        <span class="posted-on">
-                                            <time class="entry-date published" datetime="<?php echo get_the_date('c'); ?>">
-                                                <?php echo get_the_date(); ?>
-                                            </time>
-                                        </span>
-                                    </div>
+                                <?php if ($show_date || $show_modified || $show_category) : ?>
+                                    <?php
+                                    $current_post_type_obj = get_post_type_object(get_post_type());
+                                    if ($current_post_type_obj && $current_post_type_obj->public) :
+                                    ?>
+                                        <div class="entry-meta">
+                                            <?php
+                                            // 並び順に応じてバッジの表示順序を決定
+                                            if ($orderby === 'modified') {
+                                                // 更新日順の場合は更新日を先に表示
+                                                if ($show_modified) : ?>
+                                                    <time datetime="<?php echo get_the_modified_date('c'); ?>" class="meta-badge modified-badge">
+                                                        <?php echo __('更新', 'backbone-seo-llmo') . ' ' . get_the_modified_date(); ?>
+                                                    </time>
+                                                <?php endif;
+                                                if ($show_date) : ?>
+                                                    <time datetime="<?php echo get_the_date('c'); ?>" class="meta-badge date-badge">
+                                                        <?php echo __('投稿', 'backbone-seo-llmo') . ' ' . get_the_date(); ?>
+                                                    </time>
+                                                <?php endif;
+                                            } else {
+                                                // 投稿日順またはその他の場合は投稿日を先に表示
+                                                if ($show_date) : ?>
+                                                    <time datetime="<?php echo get_the_date('c'); ?>" class="meta-badge date-badge">
+                                                        <?php echo __('投稿', 'backbone-seo-llmo') . ' ' . get_the_date(); ?>
+                                                    </time>
+                                                <?php endif;
+                                                if ($show_modified) : ?>
+                                                    <time datetime="<?php echo get_the_modified_date('c'); ?>" class="meta-badge modified-badge">
+                                                        <?php echo __('更新', 'backbone-seo-llmo') . ' ' . get_the_modified_date(); ?>
+                                                    </time>
+                                                <?php endif;
+                                            }
+                                            ?>
+
+                                            <?php if ($show_category) : ?>
+                                                <?php
+                                                $categories = get_the_category();
+                                                if ($categories) {
+                                                    echo '<span class="post-category">' . esc_html($categories[0]->name) . '</span>';
+                                                }
+                                                ?>
+                                            <?php endif; ?>
+                                        </div>
+                                    <?php endif; ?>
                                 <?php endif; ?>
                             </header>
 
-                            <?php if (has_post_thumbnail()) : ?>
+                            <?php if ($show_thumbnail && has_post_thumbnail()) : ?>
                                 <div class="post-thumbnail">
                                     <a href="<?php the_permalink(); ?>">
                                         <?php the_post_thumbnail('medium'); ?>
@@ -98,9 +142,11 @@ get_header(); ?>
                                 </div>
                             <?php endif; ?>
 
-                            <div class="entry-content">
-                                <?php the_excerpt(); ?>
-                            </div>
+                            <?php if ($show_excerpt) : ?>
+                                <div class="entry-content">
+                                    <?php the_excerpt(); ?>
+                                </div>
+                            <?php endif; ?>
                         </article>
 
                     <?php endwhile; ?>

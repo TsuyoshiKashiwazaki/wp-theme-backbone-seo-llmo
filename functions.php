@@ -24,6 +24,7 @@ $inc_files = array(
     'utilities/hero-image-utilities.php', // メインビジュアル関連の関数
     'theme-setup.php',          // テーマ基本設定
     'widgets.php',              // ウィジェット関連
+    'widget-working-solution.php',  // ウィジェット実用版
     'customizer/index.php',     // カスタマイザー設定（utilities.phpの関数を使用）
     'color-file-storage.php',   // ファイルベースカラー保存
     'css-output.php',           // CSS出力関数（utilities.phpの関数を使用）
@@ -354,3 +355,28 @@ function backbone_flush_rewrite_rules_once() {
     }
 }
 add_action('init', 'backbone_flush_rewrite_rules_once', 20);
+
+/**
+ * アーカイブページのメインクエリに並び順設定を適用
+ */
+function backbone_modify_archive_query($query) {
+    // 管理画面またはメインクエリでない場合は何もしない
+    if (is_admin() || !$query->is_main_query()) {
+        return;
+    }
+
+    // アーカイブページのみ対象
+    if ($query->is_archive() || $query->is_home()) {
+        $orderby = get_theme_mod('archive_orderby', 'date');
+
+        if ($orderby && in_array($orderby, array('date', 'modified', 'rand'))) {
+            $query->set('orderby', $orderby);
+
+            // randの場合はorder指定不要、それ以外はDESC
+            if ($orderby !== 'rand') {
+                $query->set('order', 'DESC');
+            }
+        }
+    }
+}
+add_action('pre_get_posts', 'backbone_modify_archive_query');

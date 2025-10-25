@@ -343,10 +343,96 @@ function backbone_add_front_page_settings($wp_customize) {
         'priority' => 250,
         'type' => 'select',
         'choices' => array(
-            'date' => __('最新順', 'backbone-seo-llmo'),
-            'comment_count' => __('コメント数順', 'backbone-seo-llmo'),
+            'date' => __('投稿日順（新しい順）', 'backbone-seo-llmo'),
+            'modified' => __('更新日順（新しい順）', 'backbone-seo-llmo'),
             'rand' => __('ランダム', 'backbone-seo-llmo'),
         ),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_posts_enable', true);
+        },
+    ));
+
+    // --- 表示要素の制御 ---
+    $wp_customize->add_setting('backbone_front_posts_show_thumbnail', array(
+        'default' => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_posts_show_thumbnail', array(
+        'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 260,
+        'type' => 'checkbox',
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_posts_enable', true);
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_posts_show_date', array(
+        'default' => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_posts_show_date', array(
+        'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 270,
+        'type' => 'checkbox',
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_posts_enable', true);
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_posts_show_modified', array(
+        'default' => false,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_posts_show_modified', array(
+        'label' => __('更新日を表示', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 280,
+        'type' => 'checkbox',
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_posts_enable', true);
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_posts_show_category', array(
+        'default' => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_posts_show_category', array(
+        'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 290,
+        'type' => 'checkbox',
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_posts_enable', true);
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_posts_show_excerpt', array(
+        'default' => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_posts_show_excerpt', array(
+        'label' => __('抜粋を表示', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 300,
+        'type' => 'checkbox',
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
                    get_theme_mod('backbone_front_posts_enable', true);
@@ -863,7 +949,7 @@ function backbone_sanitize_posts_layout($value) {
  * @return string サニタイズ済みの値
  */
 function backbone_sanitize_posts_orderby($value) {
-    $valid_orderby = array('date', 'comment_count', 'rand');
+    $valid_orderby = array('date', 'modified', 'rand');
 
     if (in_array($value, $valid_orderby, true)) {
         return $value;
