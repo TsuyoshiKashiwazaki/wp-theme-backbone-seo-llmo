@@ -148,3 +148,75 @@ function backbone_output_default_css_variables() {
     // 強制的な変数設定を削除
     return;
 }
+
+/**
+ * 現在のアーカイブタイプを判定
+ *
+ * @return string アーカイブタイプ（category/tag/author/date/search/cpt_{post_type}/unified）
+ */
+function backbone_get_current_archive_type() {
+    if (is_category()) {
+        return 'category';
+    } elseif (is_tag()) {
+        return 'tag';
+    } elseif (is_author()) {
+        return 'author';
+    } elseif (is_date()) {
+        return 'date';
+    } elseif (is_search()) {
+        return 'search';
+    } elseif (is_post_type_archive()) {
+        $post_type = get_query_var('post_type');
+        if (is_array($post_type)) {
+            $post_type = reset($post_type);
+        }
+        return 'cpt_' . $post_type;
+    } elseif (is_tax()) {
+        // カスタムタクソノミーの場合は、関連する投稿タイプを取得
+        $tax = get_queried_object();
+        if ($tax) {
+            $taxonomies = get_object_taxonomies($tax->taxonomy, 'objects');
+            if (!empty($taxonomies)) {
+                $taxonomy_obj = reset($taxonomies);
+                if (!empty($taxonomy_obj->object_type)) {
+                    $post_type = reset($taxonomy_obj->object_type);
+                    return 'cpt_' . $post_type;
+                }
+            }
+        }
+        return 'unified';
+    }
+
+    return 'unified';
+}
+
+/**
+ * アーカイブ設定を取得（統一/個別を自動判定）
+ *
+ * @param string $key 設定キー（例: 'grid_columns', 'show_thumbnail'）
+ * @param mixed $default デフォルト値
+ * @return mixed 設定値
+ */
+function backbone_get_archive_setting($key, $default = null) {
+    // 統一設定モードをチェック
+    $use_unified = get_theme_mod('archive_use_unified_settings', true);
+
+    if ($use_unified) {
+        // 統一設定を使用
+        return get_theme_mod('archive_' . $key, $default);
+    }
+
+    // 個別設定を使用
+    $archive_type = backbone_get_current_archive_type();
+    $setting_key = 'archive_' . $archive_type . '_' . $key;
+
+    // 個別設定が存在するかチェック
+    $individual_setting = get_theme_mod($setting_key, null);
+
+    if ($individual_setting !== null) {
+        return $individual_setting;
+    }
+
+    // 個別設定が存在しない場合は統一設定にフォールバック
+    return get_theme_mod('archive_' . $key, $default);
+}

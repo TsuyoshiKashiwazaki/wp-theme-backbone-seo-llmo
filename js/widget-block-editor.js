@@ -24,8 +24,6 @@
             return;
         }
 
-        console.log('Fixing widget admin page areas...');
-
         // すべてのウィジェットエリアを強制的に開けるようにする
         const forceOpenWidgetAreas = () => {
             // すべてのパネルボディを取得
@@ -67,8 +65,6 @@
             const widgetAreas = select('core/edit-widgets')?.getWidgetAreas();
 
             if (widgetAreas && widgetAreas.length > 0) {
-                console.log('Widget areas found:', widgetAreas.length);
-
                 // 各ウィジェットエリアが正しく展開できるようにする
                 widgetAreas.forEach(area => {
                     const areaElement = document.querySelector(`[data-widget-area-id="${area.id}"]`);
@@ -170,8 +166,6 @@
 
         // カスタマイザー内での処理
         wp.customize.bind('ready', function() {
-            console.log('Customizer: Using legacy widget system');
-
             // レガシーウィジェットが正しく動作することを確認
             wp.customize.section.each(function(section) {
                 if (section.id.indexOf('sidebar-widgets-') === 0) {
@@ -195,7 +189,6 @@
             domReady(function() {
                 // backboneWidgetEditorが利用可能か確認
                 if (!window.backboneWidgetEditor) {
-                    console.error('backboneWidgetEditor data not found');
                     return;
                 }
 
@@ -289,8 +282,6 @@
      * 初期化処理
      */
     domReady(function() {
-        console.log('Widget Block Editor Extensions loaded');
-
         // ウィジェット管理画面の修正
         fixWidgetAdminPage();
         fixWidgetAreaToggle();
@@ -306,14 +297,6 @@
             fixWidgetAdminPage();
             fixWidgetAreaToggle();
         }, 1000);
-
-        // デバッグ情報
-        if (window.backboneWidgetEditor) {
-            console.log('Backbone Widget Editor Config:', {
-                isCustomizer: window.backboneWidgetEditor.isCustomizer,
-                isWidgetsScreen: window.backboneWidgetEditor.isWidgetsScreen
-            });
-        }
     });
 
 })(window.wp, window.jQuery);

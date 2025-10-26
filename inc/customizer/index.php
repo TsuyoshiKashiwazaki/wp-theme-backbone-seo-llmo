@@ -22,6 +22,7 @@ require_once get_template_directory() . '/inc/customizer/subdirectory-logos.php'
 require_once get_template_directory() . '/inc/customizer/subdirectory-design-settings.php';
 require_once get_template_directory() . '/inc/customizer/hero-image-settings.php';
 require_once get_template_directory() . '/inc/customizer/archive-settings.php';
+require_once get_template_directory() . '/inc/customizer/form-settings.php';
 require_once get_template_directory() . '/inc/customizer/front-page-settings.php';
 require_once get_template_directory() . '/inc/customizer/custom-js-settings.php';
 require_once get_template_directory() . '/inc/customizer/custom-css-settings.php';
@@ -34,6 +35,8 @@ function backbone_customize_register($wp_customize) {
     // カスタムコントロールクラスを読み込み（カスタマイザーのコンテキスト内で）
     require_once get_template_directory() . '/inc/customizer/class-wysiwyg-control.php';
     require_once get_template_directory() . '/inc/customizer/class-repeater-control.php';
+    require_once get_template_directory() . '/inc/customizer/class-heading-control.php';
+    require_once get_template_directory() . '/inc/customizer/class-section-order-control.php';
 
     // 各設定セクションを追加
     backbone_add_design_settings($wp_customize);
@@ -45,6 +48,7 @@ function backbone_customize_register($wp_customize) {
     backbone_add_subdirectory_design_settings($wp_customize);
     backbone_add_hero_image_settings($wp_customize);
     backbone_add_archive_settings($wp_customize);
+    backbone_add_form_settings($wp_customize);
     backbone_add_front_page_settings($wp_customize);
     backbone_add_custom_js_settings($wp_customize);
     backbone_add_custom_css_settings($wp_customize);
@@ -218,6 +222,20 @@ function backbone_customize_controls_js() {
         true
     );
 
+    // WordPress REST APIをエンキュー（利用可能な場合）
+    if (wp_script_is('wp-api', 'registered')) {
+        wp_enqueue_script('wp-api');
+    }
+
+    // セクション順序コントロール用JavaScript
+    wp_enqueue_script(
+        'customizer-section-order',
+        get_template_directory_uri() . '/js/customizer-section-order.js',
+        array('customize-controls', 'jquery', 'jquery-ui-sortable'),
+        '1.0.1', // バージョンアップしてキャッシュをクリア
+        true
+    );
+
     // テーマデータを確実に読み込む
     $theme_data = array();
 
@@ -288,12 +306,12 @@ function backbone_customize_styles() {
         wp_enqueue_style(
             'seo-optimus-customizer',
             get_template_directory_uri() . '/css/customizer.css',
-            array(),
+            array('customize-controls'), // 依存関係を明示
             '1.0.0'
         );
     }
 }
-add_action('customize_controls_enqueue_scripts', 'backbone_customize_styles');
+add_action('customize_controls_enqueue_scripts', 'backbone_customize_styles', 5); // 優先度を上げてCSSを先に読み込む
 
 
 

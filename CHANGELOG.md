@@ -2,6 +2,39 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.8] - 2025-10-26
+
+### Added
+- Front page section expansion
+  - List sections: 3 → 5 sections
+  - Individual article sections: 3 → 5 sections
+  - Drag & drop section ordering control
+- List section 5 filter types
+  - Category, tag, post type, author, date (current month/last month/current year/last year)
+- Archive links for list sections (on/off toggle)
+- Front page content max-width setting (0-2000px, 0 for full width)
+- Form display settings (Customizer)
+  - Padding, font size, border, spacing, textarea height, line height, max width
+  - Applied to all forms (Contact Form 7, custom forms, etc.)
+- Archive unified/individual settings switch
+  - Individual settings for category, tag, author, date, search, custom post types
+
+### Changed
+- Search results page: Same grid layout and badge-style meta info as archive pages
+- Thumbnail display: Changed from `aspect-ratio: 16/9` to `max-height: 250px` (reduced empty space)
+
+### Improved
+- Customizer heading display (better visibility)
+- JavaScript cache busting
+
+### Fixed
+- Customizer CSS: Fixed repeater control display issues (`!important` added)
+
+### Technical Details
+- New files: 8 files (custom controls: 2, settings: 2, CSS: 1, JS: 1, templates: 2)
+- Updated files: 12 files
+- Total: +2,013 additions, -315 deletions
+
 ## [1.0.7] - 2025-10-25
 
 ### Added

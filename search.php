@@ -28,6 +28,19 @@ get_header(); ?>
                 </p>
             </header>
 
+            <?php
+            // グリッド列数を取得
+            $grid_columns = backbone_get_archive_setting('grid_columns', '3');
+
+            // 表示要素の設定
+            $show_thumbnail = backbone_get_archive_setting('show_thumbnail', true);
+            $show_date = backbone_get_archive_setting('show_date', true);
+            $show_modified = backbone_get_archive_setting('show_modified', false);
+            $show_category = backbone_get_archive_setting('show_category', false);
+            $show_excerpt = backbone_get_archive_setting('show_excerpt', true);
+            ?>
+
+            <div class="archive-grid-container archive-grid-columns-<?php echo esc_attr($grid_columns); ?>">
             <?php while (have_posts()) : ?>
                 <?php the_post(); ?>
 
@@ -35,26 +48,33 @@ get_header(); ?>
                     <header class="entry-header">
                         <?php the_title('<h2 class="entry-title"><a href="' . esc_url(get_permalink()) . '" rel="bookmark">', '</a></h2>'); ?>
 
-                        <div class="entry-meta">
-                            <span class="post-type">
-                                <?php echo get_post_type_object(get_post_type())->labels->singular_name; ?>
-                            </span>
-
-                            <?php if (get_post_type() === 'post') : // 動的チェック ?>
-                                <span class="posted-on">
-                                    <time class="entry-date published" datetime="<?php echo get_the_date('c'); ?>">
-                                        <?php echo get_the_date(); ?>
+                        <?php if ($show_date || $show_modified || $show_category) : ?>
+                            <div class="entry-meta">
+                                <?php if ($show_date) : ?>
+                                    <time datetime="<?php echo get_the_date('c'); ?>" class="meta-badge date-badge">
+                                        <?php echo __('投稿', 'backbone-seo-llmo') . ' ' . get_the_date(); ?>
                                     </time>
-                                </span>
+                                <?php endif; ?>
 
-                                <span class="byline">
-                                    <?php echo __('投稿者:', 'backbone-seo-llmo') . ' ' . get_the_author(); ?>
-                                </span>
-                            <?php endif; ?>
-                        </div>
+                                <?php if ($show_modified) : ?>
+                                    <time datetime="<?php echo get_the_modified_date('c'); ?>" class="meta-badge modified-badge">
+                                        <?php echo __('更新', 'backbone-seo-llmo') . ' ' . get_the_modified_date(); ?>
+                                    </time>
+                                <?php endif; ?>
+
+                                <?php if ($show_category && get_post_type() === 'post') : ?>
+                                    <?php
+                                    $categories = get_the_category();
+                                    if ($categories) {
+                                        echo '<span class="post-category meta-badge">' . esc_html($categories[0]->name) . '</span>';
+                                    }
+                                    ?>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
                     </header>
 
-                    <?php if (has_post_thumbnail()) : ?>
+                    <?php if ($show_thumbnail && has_post_thumbnail()) : ?>
                         <div class="post-thumbnail">
                             <a href="<?php the_permalink(); ?>">
                                 <?php the_post_thumbnail('medium'); ?>
@@ -62,18 +82,15 @@ get_header(); ?>
                         </div>
                     <?php endif; ?>
 
-                    <div class="entry-content">
-                        <?php the_excerpt(); ?>
-
-                        <p class="read-more">
-                            <a href="<?php the_permalink(); ?>" class="more-link">
-                                <?php _e('続きを読む', 'backbone-seo-llmo'); ?>
-                            </a>
-                        </p>
-                    </div>
+                    <?php if ($show_excerpt) : ?>
+                        <div class="entry-content">
+                            <?php the_excerpt(); ?>
+                        </div>
+                    <?php endif; ?>
                 </article>
 
             <?php endwhile; ?>
+            </div><!-- .archive-grid-container -->
 
             <?php
             // ページネーション

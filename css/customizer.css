@@ -323,11 +323,13 @@
    ========================================================================== */
 
 .repeater-control-wrapper {
-    margin-top: 10px;
+    margin-top: 10px !important;
+    display: block !important;
 }
 
 .repeater-items-container {
-    margin-bottom: 10px;
+    margin-bottom: 10px !important;
+    display: block !important;
 }
 
 .repeater-empty-message {
@@ -448,4 +450,54 @@
     border: 2px dashed #0073aa;
     height: 50px;
     margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   セクション順序コントロール
+   ========================================================================== */
+
+.section-order-list {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.section-order-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    cursor: move;
+    transition: background 0.2s;
+}
+
+.section-order-item:hover {
+    background: #f9f9f9;
+}
+
+.section-order-handle {
+    color: #999;
+    font-size: 16px;
+}
+
+.section-order-type {
+    font-size: 18px;
+}
+
+.section-order-label {
+    flex: 1;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.section-order-placeholder {
+    background: #f0f0f1;
+    border: 2px dashed #0073aa;
+    height: 40px;
+    margin-bottom: 5px;
+    border-radius: 3px;
 }

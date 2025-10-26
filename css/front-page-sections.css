@@ -115,6 +115,13 @@
    記事一覧セクション - グリッドレイアウト
    ========================================================================== */
 
+/* 1カラムグリッド */
+.posts-layout-1col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
 /* 2カラムグリッド */
 .posts-layout-2col {
     display: grid;
@@ -122,6 +129,7 @@
     gap: 2rem;
 }
 
+.posts-layout-1col .post-item,
 .posts-layout-2col .post-item {
     background: #fff;
     border: 1px solid #e0e0e0;
@@ -130,6 +138,7 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.posts-layout-1col .post-item:hover,
 .posts-layout-2col .post-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -213,14 +222,16 @@
    記事アイテム共通（グリッド用）
    ========================================================================== */
 
+.posts-layout-1col .post-thumbnail,
 .posts-layout-2col .post-thumbnail,
 .posts-layout-3col .post-thumbnail,
 .posts-layout-4col .post-thumbnail {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    max-height: 250px;
     overflow: hidden;
 }
 
+.posts-layout-1col .post-thumbnail img,
 .posts-layout-2col .post-thumbnail img,
 .posts-layout-3col .post-thumbnail img,
 .posts-layout-4col .post-thumbnail img {
@@ -230,6 +241,7 @@
     transition: transform 0.3s ease;
 }
 
+.posts-layout-1col .post-item:hover .post-thumbnail img,
 .posts-layout-2col .post-item:hover .post-thumbnail img,
 .posts-layout-3col .post-item:hover .post-thumbnail img,
 .posts-layout-4col .post-item:hover .post-thumbnail img {
@@ -283,6 +295,27 @@
     font-size: 0.9375rem;
     line-height: 1.6;
     color: #555;
+}
+
+/* アーカイブリンク */
+.section-archive-link {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.archive-link-button {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: var(--primary-color, #0066cc);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.archive-link-button:hover {
+    background: var(--accent-color, #0052a3);
 }
 
 /* ==========================================================================
@@ -485,7 +518,9 @@
     .pickup-layout-3col,
     .pickup-layout-4col,
     .services-layout-3col,
-    .services-layout-4col {
+    .services-layout-4col,
+    .individual-layout-3col,
+    .individual-layout-4col {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -516,18 +551,23 @@
     .pickup-layout-4col,
     .services-layout-2col,
     .services-layout-3col,
-    .services-layout-4col {
+    .services-layout-4col,
+    .individual-layout-2col,
+    .individual-layout-3col,
+    .individual-layout-4col {
         grid-template-columns: 1fr;
     }
 
     /* リストレイアウトを縦並びに */
     .posts-layout-list .post-item,
-    .pickup-layout-list .pickup-item {
+    .pickup-layout-list .pickup-item,
+    .individual-layout-list .individual-item {
         flex-direction: column;
     }
 
     .posts-layout-list .post-thumbnail,
-    .pickup-layout-list .pickup-thumbnail {
+    .pickup-layout-list .pickup-thumbnail,
+    .individual-layout-list .item-thumbnail {
         width: 100%;
     }
 
@@ -564,5 +604,136 @@
 
     .service-item {
         padding: 1.5rem;
+    }
+
+    .individual-layout-2col,
+    .individual-layout-3col,
+    .individual-layout-4col {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+/* ==========================================================================
+   Individual Section (Dynamic Layout)
+   ========================================================================== */
+
+.individual-section {
+    margin-bottom: 3rem;
+}
+
+/* 1カラムレイアウト */
+.individual-layout-1col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+/* 2カラムレイアウト */
+.individual-layout-2col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+/* 3カラムレイアウト */
+.individual-layout-3col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* 4カラムレイアウト */
+.individual-layout-4col {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+/* リストレイアウト */
+.individual-layout-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.individual-layout-list .individual-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.individual-layout-list .item-thumbnail {
+    flex-shrink: 0;
+    width: 200px;
+    order: 1;
+}
+
+.individual-layout-list .item-content {
+    flex: 1;
+    order: 2;
+}
+
+.individual-item {
+    display: flex;
+    flex-direction: column;
+    background: var(--background-color);
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.individual-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.individual-item .item-thumbnail {
+    order: 1;
+}
+
+.individual-item .item-thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.individual-item .item-content {
+    order: 2;
+    padding: 1.5rem;
+}
+
+.individual-item .item-title {
+    margin: 0 0 0.75rem 0;
+    font-size: 1.25rem;
+    line-height: 1.4;
+}
+
+.individual-item .item-title a {
+    color: var(--text-primary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.individual-item .item-title a:hover {
+    color: var(--accent-color);
+}
+
+.individual-item .item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.85rem;
+}
+
+.individual-item .item-excerpt {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .individual-list {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
 }

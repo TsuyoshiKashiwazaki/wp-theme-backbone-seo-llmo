@@ -172,16 +172,69 @@ function backbone_add_front_page_settings($wp_customize) {
         },
     )));
 
-    // セクション区切り用の見出し
+    // ============================================
+    // セクション表示順序の設定
+    // ============================================
+    $wp_customize->add_setting('backbone_front_sections_order', array(
+        'default' => '["list_1","individual_1","list_2","individual_2","list_3","individual_3","list_4","individual_4","list_5","individual_5"]',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new Backbone_Customize_Section_Order_Control($wp_customize, 'backbone_front_sections_order', array(
+        'label' => __('🔀 セクション表示順序', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 73,
+        'description' => __('ドラッグ&ドロップでセクションの表示順序を変更できます。', 'backbone-seo-llmo'),
+        'sections' => array(
+            'list_1' => array('label' => '一覧表示セクション 1', 'type' => '📰'),
+            'list_2' => array('label' => '一覧表示セクション 2', 'type' => '📰'),
+            'list_3' => array('label' => '一覧表示セクション 3', 'type' => '📰'),
+            'list_4' => array('label' => '一覧表示セクション 4', 'type' => '📰'),
+            'list_5' => array('label' => '一覧表示セクション 5', 'type' => '📰'),
+            'individual_1' => array('label' => '個別記事セクション 1', 'type' => '⭐'),
+            'individual_2' => array('label' => '個別記事セクション 2', 'type' => '⭐'),
+            'individual_3' => array('label' => '個別記事セクション 3', 'type' => '⭐'),
+            'individual_4' => array('label' => '個別記事セクション 4', 'type' => '⭐'),
+            'individual_5' => array('label' => '個別記事セクション 5', 'type' => '⭐'),
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
+        },
+    )));
+
+    // セクション区切り用の見出し（descriptionを使用）
     $wp_customize->add_setting('backbone_front_free_section_divider', array(
         'sanitize_callback' => '__return_false',
     ));
 
-    $wp_customize->add_control('backbone_front_free_section_divider', array(
+    $wp_customize->add_control(new Backbone_Customize_Heading_Control($wp_customize, 'backbone_front_free_section_divider', array(
         'label' => __('📝 フリーコンテンツエリア', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'type' => 'hidden',
         'priority' => 74,
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
+        },
+    )));
+
+    // --- コンテンツ最大幅 ---
+    $wp_customize->add_setting('backbone_front_content_max_width', array(
+        'default' => 1200,
+        'sanitize_callback' => 'absint',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_content_max_width', array(
+        'label' => __('コンテンツ最大幅 (px)', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 72,
+        'type' => 'number',
+        'input_attrs' => array(
+            'min' => 0,
+            'max' => 2000,
+            'step' => 50,
+        ),
+        'description' => __('セクションの最大幅を設定します。0で全幅表示。初期値: 1200px', 'backbone-seo-llmo'),
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
         },
@@ -209,452 +262,1153 @@ function backbone_add_front_page_settings($wp_customize) {
     )));
 
     // ============================================
-    // D. 記事一覧セクション
+    // D. 一覧表示セクション（リピーター）
     // ============================================
 
     // セクション区切り用の見出し
-    $wp_customize->add_setting('backbone_front_posts_section_divider', array(
+    $wp_customize->add_setting('backbone_front_list_sections_divider', array(
         'sanitize_callback' => '__return_false',
     ));
 
-    $wp_customize->add_control('backbone_front_posts_section_divider', array(
-        'label' => __('📰 記事一覧セクション', 'backbone-seo-llmo'),
+    $wp_customize->add_control(new Backbone_Customize_Heading_Control($wp_customize, 'backbone_front_list_sections_divider', array(
+        'label' => __('📰 一覧表示セクション（最大5つ）', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'type' => 'hidden',
         'priority' => 197,
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
         },
-    ));
+    )));
 
-    // --- 記事一覧セクション表示 ---
-    $wp_customize->add_setting('backbone_front_posts_enable', array(
-        'default' => true,
+    // --- 一覧表示セクション 1 ---
+    // 有効/無効
+    $wp_customize->add_setting('backbone_front_list_1_enable', array(
+        'default' => false,
         'sanitize_callback' => 'rest_sanitize_boolean',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control('backbone_front_posts_enable', array(
-        'label' => __('記事一覧セクションを表示', 'backbone-seo-llmo'),
+    $wp_customize->add_control('backbone_front_list_1_enable', array(
+        'label' => __('一覧表示セクション 1 を有効化', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 200,
+        'priority' => 198,
         'type' => 'checkbox',
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
         },
     ));
 
-    // --- 記事一覧セクションタイトル ---
-    $wp_customize->add_setting('backbone_front_posts_title', array(
-        'default' => __('最新記事', 'backbone-seo-llmo'),
-        'sanitize_callback' => 'sanitize_text_field',
+    // セクション1のリピーター
+    $wp_customize->add_setting('backbone_front_list_sections_1', array(
+        'default' => '',
+        'sanitize_callback' => 'backbone_sanitize_list_sections_json',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control('backbone_front_posts_title', array(
-        'label' => __('記事一覧セクションタイトル', 'backbone-seo-llmo'),
+    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_list_sections_1', array(
+        'label' => __('一覧表示セクション 1', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 210,
-        'type' => 'text',
-        'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_posts_enable', true);
-        },
-    ));
-
-    // --- 記事表示件数 ---
-    $wp_customize->add_setting('backbone_front_posts_count', array(
-        'default' => '6',
-        'sanitize_callback' => 'absint',
-        'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control('backbone_front_posts_count', array(
-        'label' => __('表示件数', 'backbone-seo-llmo'),
-        'section' => 'static_front_page',
-        'priority' => 220,
-        'type' => 'select',
-        'choices' => array(
-            '3' => '3件',
-            '6' => '6件',
-            '9' => '9件',
-            '12' => '12件',
+        'priority' => 199,
+        'description' => __('記事一覧を表示します。', 'backbone-seo-llmo'),
+        'add_button_label' => __('記事を追加', 'backbone-seo-llmo'),
+        'fields' => array(
+            'title' => array(
+                'type' => 'text',
+                'label' => __('セクションタイトル', 'backbone-seo-llmo'),
+            ),
+            'count' => array(
+                'type' => 'number',
+                'label' => __('表示件数', 'backbone-seo-llmo'),
+            ),
+            'display_type' => array(
+                'type' => 'select',
+                'label' => __('表示対象', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'category' => __('カテゴリー', 'backbone-seo-llmo'),
+                    'tag' => __('タグ', 'backbone-seo-llmo'),
+                    'post_type' => __('投稿タイプ', 'backbone-seo-llmo'),
+                    'author' => __('作成者', 'backbone-seo-llmo'),
+                    'date' => __('期間', 'backbone-seo-llmo'),
+                ),
+            ),
+            'category' => array(
+                'type' => 'select',
+                'label' => __('カテゴリー', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全カテゴリー', 'backbone-seo-llmo')),
+            ),
+            'tag' => array(
+                'type' => 'select',
+                'label' => __('タグ', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全タグ', 'backbone-seo-llmo')),
+            ),
+            'post_type_filter' => array(
+                'type' => 'select',
+                'label' => __('投稿タイプ', 'backbone-seo-llmo'),
+                'choices' => array('post' => __('投稿', 'backbone-seo-llmo')),
+            ),
+            'author' => array(
+                'type' => 'select',
+                'label' => __('作成者', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全作成者', 'backbone-seo-llmo')),
+            ),
+            'date_range' => array(
+                'type' => 'select',
+                'label' => __('期間', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'current_month' => __('今月', 'backbone-seo-llmo'),
+                    'last_month' => __('先月', 'backbone-seo-llmo'),
+                    'current_year' => __('今年', 'backbone-seo-llmo'),
+                    'last_year' => __('昨年', 'backbone-seo-llmo'),
+                ),
+            ),
+            'layout' => array(
+                'type' => 'select',
+                'label' => __('レイアウト', 'backbone-seo-llmo'),
+                'choices' => array(
+                    '1col' => __('1カラム', 'backbone-seo-llmo'),
+                    '2col' => __('2カラム', 'backbone-seo-llmo'),
+                    '3col' => __('3カラム', 'backbone-seo-llmo'),
+                    '4col' => __('4カラム', 'backbone-seo-llmo'),
+                    'list' => __('リスト', 'backbone-seo-llmo'),
+                ),
+            ),
+            'orderby' => array(
+                'type' => 'select',
+                'label' => __('並び順', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'date' => __('投稿日順（新しい順）', 'backbone-seo-llmo'),
+                    'modified' => __('更新日順（新しい順）', 'backbone-seo-llmo'),
+                    'rand' => __('ランダム', 'backbone-seo-llmo'),
+                ),
+            ),
+            'show_thumbnail' => array(
+                'type' => 'checkbox',
+                'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'show_date' => array(
+                'type' => 'checkbox',
+                'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_modified' => array(
+                'type' => 'checkbox',
+                'label' => __('更新日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_category' => array(
+                'type' => 'checkbox',
+                'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+            ),
+            'show_excerpt' => array(
+                'type' => 'checkbox',
+                'label' => __('抜粋を表示', 'backbone-seo-llmo'),
+            ),
+            'show_archive_link' => array(
+                'type' => 'checkbox',
+                'label' => __('一覧表示リンクを表示', 'backbone-seo-llmo'),
+            ),
         ),
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_posts_enable', true);
+                   get_theme_mod('backbone_front_list_1_enable', false);
         },
-    ));
+    )));
 
-    // --- カテゴリー選択 ---
-    $wp_customize->add_setting('backbone_front_posts_category', array(
-        'default' => '0',
-        'sanitize_callback' => 'absint',
-        'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control('backbone_front_posts_category', array(
-        'label' => __('カテゴリー', 'backbone-seo-llmo'),
-        'section' => 'static_front_page',
-        'priority' => 230,
-        'type' => 'select',
-        'choices' => backbone_get_categories_for_dropdown(),
-        'description' => __('特定のカテゴリーの記事のみ表示する場合は選択してください。', 'backbone-seo-llmo'),
-        'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_posts_enable', true);
-        },
-    ));
-
-    // --- レイアウト選択 ---
-    $wp_customize->add_setting('backbone_front_posts_layout', array(
-        'default' => '3col',
-        'sanitize_callback' => 'backbone_sanitize_layout_unified',
-        'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control('backbone_front_posts_layout', array(
-        'label' => __('レイアウト', 'backbone-seo-llmo'),
-        'section' => 'static_front_page',
-        'priority' => 240,
-        'type' => 'select',
-        'choices' => array(
-            '2col' => __('2カラム', 'backbone-seo-llmo'),
-            '3col' => __('3カラム', 'backbone-seo-llmo'),
-            '4col' => __('4カラム', 'backbone-seo-llmo'),
-            'list' => __('リスト', 'backbone-seo-llmo'),
-        ),
-        'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_posts_enable', true);
-        },
-    ));
-
-    // --- 並び順選択 ---
-    $wp_customize->add_setting('backbone_front_posts_orderby', array(
-        'default' => 'date',
-        'sanitize_callback' => 'backbone_sanitize_posts_orderby',
-        'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control('backbone_front_posts_orderby', array(
-        'label' => __('並び順', 'backbone-seo-llmo'),
-        'section' => 'static_front_page',
-        'priority' => 250,
-        'type' => 'select',
-        'choices' => array(
-            'date' => __('投稿日順（新しい順）', 'backbone-seo-llmo'),
-            'modified' => __('更新日順（新しい順）', 'backbone-seo-llmo'),
-            'rand' => __('ランダム', 'backbone-seo-llmo'),
-        ),
-        'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_posts_enable', true);
-        },
-    ));
-
-    // --- 表示要素の制御 ---
-    $wp_customize->add_setting('backbone_front_posts_show_thumbnail', array(
-        'default' => true,
-        'sanitize_callback' => 'rest_sanitize_boolean',
-        'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control('backbone_front_posts_show_thumbnail', array(
-        'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
-        'section' => 'static_front_page',
-        'priority' => 260,
-        'type' => 'checkbox',
-        'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_posts_enable', true);
-        },
-    ));
-
-    $wp_customize->add_setting('backbone_front_posts_show_date', array(
-        'default' => true,
-        'sanitize_callback' => 'rest_sanitize_boolean',
-        'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control('backbone_front_posts_show_date', array(
-        'label' => __('投稿日を表示', 'backbone-seo-llmo'),
-        'section' => 'static_front_page',
-        'priority' => 270,
-        'type' => 'checkbox',
-        'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_posts_enable', true);
-        },
-    ));
-
-    $wp_customize->add_setting('backbone_front_posts_show_modified', array(
+    // --- 一覧表示セクション 2 ---
+    $wp_customize->add_setting('backbone_front_list_2_enable', array(
         'default' => false,
         'sanitize_callback' => 'rest_sanitize_boolean',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control('backbone_front_posts_show_modified', array(
-        'label' => __('更新日を表示', 'backbone-seo-llmo'),
+    $wp_customize->add_control('backbone_front_list_2_enable', array(
+        'label' => __('一覧表示セクション 2 を有効化', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 280,
+        'priority' => 201,
         'type' => 'checkbox',
         'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_posts_enable', true);
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
         },
     ));
 
-    $wp_customize->add_setting('backbone_front_posts_show_category', array(
-        'default' => true,
+    $wp_customize->add_setting('backbone_front_list_sections_2', array(
+        'default' => '',
+        'sanitize_callback' => 'backbone_sanitize_list_sections_json',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_list_sections_2', array(
+        'label' => __('一覧表示セクション 2', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 202,
+        'description' => __('記事一覧を表示します。', 'backbone-seo-llmo'),
+        'add_button_label' => __('記事を追加', 'backbone-seo-llmo'),
+        'fields' => array(
+            'title' => array(
+                'type' => 'text',
+                'label' => __('セクションタイトル', 'backbone-seo-llmo'),
+            ),
+            'count' => array(
+                'type' => 'number',
+                'label' => __('表示件数', 'backbone-seo-llmo'),
+            ),
+            'display_type' => array(
+                'type' => 'select',
+                'label' => __('表示対象', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'category' => __('カテゴリー', 'backbone-seo-llmo'),
+                    'tag' => __('タグ', 'backbone-seo-llmo'),
+                    'post_type' => __('投稿タイプ', 'backbone-seo-llmo'),
+                    'author' => __('作成者', 'backbone-seo-llmo'),
+                    'date' => __('期間', 'backbone-seo-llmo'),
+                ),
+            ),
+            'category' => array(
+                'type' => 'select',
+                'label' => __('カテゴリー', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全カテゴリー', 'backbone-seo-llmo')),
+            ),
+            'tag' => array(
+                'type' => 'select',
+                'label' => __('タグ', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全タグ', 'backbone-seo-llmo')),
+            ),
+            'post_type_filter' => array(
+                'type' => 'select',
+                'label' => __('投稿タイプ', 'backbone-seo-llmo'),
+                'choices' => array('post' => __('投稿', 'backbone-seo-llmo')),
+            ),
+            'author' => array(
+                'type' => 'select',
+                'label' => __('作成者', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全作成者', 'backbone-seo-llmo')),
+            ),
+            'date_range' => array(
+                'type' => 'select',
+                'label' => __('期間', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'current_month' => __('今月', 'backbone-seo-llmo'),
+                    'last_month' => __('先月', 'backbone-seo-llmo'),
+                    'current_year' => __('今年', 'backbone-seo-llmo'),
+                    'last_year' => __('昨年', 'backbone-seo-llmo'),
+                ),
+            ),
+            'layout' => array(
+                'type' => 'select',
+                'label' => __('レイアウト', 'backbone-seo-llmo'),
+                'choices' => array(
+                    '1col' => __('1カラム', 'backbone-seo-llmo'),
+                    '2col' => __('2カラム', 'backbone-seo-llmo'),
+                    '3col' => __('3カラム', 'backbone-seo-llmo'),
+                    '4col' => __('4カラム', 'backbone-seo-llmo'),
+                    'list' => __('リスト', 'backbone-seo-llmo'),
+                ),
+            ),
+            'orderby' => array(
+                'type' => 'select',
+                'label' => __('並び順', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'date' => __('投稿日順（新しい順）', 'backbone-seo-llmo'),
+                    'modified' => __('更新日順（新しい順）', 'backbone-seo-llmo'),
+                    'rand' => __('ランダム', 'backbone-seo-llmo'),
+                ),
+            ),
+            'show_thumbnail' => array(
+                'type' => 'checkbox',
+                'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'show_date' => array(
+                'type' => 'checkbox',
+                'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_modified' => array(
+                'type' => 'checkbox',
+                'label' => __('更新日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_category' => array(
+                'type' => 'checkbox',
+                'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+            ),
+            'show_excerpt' => array(
+                'type' => 'checkbox',
+                'label' => __('抜粋を表示', 'backbone-seo-llmo'),
+            ),
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_list_2_enable', false);
+        },
+    )));
+
+    // Note: show_archive_link already added above for sections 1-5
+
+    // --- 一覧表示セクション 3 ---
+    $wp_customize->add_setting('backbone_front_list_3_enable', array(
+        'default' => false,
         'sanitize_callback' => 'rest_sanitize_boolean',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control('backbone_front_posts_show_category', array(
-        'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+    $wp_customize->add_control('backbone_front_list_3_enable', array(
+        'label' => __('一覧表示セクション 3 を有効化', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 290,
+        'priority' => 203,
         'type' => 'checkbox',
         'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_posts_enable', true);
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
         },
     ));
 
-    $wp_customize->add_setting('backbone_front_posts_show_excerpt', array(
-        'default' => true,
+    $wp_customize->add_setting('backbone_front_list_sections_3', array(
+        'default' => '',
+        'sanitize_callback' => 'backbone_sanitize_list_sections_json',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_list_sections_3', array(
+        'label' => __('一覧表示セクション 3', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 204,
+        'description' => __('記事一覧を表示します。', 'backbone-seo-llmo'),
+        'add_button_label' => __('記事を追加', 'backbone-seo-llmo'),
+        'fields' => array(
+            'title' => array(
+                'type' => 'text',
+                'label' => __('セクションタイトル', 'backbone-seo-llmo'),
+            ),
+            'count' => array(
+                'type' => 'number',
+                'label' => __('表示件数', 'backbone-seo-llmo'),
+            ),
+            'display_type' => array(
+                'type' => 'select',
+                'label' => __('表示対象', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'category' => __('カテゴリー', 'backbone-seo-llmo'),
+                    'tag' => __('タグ', 'backbone-seo-llmo'),
+                    'post_type' => __('投稿タイプ', 'backbone-seo-llmo'),
+                    'author' => __('作成者', 'backbone-seo-llmo'),
+                    'date' => __('期間', 'backbone-seo-llmo'),
+                ),
+            ),
+            'category' => array(
+                'type' => 'select',
+                'label' => __('カテゴリー', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全カテゴリー', 'backbone-seo-llmo')),
+            ),
+            'tag' => array(
+                'type' => 'select',
+                'label' => __('タグ', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全タグ', 'backbone-seo-llmo')),
+            ),
+            'post_type_filter' => array(
+                'type' => 'select',
+                'label' => __('投稿タイプ', 'backbone-seo-llmo'),
+                'choices' => array('post' => __('投稿', 'backbone-seo-llmo')),
+            ),
+            'author' => array(
+                'type' => 'select',
+                'label' => __('作成者', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全作成者', 'backbone-seo-llmo')),
+            ),
+            'date_range' => array(
+                'type' => 'select',
+                'label' => __('期間', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'current_month' => __('今月', 'backbone-seo-llmo'),
+                    'last_month' => __('先月', 'backbone-seo-llmo'),
+                    'current_year' => __('今年', 'backbone-seo-llmo'),
+                    'last_year' => __('昨年', 'backbone-seo-llmo'),
+                ),
+            ),
+            'layout' => array(
+                'type' => 'select',
+                'label' => __('レイアウト', 'backbone-seo-llmo'),
+                'choices' => array(
+                    '1col' => __('1カラム', 'backbone-seo-llmo'),
+                    '2col' => __('2カラム', 'backbone-seo-llmo'),
+                    '3col' => __('3カラム', 'backbone-seo-llmo'),
+                    '4col' => __('4カラム', 'backbone-seo-llmo'),
+                    'list' => __('リスト', 'backbone-seo-llmo'),
+                ),
+            ),
+            'orderby' => array(
+                'type' => 'select',
+                'label' => __('並び順', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'date' => __('投稿日順（新しい順）', 'backbone-seo-llmo'),
+                    'modified' => __('更新日順（新しい順）', 'backbone-seo-llmo'),
+                    'rand' => __('ランダム', 'backbone-seo-llmo'),
+                ),
+            ),
+            'show_thumbnail' => array(
+                'type' => 'checkbox',
+                'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'show_date' => array(
+                'type' => 'checkbox',
+                'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_modified' => array(
+                'type' => 'checkbox',
+                'label' => __('更新日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_category' => array(
+                'type' => 'checkbox',
+                'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+            ),
+            'show_excerpt' => array(
+                'type' => 'checkbox',
+                'label' => __('抜粋を表示', 'backbone-seo-llmo'),
+            ),
+            'show_archive_link' => array(
+                'type' => 'checkbox',
+                'label' => __('一覧表示リンクを表示', 'backbone-seo-llmo'),
+            ),
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_list_3_enable', false);
+        },
+    )));
+
+    // --- 一覧表示セクション 4 ---
+    $wp_customize->add_setting('backbone_front_list_4_enable', array(
+        'default' => false,
         'sanitize_callback' => 'rest_sanitize_boolean',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control('backbone_front_posts_show_excerpt', array(
-        'label' => __('抜粋を表示', 'backbone-seo-llmo'),
+    $wp_customize->add_control('backbone_front_list_4_enable', array(
+        'label' => __('一覧表示セクション 4 を有効化', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 300,
+        'priority' => 205,
         'type' => 'checkbox',
         'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_posts_enable', true);
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
         },
     ));
+
+    $wp_customize->add_setting('backbone_front_list_sections_4', array(
+        'default' => '',
+        'sanitize_callback' => 'backbone_sanitize_list_sections_json',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_list_sections_4', array(
+        'label' => __('一覧表示セクション 4', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 206,
+        'description' => __('記事一覧を表示します。', 'backbone-seo-llmo'),
+        'add_button_label' => __('記事を追加', 'backbone-seo-llmo'),
+        'fields' => array(
+            'title' => array(
+                'type' => 'text',
+                'label' => __('セクションタイトル', 'backbone-seo-llmo'),
+            ),
+            'count' => array(
+                'type' => 'number',
+                'label' => __('表示件数', 'backbone-seo-llmo'),
+            ),
+            'display_type' => array(
+                'type' => 'select',
+                'label' => __('表示対象', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'category' => __('カテゴリー', 'backbone-seo-llmo'),
+                    'tag' => __('タグ', 'backbone-seo-llmo'),
+                    'post_type' => __('投稿タイプ', 'backbone-seo-llmo'),
+                    'author' => __('作成者', 'backbone-seo-llmo'),
+                    'date' => __('期間', 'backbone-seo-llmo'),
+                ),
+            ),
+            'category' => array(
+                'type' => 'select',
+                'label' => __('カテゴリー', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全カテゴリー', 'backbone-seo-llmo')),
+            ),
+            'tag' => array(
+                'type' => 'select',
+                'label' => __('タグ', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全タグ', 'backbone-seo-llmo')),
+            ),
+            'post_type_filter' => array(
+                'type' => 'select',
+                'label' => __('投稿タイプ', 'backbone-seo-llmo'),
+                'choices' => array('post' => __('投稿', 'backbone-seo-llmo')),
+            ),
+            'author' => array(
+                'type' => 'select',
+                'label' => __('作成者', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全作成者', 'backbone-seo-llmo')),
+            ),
+            'date_range' => array(
+                'type' => 'select',
+                'label' => __('期間', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'current_month' => __('今月', 'backbone-seo-llmo'),
+                    'last_month' => __('先月', 'backbone-seo-llmo'),
+                    'current_year' => __('今年', 'backbone-seo-llmo'),
+                    'last_year' => __('昨年', 'backbone-seo-llmo'),
+                ),
+            ),
+            'layout' => array(
+                'type' => 'select',
+                'label' => __('レイアウト', 'backbone-seo-llmo'),
+                'choices' => array(
+                    '1col' => __('1カラム', 'backbone-seo-llmo'),
+                    '2col' => __('2カラム', 'backbone-seo-llmo'),
+                    '3col' => __('3カラム', 'backbone-seo-llmo'),
+                    '4col' => __('4カラム', 'backbone-seo-llmo'),
+                    'list' => __('リスト', 'backbone-seo-llmo'),
+                ),
+            ),
+            'orderby' => array(
+                'type' => 'select',
+                'label' => __('並び順', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'date' => __('投稿日順（新しい順）', 'backbone-seo-llmo'),
+                    'modified' => __('更新日順（新しい順）', 'backbone-seo-llmo'),
+                    'rand' => __('ランダム', 'backbone-seo-llmo'),
+                ),
+            ),
+            'show_thumbnail' => array(
+                'type' => 'checkbox',
+                'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'show_date' => array(
+                'type' => 'checkbox',
+                'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_modified' => array(
+                'type' => 'checkbox',
+                'label' => __('更新日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_category' => array(
+                'type' => 'checkbox',
+                'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+            ),
+            'show_excerpt' => array(
+                'type' => 'checkbox',
+                'label' => __('抜粋を表示', 'backbone-seo-llmo'),
+            ),
+            'show_archive_link' => array(
+                'type' => 'checkbox',
+                'label' => __('一覧表示リンクを表示', 'backbone-seo-llmo'),
+            ),
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_list_4_enable', false);
+        },
+    )));
+
+    // --- 一覧表示セクション 5 ---
+    $wp_customize->add_setting('backbone_front_list_5_enable', array(
+        'default' => false,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_list_5_enable', array(
+        'label' => __('一覧表示セクション 5 を有効化', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 207,
+        'type' => 'checkbox',
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_list_sections_5', array(
+        'default' => '',
+        'sanitize_callback' => 'backbone_sanitize_list_sections_json',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_list_sections_5', array(
+        'label' => __('一覧表示セクション 5', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 208,
+        'description' => __('記事一覧を表示します。', 'backbone-seo-llmo'),
+        'add_button_label' => __('記事を追加', 'backbone-seo-llmo'),
+        'fields' => array(
+            'title' => array(
+                'type' => 'text',
+                'label' => __('セクションタイトル', 'backbone-seo-llmo'),
+            ),
+            'count' => array(
+                'type' => 'number',
+                'label' => __('表示件数', 'backbone-seo-llmo'),
+            ),
+            'display_type' => array(
+                'type' => 'select',
+                'label' => __('表示対象', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'category' => __('カテゴリー', 'backbone-seo-llmo'),
+                    'tag' => __('タグ', 'backbone-seo-llmo'),
+                    'post_type' => __('投稿タイプ', 'backbone-seo-llmo'),
+                    'author' => __('作成者', 'backbone-seo-llmo'),
+                    'date' => __('期間', 'backbone-seo-llmo'),
+                ),
+            ),
+            'category' => array(
+                'type' => 'select',
+                'label' => __('カテゴリー', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全カテゴリー', 'backbone-seo-llmo')),
+            ),
+            'tag' => array(
+                'type' => 'select',
+                'label' => __('タグ', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全タグ', 'backbone-seo-llmo')),
+            ),
+            'post_type_filter' => array(
+                'type' => 'select',
+                'label' => __('投稿タイプ', 'backbone-seo-llmo'),
+                'choices' => array('post' => __('投稿', 'backbone-seo-llmo')),
+            ),
+            'author' => array(
+                'type' => 'select',
+                'label' => __('作成者', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('全作成者', 'backbone-seo-llmo')),
+            ),
+            'date_range' => array(
+                'type' => 'select',
+                'label' => __('期間', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'current_month' => __('今月', 'backbone-seo-llmo'),
+                    'last_month' => __('先月', 'backbone-seo-llmo'),
+                    'current_year' => __('今年', 'backbone-seo-llmo'),
+                    'last_year' => __('昨年', 'backbone-seo-llmo'),
+                ),
+            ),
+            'layout' => array(
+                'type' => 'select',
+                'label' => __('レイアウト', 'backbone-seo-llmo'),
+                'choices' => array(
+                    '1col' => __('1カラム', 'backbone-seo-llmo'),
+                    '2col' => __('2カラム', 'backbone-seo-llmo'),
+                    '3col' => __('3カラム', 'backbone-seo-llmo'),
+                    '4col' => __('4カラム', 'backbone-seo-llmo'),
+                    'list' => __('リスト', 'backbone-seo-llmo'),
+                ),
+            ),
+            'orderby' => array(
+                'type' => 'select',
+                'label' => __('並び順', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'date' => __('投稿日順（新しい順）', 'backbone-seo-llmo'),
+                    'modified' => __('更新日順（新しい順）', 'backbone-seo-llmo'),
+                    'rand' => __('ランダム', 'backbone-seo-llmo'),
+                ),
+            ),
+            'show_thumbnail' => array(
+                'type' => 'checkbox',
+                'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'show_date' => array(
+                'type' => 'checkbox',
+                'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_modified' => array(
+                'type' => 'checkbox',
+                'label' => __('更新日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_category' => array(
+                'type' => 'checkbox',
+                'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+            ),
+            'show_excerpt' => array(
+                'type' => 'checkbox',
+                'label' => __('抜粋を表示', 'backbone-seo-llmo'),
+            ),
+            'show_archive_link' => array(
+                'type' => 'checkbox',
+                'label' => __('一覧表示リンクを表示', 'backbone-seo-llmo'),
+            ),
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_list_5_enable', false);
+        },
+    )));
 
     // ============================================
-    // E. 特集・ピックアップセクション
+    // E. 個別記事セクション（最大3つ）
     // ============================================
 
     // セクション区切り用の見出し
-    $wp_customize->add_setting('backbone_front_pickup_section_divider', array(
+    $wp_customize->add_setting('backbone_front_individual_sections_divider', array(
         'sanitize_callback' => '__return_false',
     ));
 
-    $wp_customize->add_control('backbone_front_pickup_section_divider', array(
-        'label' => __('⭐ 特集・ピックアップセクション', 'backbone-seo-llmo'),
+    $wp_customize->add_control(new Backbone_Customize_Heading_Control($wp_customize, 'backbone_front_individual_sections_divider', array(
+        'label' => __('⭐ 個別記事セクション（最大5つ）', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'type' => 'hidden',
         'priority' => 298,
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
         },
-    ));
+    )));
 
-    // --- ピックアップセクション表示 ---
-    $wp_customize->add_setting('backbone_front_pickup_enable', array(
+    // --- 個別記事セクション 1 ---
+    $wp_customize->add_setting('backbone_front_individual_1_enable', array(
         'default' => false,
         'sanitize_callback' => 'rest_sanitize_boolean',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control('backbone_front_pickup_enable', array(
-        'label' => __('特集・ピックアップセクションを表示', 'backbone-seo-llmo'),
+    $wp_customize->add_control('backbone_front_individual_1_enable', array(
+        'label' => __('個別記事セクション 1 を有効化', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 300,
+        'priority' => 299,
         'type' => 'checkbox',
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
         },
     ));
 
-    // --- ピックアップセクションタイトル ---
-    $wp_customize->add_setting('backbone_front_pickup_title', array(
-        'default' => __('特集記事', 'backbone-seo-llmo'),
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control('backbone_front_pickup_title', array(
-        'label' => __('ピックアップセクションタイトル', 'backbone-seo-llmo'),
-        'section' => 'static_front_page',
-        'priority' => 310,
-        'type' => 'text',
-        'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_pickup_enable', false);
-        },
-    ));
-
-    // --- ピックアップレイアウト ---
-    $wp_customize->add_setting('backbone_front_pickup_layout', array(
-        'default' => '3col',
+    // --- 個別記事セクション 1 のレイアウト ---
+    $wp_customize->add_setting('backbone_front_individual_1_layout', array(
+        'default' => '2col',
         'sanitize_callback' => 'backbone_sanitize_layout_unified',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control('backbone_front_pickup_layout', array(
+    $wp_customize->add_control('backbone_front_individual_1_layout', array(
         'label' => __('レイアウト', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 311,
+        'priority' => 300,
         'type' => 'select',
         'choices' => array(
+            '1col' => __('1カラム', 'backbone-seo-llmo'),
             '2col' => __('2カラム', 'backbone-seo-llmo'),
             '3col' => __('3カラム', 'backbone-seo-llmo'),
             '4col' => __('4カラム', 'backbone-seo-llmo'),
             'list' => __('リスト', 'backbone-seo-llmo'),
         ),
+        'description' => __('個別記事セクション 1 のレイアウトを選択します。', 'backbone-seo-llmo'),
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_pickup_enable', false);
+                   get_theme_mod('backbone_front_individual_1_enable', false);
         },
     ));
 
-    // --- ピックアップ記事（リピーター） ---
-    $wp_customize->add_setting('backbone_front_pickup_items', array(
+    // --- 個別記事セクション 1 ---
+    $wp_customize->add_setting('backbone_front_individual_sections_1', array(
         'default' => '',
-        'sanitize_callback' => 'backbone_sanitize_repeater_json',
+        'sanitize_callback' => 'backbone_sanitize_individual_sections_json',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_pickup_items', array(
-        'label' => __('ピックアップ記事', 'backbone-seo-llmo'),
+    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_individual_sections_1', array(
+        'label' => __('個別記事セクション 1', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 312,
-        'description' => __('表示する記事を追加してください。', 'backbone-seo-llmo'),
+        'priority' => 301,
+        'description' => __('特定の記事を選択して表示します。', 'backbone-seo-llmo'),
         'add_button_label' => __('記事を追加', 'backbone-seo-llmo'),
         'fields' => array(
+            'post_type' => array(
+                'type' => 'select',
+                'label' => __('投稿タイプ', 'backbone-seo-llmo'),
+                'choices' => array('post' => __('投稿', 'backbone-seo-llmo'), 'page' => __('固定ページ', 'backbone-seo-llmo')),  // デフォルト値を設定
+            ),
             'post_id' => array(
                 'type' => 'select',
                 'label' => __('記事を選択', 'backbone-seo-llmo'),
-                'choices' => backbone_get_all_posts_for_dropdown(),
+                'choices' => array(0 => __('— 選択してください —', 'backbone-seo-llmo')),  // デフォルト値を設定
+            ),
+            'show_thumbnail' => array(
+                'type' => 'checkbox',
+                'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'show_date' => array(
+                'type' => 'checkbox',
+                'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_modified' => array(
+                'type' => 'checkbox',
+                'label' => __('更新日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_category' => array(
+                'type' => 'checkbox',
+                'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+            ),
+            'show_excerpt' => array(
+                'type' => 'checkbox',
+                'label' => __('抜粋を表示', 'backbone-seo-llmo'),
             ),
         ),
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_pickup_enable', false);
+                   get_theme_mod('backbone_front_individual_1_enable', false);
         },
     )));
 
-    // ============================================
-    // F. サービス・機能紹介セクション
-    // ============================================
-
-    // セクション区切り用の見出し
-    $wp_customize->add_setting('backbone_front_services_section_divider', array(
-        'sanitize_callback' => '__return_false',
-    ));
-
-    $wp_customize->add_control('backbone_front_services_section_divider', array(
-        'label' => __('🔧 サービス・機能紹介セクション', 'backbone-seo-llmo'),
-        'section' => 'static_front_page',
-        'type' => 'hidden',
-        'priority' => 398,
-        'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
-        },
-    ));
-
-    // --- サービスセクション表示 ---
-    $wp_customize->add_setting('backbone_front_services_enable', array(
+    // --- 個別記事セクション 2 ---
+    $wp_customize->add_setting('backbone_front_individual_2_enable', array(
         'default' => false,
         'sanitize_callback' => 'rest_sanitize_boolean',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control('backbone_front_services_enable', array(
-        'label' => __('サービス・機能紹介セクションを表示', 'backbone-seo-llmo'),
+    $wp_customize->add_control('backbone_front_individual_2_enable', array(
+        'label' => __('個別記事セクション 2 を有効化', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 400,
+        'priority' => 302,
         'type' => 'checkbox',
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
         },
     ));
 
-    // --- サービスセクションタイトル ---
-    $wp_customize->add_setting('backbone_front_services_title', array(
-        'default' => __('サービス紹介', 'backbone-seo-llmo'),
-        'sanitize_callback' => 'sanitize_text_field',
-        'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control('backbone_front_services_title', array(
-        'label' => __('サービスセクションタイトル', 'backbone-seo-llmo'),
-        'section' => 'static_front_page',
-        'priority' => 410,
-        'type' => 'text',
-        'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_services_enable', false);
-        },
-    ));
-
-    // --- サービスレイアウト ---
-    $wp_customize->add_setting('backbone_front_services_layout', array(
-        'default' => '3col',
+    $wp_customize->add_setting('backbone_front_individual_2_layout', array(
+        'default' => '2col',
         'sanitize_callback' => 'backbone_sanitize_layout_unified',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control('backbone_front_services_layout', array(
+    $wp_customize->add_control('backbone_front_individual_2_layout', array(
         'label' => __('レイアウト', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 411,
+        'priority' => 303,
         'type' => 'select',
         'choices' => array(
+            '1col' => __('1カラム', 'backbone-seo-llmo'),
             '2col' => __('2カラム', 'backbone-seo-llmo'),
             '3col' => __('3カラム', 'backbone-seo-llmo'),
             '4col' => __('4カラム', 'backbone-seo-llmo'),
             'list' => __('リスト', 'backbone-seo-llmo'),
         ),
+        'description' => __('個別記事セクション 2 のレイアウトを選択します。', 'backbone-seo-llmo'),
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_services_enable', false);
+                   get_theme_mod('backbone_front_individual_2_enable', false);
         },
     ));
 
-    // --- サービスカード（リピーター） ---
-    $wp_customize->add_setting('backbone_front_service_items', array(
+    $wp_customize->add_setting('backbone_front_individual_sections_2', array(
         'default' => '',
-        'sanitize_callback' => 'backbone_sanitize_repeater_json',
+        'sanitize_callback' => 'backbone_sanitize_individual_sections_json',
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_service_items', array(
-        'label' => __('サービスカード', 'backbone-seo-llmo'),
+    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_individual_sections_2', array(
+        'label' => __('個別記事セクション 2', 'backbone-seo-llmo'),
         'section' => 'static_front_page',
-        'priority' => 412,
-        'description' => __('サービスを追加してください。タイトル・説明文・リンクを設定できます。', 'backbone-seo-llmo'),
-        'add_button_label' => __('サービスを追加', 'backbone-seo-llmo'),
+        'priority' => 304,
+        'description' => __('特定の記事を選択して表示します。', 'backbone-seo-llmo'),
+        'add_button_label' => __('記事を追加', 'backbone-seo-llmo'),
         'fields' => array(
-            'title' => array(
-                'type' => 'text',
-                'label' => __('タイトル', 'backbone-seo-llmo'),
+            'post_type' => array(
+                'type' => 'select',
+                'label' => __('投稿タイプ', 'backbone-seo-llmo'),
+                'choices' => array('post' => __('投稿', 'backbone-seo-llmo'), 'page' => __('固定ページ', 'backbone-seo-llmo')),
             ),
-            'desc' => array(
-                'type' => 'textarea',
-                'label' => __('説明文（HTMLタグ使用可）', 'backbone-seo-llmo'),
+            'post_id' => array(
+                'type' => 'select',
+                'label' => __('記事を選択', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('— 選択してください —', 'backbone-seo-llmo')),
             ),
-            'url' => array(
-                'type' => 'url',
-                'label' => __('リンクURL', 'backbone-seo-llmo'),
+            'show_thumbnail' => array(
+                'type' => 'checkbox',
+                'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'show_date' => array(
+                'type' => 'checkbox',
+                'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_modified' => array(
+                'type' => 'checkbox',
+                'label' => __('更新日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_category' => array(
+                'type' => 'checkbox',
+                'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+            ),
+            'show_excerpt' => array(
+                'type' => 'checkbox',
+                'label' => __('抜粋を表示', 'backbone-seo-llmo'),
             ),
         ),
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
-                   get_theme_mod('backbone_front_services_enable', false);
+                   get_theme_mod('backbone_front_individual_2_enable', false);
         },
     )));
 
-    // ============================================
+    // --- 個別記事セクション 3 ---
+    $wp_customize->add_setting('backbone_front_individual_3_enable', array(
+        'default' => false,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_individual_3_enable', array(
+        'label' => __('個別記事セクション 3 を有効化', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 305,
+        'type' => 'checkbox',
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_individual_3_layout', array(
+        'default' => '2col',
+        'sanitize_callback' => 'backbone_sanitize_layout_unified',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_individual_3_layout', array(
+        'label' => __('レイアウト', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 306,
+        'type' => 'select',
+        'choices' => array(
+            '1col' => __('1カラム', 'backbone-seo-llmo'),
+            '2col' => __('2カラム', 'backbone-seo-llmo'),
+            '3col' => __('3カラム', 'backbone-seo-llmo'),
+            '4col' => __('4カラム', 'backbone-seo-llmo'),
+            'list' => __('リスト', 'backbone-seo-llmo'),
+        ),
+        'description' => __('個別記事セクション 3 のレイアウトを選択します。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_individual_3_enable', false);
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_individual_sections_3', array(
+        'default' => '',
+        'sanitize_callback' => 'backbone_sanitize_individual_sections_json',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_individual_sections_3', array(
+        'label' => __('個別記事セクション 3', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 307,
+        'description' => __('特定の記事を選択して表示します。', 'backbone-seo-llmo'),
+        'add_button_label' => __('記事を追加', 'backbone-seo-llmo'),
+        'fields' => array(
+            'post_type' => array(
+                'type' => 'select',
+                'label' => __('投稿タイプ', 'backbone-seo-llmo'),
+                'choices' => array('post' => __('投稿', 'backbone-seo-llmo'), 'page' => __('固定ページ', 'backbone-seo-llmo')),
+            ),
+            'post_id' => array(
+                'type' => 'select',
+                'label' => __('記事を選択', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('— 選択してください —', 'backbone-seo-llmo')),
+            ),
+            'show_thumbnail' => array(
+                'type' => 'checkbox',
+                'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'show_date' => array(
+                'type' => 'checkbox',
+                'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_modified' => array(
+                'type' => 'checkbox',
+                'label' => __('更新日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_category' => array(
+                'type' => 'checkbox',
+                'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+            ),
+            'show_excerpt' => array(
+                'type' => 'checkbox',
+                'label' => __('抜粋を表示', 'backbone-seo-llmo'),
+            ),
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_individual_3_enable', false);
+        },
+    )));
+
+    // --- 個別記事セクション 4 ---
+    $wp_customize->add_setting('backbone_front_individual_4_enable', array(
+        'default' => false,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_individual_4_enable', array(
+        'label' => __('個別記事セクション 4 を有効化', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 308,
+        'type' => 'checkbox',
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_individual_4_layout', array(
+        'default' => '2col',
+        'sanitize_callback' => 'backbone_sanitize_layout_unified',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_individual_4_layout', array(
+        'label' => __('レイアウト', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 309,
+        'type' => 'select',
+        'choices' => array(
+            '1col' => __('1カラム', 'backbone-seo-llmo'),
+            '2col' => __('2カラム', 'backbone-seo-llmo'),
+            '3col' => __('3カラム', 'backbone-seo-llmo'),
+            '4col' => __('4カラム', 'backbone-seo-llmo'),
+            'list' => __('リスト', 'backbone-seo-llmo'),
+        ),
+        'description' => __('個別記事セクション 4 のレイアウトを選択します。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_individual_4_enable', false);
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_individual_sections_4', array(
+        'default' => '',
+        'sanitize_callback' => 'backbone_sanitize_individual_sections_json',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_individual_sections_4', array(
+        'label' => __('個別記事セクション 4', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 310,
+        'description' => __('特定の記事を選択して表示します。', 'backbone-seo-llmo'),
+        'add_button_label' => __('記事を追加', 'backbone-seo-llmo'),
+        'fields' => array(
+            'post_type' => array(
+                'type' => 'select',
+                'label' => __('投稿タイプ', 'backbone-seo-llmo'),
+                'choices' => array('post' => __('投稿', 'backbone-seo-llmo'), 'page' => __('固定ページ', 'backbone-seo-llmo')),
+            ),
+            'post_id' => array(
+                'type' => 'select',
+                'label' => __('記事を選択', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('— 選択してください —', 'backbone-seo-llmo')),
+            ),
+            'show_thumbnail' => array(
+                'type' => 'checkbox',
+                'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'show_date' => array(
+                'type' => 'checkbox',
+                'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_modified' => array(
+                'type' => 'checkbox',
+                'label' => __('更新日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_category' => array(
+                'type' => 'checkbox',
+                'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+            ),
+            'show_excerpt' => array(
+                'type' => 'checkbox',
+                'label' => __('抜粋を表示', 'backbone-seo-llmo'),
+            ),
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_individual_4_enable', false);
+        },
+    )));
+
+    // --- 個別記事セクション 5 ---
+    $wp_customize->add_setting('backbone_front_individual_5_enable', array(
+        'default' => false,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_individual_5_enable', array(
+        'label' => __('個別記事セクション 5 を有効化', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 311,
+        'type' => 'checkbox',
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_individual_5_layout', array(
+        'default' => '2col',
+        'sanitize_callback' => 'backbone_sanitize_layout_unified',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_individual_5_layout', array(
+        'label' => __('レイアウト', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 312,
+        'type' => 'select',
+        'choices' => array(
+            '1col' => __('1カラム', 'backbone-seo-llmo'),
+            '2col' => __('2カラム', 'backbone-seo-llmo'),
+            '3col' => __('3カラム', 'backbone-seo-llmo'),
+            '4col' => __('4カラム', 'backbone-seo-llmo'),
+            'list' => __('リスト', 'backbone-seo-llmo'),
+        ),
+        'description' => __('個別記事セクション 5 のレイアウトを選択します。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_individual_5_enable', false);
+        },
+    ));
+
+    $wp_customize->add_setting('backbone_front_individual_sections_5', array(
+        'default' => '',
+        'sanitize_callback' => 'backbone_sanitize_individual_sections_json',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new Backbone_Customize_Repeater_Control($wp_customize, 'backbone_front_individual_sections_5', array(
+        'label' => __('個別記事セクション 5', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 313,
+        'description' => __('特定の記事を選択して表示します。', 'backbone-seo-llmo'),
+        'add_button_label' => __('記事を追加', 'backbone-seo-llmo'),
+        'fields' => array(
+            'post_type' => array(
+                'type' => 'select',
+                'label' => __('投稿タイプ', 'backbone-seo-llmo'),
+                'choices' => array('post' => __('投稿', 'backbone-seo-llmo'), 'page' => __('固定ページ', 'backbone-seo-llmo')),
+            ),
+            'post_id' => array(
+                'type' => 'select',
+                'label' => __('記事を選択', 'backbone-seo-llmo'),
+                'choices' => array(0 => __('— 選択してください —', 'backbone-seo-llmo')),
+            ),
+            'show_thumbnail' => array(
+                'type' => 'checkbox',
+                'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'show_date' => array(
+                'type' => 'checkbox',
+                'label' => __('投稿日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_modified' => array(
+                'type' => 'checkbox',
+                'label' => __('更新日を表示', 'backbone-seo-llmo'),
+            ),
+            'show_category' => array(
+                'type' => 'checkbox',
+                'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
+            ),
+            'show_excerpt' => array(
+                'type' => 'checkbox',
+                'label' => __('抜粋を表示', 'backbone-seo-llmo'),
+            ),
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_individual_5_enable', false);
+        },
+    )));
+
     // C. 既存ページ選択
     // ============================================
 
@@ -822,8 +1576,14 @@ function backbone_get_categories_for_dropdown() {
  * @return array 投稿・固定ページの配列（ID => タイトル）
  */
 function backbone_get_all_posts_for_dropdown() {
+    // すべての公開投稿タイプを取得
+    $post_types = get_post_types(array('public' => true), 'names');
+
+    // attachmentを除外
+    unset($post_types['attachment']);
+
     $posts = get_posts(array(
-        'post_type' => array('post', 'page'),
+        'post_type' => $post_types,
         'posts_per_page' => -1,
         'orderby' => 'date',
         'order' => 'DESC',
@@ -834,6 +1594,23 @@ function backbone_get_all_posts_for_dropdown() {
     foreach ($posts as $post) {
         $post_type_label = get_post_type_object($post->post_type)->labels->singular_name;
         $options[$post->ID] = '[' . $post_type_label . '] ' . $post->post_title;
+    }
+
+    return $options;
+}
+
+/**
+ * 投稿タイプのドロップダウン用の配列を返す
+ *
+ * @return array 投稿タイプの配列（slug => ラベル）
+ */
+function backbone_get_post_types_for_dropdown() {
+    $post_types = get_post_types(array('public' => true), 'objects');
+
+    $options = array();
+
+    foreach ($post_types as $post_type) {
+        $options[$post_type->name] = $post_type->label;
     }
 
     return $options;
@@ -912,7 +1689,7 @@ function backbone_sanitize_repeater_json($value) {
  * @return string サニタイズ済みの値
  */
 function backbone_sanitize_layout_unified($value) {
-    $valid_layouts = array('2col', '3col', '4col', 'list');
+    $valid_layouts = array('1col', '2col', '3col', '4col', 'list');
 
     if (in_array($value, $valid_layouts, true)) {
         return $value;
@@ -966,4 +1743,89 @@ function backbone_sanitize_posts_orderby($value) {
  */
 function backbone_sanitize_layout_columns($value) {
     return backbone_sanitize_layout_unified($value);
+}
+
+/**
+ * 一覧表示セクションのJSONデータをサニタイズ
+ *
+ * @param string $value JSON文字列
+ * @return string サニタイズ済みのJSON文字列
+ */
+function backbone_sanitize_list_sections_json($value) {
+    if (empty($value)) {
+        return '';
+    }
+
+    $sections = json_decode($value, true);
+    if (!is_array($sections)) {
+        return '';
+    }
+
+    $sanitized_sections = array();
+    foreach ($sections as $section) {
+        if (!is_array($section)) {
+            continue;
+        }
+
+        $sanitized_section = array();
+        $sanitized_section['title'] = isset($section['title']) ? sanitize_text_field($section['title']) : '';
+        $sanitized_section['count'] = isset($section['count']) ? absint($section['count']) : 6;
+        $sanitized_section['display_type'] = isset($section['display_type']) ? sanitize_key($section['display_type']) : 'category';
+        $sanitized_section['category'] = isset($section['category']) ? absint($section['category']) : 0;
+        $sanitized_section['tag'] = isset($section['tag']) ? absint($section['tag']) : 0;
+        $sanitized_section['post_type_filter'] = isset($section['post_type_filter']) ? sanitize_key($section['post_type_filter']) : 'post';
+        $sanitized_section['author'] = isset($section['author']) ? absint($section['author']) : 0;
+        $sanitized_section['date_range'] = isset($section['date_range']) ? sanitize_key($section['date_range']) : 'current_month';
+        $sanitized_section['layout'] = isset($section['layout']) ? backbone_sanitize_layout_unified($section['layout']) : '3col';
+        $sanitized_section['orderby'] = isset($section['orderby']) ? backbone_sanitize_posts_orderby($section['orderby']) : 'date';
+        $sanitized_section['show_thumbnail'] = isset($section['show_thumbnail']) ? rest_sanitize_boolean($section['show_thumbnail']) : true;
+        $sanitized_section['show_date'] = isset($section['show_date']) ? rest_sanitize_boolean($section['show_date']) : true;
+        $sanitized_section['show_modified'] = isset($section['show_modified']) ? rest_sanitize_boolean($section['show_modified']) : false;
+        $sanitized_section['show_category'] = isset($section['show_category']) ? rest_sanitize_boolean($section['show_category']) : true;
+        $sanitized_section['show_excerpt'] = isset($section['show_excerpt']) ? rest_sanitize_boolean($section['show_excerpt']) : true;
+        $sanitized_section['show_archive_link'] = isset($section['show_archive_link']) ? rest_sanitize_boolean($section['show_archive_link']) : false;
+
+        $sanitized_sections[] = $sanitized_section;
+    }
+
+    return wp_json_encode($sanitized_sections);
+}
+
+/**
+ * 個別記事セクションのJSONデータをサニタイズ
+ *
+ * @param string $value JSON文字列
+ * @return string サニタイズ済みのJSON文字列
+ */
+function backbone_sanitize_individual_sections_json($value) {
+    if (empty($value)) {
+        return '';
+    }
+
+    $items = json_decode($value, true);
+    if (!is_array($items)) {
+        return '';
+    }
+
+    $sanitized_items = array();
+    foreach ($items as $item) {
+        if (!is_array($item)) {
+            continue;
+        }
+
+        $sanitized_item = array();
+        $sanitized_item['post_type'] = isset($item['post_type']) ? sanitize_key($item['post_type']) : 'post';
+        $sanitized_item['post_id'] = isset($item['post_id']) ? absint($item['post_id']) : 0;
+        $sanitized_item['show_thumbnail'] = isset($item['show_thumbnail']) ? rest_sanitize_boolean($item['show_thumbnail']) : true;
+        $sanitized_item['show_date'] = isset($item['show_date']) ? rest_sanitize_boolean($item['show_date']) : true;
+        $sanitized_item['show_modified'] = isset($item['show_modified']) ? rest_sanitize_boolean($item['show_modified']) : false;
+        $sanitized_item['show_category'] = isset($item['show_category']) ? rest_sanitize_boolean($item['show_category']) : true;
+        $sanitized_item['show_excerpt'] = isset($item['show_excerpt']) ? rest_sanitize_boolean($item['show_excerpt']) : true;
+
+        if ($sanitized_item['post_id'] > 0) {
+            $sanitized_items[] = $sanitized_item;
+        }
+    }
+
+    return wp_json_encode($sanitized_items);
 }

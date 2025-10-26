@@ -66,17 +66,17 @@ get_header(); ?>
 
                     <?php
                     // グリッド列数を取得
-                    $grid_columns = get_theme_mod('archive_grid_columns', '3');
+                    $grid_columns = backbone_get_archive_setting('grid_columns', '3');
 
                     // 並び順を取得
-                    $orderby = get_theme_mod('archive_orderby', 'date');
+                    $orderby = backbone_get_archive_setting('orderby', 'date');
 
                     // 表示要素の設定
-                    $show_thumbnail = get_theme_mod('archive_show_thumbnail', true);
-                    $show_date = get_theme_mod('archive_show_date', true);
-                    $show_modified = get_theme_mod('archive_show_modified', false);
-                    $show_category = get_theme_mod('archive_show_category', false);
-                    $show_excerpt = get_theme_mod('archive_show_excerpt', true);
+                    $show_thumbnail = backbone_get_archive_setting('show_thumbnail', true);
+                    $show_date = backbone_get_archive_setting('show_date', true);
+                    $show_modified = backbone_get_archive_setting('show_modified', false);
+                    $show_category = backbone_get_archive_setting('show_category', false);
+                    $show_excerpt = backbone_get_archive_setting('show_excerpt', true);
                     ?>
                     <div class="archive-grid-container archive-grid-columns-<?php echo esc_attr($grid_columns); ?>">
                     <?php while (have_posts()) : ?>

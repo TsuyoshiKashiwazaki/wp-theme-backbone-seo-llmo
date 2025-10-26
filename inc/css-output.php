@@ -31,3 +31,6 @@ require_once get_template_directory() . '/inc/css-themes.php';
 
 // レイアウト関連機能
 require_once get_template_directory() . '/inc/css-layout.php';
+
+// フォーム関連機能
+require_once get_template_directory() . '/inc/css-forms.php';

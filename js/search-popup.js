@@ -14,8 +14,6 @@
 
     // 初期化
     function init() {
-        console.log('検索ポップアップ初期化開始');
-        
         // DOM要素を取得
         searchToggle = document.querySelector('.search-toggle');
         searchPopupOverlay = document.querySelector('.search-popup-overlay');
@@ -24,16 +22,11 @@
         searchPopupInput = document.querySelector('.search-popup-input');
         searchPopupForm = document.querySelector('.search-popup-form');
 
-        console.log('検索ボタン:', searchToggle);
-        console.log('ポップアップオーバーレイ:', searchPopupOverlay);
-
         // 要素が存在しない場合は終了
         if (!searchToggle || !searchPopupOverlay) {
-            console.log('必要な要素が見つかりません');
             return;
         }
 
-        console.log('イベントリスナー設定中');
         // イベントリスナーを設定
         setupEventListeners();
     }
@@ -80,15 +73,12 @@
 
     // 検索ポップアップを開く
     function openSearchPopup(e) {
-        console.log('検索ポップアップを開く');
         e.preventDefault();
-        
+
         if (!searchPopupOverlay) {
-            console.log('オーバーレイが見つからない');
             return;
         }
 
-        console.log('ポップアップ表示中');
         // ポップアップを表示
         searchPopupOverlay.classList.add('active');
         document.body.style.overflow = 'hidden'; // スクロール無効化
