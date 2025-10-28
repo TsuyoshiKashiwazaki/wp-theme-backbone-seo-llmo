@@ -80,11 +80,11 @@ add_action('after_setup_theme', 'backbone_setup');
  * スタイルとスクリプトの読み込み
  */
 function backbone_scripts() {
-    // キャッシュバスティング設定を取得
-    $cache_busting = get_theme_mod('enable_cache_busting', false);
+    // フロントエンドキャッシュバスティング設定を取得
+    $cache_busting_frontend = get_theme_mod('enable_cache_busting_frontend', false);
 
     // バージョン文字列を決定（キャッシュバスティングが有効なら現在時刻、無効なら固定バージョン）
-    $version = $cache_busting ? current_time('YmdHis') : '1.0.0';
+    $version = $cache_busting_frontend ? current_time('YmdHis') : '1.0.0';
 
 
     // メインスタイルシート（キャッシュバスティング対応）
@@ -136,7 +136,7 @@ function backbone_scripts() {
         // WordPress コア jQuery を確実に使用
         window.seoOptimusJQuery = jQuery;
         window.seoOptimus$ = jQuery;
-    ', 'before');
+    ', 'after');
 
     // コメント返信スクリプト
     if (is_singular() && comments_open() && get_option('thread_comments')) {

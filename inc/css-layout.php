@@ -610,6 +610,16 @@ function backbone_dynamic_layout_output() {
         $css .= "}\n\n";
     }
 
+    // ブロックウィジェットのmin-height問題を解決
+    $css .= "/* ブロックウィジェットのmin-heightオーバーライド */\n";
+    $css .= ".widget.widget_block,\n";
+    $css .= ".site-footer .widget.widget_block,\n";
+    $css .= ".sidebar .widget.widget_block,\n";
+    $css .= ".footer-widgets .widget.widget_block {\n";
+    $css .= "    min-height: auto !important;\n";
+    $css .= "    height: auto !important;\n";
+    $css .= "}\n\n";
+
     if (!empty($css)) {
         echo '<style type="text/css" id="dynamic-layout-css">' . "\n";
         echo $css;

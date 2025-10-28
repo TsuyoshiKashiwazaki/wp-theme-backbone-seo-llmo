@@ -82,13 +82,16 @@
                 ));
                 ?>
 
+                <?php if (get_theme_mod('footer_copyright_show', true)) : ?>
                 <p class="site-info">
                     <?php
-                    $copyright = get_theme_mod('footer_copyright', sprintf(__('© %s All rights reserved.', 'kashiwazaki-searchcraft'), date('Y')));
+                    $copyright = get_theme_mod('footer_copyright_text', sprintf(__('© %s %s. All rights reserved.', 'backbone-seo-llmo'), date('Y'), get_bloginfo('name')));
                     echo esc_html($copyright);
                     ?>
                 </p>
+                <?php endif; ?>
 
+                <?php if (get_theme_mod('footer_credit_show', true)) : ?>
                 <p class="powered-by">
                     <span>WP Theme: </span>
                     <a href="https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo" target="_blank" rel="noopener">
@@ -100,6 +103,7 @@
                         柏崎剛
                     </a>
                 </p>
+                <?php endif; ?>
             </div>
         </div>
     </footer>

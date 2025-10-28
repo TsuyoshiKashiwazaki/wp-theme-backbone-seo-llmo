@@ -181,7 +181,44 @@ function backbone_add_layout_settings($wp_customize) {
         ),
     ));
 
+    // 著作権テキスト
+    $wp_customize->add_setting('footer_copyright_text', array(
+        'default'           => sprintf(__('© %s %s. All rights reserved.', 'backbone-seo-llmo'), date('Y'), get_bloginfo('name')),
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
 
+    $wp_customize->add_control('footer_copyright_text', array(
+        'label'       => __('著作権テキスト', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'text',
+        'description' => __('フッターに表示する著作権テキストを入力してください。デフォルトでサイト名が含まれます。', 'backbone-seo-llmo'),
+    ));
+
+    // 著作権表示のオンオフ
+    $wp_customize->add_setting('footer_copyright_show', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+
+    $wp_customize->add_control('footer_copyright_show', array(
+        'label'       => __('著作権表示', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'checkbox',
+        'description' => __('著作権テキストを表示する場合はチェックしてください。', 'backbone-seo-llmo'),
+    ));
+
+    // テーマクレジット表示のオンオフ
+    $wp_customize->add_setting('footer_credit_show', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+
+    $wp_customize->add_control('footer_credit_show', array(
+        'label'       => __('テーマクレジット表示', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'checkbox',
+        'description' => __('テーマのクレジット（WP Theme: Backbone Theme...）を表示する場合はチェックしてください。', 'backbone-seo-llmo'),
+    ));
 
 
 

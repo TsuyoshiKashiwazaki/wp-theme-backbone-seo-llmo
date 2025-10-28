@@ -2,6 +2,24 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.9] - 2025-10-28
+
+### Fixed
+- フッターウィジェットのmin-height: 200px問題を修正
+- フッターウィジェットの不要なbackground-colorを削除
+- レスポンシブCSSの!important宣言を削減
+- WordPress CustomizerでのjQuery未定義エラーを修正
+- キャッシュバスティング機能が適用されない問題を修正
+
+### Added
+- フロントエンド/バックエンド別々のキャッシュバスティング設定
+- フッター著作権表示のカスタマイザー設定
+- フッターテーマクレジット表示のオン/オフ切り替え
+
+### Changed
+- ウィジェットのパディング/マージンをブロックエディタ優先に変更
+- サイドバーウィジェットにCSS変数を使用した柔軟な設定
+
 ## [1.0.8] - 2025-10-26
 
 ### Added

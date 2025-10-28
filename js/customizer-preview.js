@@ -388,7 +388,22 @@ var CustomizerPreview = (function ($) {
 
 })(jQuery);
 
-// モジュール初期化
-jQuery(document).ready(function() {
-    CustomizerPreview.init();
-});
+// モジュール初期化（jQuery読み込み保証）
+(function() {
+    function initWhenReady() {
+        if (typeof jQuery !== 'undefined' && typeof CustomizerPreview !== 'undefined') {
+            jQuery(document).ready(function() {
+                CustomizerPreview.init();
+            });
+        } else {
+            // jQueryが読み込まれるまで待機（最大5秒）
+            setTimeout(initWhenReady, 100);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initWhenReady);
+    } else {
+        initWhenReady();
+    }
+})();

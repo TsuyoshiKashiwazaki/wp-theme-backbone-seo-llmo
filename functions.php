@@ -54,11 +54,15 @@ add_action('after_setup_theme', 'backbone_remove_default_background_support', 20
  * レスポンシブタイポグラフィCSSの追加
  */
 function backbone_enqueue_responsive_typography() {
+    // フロントエンドキャッシュバスティング設定を取得
+    $cache_busting_frontend = get_theme_mod('enable_cache_busting_frontend', false);
+    $version = $cache_busting_frontend ? current_time('YmdHis') : '1.0.0';
+
     wp_enqueue_style(
         'typography-responsive',
         get_template_directory_uri() . '/css/typography-responsive.css',
         array('style'),
-        '1.0.0'
+        $version
     );
 }
 add_action('wp_enqueue_scripts', 'backbone_enqueue_responsive_typography', 25);
@@ -67,11 +71,15 @@ add_action('wp_enqueue_scripts', 'backbone_enqueue_responsive_typography', 25);
  * フロントページセクション用CSSの追加
  */
 function backbone_enqueue_front_page_sections() {
+    // フロントエンドキャッシュバスティング設定を取得
+    $cache_busting_frontend = get_theme_mod('enable_cache_busting_frontend', false);
+    $version = $cache_busting_frontend ? current_time('YmdHis') : '1.0.1';
+
     wp_enqueue_style(
         'front-page-sections',
         get_template_directory_uri() . '/css/front-page-sections.css',
         array('seo-optimus-style'),
-        '1.0.1'
+        $version
     );
 }
 add_action('wp_enqueue_scripts', 'backbone_enqueue_front_page_sections', 26);
@@ -150,18 +158,23 @@ add_filter('pre_get_posts', 'backbone_include_pages_in_tag_archives');
 
 /**
  * カスタマイザーのJavaScriptモジュールを読み込み
+ * customize_controls_enqueue_scripts フック内で実行されるため、
+ * コントロールパネル側でのみ動作する
  */
 function backbone_enqueue_customizer_modules() {
-    if (!is_customize_preview()) {
-        return;
-    }
+    // is_customize_preview() チェックは不要
+    // このフック自体がカスタマイザーコントロール内でのみ実行される
+
+    // 管理画面キャッシュバスティング設定を取得
+    $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
+    $version_admin = $cache_busting_admin ? current_time('YmdHis') : '1.0.0';
 
     // モジュールを順番に読み込み（依存関係を考慮）
     wp_enqueue_script(
         'customizer-utils',
         get_template_directory_uri() . '/js/customizer-utils.js',
         array('jquery'),
-        '1.0.0',
+        $version_admin,
         true
     );
 
@@ -169,7 +182,7 @@ function backbone_enqueue_customizer_modules() {
         'customizer-storage',
         get_template_directory_uri() . '/js/customizer-storage.js',
         array('jquery', 'customizer-utils'),
-        '1.0.0',
+        $version_admin,
         true
     );
 
@@ -177,7 +190,7 @@ function backbone_enqueue_customizer_modules() {
         'customizer-preview',
         get_template_directory_uri() . '/js/customizer-preview.js',
         array('jquery', 'customize-preview', 'customizer-utils'),
-        '1.0.0',
+        $version_admin,
         true
     );
 
@@ -185,7 +198,7 @@ function backbone_enqueue_customizer_modules() {
         'customizer-themes',
         get_template_directory_uri() . '/js/customizer-themes.js',
         array('jquery', 'customize-controls', 'customizer-utils'),
-        '1.0.0',
+        $version_admin,
         true
     );
 
@@ -193,7 +206,7 @@ function backbone_enqueue_customizer_modules() {
         'customizer-ui',
         get_template_directory_uri() . '/js/customizer-ui.js',
         array('jquery', 'customize-controls', 'customizer-utils', 'customizer-storage', 'customizer-preview', 'customizer-themes'),
-        '1.0.0',
+        $version_admin,
         true
     );
 
@@ -202,7 +215,7 @@ function backbone_enqueue_customizer_modules() {
         'customizer-controls-main',
         get_template_directory_uri() . '/js/customizer-controls.js',
         array('jquery', 'customize-controls', 'customizer-utils', 'customizer-storage', 'customizer-preview', 'customizer-themes', 'customizer-ui'),
-        '1.0.0',
+        $version_admin,
         true
     );
 }

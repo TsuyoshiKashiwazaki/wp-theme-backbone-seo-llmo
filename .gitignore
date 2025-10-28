@@ -42,3 +42,8 @@ gh_*/
 # Claude Code設定
 .claude/
 CLAUDE.md
+
+# Playwright test screenshots and artifacts
+.playwright-mcp/
+playwright-report/
+test-results/

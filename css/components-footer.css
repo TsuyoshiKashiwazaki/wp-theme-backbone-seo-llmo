@@ -142,12 +142,16 @@ body .site-footer a:hover {
 
 /* フッターウィジェット */
 .site-footer .widget {
-    padding: 30px;
-    margin-bottom: 20px;
-    min-height: 200px;
+    /* ブロックエディタでのカスタマイズを優先 */
     word-wrap: break-word;
-    background-color: var(--background-color);
-    border: 1px solid transparent;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+/* ブロックウィジェットのデフォルトmin-heightを上書き */
+.site-footer .widget.widget_block {
+    min-height: auto !important;
+    height: auto !important;
 }
 
 .site-footer .widget:last-child {

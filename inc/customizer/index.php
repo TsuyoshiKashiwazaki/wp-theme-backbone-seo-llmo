@@ -121,17 +121,30 @@ function backbone_customize_register($wp_customize) {
         'priority' => 200,
     ));
 
-    // キャッシュバスティング設定
-    $wp_customize->add_setting('enable_cache_busting', array(
+    // フロントエンドキャッシュバスティング設定
+    $wp_customize->add_setting('enable_cache_busting_frontend', array(
         'default'           => false,
         'sanitize_callback' => 'wp_validate_boolean',
     ));
 
-    $wp_customize->add_control('enable_cache_busting', array(
-        'label'       => __('キャッシュバスティング', 'kashiwazaki-searchcraft'),
+    $wp_customize->add_control('enable_cache_busting_frontend', array(
+        'label'       => __('フロントエンドキャッシュバスティング', 'backbone-seo-llmo'),
         'section'     => 'developer_settings',
         'type'        => 'checkbox',
-        'description' => __('CSS/JSファイルにタイムスタンプを付けてキャッシュを無効化します。開発時に有効にしてください。', 'kashiwazaki-searchcraft'),
+        'description' => __('サイト表示用のCSS/JSファイルにタイムスタンプを付けてキャッシュを無効化します。フロントエンドを開発中に有効化してください。', 'backbone-seo-llmo'),
+    ));
+
+    // バックエンド（管理画面/カスタマイザー）キャッシュバスティング設定
+    $wp_customize->add_setting('enable_cache_busting_admin', array(
+        'default'           => false,
+        'sanitize_callback' => 'wp_validate_boolean',
+    ));
+
+    $wp_customize->add_control('enable_cache_busting_admin', array(
+        'label'       => __('管理画面キャッシュバスティング', 'backbone-seo-llmo'),
+        'section'     => 'developer_settings',
+        'type'        => 'checkbox',
+        'description' => __('カスタマイザーや管理画面のCSS/JSファイルにタイムスタンプを付けてキャッシュを無効化します。カスタマイザー機能や管理画面を開発中に有効化してください。', 'backbone-seo-llmo'),
     ));
 
     // フロントページのタイトル表示設定をホームページ設定セクションに追加
@@ -161,11 +174,25 @@ add_action('customize_register', 'backbone_customize_register');
  * カスタマイザーのプレビュー用JavaScript
  */
 function backbone_customize_preview_js() {
+    // 管理画面キャッシュバスティング設定を取得
+    $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
+    $version_admin = $cache_busting_admin ? current_time('YmdHis') : '1.0.0';
+
+    // customizer-utils を先に読み込む
     wp_enqueue_script(
-        'seo-optimus-customizer',
-        get_template_directory_uri() . '/js/customizer-controls.js',
-        array('customize-preview'),
-        '1.0.0',
+        'customizer-utils',
+        get_template_directory_uri() . '/js/customizer-utils.js',
+        array('jquery', 'customize-preview'),
+        $version_admin,
+        true
+    );
+
+    // customizer-preview.js を読み込む（正しいファイル）
+    wp_enqueue_script(
+        'seo-optimus-customizer-preview',
+        get_template_directory_uri() . '/js/customizer-preview.js',
+        array('jquery', 'customize-preview', 'customizer-utils'),
+        $version_admin,
         true
     );
 }
@@ -175,10 +202,9 @@ add_action('customize_preview_init', 'backbone_customize_preview_js');
  * カスタマイザーのコントロール用JavaScript
  */
 function backbone_customize_controls_js() {
-    // キャッシュバスティング用のタイムスタンプを生成
-    $cache_bust = current_time('timestamp');
-    $cache_bust .= '_' . filemtime(__FILE__); // ファイルの更新時刻も追加
-    $cache_bust .= '_' . count(glob(get_template_directory() . '/inc/color-themes/*.json')); // テーマファイル数も追加
+    // 管理画面キャッシュバスティング設定を取得
+    $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
+    $version_admin = $cache_busting_admin ? current_time('YmdHis') : '1.0.0';
 
     // WordPress Color Pickerのスタイルとスクリプトを読み込み
     wp_enqueue_style('wp-color-picker');
@@ -209,7 +235,7 @@ function backbone_customize_controls_js() {
         'seo-optimus-customizer-controls',
         get_template_directory_uri() . '/js/customizer-controls.js',
         array('customize-controls', 'jquery', 'jquery-core', 'jquery-migrate', 'wp-color-picker'),
-        $cache_bust,
+        $version_admin,
         true
     );
 
@@ -218,7 +244,7 @@ function backbone_customize_controls_js() {
         'customizer-repeater',
         get_template_directory_uri() . '/js/customizer-repeater.js',
         array('customize-controls', 'jquery', 'jquery-ui-sortable'),
-        '1.0.0',
+        $version_admin,
         true
     );
 
@@ -232,7 +258,7 @@ function backbone_customize_controls_js() {
         'customizer-section-order',
         get_template_directory_uri() . '/js/customizer-section-order.js',
         array('customize-controls', 'jquery', 'jquery-ui-sortable'),
-        '1.0.1', // バージョンアップしてキャッシュをクリア
+        $version_admin,
         true
     );
 
@@ -285,14 +311,14 @@ function backbone_customize_controls_js() {
     wp_add_inline_script('seo-optimus-customizer-controls', '
         window.seoOptimusJQuery = jQuery;
         window.seoOptimus$ = jQuery;
-        
+
         try {
             var rawThemeData = seoOptimusThemeData.themes || {};
             window.seoOptimusThemes = rawThemeData;
         } catch (e) {
             window.seoOptimusThemes = {};
         }
-    ', 'before');
+    ', 'after');
 }
 add_action('customize_controls_enqueue_scripts', 'backbone_customize_controls_js');
 
@@ -301,13 +327,17 @@ add_action('customize_controls_enqueue_scripts', 'backbone_customize_controls_js
  * カスタマイザーのスタイル
  */
 function backbone_customize_styles() {
+    // 管理画面キャッシュバスティング設定を取得
+    $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
+    $version_admin = $cache_busting_admin ? current_time('YmdHis') : '1.0.0';
+
     $customizer_css_path = get_template_directory() . '/css/customizer.css';
     if (file_exists($customizer_css_path)) {
         wp_enqueue_style(
             'seo-optimus-customizer',
             get_template_directory_uri() . '/css/customizer.css',
             array('customize-controls'), // 依存関係を明示
-            '1.0.0'
+            $version_admin
         );
     }
 }

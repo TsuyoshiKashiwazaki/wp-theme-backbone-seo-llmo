@@ -28,11 +28,23 @@
     background-color: transparent;
 }
 
-.widget {
-    padding: 30px;
-    margin-bottom: 20px;
-    min-height: 200px;
+/* サイドバーウィジェット - ブロックエディタ対応 */
+.sidebar .widget {
     word-wrap: break-word;
+    /* デフォルト値（ブロックエディタで上書き可能） */
+    padding: var(--wp--custom--spacing--widget-padding, 1.5rem);
+    margin-bottom: var(--wp--custom--spacing--widget-gap, 1.25rem);
+}
+
+/* フッター以外の汎用ウィジェット */
+.widget:not(.footer-widget) {
+    word-wrap: break-word;
+}
+
+/* ブロックウィジェットのデフォルトmin-heightを上書き */
+.widget.widget_block {
+    min-height: auto !important;
+    height: auto !important;
 }
 
 /* タブレットサイズではサイドバーとウィジェットをフル幅表示 */
@@ -49,9 +61,14 @@
     
     .widget {
         margin-bottom: 10px;
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 30px !important;
+        width: 100%;
+        max-width: 100%;
+        /* ユーザー設定がない場合のみデフォルト値を適用 */
+    }
+
+    .sidebar .widget:not([style*="padding"]) {
+        /* ブロックエディタで設定されていない場合のみ */
+        padding: 1.5rem;
     }
 }
 
@@ -63,9 +80,9 @@
 }
 
 /* 3カラム時のウィジェット調整 */
-.layout-three-columns .widget {
-    padding: 20px;
-    min-height: 150px;
+.layout-three-columns .sidebar .widget:not([style*="padding"]) {
+    /* ブロックエディタで設定されていない場合のみ */
+    padding: 1.25rem;
 }
 
 /* 3カラム：タブレットサイズではパディングと余白を調整し、フル幅表示 */
@@ -77,10 +94,14 @@
     }
     
     .layout-three-columns .widget {
-        padding: 30px !important;
         margin-bottom: 10px;
-        width: 100% !important;
-        max-width: 100% !important;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .layout-three-columns .sidebar .widget:not([style*="padding"]) {
+        /* ブロックエディタで設定されていない場合のみ */
+        padding: 1.5rem;
     }
 }
 

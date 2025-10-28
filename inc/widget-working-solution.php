@@ -28,12 +28,16 @@ function backbone_improve_widget_screen() {
         return;
     }
 
+    // 管理画面キャッシュバスティング設定を取得
+    $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
+    $version_admin = $cache_busting_admin ? current_time('YmdHis') : '4.0.0';
+
     // ウィジェット拡張スクリプト
     wp_enqueue_script(
         'backbone-widget-improvements',
         get_template_directory_uri() . '/js/widget-block-editor.js',
         array('wp-blocks', 'wp-element', 'wp-components', 'wp-data'),
-        '4.0.0',
+        $version_admin,
         true
     );
 

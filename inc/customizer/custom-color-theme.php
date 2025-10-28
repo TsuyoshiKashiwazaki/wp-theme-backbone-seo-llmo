@@ -231,11 +231,15 @@ function backbone_get_base_theme_choices() {
  * カスタマイザー用のJavaScriptを追加
  */
 function backbone_customize_preview_custom_colors() {
+    // 管理画面キャッシュバスティング設定を取得
+    $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
+    $version_admin = $cache_busting_admin ? current_time('YmdHis') : wp_get_theme()->get('Version');
+
     wp_enqueue_script(
         'seo-optimus-customize-preview-custom-colors',
         get_template_directory_uri() . '/js/customize-preview-custom-colors.js',
         array('customize-preview', 'jquery'),
-        wp_get_theme()->get('Version'),
+        $version_admin,
         true
     );
 
@@ -249,11 +253,15 @@ add_action('customize_preview_init', 'backbone_customize_preview_custom_colors')
  * カスタマイザーコントロール用のJavaScriptを追加
  */
 function backbone_customize_controls_custom_colors() {
+    // 管理画面キャッシュバスティング設定を取得
+    $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
+    $version_admin = $cache_busting_admin ? current_time('YmdHis') : wp_get_theme()->get('Version');
+
     wp_enqueue_script(
         'seo-optimus-customize-controls-custom-colors',
         get_template_directory_uri() . '/js/customize-controls-custom-colors.js',
         array('customize-controls', 'jquery'),
-        wp_get_theme()->get('Version'),
+        $version_admin,
         true
     );
 

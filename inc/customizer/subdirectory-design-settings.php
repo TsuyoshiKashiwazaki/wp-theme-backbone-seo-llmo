@@ -285,11 +285,15 @@ add_action('wp_head', 'backbone_generate_subdirectory_design_css', 1000);
  * カスタマイザープレビュー用スクリプトの登録
  */
 function backbone_subdirectory_customizer_preview_scripts() {
+    // 管理画面キャッシュバスティング設定を取得
+    $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
+    $version_admin = $cache_busting_admin ? current_time('YmdHis') : '1.0.0';
+
     wp_enqueue_script(
         'subdirectory-customizer',
         get_template_directory_uri() . '/js/subdirectory-customizer.js',
-        array('customize-controls'),
-        '1.0.0',
+        array('customize-controls', 'jquery'),
+        $version_admin,
         true
     );
 
@@ -298,7 +302,7 @@ function backbone_subdirectory_customizer_preview_scripts() {
         'subdirectory-auto-reload',
         get_template_directory_uri() . '/js/subdirectory-auto-reload.js',
         array('customize-controls', 'jquery'),
-        '1.0.0',
+        $version_admin,
         true
     );
 
@@ -307,7 +311,7 @@ function backbone_subdirectory_customizer_preview_scripts() {
     //     'subdirectory-dynamic-sections',
     //     get_template_directory_uri() . '/js/subdirectory-dynamic-sections.js',
     //     array('customize-controls', 'jquery'),
-    //     '1.0.0',
+    //     $version_admin,
     //     true
     // );
 
@@ -325,11 +329,15 @@ add_action('customize_controls_enqueue_scripts', 'backbone_subdirectory_customiz
  * カスタマイザープレビューフレーム用スクリプトの登録
  */
 function backbone_subdirectory_customizer_preview_frame_scripts() {
+    // 管理画面キャッシュバスティング設定を取得
+    $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
+    $version_admin = $cache_busting_admin ? current_time('YmdHis') : '1.0.0';
+
     wp_enqueue_script(
         'subdirectory-customizer-preview',
         get_template_directory_uri() . '/js/subdirectory-customizer-preview.js',
         array('customize-preview'),
-        '1.0.0',
+        $version_admin,
         true
     );
 }
