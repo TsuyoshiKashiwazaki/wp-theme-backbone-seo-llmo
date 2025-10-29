@@ -11,6 +11,19 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * スクリプトとスタイルの連結を無効化
+ * ERR_INCOMPLETE_CHUNKED_ENCODING エラー対策
+ * load-styles.php と load-scripts.php による大量ファイルの結合時に
+ * チャンク転送エラーが発生する問題を回避します
+ */
+if (!defined('CONCATENATE_SCRIPTS')) {
+    define('CONCATENATE_SCRIPTS', false);
+}
+if (!defined('CONCATENATE_STYLES')) {
+    define('CONCATENATE_STYLES', false);
+}
+
+/**
  * 機能別ファイルの読み込み
  * 注意：読み込み順序が重要です（依存関係があるため）
  */

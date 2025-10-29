@@ -2,23 +2,31 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.10] - 2025-10-30
+
+### Fixed
+- Fixed ERR_INCOMPLETE_CHUNKED_ENCODING error
+  - Resolved chunked transfer encoding errors when concatenating large numbers of files via load-styles.php and load-scripts.php
+  - Disabled script and style concatenation (set CONCATENATE_SCRIPTS and CONCATENATE_STYLES to false)
+  - Prevented protocol errors in HTTP/2 environments
+
 ## [1.0.9] - 2025-10-28
 
 ### Fixed
-- フッターウィジェットのmin-height: 200px問題を修正
-- フッターウィジェットの不要なbackground-colorを削除
-- レスポンシブCSSの!important宣言を削減
-- WordPress CustomizerでのjQuery未定義エラーを修正
-- キャッシュバスティング機能が適用されない問題を修正
+- Fixed footer widget min-height: 200px issue
+- Removed unnecessary background-color from footer widgets
+- Reduced !important declarations in responsive CSS
+- Fixed jQuery undefined error in WordPress Customizer
+- Fixed cache busting functionality not being applied
 
 ### Added
-- フロントエンド/バックエンド別々のキャッシュバスティング設定
-- フッター著作権表示のカスタマイザー設定
-- フッターテーマクレジット表示のオン/オフ切り替え
+- Separate cache busting settings for frontend/backend
+- Customizer setting for footer copyright text
+- Toggle for footer theme credit display
 
 ### Changed
-- ウィジェットのパディング/マージンをブロックエディタ優先に変更
-- サイドバーウィジェットにCSS変数を使用した柔軟な設定
+- Changed widget padding/margin to prioritize block editor
+- Used CSS variables for flexible sidebar widget settings
 
 ## [1.0.8] - 2025-10-26
 
