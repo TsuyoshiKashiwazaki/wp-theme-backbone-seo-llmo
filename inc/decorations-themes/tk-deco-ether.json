@@ -34,6 +34,8 @@
             "background": "rgba(var(--accent-color-rgb), 0.01)"
         }
     },
+    "badge_padding": "3px 8px",
+    "badge_padding_mobile": "2px 6px",
     "lists": {
         "ul": {
             "background": "repeating-linear-gradient(45deg, rgba(var(--accent-color-rgb), 0.02), transparent 2px, transparent 4px)",

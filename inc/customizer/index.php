@@ -22,6 +22,7 @@ require_once get_template_directory() . '/inc/customizer/subdirectory-logos.php'
 require_once get_template_directory() . '/inc/customizer/subdirectory-design-settings.php';
 require_once get_template_directory() . '/inc/customizer/hero-image-settings.php';
 require_once get_template_directory() . '/inc/customizer/archive-settings.php';
+require_once get_template_directory() . '/inc/customizer/post-meta-settings.php';
 require_once get_template_directory() . '/inc/customizer/form-settings.php';
 require_once get_template_directory() . '/inc/customizer/front-page-settings.php';
 require_once get_template_directory() . '/inc/customizer/custom-js-settings.php';
@@ -48,6 +49,7 @@ function backbone_customize_register($wp_customize) {
     backbone_add_subdirectory_design_settings($wp_customize);
     backbone_add_hero_image_settings($wp_customize);
     backbone_add_archive_settings($wp_customize);
+    backbone_add_single_post_settings($wp_customize);
     backbone_add_form_settings($wp_customize);
     backbone_add_front_page_settings($wp_customize);
     backbone_add_custom_js_settings($wp_customize);

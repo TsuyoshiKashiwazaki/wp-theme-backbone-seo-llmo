@@ -37,6 +37,8 @@
             "text_shadow": "0 0 2px rgba(var(--accent-color), 0.2)"
         }
     },
+    "badge_padding": "3px 8px",
+    "badge_padding_mobile": "2px 6px",
     "lists": {
         "ul": {
             "background": "radial-gradient(ellipse at center, rgba(var(--accent-color), 0.03), transparent)",

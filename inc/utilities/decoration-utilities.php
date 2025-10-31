@@ -138,6 +138,18 @@ function backbone_generate_decoration_css($pattern_id) {
 
     $css = '';
 
+    // CSS変数定義（badge padding など）
+    if (isset($pattern['badge_padding']) || isset($pattern['badge_padding_mobile'])) {
+        $css .= "body.decoration-{$pattern_id} {\n";
+        if (isset($pattern['badge_padding'])) {
+            $css .= "    --badge-padding: {$pattern['badge_padding']};\n";
+        }
+        if (isset($pattern['badge_padding_mobile'])) {
+            $css .= "    --badge-padding-mobile: {$pattern['badge_padding_mobile']};\n";
+        }
+        $css .= "}\n";
+    }
+
     // 見出しスタイル
     if (isset($pattern['headings'])) {
         foreach ($pattern['headings'] as $heading => $styles) {

@@ -37,6 +37,8 @@
             "background": "repeating-linear-gradient(180deg, rgba(var(--accent-color), 0.01), transparent 1px, transparent 2px)"
         }
     },
+    "badge_padding": "3px 8px",
+    "badge_padding_mobile": "2px 6px",
     "lists": {
         "ul": {
             "background": "repeating-linear-gradient(45deg, rgba(var(--accent-color), 0.02), transparent 2px, transparent 4px), repeating-linear-gradient(-45deg, rgba(var(--accent-color), 0.015), transparent 1px, transparent 2px)",

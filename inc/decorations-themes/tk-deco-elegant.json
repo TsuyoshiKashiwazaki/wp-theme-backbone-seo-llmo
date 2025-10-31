@@ -28,6 +28,8 @@
             "background": "rgba(var(--accent-color-rgb), 0.02)"
         }
     },
+    "badge_padding": "3px 8px",
+    "badge_padding_mobile": "2px 6px",
     "lists": {
         "ul": {
             "background": "rgba(var(--accent-color-rgb), 0.02)",

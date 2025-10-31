@@ -1082,6 +1082,37 @@ function backbone_generate_design_css($pattern_id) {
 
     // サイドヘッダーデザインは削除済み
 
+    // コンテナスタイル（border-radius, paddingなどの共通設定）
+    if (isset($pattern['containers'])) {
+        $containers = $pattern['containers'];
+
+        // .meta-badgeやその他の小要素に適用
+        $css .= ".design-{$pattern_id} .meta-badge {\n";
+        if (isset($containers['border_radius'])) {
+            $css .= "    border-radius: {$containers['border_radius']};\n";
+        }
+        $css .= "}\n";
+
+        // article要素に border-radius を適用
+        $css .= ".design-{$pattern_id} article,\n";
+        $css .= ".design-{$pattern_id} .post,\n";
+        $css .= ".design-{$pattern_id} .page {\n";
+        if (isset($containers['border_radius'])) {
+            $css .= "    border-radius: {$containers['border_radius']};\n";
+        }
+        if (isset($containers['box_shadow'])) {
+            $css .= "    box-shadow: {$containers['box_shadow']};\n";
+        }
+        $css .= "}\n";
+
+        // widgetにも適用
+        $css .= ".design-{$pattern_id} .widget {\n";
+        if (isset($containers['border_radius'])) {
+            $css .= "    border-radius: {$containers['border_radius']};\n";
+        }
+        $css .= "}\n";
+    }
+
     return $css;
 }
 

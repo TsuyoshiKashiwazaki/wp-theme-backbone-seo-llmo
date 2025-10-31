@@ -42,6 +42,8 @@
             "animation": "silicon-fade 3s ease-in-out infinite"
         }
     },
+    "badge_padding": "3px 8px",
+    "badge_padding_mobile": "2px 6px",
     "lists": {
         "ul": {
             "background": "linear-gradient(90deg, rgba(var(--accent-color), 0.03), rgba(var(--accent-color), 0.01), rgba(var(--accent-color), 0.03))",

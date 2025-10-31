@@ -74,16 +74,17 @@ article {
     color: var(--text-primary);
     /* font-size はタイポグラフィパターンで管理 */
     display: flex;
-    gap: 20px;
+    gap: 10px;
     flex-wrap: wrap;
+    align-items: center;
 }
 
-.entry-meta span {
-    padding: 5px 12px;
-    color: var(--primary-color);
-    /* border-radius はデコレーションパターンで管理 */
+/* メタ情報ラベル（カテゴリ:、タグ: など） */
+.meta-label {
+    /* font-size はタイポグラフィパターンで管理 */
     /* font-weight はタイポグラフィパターンで管理 */
-    opacity: 0.9;
+    color: var(--text-secondary);
+    margin-right: 5px;
 }
 
 .entry-content {
@@ -434,31 +435,96 @@ img {
 ======================================== */
 .meta-badge {
     display: inline-block;
-    padding: 3px 8px;
+    padding: var(--badge-padding);
     margin-right: 10px;
     margin-bottom: 4px;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    font-weight: 500;
+    /* border-radius はデコレーションパターンで管理 */
+    /* font-size はタイポグラフィパターンで管理 */
+    /* font-weight はタイポグラフィパターンで管理 */
     white-space: nowrap;
 }
 
 /* 投稿日バッジ */
 .date-badge {
     background: var(--date-badge-bg, var(--accent-color));
-    color: var(--date-badge-text, var(--badge-text-color));
+    color: var(--date-badge-text, var(--text-primary));
 }
 
 /* 更新日バッジ */
 .modified-badge {
     background: var(--modified-badge-bg, var(--secondary-color));
-    color: var(--modified-badge-text, var(--badge-text-color));
+    color: var(--modified-badge-text, var(--text-primary));
+}
+
+/* 著者バッジ */
+.author-badge {
+    background: var(--author-badge-bg, var(--primary-color));
+    color: var(--author-badge-text, var(--background-color));
+}
+
+/* カテゴリバッジ */
+.category-badge {
+    background: var(--category-badge-bg, var(--secondary-color));
+    color: var(--category-badge-text, var(--text-primary));
+}
+
+/* カテゴリバッジ内のリンク */
+.category-badge a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.category-badge a:hover {
+    color: inherit;
+    opacity: 0.8;
+}
+
+/* タグバッジ */
+.tags-badge {
+    background: var(--tags-badge-bg, var(--accent-color));
+    color: var(--tags-badge-text, var(--text-primary));
+}
+
+/* タグバッジ内のリンク */
+.tags-badge a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: none;
+}
+
+.tags-badge a:hover {
+    color: inherit;
+    opacity: 0.8;
+}
+
+/* 残りタグ展開ボタン */
+.tags-more-btn {
+    background: var(--tags-more-bg, var(--accent-color));
+    color: var(--tags-more-text, var(--text-primary));
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    display: inline-block;
+    padding: var(--badge-padding);
+    margin-right: 10px;
+    margin-bottom: 4px;
+    /* border-radius はデコレーションパターンで管理 */
+    /* font-size はタイポグラフィパターンで管理 */
+    /* font-weight はタイポグラフィパターンで管理 */
+    white-space: nowrap;
+}
+
+.tags-more-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
 }
 
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
-    .meta-badge {
-        font-size: 0.75rem;
-        padding: 2px 6px;
+    .meta-badge,
+    .tags-more-btn {
+        /* font-size はタイポグラフィパターンで管理 */
+        padding: var(--badge-padding-mobile);
     }
 }

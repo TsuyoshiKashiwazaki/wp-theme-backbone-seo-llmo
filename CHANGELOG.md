@@ -2,6 +2,35 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.11] - 2025-10-31
+
+### Added
+- Custom header code meta box for individual page customization
+  - Add custom code (JSON-LD, meta tags, scripts) to head section per page/post
+  - Simple textarea interface without validation
+- Post meta information settings with per-post-type configuration
+  - Unified settings or individual settings per post type (post, page, custom post types)
+  - Display controls for date, modified date, author, category, tags
+  - Tag display limit with expand button (default: 5 tags, shows +N for remaining)
+  - Consistent label format across all meta types
+
+### Improved
+- Meta badge accessibility with WCAG AA compliant contrast ratios
+  - Light backgrounds use dark text (var(--text-primary))
+  - Dark backgrounds use light text (var(--background-color))
+  - No hardcoded colors, all from theme color system
+- Design system integration
+  - Applied containers.border_radius from design patterns to meta badges
+  - Badge padding from decoration themes (var(--badge-padding))
+- File cleanup
+  - Removed all Zone.Identifier files
+  - Removed unused badge_text_color from all 41 color theme JSONs
+
+### Fixed
+- PHP XML extension missing error affecting simple-blog-card plugin
+  - Installed php8.1-xml package to resolve DOMDocument class not found error
+- Custom post type edit page errors resolved
+
 ## [1.0.10] - 2025-10-30
 
 ### Fixed
