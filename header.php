@@ -53,13 +53,13 @@
                         $header_message = backbone_get_header_message();
                         if ($header_message) :
                         ?>
-                            <p class="site-description"><?php echo wp_kses_post($header_message); ?></p>
+                            <p class="site-description" style="color: var(--header-link-color) !important;"><?php echo wp_kses_post($header_message); ?></p>
                         <?php else : ?>
                             <?php
                             $description = backbone_get_tagline();
                             if ($description || is_customize_preview()) :
                             ?>
-                                <p class="site-description"><?php echo esc_html($description); ?></p>
+                                <p class="site-description" style="color: var(--header-link-color) !important;"><?php echo esc_html($description); ?></p>
                             <?php endif; ?>
                         <?php endif;
                     } else {
@@ -67,13 +67,13 @@
                         $header_message = get_theme_mod('header_message');
                         if ($header_message) :
                         ?>
-                            <p class="site-description"><?php echo esc_html($header_message); ?></p>
+                            <p class="site-description" style="color: var(--header-link-color) !important;"><?php echo esc_html($header_message); ?></p>
                         <?php else : ?>
                             <?php
                             $description = get_bloginfo('description', 'display');
                             if ($description || is_customize_preview()) :
                             ?>
-                                <p class="site-description"><?php echo $description; ?></p>
+                                <p class="site-description" style="color: var(--header-link-color) !important;"><?php echo $description; ?></p>
                             <?php endif; ?>
                         <?php endif;
                     }

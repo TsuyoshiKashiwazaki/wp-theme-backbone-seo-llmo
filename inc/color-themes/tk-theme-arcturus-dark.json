@@ -1,0 +1,28 @@
+{
+    "name": "T.Kアークトゥルス（暗）",
+    "id": "tk-theme-arcturus-dark",
+    "description": "アークトゥルスの橙色巨星。WCAG AAA準拠のダークモード配色。目の疲労軽減と色覚多様性に配慮した、暗い背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#9a3412",
+        "secondary_color": "#431407",
+        "accent_color": "#f97316",
+        "background_color": "#1a0f08",
+        "background_secondary": "#2d1810",
+        "text_primary": "#f1f5f9",
+        "text_secondary": "#e2e8f0",
+        "text_light": "#cbd5e1",
+        "link_color": "#fb923c",
+        "link_hover_color": "#fdba74",
+        "header_link_color": "#e8eaed",
+        "header_link_hover_color": "#fdba74",
+        "footer_link_color": "#e8eaed",
+        "footer_link_hover_color": "#fdba74",
+        "border_color": "#3d2418",
+        "button_background_color": "#f97316",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#ea580c",
+        "form_background_color": "#2d1810",
+        "form_focus_color": "#f97316",
+        "search_button_color": "#f97316"
+    }
+}

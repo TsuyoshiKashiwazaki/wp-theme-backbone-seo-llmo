@@ -1,0 +1,28 @@
+{
+    "name": "T.Kプサイドラコニス（暗）",
+    "id": "tk-theme-psidraconis-dark",
+    "description": "プサイドラコニスの紫。WCAG AAA準拠のダークモード配色。目の疲労軽減と色覚多様性に配慮した、暗い背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#6b21a8",
+        "secondary_color": "#3b0764",
+        "accent_color": "#a855f7",
+        "background_color": "#150a1f",
+        "background_secondary": "#241429",
+        "text_primary": "#f1f5f9",
+        "text_secondary": "#e2e8f0",
+        "text_light": "#cbd5e1",
+        "link_color": "#c084fc",
+        "link_hover_color": "#d8b4fe",
+        "header_link_color": "#e8eaed",
+        "header_link_hover_color": "#d8b4fe",
+        "footer_link_color": "#e8eaed",
+        "footer_link_hover_color": "#d8b4fe",
+        "border_color": "#3d1f52",
+        "button_background_color": "#a855f7",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#9333ea",
+        "form_background_color": "#241429",
+        "form_focus_color": "#a855f7",
+        "search_button_color": "#a855f7"
+    }
+}

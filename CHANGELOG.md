@@ -2,6 +2,134 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.12] - 2025-11-03
+
+### Major Updates
+
+**Removed WordPress Core "Colors" Section**
+- Removed `add_theme_support('custom-background')` from theme setup
+- Added `backbone_remove_colors_section()` function to force remove WordPress Core colors section from customizer
+- Cleaner customizer UI focused on theme-specific color themes
+
+**Completely Redesigned Color Themes**
+- Replaced 40+ themes with 22 WCAG AAA compliant themes (11 colors × 2 patterns: light/dark)
+- Old themes preserved in `inc/color-themes/old/` directory for reference
+- New themes named after exoplanets and stars for unique branding:
+  - Blue: **Kepler-22b** (ocean world exoplanet)
+  - Red: **Betelgeuse** (red supergiant star)
+  - Green: **Luyten 726-8** (red dwarf star)
+  - Yellow: **WASP-12b** (scorching hot Jupiter)
+  - Purple: **Psi Draconis** (binary star system)
+  - Orange: **Algorab** (fluorescent orange), **Algorab K0V** (black header variant), **Arcturus** (orange giant star)
+  - Grey: **CoRoT-7b** (lava planet)
+  - White: **Deneb** (white supergiant star)
+  - Black: **Sirius B** (white dwarf companion)
+  - Cream: **Capella** (yellow-white giant star)
+- All themes designed for color-blind users with proper contrast ratios (WCAG AAA)
+- Each theme includes comprehensive accessibility descriptions in Japanese
+
+**Removed All Hardcoded Colors**
+- Replaced all hardcoded color values (#555, #666, #fff, etc.) with CSS variables
+- Affected files:
+  - `css/front-page-sections.css` - Card backgrounds, text, borders, category badges, archive buttons
+  - `css/components-header.css` - Header subtitle colors
+  - `css/components-footer.css` - Footer text and link colors
+  - `css/base.css` - Content link styles
+- Everything now uses theme color system variables for consistency across all 22 themes
+
+**Improved Visibility and Accessibility**
+- Fixed header subtitle visibility on all themes
+  - Added inline styles and CSS rules to force white text on dark backgrounds
+  - File: `header.php`, `css/components-header.css`
+- Fixed footer text readability on all themes
+  - Changed all footer elements to use `var(--footer-link-color)` with `!important`
+  - Footer links now consistently visible with white text
+  - Files: `css/components-footer.css`, `footer.php`
+- Fixed card text visibility in dark themes
+  - Post excerpts now use `var(--text-primary)` instead of hardcoded #555
+  - Category badges use `var(--header-link-color)` for proper contrast
+  - Archive link buttons use `var(--header-link-color)` instead of background color
+  - File: `css/front-page-sections.css`
+- Fixed hero image text visibility
+  - Changed from hardcoded #ffffff to `var(--button-text-color)`
+  - File: `css/front-page-sections.css`
+
+**Added Link Underlines for Better UX**
+- All links now have subtle underlines (0.5px thickness) for improved accessibility
+- Applied to:
+  - Footer links with 3px offset and 0.9 opacity
+  - Content links (`.entry-content a`)
+  - Post title links (`.post-title a`)
+- Maintains clean design while ensuring links are clearly identifiable
+- Files: `css/components-footer.css`, `css/base.css`, `css/front-page-sections.css`
+
+### Technical Improvements
+
+**Card Backgrounds**
+- Card backgrounds now properly inherit theme colors via `var(--background-color)`
+- Card borders use `var(--border-color)` for theme consistency
+
+**Header and Footer Consistency**
+- Header and footer text forced to white (`var(--header-link-color)`, `var(--footer-link-color)`) for consistent visibility across all 22 themes
+- Both use identical white-on-primary-color pattern
+
+**Text Decoration Standards**
+- All text decorations use thin lines (0.5px thickness)
+- Consistent offset (3px) across all underlined elements
+- Opacity 0.9 for subtle, non-intrusive appearance
+
+### Files Changed
+
+**Theme Configuration:**
+- `inc/theme-setup.php` - Removed custom-background support, added colors section removal
+- `style.css` - Version bump to 1.0.12
+
+**Color Themes (22 new files):**
+- `inc/color-themes/tk-theme-kepler22b-light.json`
+- `inc/color-themes/tk-theme-kepler22b-dark.json`
+- `inc/color-themes/tk-theme-betelgeuse-light.json`
+- `inc/color-themes/tk-theme-betelgeuse-dark.json`
+- `inc/color-themes/tk-theme-luyten7268-light.json`
+- `inc/color-themes/tk-theme-luyten7268-dark.json`
+- `inc/color-themes/tk-theme-wasp12b-light.json`
+- `inc/color-themes/tk-theme-wasp12b-dark.json`
+- `inc/color-themes/tk-theme-psidraconis-light.json`
+- `inc/color-themes/tk-theme-psidraconis-dark.json`
+- `inc/color-themes/tk-theme-algorab-light.json`
+- `inc/color-themes/tk-theme-algorab-dark.json`
+- `inc/color-themes/tk-theme-algorabk0v-light.json`
+- `inc/color-themes/tk-theme-algorabk0v-dark.json`
+- `inc/color-themes/tk-theme-arcturus-light.json`
+- `inc/color-themes/tk-theme-arcturus-dark.json`
+- `inc/color-themes/tk-theme-corot7b-light.json`
+- `inc/color-themes/tk-theme-corot7b-dark.json`
+- `inc/color-themes/tk-theme-deneb-light.json`
+- `inc/color-themes/tk-theme-deneb-dark.json`
+- `inc/color-themes/tk-theme-siriusb-light.json`
+- `inc/color-themes/tk-theme-siriusb-dark.json`
+- `inc/color-themes/tk-theme-capella-light.json`
+- `inc/color-themes/tk-theme-capella-dark.json`
+
+**Old Themes (40+ files moved):**
+- All previous color theme JSON files moved to `inc/color-themes/old/` directory
+
+**CSS Files:**
+- `css/components-header.css` - Header subtitle visibility fixes
+- `css/components-footer.css` - Footer text and link visibility, underlines
+- `css/front-page-sections.css` - Removed hardcoded colors, card visibility fixes
+- `css/base.css` - Added link underlines
+
+**Template Files:**
+- `header.php` - Added inline style for subtitle visibility
+
+### Browser Testing
+
+All changes verified with Playwright browser automation:
+- Kepler-22b light theme: Header subtitle visibility confirmed
+- Kepler-22b dark theme: Card text readability confirmed
+- Footer visibility across all themes confirmed
+- Link underlines verified across all components
+
 ## [1.0.11] - 2025-10-31
 
 ### Added

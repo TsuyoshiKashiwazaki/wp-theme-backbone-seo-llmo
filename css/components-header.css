@@ -253,12 +253,17 @@ body.layout-three-columns .site-header .container {
     color: var(--header-link-hover-color);
 }
 
-.site-description {
-    color: var(--text-light);
+.site-header .site-description {
+    color: var(--header-link-color) !important;
     /* font-size はタイポグラフィパターンで管理 */
     margin-top: var(--site-description-margin-top);
-    opacity: 0.9;
+    opacity: 0.95;
     white-space: nowrap;
+}
+
+/* より強い優先度で色を確保 */
+body .site-header .site-description {
+    color: var(--header-link-color) !important;
 }
 
 /* ヘッダー内のすべてのリンクに統一したカラーテーマを適用 */

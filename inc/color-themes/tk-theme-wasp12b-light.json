@@ -1,0 +1,28 @@
+{
+    "name": "T.Kワスプトゥエルブ（明）",
+    "id": "tk-theme-wasp12b-light",
+    "description": "WASP-12bの灼熱黄。WCAG AAA準拠のハイコントラスト配色。視覚障害の方や色覚多様性のある方に配慮した、明るい背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#854d0e",
+        "secondary_color": "#fef3c7",
+        "accent_color": "#ca8a04",
+        "background_color": "#ffffff",
+        "background_secondary": "#fefce8",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#a16207",
+        "link_hover_color": "#713f12",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#fde68a",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#fde68a",
+        "border_color": "#d1d5db",
+        "button_background_color": "#ca8a04",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#a16207",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#ca8a04",
+        "search_button_color": "#ca8a04"
+    }
+}

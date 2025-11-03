@@ -1,0 +1,28 @@
+{
+    "name": "T.Kアルゴラブ（明）",
+    "id": "tk-theme-algorab-light",
+    "description": "アルゴラブK0Vの蛍光橙。WCAG AAA準拠のハイコントラスト配色。視覚障害の方や色覚多様性のある方に配慮した、明るい背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#d97706",
+        "secondary_color": "#fed7aa",
+        "accent_color": "#f59e0b",
+        "background_color": "#ffffff",
+        "background_secondary": "#fffbeb",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#ea580c",
+        "link_hover_color": "#c2410c",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#fbbf24",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#fbbf24",
+        "border_color": "#d1d5db",
+        "button_background_color": "#f59e0b",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#d97706",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#f59e0b",
+        "search_button_color": "#f59e0b"
+    }
+}

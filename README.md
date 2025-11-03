@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.11--dev-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.12--dev-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -137,7 +137,30 @@ The theme includes the following utility modules:
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
+### Version 1.0.12 (2025-11-03)
+
+**Major Updates:**
+- **Removed WordPress Core "Colors" section** from customizer for cleaner UI
+- **Completely redesigned color themes**: Replaced 40+ themes with 22 WCAG AAA compliant themes
+  - Old themes preserved in `inc/color-themes/old/` directory
+  - New themes named after exoplanets and stars (Kepler-22b, Betelgeuse, Algorab, etc.)
+  - All themes support color-blind users with proper contrast ratios
+- **Removed all hardcoded colors** - Everything now uses CSS variables for theme consistency
+- **Improved visibility**: Fixed header subtitle and footer text readability on all themes
+- **Added link underlines**: Subtle 0.5px underlines on all links for better accessibility
+
+**New Color Themes (22 total = 11 colors x 2 patterns):**
+- Blue: Kepler-22b | Red: Betelgeuse | Green: Luyten 726-8
+- Yellow: WASP-12b | Purple: Psi Draconis
+- Orange: Algorab (fluorescent), Algorab K0V (black header), Arcturus
+- Grey: CoRoT-7b | White: Deneb | Black: Sirius B | Cream: Capella
+
+**Technical Improvements:**
+- Card backgrounds now properly inherit theme colors
+- Header and footer text forced to white for consistent visibility
+- All text decoration uses thin lines (0.5px) with proper offset
+
+See [CHANGELOG.md](CHANGELOG.md) for complete version history.
 
 ## License
 

@@ -1,0 +1,28 @@
+{
+    "name": "T.Kデネブ（暗）",
+    "id": "tk-theme-deneb-dark",
+    "description": "デネブの白色超巨星。WCAG AAA準拠のダークモード配色。目の疲労軽減と色覚多様性に配慮した、暗い背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#475569",
+        "secondary_color": "#1e293b",
+        "accent_color": "#94a3b8",
+        "background_color": "#0f1419",
+        "background_secondary": "#1e293b",
+        "text_primary": "#f1f5f9",
+        "text_secondary": "#e2e8f0",
+        "text_light": "#cbd5e1",
+        "link_color": "#94a3b8",
+        "link_hover_color": "#cbd5e1",
+        "header_link_color": "#f1f5f9",
+        "header_link_hover_color": "#cbd5e1",
+        "footer_link_color": "#f1f5f9",
+        "footer_link_hover_color": "#cbd5e1",
+        "border_color": "#334155",
+        "button_background_color": "#64748b",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#475569",
+        "form_background_color": "#1e293b",
+        "form_focus_color": "#64748b",
+        "search_button_color": "#64748b"
+    }
+}

@@ -60,11 +60,6 @@ function backbone_setup() {
     // レスポンシブ埋め込みのサポート
     add_theme_support('responsive-embeds');
 
-    // カスタム背景のサポート
-    add_theme_support('custom-background', array(
-        'default-color' => 'ffffff',
-    ));
-
     // ウィジェットブロックエディタのサポート
     add_theme_support('widgets-block-editor');
 
@@ -75,6 +70,14 @@ function backbone_setup() {
     add_theme_support('appearance-tools');
 }
 add_action('after_setup_theme', 'backbone_setup');
+
+/**
+ * WordPress標準の「色」セクションを削除
+ */
+function backbone_remove_colors_section($wp_customize) {
+    $wp_customize->remove_section('colors');
+}
+add_action('customize_register', 'backbone_remove_colors_section', 15);
 
 /**
  * スタイルとスクリプトの読み込み

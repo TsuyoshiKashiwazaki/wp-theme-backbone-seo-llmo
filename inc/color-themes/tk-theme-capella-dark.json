@@ -1,0 +1,28 @@
+{
+    "name": "T.Kカペラ（暗）",
+    "id": "tk-theme-capella-dark",
+    "description": "カペラの黄白クリーム。WCAG AAA準拠のダークモード配色。目の疲労軽減と色覚多様性に配慮した、暗い背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#d4a574",
+        "secondary_color": "#3d2f1f",
+        "accent_color": "#e9c896",
+        "background_color": "#1a1308",
+        "background_secondary": "#2d2310",
+        "text_primary": "#fef3c7",
+        "text_secondary": "#fde68a",
+        "text_light": "#fcd34d",
+        "link_color": "#fbbf24",
+        "link_hover_color": "#fcd34d",
+        "header_link_color": "#fef3c7",
+        "header_link_hover_color": "#fcd34d",
+        "footer_link_color": "#fef3c7",
+        "footer_link_hover_color": "#fcd34d",
+        "border_color": "#3d2f1f",
+        "button_background_color": "#d97706",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#b45309",
+        "form_background_color": "#2d2310",
+        "form_focus_color": "#d97706",
+        "search_button_color": "#d97706"
+    }
+}

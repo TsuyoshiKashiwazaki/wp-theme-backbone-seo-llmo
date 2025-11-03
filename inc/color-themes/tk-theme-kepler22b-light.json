@@ -1,0 +1,28 @@
+{
+    "name": "T.Kケプラー22b（明）",
+    "id": "tk-theme-kepler22b-light",
+    "description": "ケプラー22bの海洋青。WCAG AAA準拠のハイコントラスト配色。視覚障害の方や色覚多様性のある方に配慮した、明るい背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#003d82",
+        "secondary_color": "#e8f2ff",
+        "accent_color": "#0066cc",
+        "background_color": "#ffffff",
+        "background_secondary": "#f7f9fc",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#0052cc",
+        "link_hover_color": "#003d82",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#b3d9ff",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#b3d9ff",
+        "border_color": "#d1d5db",
+        "button_background_color": "#0066cc",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#004999",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#0066cc",
+        "search_button_color": "#0066cc"
+    }
+}

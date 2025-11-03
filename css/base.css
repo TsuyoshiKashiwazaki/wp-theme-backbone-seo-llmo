@@ -260,13 +260,19 @@ body,
 .entry-content a:link,
 .entry-content a:visited {
     color: var(--link-color);
-    text-decoration: none;
+    text-decoration: underline;
+    text-decoration-thickness: 0.5px;
+    text-underline-offset: 3px;
+    text-decoration-color: var(--link-color);
+    opacity: 0.9;
 }
 
 .entry-content a:hover,
 .entry-content a:focus,
 .entry-content a:active {
     color: var(--link-hover-color);
+    text-decoration-thickness: 1px;
+    opacity: 1;
 }
 
 /* ========================================

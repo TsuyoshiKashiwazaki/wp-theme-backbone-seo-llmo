@@ -3,7 +3,7 @@
 ======================================== */
 .site-footer {
     background: var(--primary-color);
-    color: var(--text-light);
+    color: var(--footer-link-color) !important;
     padding: 40px 0 0;
     /* 全レイアウト統一：ブラウザの左右端と下端にピタリ寄せる */
     width: 100vw !important;
@@ -16,6 +16,14 @@
     margin-bottom: 0 !important;
     padding-bottom: 0;
     box-sizing: border-box;
+}
+
+/* フッター内のすべてのテキストを白色に */
+.site-footer,
+.site-footer p,
+.site-footer td,
+.site-footer th {
+    color: var(--footer-link-color) !important;
 }
 
 .site-footer .container {
@@ -58,7 +66,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, var(--accent-color, transparent), var(--secondary-color, transparent), var(--accent-color, transparent));
+    background: linear-gradient(90deg, var(--primary-color, transparent), var(--secondary-color, transparent), var(--primary-color, transparent));
 }
 
 .footer-content {
@@ -120,24 +128,38 @@
 /* 著作権表記とテーマ情報のスタイル統一 */
 .footer-content .site-info,
 .footer-content .powered-by {
-    color: var(--text-light);
+    color: var(--footer-link-color) !important;
     /* font-size はタイポグラフィパターンで管理 */
 }
 
 .footer-content .powered-by span {
-    color: var(--text-light);
-    opacity: 0.8;
+    color: var(--footer-link-color) !important;
+    opacity: 0.9;
 }
 
 /* フッター内のすべてのリンクに統一したカラーテーマを適用 */
 body .site-footer a {
-    color: var(--footer-link-color);
-    text-decoration: none;
-    transition: color 0.3s ease;
+    color: var(--footer-link-color) !important;
+    text-decoration: underline !important;
+    text-decoration-thickness: 0.5px !important;
+    text-underline-offset: 3px !important;
+    text-decoration-color: var(--footer-link-color) !important;
+    opacity: 0.9;
+    transition: color 0.3s ease, opacity 0.3s ease;
 }
 
 body .site-footer a:hover {
-    color: var(--footer-link-hover-color);
+    color: var(--footer-link-hover-color) !important;
+    text-decoration-thickness: 1px;
+    opacity: 1;
+}
+
+/* strongタグ内のリンクも確実に下線を表示 */
+body .site-footer strong a,
+body .site-footer p strong a {
+    text-decoration: underline !important;
+    text-decoration-thickness: 0.5px !important;
+    text-underline-offset: 3px !important;
 }
 
 /* フッターウィジェット */

@@ -1,0 +1,28 @@
+{
+    "name": "T.Kプサイドラコニス（明）",
+    "id": "tk-theme-psidraconis-light",
+    "description": "プサイドラコニスの紫。WCAG AAA準拠のハイコントラスト配色。視覚障害の方や色覚多様性のある方に配慮した、明るい背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#6b21a8",
+        "secondary_color": "#f3e8ff",
+        "accent_color": "#9333ea",
+        "background_color": "#ffffff",
+        "background_secondary": "#faf5ff",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#7c3aed",
+        "link_hover_color": "#5b21b6",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#d8b4fe",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#d8b4fe",
+        "border_color": "#d1d5db",
+        "button_background_color": "#9333ea",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#7c3aed",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#9333ea",
+        "search_button_color": "#9333ea"
+    }
+}

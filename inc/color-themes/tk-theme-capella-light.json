@@ -1,0 +1,28 @@
+{
+    "name": "T.Kカペラ（明）",
+    "id": "tk-theme-capella-light",
+    "description": "カペラの黄白クリーム。WCAG AAA準拠のハイコントラスト配色。視覚障害の方や色覚多様性のある方に配慮した、明るい背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#d4a574",
+        "secondary_color": "#fef3c7",
+        "accent_color": "#e9c896",
+        "background_color": "#fffef7",
+        "background_secondary": "#fefce8",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#c49a6c",
+        "link_hover_color": "#a67c52",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#fde68a",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#fde68a",
+        "border_color": "#d1d5db",
+        "button_background_color": "#b45309",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#92400e",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#b45309",
+        "search_button_color": "#b45309"
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "name": "T.Kルイテン726-8（暗）",
+    "id": "tk-theme-luyten726-dark",
+    "description": "ルイテン726-8の緑。WCAG AAA準拠のダークモード配色。目の疲労軽減と色覚多様性に配慮した、暗い背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#065f46",
+        "secondary_color": "#14532d",
+        "accent_color": "#10b981",
+        "background_color": "#0f1a14",
+        "background_secondary": "#14291d",
+        "text_primary": "#f1f5f9",
+        "text_secondary": "#e2e8f0",
+        "text_light": "#cbd5e1",
+        "link_color": "#34d399",
+        "link_hover_color": "#6ee7b7",
+        "header_link_color": "#e8eaed",
+        "header_link_hover_color": "#6ee7b7",
+        "footer_link_color": "#e8eaed",
+        "footer_link_hover_color": "#6ee7b7",
+        "border_color": "#1f3d2f",
+        "button_background_color": "#10b981",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#059669",
+        "form_background_color": "#14291d",
+        "form_focus_color": "#10b981",
+        "search_button_color": "#10b981"
+    }
+}

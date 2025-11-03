@@ -1,0 +1,28 @@
+{
+    "name": "T.Kアルゴラブ（暗）",
+    "id": "tk-theme-algorab-dark",
+    "description": "アルゴラブK0Vの蛍光橙。WCAG AAA準拠のダークモード配色。目の疲労軽減と色覚多様性に配慮した、暗い背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#d97706",
+        "secondary_color": "#78350f",
+        "accent_color": "#fbbf24",
+        "background_color": "#1a1508",
+        "background_secondary": "#2d1f10",
+        "text_primary": "#f1f5f9",
+        "text_secondary": "#e2e8f0",
+        "text_light": "#cbd5e1",
+        "link_color": "#fbbf24",
+        "link_hover_color": "#fcd34d",
+        "header_link_color": "#f1f5f9",
+        "header_link_hover_color": "#fcd34d",
+        "footer_link_color": "#f1f5f9",
+        "footer_link_hover_color": "#fcd34d",
+        "border_color": "#3d2f1f",
+        "button_background_color": "#f59e0b",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#d97706",
+        "form_background_color": "#2d1f10",
+        "form_focus_color": "#f59e0b",
+        "search_button_color": "#f59e0b"
+    }
+}

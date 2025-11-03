@@ -1,0 +1,28 @@
+{
+    "name": "T.Kルイテン726-8（明）",
+    "id": "tk-theme-luyten726-light",
+    "description": "ルイテン726-8の緑。WCAG AAA準拠のハイコントラスト配色。視覚障害の方や色覚多様性のある方に配慮した、明るい背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#065f46",
+        "secondary_color": "#d1fae5",
+        "accent_color": "#059669",
+        "background_color": "#ffffff",
+        "background_secondary": "#f0fdf4",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#047857",
+        "link_hover_color": "#064e3b",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#a7f3d0",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#a7f3d0",
+        "border_color": "#d1d5db",
+        "button_background_color": "#059669",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#047857",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#059669",
+        "search_button_color": "#059669"
+    }
+}

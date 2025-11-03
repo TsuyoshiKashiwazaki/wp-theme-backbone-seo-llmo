@@ -1,0 +1,28 @@
+{
+    "name": "T.Kコロート7b（暗）",
+    "id": "tk-theme-corot7b-dark",
+    "description": "CoRoT-7bの溶岩灰。WCAG AAA準拠のダークモード配色。目の疲労軽減と色覚多様性に配慮した、暗い背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#374151",
+        "secondary_color": "#1f2937",
+        "accent_color": "#6b7280",
+        "background_color": "#0f1419",
+        "background_secondary": "#1a1f2e",
+        "text_primary": "#f1f5f9",
+        "text_secondary": "#e2e8f0",
+        "text_light": "#cbd5e1",
+        "link_color": "#9ca3af",
+        "link_hover_color": "#d1d5db",
+        "header_link_color": "#e8eaed",
+        "header_link_hover_color": "#d1d5db",
+        "footer_link_color": "#e8eaed",
+        "footer_link_hover_color": "#d1d5db",
+        "border_color": "#374151",
+        "button_background_color": "#6b7280",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#4b5563",
+        "form_background_color": "#1a1f2e",
+        "form_focus_color": "#6b7280",
+        "search_button_color": "#6b7280"
+    }
+}

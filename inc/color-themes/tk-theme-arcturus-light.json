@@ -1,0 +1,28 @@
+{
+    "name": "T.Kアークトゥルス（明）",
+    "id": "tk-theme-arcturus-light",
+    "description": "アークトゥルスの橙色巨星。WCAG AAA準拠のハイコントラスト配色。視覚障害の方や色覚多様性のある方に配慮した、明るい背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#9a3412",
+        "secondary_color": "#fed7aa",
+        "accent_color": "#ea580c",
+        "background_color": "#ffffff",
+        "background_secondary": "#fff7ed",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#c2410c",
+        "link_hover_color": "#7c2d12",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#fdba74",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#fdba74",
+        "border_color": "#d1d5db",
+        "button_background_color": "#ea580c",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#c2410c",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#ea580c",
+        "search_button_color": "#ea580c"
+    }
+}

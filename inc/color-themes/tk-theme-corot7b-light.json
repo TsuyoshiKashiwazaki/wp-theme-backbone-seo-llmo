@@ -1,0 +1,28 @@
+{
+    "name": "T.Kコロート7b（明）",
+    "id": "tk-theme-corot7b-light",
+    "description": "CoRoT-7bの溶岩灰。WCAG AAA準拠のハイコントラスト配色。視覚障害の方や色覚多様性のある方に配慮した、明るい背景の読みやすいテーマ。",
+    "colors": {
+        "primary_color": "#1f2937",
+        "secondary_color": "#f3f4f6",
+        "accent_color": "#4b5563",
+        "background_color": "#ffffff",
+        "background_secondary": "#f9fafb",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#374151",
+        "link_hover_color": "#111827",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#d1d5db",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#d1d5db",
+        "border_color": "#d1d5db",
+        "button_background_color": "#4b5563",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#374151",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#4b5563",
+        "search_button_color": "#4b5563"
+    }
+}
