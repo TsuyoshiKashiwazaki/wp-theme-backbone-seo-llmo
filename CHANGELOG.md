@@ -2,6 +2,27 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.13] - 2025-11-04
+
+### Improved
+- **404 Template Structure**: Unified 404.php template structure with other templates using standard article, entry-header, and entry-content classes for consistency
+- **404 Page Layout**: Added max-width: 800px constraint to 404 page content for improved readability
+- **404 Page Content**: Simplified 404 page by removing hardcoded suggestions (popular posts, categories, multiple buttons) for cleaner design
+- **Admin UX**: Added prominent notice in Settings > Reading when custom front page mode is active
+- **Settings Management**: Disabled WordPress standard homepage display settings when custom front page mode is enabled to prevent user confusion
+
+### Added
+- **404 Status Code**: Added proper HTTP 404 status header and no-cache headers to 404.php template
+- **Admin Notice System**: New backbone_reading_settings_notice() function displays info banner on reading settings page
+- **Visual Feedback**: Grayed out homepage display settings with explanation overlay when custom mode is active
+- **Customizer Description**: Dynamic section description that updates based on front page mode
+
+### Technical
+- Modified `404.php`: Changed section to article, page-header to entry-header, page-content to entry-content
+- Modified `css/content.css`: Added max-width and margin auto to .error-404 class
+- Modified `inc/admin-pages.php`: Added reading settings notice function with CSS for disabled state
+- Modified `inc/customizer/front-page-settings.php`: Added dynamic description for custom mode notice
+
 ## [1.0.12] - 2025-11-03
 
 ### Major Updates

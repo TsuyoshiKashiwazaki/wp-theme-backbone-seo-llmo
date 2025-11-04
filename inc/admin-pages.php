@@ -25,6 +25,52 @@ function backbone_admin_menu() {
 add_action('admin_menu', 'backbone_admin_menu');
 
 /**
+ * 表示設定ページにカスタムフロントページ使用中の通知を追加
+ */
+function backbone_reading_settings_notice() {
+    // 表示設定ページでのみ表示
+    $screen = get_current_screen();
+    if (!$screen || $screen->id !== 'options-reading') {
+        return;
+    }
+
+    $current_mode = get_theme_mod('backbone_front_page_mode', 'custom');
+
+    if ($current_mode === 'custom') {
+        ?>
+        <div class="notice notice-info">
+            <p>
+                <strong><?php _e('ℹ️ カスタムフロントページ使用中', 'backbone-seo-llmo'); ?></strong><br>
+                <?php _e('現在、テーマ独自のカスタムフロントページ機能を使用しています。下記の「ホームページの表示」設定は無効化されています。', 'backbone-seo-llmo'); ?><br>
+                <a href="<?php echo admin_url('customize.php?autofocus[section]=static_front_page'); ?>">
+                    <?php _e('カスタマイザーで設定を変更', 'backbone-seo-llmo'); ?>
+                </a>
+            </p>
+        </div>
+        <style>
+            /* カスタムモード時にホームページ表示設定を半透明にして無効化 */
+            #front-static-pages { position: relative; }
+            #front-static-pages fieldset { opacity: 0.5; pointer-events: none; }
+            /* グレーアウト理由を説明するオーバーレイ */
+            #front-static-pages::before {
+                content: "⚠️ この設定は現在無効です。テーマのカスタムフロントページ機能を使用中のため、上記の通知から設定を変更してください。";
+                display: block;
+                background: #f0f0f1;
+                border: 1px solid #c3c4c7;
+                border-radius: 4px;
+                padding: 12px;
+                margin-bottom: 15px;
+                font-size: 13px;
+                line-height: 1.6;
+                color: #2c3338;
+            }
+        </style>
+        <?php
+    }
+}
+add_action('admin_notices', 'backbone_reading_settings_notice');
+
+/**
  * テーマ設定ページの内容
  */
 function backbone_settings_page() {

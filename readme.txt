@@ -5,7 +5,7 @@ Tags: blog, accessibility-ready, custom-colors, custom-logo, custom-menu, editor
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.12
+Stable tag: 1.0.13
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,6 +176,14 @@ Backbone Theme for SEO + LLMO は、メディア運用に特化したシンプ�
 
 == Changelog ==
 
+= 1.0.13 - 2025-11-04 =
+* 改善: 404テンプレート構造を他のテンプレートと統一（article、entry-header、entry-content）
+* 追加: 404ページにmax-width制約を追加し可読性を向上
+* 追加: 404ページに適切なHTTPステータスコードとno-cacheヘッダーを追加
+* 改善: 404ページコンテンツを簡素化（ハードコードされた提案を削除）
+* 追加: 表示設定ページにカスタムフロントページモード使用中の通知を追加
+* 改善: カスタムモード有効時にWordPress標準のホームページ設定を無効化してUXを改善
+
 = 1.0.12 - 2025-11-03 =
 * 削除: WordPressコアの「色」セクションをカスタマイザーから削除
 * 追加: 22個のWCAG AAA準拠カラーテーマ（11色 × 明暗2パターン）を新規作成
@@ -239,6 +247,9 @@ Backbone Theme for SEO + LLMO は、メディア運用に特化したシンプ�
 * 初回リリース
 
 == Upgrade Notice ==
+
+= 1.0.13 =
+404ページのテンプレート構造を統一し、UXを改善。カスタムフロントページモード使用中の通知機能を追加し、管理画面での混乱を防止。
 
 = 1.0.12 =
 カラーテーマを完全刷新。WCAG AAA準拠の22個の新テーマ（系外惑星・恒星名）を追加。すべてのハードコード色をCSS変数に置き換え、視認性とアクセシビリティを大幅改善。

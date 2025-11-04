@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.12--dev-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.13--dev-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -172,6 +172,16 @@ License: https://www.gnu.org/licenses/gpl-2.0.html
 **Developer**: Tsuyoshi Kashiwazaki
 **Website**: https://www.tsuyoshikashiwazaki.jp/profile/
 **Support**: For questions or bug reports regarding this theme, please contact via the developer website.
+
+## Changelog
+
+### Version 1.0.13 (2025-11-04)
+- Unified 404 template structure with other templates (article, entry-header, entry-content)
+- Added max-width constraint to 404 page for better readability
+- Added proper 404 HTTP status code and no-cache headers
+- Simplified 404 page content (removed hardcoded suggestions)
+- Added admin notice for custom front page mode in reading settings
+- Improved UX by disabling WordPress standard homepage settings when custom mode is active
 
 ## Contributing
 

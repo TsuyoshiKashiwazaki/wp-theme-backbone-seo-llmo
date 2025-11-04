@@ -18,7 +18,14 @@ if (!defined('ABSPATH')) {
 function backbone_add_front_page_settings($wp_customize) {
     // WordPressの標準「ホームページ設定」セクションを「フロントページ設定」に変更
     $wp_customize->get_section('static_front_page')->title = __('フロントページ設定', 'backbone-seo-llmo');
-    $wp_customize->get_section('static_front_page')->description = __('トップページの表示方法を設定します。カスタムフロントページを使用するか、既存のページを選択できます。', 'backbone-seo-llmo');
+
+    // 現在のモードに応じて説明文を変更
+    $current_mode = get_theme_mod('backbone_front_page_mode', 'custom');
+    if ($current_mode === 'custom') {
+        $wp_customize->get_section('static_front_page')->description = __('⚠️ 現在、テーマ独自のカスタムフロントページ機能を使用しています。WordPress標準の「ホームページの表示」設定は無効化されています。', 'backbone-seo-llmo');
+    } else {
+        $wp_customize->get_section('static_front_page')->description = __('トップページの表示方法を設定します。カスタムフロントページを使用するか、既存のページを選択できます。', 'backbone-seo-llmo');
+    }
 
     // ============================================
     // A. フロントページモード選択
