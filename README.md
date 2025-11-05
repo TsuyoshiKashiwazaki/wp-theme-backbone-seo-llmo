@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.13--dev-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.14--dev-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -174,6 +174,15 @@ License: https://www.gnu.org/licenses/gpl-2.0.html
 **Support**: For questions or bug reports regarding this theme, please contact via the developer website.
 
 ## Changelog
+
+### Version 1.0.14 (2025-11-05)
+
+**Major Updates:**
+- Improved hero image customizer settings with common/individual mode toggle
+- Fixed hero image style, alignment, and decoration not respecting common settings mode
+- Added live preview for hero image styles in customizer
+- Fixed fullwidth hero image CSS layout
+- Unified date badge size and format across all templates (0.75em, Y/m/d)
 
 ### Version 1.0.13 (2025-11-04)
 - Unified 404 template structure with other templates (article, entry-header, entry-content)

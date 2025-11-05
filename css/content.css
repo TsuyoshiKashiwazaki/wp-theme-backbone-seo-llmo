@@ -441,9 +441,14 @@ img {
     margin-right: 10px;
     margin-bottom: 4px;
     /* border-radius はデコレーションパターンで管理 */
-    /* font-size はタイポグラフィパターンで管理 */
+    font-size: 0.75em; /* すべてのページで統一サイズ */
     /* font-weight はタイポグラフィパターンで管理 */
     white-space: nowrap;
+}
+
+/* バッジ内のラベルを小さく表示 */
+.meta-label-small {
+    margin-right: 3px;
 }
 
 /* 投稿日バッジ */

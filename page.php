@@ -37,16 +37,14 @@ get_header(); ?>
                     ?>
                         <div class="entry-meta">
                             <?php if ($show_date) : ?>
-                                <span class="meta-label"><?php echo __('投稿', 'backbone-seo-llmo'); ?>:</span>
                                 <time datetime="<?php echo get_the_date('c'); ?>" class="meta-badge date-badge">
-                                    <?php echo get_the_date(); ?>
+                                    <span class="meta-label-small"><?php echo __('投稿', 'backbone-seo-llmo'); ?>:</span><?php echo get_the_date('Y/m/d'); ?>
                                 </time>
                             <?php endif; ?>
 
                             <?php if ($show_modified && get_the_modified_date('c') !== get_the_date('c')) : ?>
-                                <span class="meta-label"><?php echo __('更新', 'backbone-seo-llmo'); ?>:</span>
                                 <time datetime="<?php echo get_the_modified_date('c'); ?>" class="meta-badge modified-badge">
-                                    <?php echo get_the_modified_date(); ?>
+                                    <span class="meta-label-small"><?php echo __('更新', 'backbone-seo-llmo'); ?>:</span><?php echo get_the_modified_date('Y/m/d'); ?>
                                 </time>
                             <?php endif; ?>
 

@@ -118,23 +118,23 @@ if ($posts_query->have_posts()) :
                                 if ($orderby === 'modified') {
                                     if ($show_modified) : ?>
                                         <time datetime="<?php echo get_the_modified_date('c'); ?>" class="meta-badge modified-badge">
-                                            <?php echo __('更新', 'backbone-seo-llmo') . ' ' . get_the_modified_date(); ?>
+                                            <span class="meta-label-small"><?php echo __('更新', 'backbone-seo-llmo'); ?>:</span><?php echo get_the_modified_date('Y/m/d'); ?>
                                         </time>
                                     <?php endif;
                                     if ($show_date) : ?>
                                         <time datetime="<?php echo get_the_date('c'); ?>" class="meta-badge date-badge">
-                                            <?php echo __('投稿', 'backbone-seo-llmo') . ' ' . get_the_date(); ?>
+                                            <span class="meta-label-small"><?php echo __('投稿', 'backbone-seo-llmo'); ?>:</span><?php echo get_the_date('Y/m/d'); ?>
                                         </time>
                                     <?php endif;
                                 } else {
                                     if ($show_date) : ?>
                                         <time datetime="<?php echo get_the_date('c'); ?>" class="meta-badge date-badge">
-                                            <?php echo __('投稿', 'backbone-seo-llmo') . ' ' . get_the_date(); ?>
+                                            <span class="meta-label-small"><?php echo __('投稿', 'backbone-seo-llmo'); ?>:</span><?php echo get_the_date('Y/m/d'); ?>
                                         </time>
                                     <?php endif;
                                     if ($show_modified) : ?>
                                         <time datetime="<?php echo get_the_modified_date('c'); ?>" class="meta-badge modified-badge">
-                                            <?php echo __('更新', 'backbone-seo-llmo') . ' ' . get_the_modified_date(); ?>
+                                            <span class="meta-label-small"><?php echo __('更新', 'backbone-seo-llmo'); ?>:</span><?php echo get_the_modified_date('Y/m/d'); ?>
                                         </time>
                                     <?php endif;
                                 }

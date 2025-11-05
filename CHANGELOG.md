@@ -2,6 +2,21 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.14] - 2025-11-05
+
+### Fixed
+- Hero image style, alignment, and decoration settings now respect common/individual mode setting
+- Fullwidth hero image CSS layout corrected
+
+### Added
+- Hero image customizer common/individual mode radio toggle
+- Live preview for hero image style changes in customizer
+- supportedPostTypes data passed to JavaScript for dynamic handlers
+
+### Improved
+- Unified date badge size (0.75em) and format (Y/m/d) across all templates
+- Archive grid date badge no longer applies double font-size reduction
+
 ## [1.0.13] - 2025-11-04
 
 ### Improved

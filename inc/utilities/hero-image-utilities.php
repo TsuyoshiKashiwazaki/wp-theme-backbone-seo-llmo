@@ -39,8 +39,17 @@ function backbone_should_display_hero_image($post_id = null) {
     }
 
     // 個別設定が「グローバル設定を使用」または未設定の場合、グローバル設定を確認
-    $post_type = get_post_type($post_id);
-    $global_setting = get_theme_mod('hero_image_enable_' . $post_type, true);
+    // 設定モードを確認
+    $setting_mode = get_theme_mod('hero_image_setting_mode', 'common');
+
+    if ($setting_mode === 'common') {
+        // 共通設定モード: すべての投稿タイプで同じ設定を使用
+        $global_setting = get_theme_mod('hero_image_enable_common', true);
+    } else {
+        // 個別設定モード: 投稿タイプごとの設定を使用
+        $post_type = get_post_type($post_id);
+        $global_setting = get_theme_mod('hero_image_enable_' . $post_type, true);
+    }
 
     return (bool) $global_setting;
 }
@@ -64,11 +73,24 @@ function backbone_get_hero_image_style($post_id = null) {
         return $individual_style;
     }
 
-    // グローバル設定を使用
-    $post_type = get_post_type($post_id);
-    $global_style = get_theme_mod('hero_image_style_' . $post_type, 'standard');
+    // 設定モードを確認
+    $setting_mode = get_theme_mod('hero_image_setting_mode', 'common');
 
-    return $global_style;
+    if ($setting_mode === 'common') {
+        // 共通設定モード: 共通設定を使用
+        return get_theme_mod('hero_image_style_common', 'standard');
+    } else {
+        // 個別設定モード: 投稿タイプ別設定を確認
+        $post_type = get_post_type($post_id);
+        $type_style = get_theme_mod('hero_image_style_' . $post_type, null);
+
+        if ($type_style !== null) {
+            return $type_style;
+        }
+
+        // フォールバック: 共通設定を使用
+        return get_theme_mod('hero_image_style_common', 'standard');
+    }
 }
 
 
@@ -83,8 +105,24 @@ function backbone_get_hero_image_alignment($post_id = null) {
         $post_id = get_the_ID();
     }
 
-    $post_type = get_post_type($post_id);
-    return get_theme_mod('hero_alignment_' . $post_type, 'center');
+    // 設定モードを確認
+    $setting_mode = get_theme_mod('hero_image_setting_mode', 'common');
+
+    if ($setting_mode === 'common') {
+        // 共通設定モード: 共通設定を使用
+        return get_theme_mod('hero_alignment_common', 'center');
+    } else {
+        // 個別設定モード: 投稿タイプ別設定を確認
+        $post_type = get_post_type($post_id);
+        $type_alignment = get_theme_mod('hero_alignment_' . $post_type, null);
+
+        if ($type_alignment !== null) {
+            return $type_alignment;
+        }
+
+        // フォールバック: 共通設定を使用
+        return get_theme_mod('hero_alignment_common', 'center');
+    }
 }
 
 /**
@@ -174,14 +212,45 @@ function backbone_get_hero_decoration_settings($post_id = null) {
         $post_id = get_the_ID();
     }
 
-    $post_type = get_post_type($post_id);
+    // 設定モードを確認
+    $setting_mode = get_theme_mod('hero_image_setting_mode', 'common');
 
-    // グローバル設定から直接取得
+    if ($setting_mode === 'common') {
+        // 共通設定モード: 共通設定を使用
+        $border = get_theme_mod('hero_border_common', 'none');
+        $border_color = get_theme_mod('hero_border_color_common', '');
+        $border_radius = get_theme_mod('hero_border_radius_common', 'none');
+        $animation = get_theme_mod('hero_animation_common', 'none');
+    } else {
+        // 個別設定モード: 投稿タイプ別設定を確認、なければ共通設定を使用
+        $post_type = get_post_type($post_id);
+
+        $border = get_theme_mod('hero_border_' . $post_type, null);
+        if ($border === null) {
+            $border = get_theme_mod('hero_border_common', 'none');
+        }
+
+        $border_color = get_theme_mod('hero_border_color_' . $post_type, null);
+        if ($border_color === null) {
+            $border_color = get_theme_mod('hero_border_color_common', '');
+        }
+
+        $border_radius = get_theme_mod('hero_border_radius_' . $post_type, null);
+        if ($border_radius === null) {
+            $border_radius = get_theme_mod('hero_border_radius_common', 'none');
+        }
+
+        $animation = get_theme_mod('hero_animation_' . $post_type, null);
+        if ($animation === null) {
+            $animation = get_theme_mod('hero_animation_common', 'none');
+        }
+    }
+
     return array(
-        'border' => get_theme_mod('hero_border_' . $post_type, 'none'),
-        'border_color' => get_theme_mod('hero_border_color_' . $post_type, ''),
-        'border_radius' => get_theme_mod('hero_border_radius_' . $post_type, 'none'),
-        'animation' => get_theme_mod('hero_animation_' . $post_type, 'none'),
+        'border' => $border,
+        'border_color' => $border_color,
+        'border_radius' => $border_radius,
+        'animation' => $animation,
     );
 }
 

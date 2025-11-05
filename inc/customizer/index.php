@@ -307,6 +307,7 @@ function backbone_customize_controls_js() {
     wp_localize_script('seo-optimus-customizer-controls', 'seoOptimusThemeData', array(
         'themes' => $theme_data,
         'themeCount' => count($theme_data),
+        'supportedPostTypes' => backbone_get_hero_supported_post_types(),
         'debug' => WP_DEBUG
     ));
 

@@ -8,9 +8,10 @@ var CustomizerPreview = (function ($) {
 
     // 初期化
     module.init = function () {
-        
+
         bindTypographyControls();
         bindColorControls();
+        bindHeroImageControls();
     };
 
     // タイポグラフィ設定のライブプレビュー
@@ -133,6 +134,52 @@ var CustomizerPreview = (function ($) {
                 });
             });
         });
+    }
+
+    // ヒーローイメージ設定のライブプレビュー
+    function bindHeroImageControls() {
+        // 共通設定: スタイル変更
+        wp.customize('hero_image_style_common', function(value) {
+            value.bind(function(newStyle) {
+                var settingMode = wp.customize('hero_image_setting_mode') ? wp.customize('hero_image_setting_mode').get() : 'common';
+
+                // 共通設定モードの場合のみ反映
+                if (settingMode === 'common') {
+                    var $heroImage = $('.hero-image');
+                    if ($heroImage.length) {
+                        // 既存のスタイルクラスを削除
+                        $heroImage.removeClass('hero-standard hero-fullwidth hero-circle hero-card');
+                        // 新しいスタイルクラスを追加
+                        $heroImage.addClass('hero-' + newStyle);
+                    }
+                }
+            });
+        });
+
+        // 個別設定: 各投稿タイプのスタイル変更
+        // 投稿タイプのリストを取得（PHPから渡される）
+        if (typeof seoOptimusThemeData !== 'undefined' && seoOptimusThemeData.supportedPostTypes) {
+            var postTypes = seoOptimusThemeData.supportedPostTypes;
+
+            Object.keys(postTypes).forEach(function(postType) {
+                wp.customize('hero_image_style_' + postType, function(value) {
+                    value.bind(function(newStyle) {
+                        var settingMode = wp.customize('hero_image_setting_mode') ? wp.customize('hero_image_setting_mode').get() : 'common';
+
+                        // 個別設定モードで、かつ現在のページが該当する投稿タイプの場合のみ反映
+                        if (settingMode === 'individual') {
+                            var $heroImage = $('.hero-image');
+                            if ($heroImage.length) {
+                                // 既存のスタイルクラスを削除
+                                $heroImage.removeClass('hero-standard hero-fullwidth hero-circle hero-card');
+                                // 新しいスタイルクラスを追加
+                                $heroImage.addClass('hero-' + newStyle);
+                            }
+                        }
+                    });
+                });
+            });
+        }
     }
 
     // カラーキーから設定キーを取得する関数（グローバルに公開）

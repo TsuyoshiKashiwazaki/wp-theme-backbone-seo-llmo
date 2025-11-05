@@ -5,7 +5,7 @@ Tags: blog, accessibility-ready, custom-colors, custom-logo, custom-menu, editor
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.13
+Stable tag: 1.0.14
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -176,6 +176,13 @@ Backbone Theme for SEO + LLMO は、メディア運用に特化したシンプ�
 
 == Changelog ==
 
+= 1.0.14 - 2025-11-05 =
+* 改善: ヒーローイメージカスタマイザーに共通設定/個別設定モード切り替えを追加
+* 修正: ヒーローイメージのスタイル、配置、デコレーション設定が共通モードを尊重するように修正
+* 追加: カスタマイザーでヒーローイメージスタイル変更のライブプレビュー機能を実装
+* 修正: フルワイドヒーローイメージのCSSレイアウトを修正
+* 改善: 全テンプレートで日付バッジのサイズ（0.75em）と形式（Y/m/d）を統一
+
 = 1.0.13 - 2025-11-04 =
 * 改善: 404テンプレート構造を他のテンプレートと統一（article、entry-header、entry-content）
 * 追加: 404ページにmax-width制約を追加し可読性を向上
@@ -247,6 +254,9 @@ Backbone Theme for SEO + LLMO は、メディア運用に特化したシンプ�
 * 初回リリース
 
 == Upgrade Notice ==
+
+= 1.0.14 =
+ヒーローイメージカスタマイザーの改善（ライブプレビュー機能と共通設定の適切なサポート）。
 
 = 1.0.13 =
 404ページのテンプレート構造を統一し、UXを改善。カスタムフロントページモード使用中の通知機能を追加し、管理画面での混乱を防止。
