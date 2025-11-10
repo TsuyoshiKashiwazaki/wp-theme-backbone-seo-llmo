@@ -286,12 +286,12 @@ function backbone_add_custom_pagination_rules() {
             );
 
             // カスタム投稿タイプアーカイブのページネーション（2階層）
-            // 例: /seo-note/report/page-2/ (reportは子の投稿タイプ)
-            add_rewrite_rule(
-                $slug . '/([^/]+)/page-([0-9]{1,})/?$',
-                'index.php?post_type=$matches[1]&paged=$matches[2]',
-                'top'
-            );
+            // 一時的にコメントアウト - デバッグ用
+            // add_rewrite_rule(
+            //     $slug . '/(?!page-)([^/]+)/page-([0-9]{1,})/?$',
+            //     'index.php?post_type=$matches[1]&paged=$matches[2]',
+            //     'top'
+            // );
         }
     }
 
@@ -336,11 +336,12 @@ function backbone_add_custom_pagination_rules() {
     );
 
     // カテゴリーアーカイブのページネーション（カテゴリーベースなし）
-    // ※汎用的なルールなので最後に配置
+    // ※汎用的なルールなので最後に配置し、'bottom' 優先度に設定
+    //   これによりカスタム投稿タイプのルールが優先される
     add_rewrite_rule(
         '([^/]+)/page-([0-9]{1,})/?$',
         'index.php?category_name=$matches[1]&paged=$matches[2]',
-        'top'
+        'bottom'
     );
 }
 add_action('init', 'backbone_add_custom_pagination_rules');
@@ -375,10 +376,10 @@ add_action('template_redirect', 'backbone_redirect_old_pagination');
  * Rewriteルールを一度だけフラッシュ（初回のみ実行）
  */
 function backbone_flush_rewrite_rules_once() {
-    $flushed = get_option('backbone_rewrite_flushed_v18');
+    $flushed = get_option('backbone_rewrite_flushed_v22');
     if (!$flushed) {
         flush_rewrite_rules(false);
-        update_option('backbone_rewrite_flushed_v18', true);
+        update_option('backbone_rewrite_flushed_v22', true);
     }
 }
 add_action('init', 'backbone_flush_rewrite_rules_once', 20);
@@ -394,19 +395,73 @@ function backbone_modify_archive_query($query) {
 
     // アーカイブページのみ対象
     if ($query->is_archive() || $query->is_home()) {
-        $orderby = get_theme_mod('archive_orderby', 'date');
+        // backbone_get_archive_setting を使って個別設定にも対応
+        $orderby = backbone_get_archive_setting('orderby', 'date');
 
         if ($orderby && in_array($orderby, array('date', 'modified', 'rand'))) {
-            $query->set('orderby', $orderby);
-
             // randの場合はorder指定不要、それ以外はDESC
             if ($orderby !== 'rand') {
-                $query->set('order', 'DESC');
+                // セカンダリーソートキーとしてIDを追加（安定したソートのため）
+                $query->set('orderby', array($orderby => 'DESC', 'ID' => 'DESC'));
+            } else {
+                $query->set('orderby', $orderby);
             }
         }
     }
 }
-add_action('pre_get_posts', 'backbone_modify_archive_query');
+// プラグインのpre_get_posts (priority 999) の後に実行するため、より高い優先度を設定
+add_action('pre_get_posts', 'backbone_modify_archive_query', 9999);
+
+/**
+ * FIX: テンプレート表示直前に投稿順序を強制修正
+ *
+ * 何らかの理由でメインクエリの投稿順序が template_redirect 中に変更されてしまう問題に対する修正。
+ * このフックで正しい順序の投稿を再取得し、メインクエリを上書きする。
+ */
+function backbone_force_correct_post_order() {
+    global $wp_query;
+
+    // カスタム投稿タイプのアーカイブページのみ対象
+    if (!is_admin() && is_post_type_archive() && $wp_query->is_main_query()) {
+        // 現在の投稿タイプを取得
+        $post_type = get_query_var('post_type');
+        if (empty($post_type) && isset($wp_query->query_vars['post_type'])) {
+            $post_type = $wp_query->query_vars['post_type'];
+        }
+
+        if (empty($post_type)) {
+            return;
+        }
+
+        // backbone_get_archive_setting を使って個別設定にも対応
+        $orderby = backbone_get_archive_setting('orderby', 'date');
+
+        if ($orderby && in_array($orderby, array('date', 'modified', 'rand'))) {
+            $paged = max(1, get_query_var('paged'));
+            $posts_per_page = get_query_var('posts_per_page');
+
+            // orderby設定を準備
+            $query_orderby = ($orderby === 'rand')
+                ? 'rand'
+                : array($orderby => 'DESC', 'ID' => 'DESC');
+
+            // 正しい順序で投稿を再取得
+            $fix_query = new WP_Query(array(
+                'post_type' => $post_type,
+                'post_status' => 'publish',
+                'posts_per_page' => $posts_per_page,
+                'paged' => $paged,
+                'orderby' => $query_orderby,
+                'no_found_rows' => false,
+            ));
+
+            // メインクエリの投稿を置き換え
+            $wp_query->posts = $fix_query->posts;
+            $wp_query->post_count = $fix_query->post_count;
+        }
+    }
+}
+add_action('template_redirect', 'backbone_force_correct_post_order', 99999);
 
 /**
  * フロントページのコンテンツ最大幅を出力
@@ -442,3 +497,26 @@ function backbone_output_front_page_content_width() {
     }
 }
 add_action('wp_enqueue_scripts', 'backbone_output_front_page_content_width');
+
+/**
+ * カスタマイザーコントロール用CSSとJSを読み込み
+ */
+function backbone_enqueue_customizer_controls_assets($wp_customize) {
+    // CSS
+    wp_enqueue_style(
+        "backbone-customizer-controls",
+        get_template_directory_uri() . "/css/customizer-controls.css",
+        array(),
+        "1.0.0"
+    );
+
+    // JavaScript
+    wp_enqueue_script(
+        "backbone-customizer-controls",
+        get_template_directory_uri() . "/js/customizer-controls.js",
+        array("jquery", "customize-controls"),
+        "1.0.0",
+        true
+    );
+}
+add_action("customize_controls_enqueue_scripts", "backbone_enqueue_customizer_controls_assets");

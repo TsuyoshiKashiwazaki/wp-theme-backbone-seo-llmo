@@ -24,7 +24,7 @@
                 callback(data);
             },
             error: function() {
-                console.log('Failed to load theme: ' + themeId);
+                // テーマのロードに失敗した場合は何もしない
             }
         });
     }

@@ -48,6 +48,7 @@ function backbone_add_archive_settings($wp_customize) {
         'section' => 'archive_settings',
         'priority' => 10,
         'description' => __('全アーカイブページに適用される共通設定です。', 'backbone-seo-llmo'),
+        'active_callback' => 'backbone_is_unified_archive_settings_enabled',
     )));
 
     // 共通設定の項目
@@ -116,6 +117,9 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
     $prefix = empty($type) ? 'archive_' : 'archive_' . $type . '_';
     $priority = $priority_start;
 
+    // 個別設定の場合はactive_callbackを設定
+    $is_individual = !empty($type);
+
     // 列数設定
     $wp_customize->add_setting($prefix . 'grid_columns', array(
         'default' => '3',
@@ -123,7 +127,7 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control($prefix . 'grid_columns', array(
+    $control_args = array(
         'label' => __('グリッド列数', 'backbone-seo-llmo'),
         'section' => $section,
         'type' => 'select',
@@ -133,7 +137,13 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
             '4' => __('4列', 'backbone-seo-llmo'),
         ),
         'priority' => $priority++,
-    ));
+    );
+    if ($is_individual) {
+        $control_args['active_callback'] = 'backbone_is_individual_archive_settings_enabled';
+    } else {
+        $control_args['active_callback'] = 'backbone_is_unified_archive_settings_enabled';
+    }
+    $wp_customize->add_control($prefix . 'grid_columns', $control_args);
 
     // 並び順設定
     if ($show_orderby) {
@@ -143,7 +153,7 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
             'transport' => 'refresh',
         ));
 
-        $wp_customize->add_control($prefix . 'orderby', array(
+        $control_args = array(
             'label' => __('並び順', 'backbone-seo-llmo'),
             'section' => $section,
             'type' => 'select',
@@ -153,7 +163,13 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
                 'rand' => __('ランダム', 'backbone-seo-llmo'),
             ),
             'priority' => $priority++,
-        ));
+        );
+        if ($is_individual) {
+            $control_args['active_callback'] = 'backbone_is_individual_archive_settings_enabled';
+        } else {
+            $control_args['active_callback'] = 'backbone_is_unified_archive_settings_enabled';
+        }
+        $wp_customize->add_control($prefix . 'orderby', $control_args);
     }
 
     // アイキャッチ画像表示
@@ -163,12 +179,18 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control($prefix . 'show_thumbnail', array(
+    $control_args = array(
         'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
         'section' => $section,
         'type' => 'checkbox',
         'priority' => $priority++,
-    ));
+    );
+    if ($is_individual) {
+        $control_args['active_callback'] = 'backbone_is_individual_archive_settings_enabled';
+    } else {
+        $control_args['active_callback'] = 'backbone_is_unified_archive_settings_enabled';
+    }
+    $wp_customize->add_control($prefix . 'show_thumbnail', $control_args);
 
     // 投稿日表示
     $wp_customize->add_setting($prefix . 'show_date', array(
@@ -177,12 +199,18 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control($prefix . 'show_date', array(
+    $control_args = array(
         'label' => __('投稿日を表示', 'backbone-seo-llmo'),
         'section' => $section,
         'type' => 'checkbox',
         'priority' => $priority++,
-    ));
+    );
+    if ($is_individual) {
+        $control_args['active_callback'] = 'backbone_is_individual_archive_settings_enabled';
+    } else {
+        $control_args['active_callback'] = 'backbone_is_unified_archive_settings_enabled';
+    }
+    $wp_customize->add_control($prefix . 'show_date', $control_args);
 
     // 更新日表示
     $wp_customize->add_setting($prefix . 'show_modified', array(
@@ -191,12 +219,18 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control($prefix . 'show_modified', array(
+    $control_args = array(
         'label' => __('更新日を表示', 'backbone-seo-llmo'),
         'section' => $section,
         'type' => 'checkbox',
         'priority' => $priority++,
-    ));
+    );
+    if ($is_individual) {
+        $control_args['active_callback'] = 'backbone_is_individual_archive_settings_enabled';
+    } else {
+        $control_args['active_callback'] = 'backbone_is_unified_archive_settings_enabled';
+    }
+    $wp_customize->add_control($prefix . 'show_modified', $control_args);
 
     // カテゴリ表示
     $wp_customize->add_setting($prefix . 'show_category', array(
@@ -205,12 +239,18 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control($prefix . 'show_category', array(
+    $control_args = array(
         'label' => __('カテゴリを表示', 'backbone-seo-llmo'),
         'section' => $section,
         'type' => 'checkbox',
         'priority' => $priority++,
-    ));
+    );
+    if ($is_individual) {
+        $control_args['active_callback'] = 'backbone_is_individual_archive_settings_enabled';
+    } else {
+        $control_args['active_callback'] = 'backbone_is_unified_archive_settings_enabled';
+    }
+    $wp_customize->add_control($prefix . 'show_category', $control_args);
 
     // 抜粋表示
     $wp_customize->add_setting($prefix . 'show_excerpt', array(
@@ -219,12 +259,18 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
         'transport' => 'refresh',
     ));
 
-    $wp_customize->add_control($prefix . 'show_excerpt', array(
+    $control_args = array(
         'label' => __('抜粋を表示', 'backbone-seo-llmo'),
         'section' => $section,
         'type' => 'checkbox',
         'priority' => $priority++,
-    ));
+    );
+    if ($is_individual) {
+        $control_args['active_callback'] = 'backbone_is_individual_archive_settings_enabled';
+    } else {
+        $control_args['active_callback'] = 'backbone_is_unified_archive_settings_enabled';
+    }
+    $wp_customize->add_control($prefix . 'show_excerpt', $control_args);
 }
 
 /**
@@ -248,6 +294,7 @@ function backbone_add_individual_archive_controls($wp_customize, $type, $label, 
         'section' => 'archive_settings',
         'priority' => $priority_start,
         'description' => $description,
+        'active_callback' => 'backbone_is_individual_archive_settings_enabled',
     )));
 
     // 設定コントロールを追加
@@ -312,4 +359,22 @@ function backbone_sanitize_archive_orderby($value) {
     }
 
     return 'date';
+}
+
+/**
+ * 個別アーカイブ設定が有効かどうかを判定
+ *
+ * @return bool 個別設定が有効な場合true
+ */
+function backbone_is_individual_archive_settings_enabled() {
+    return !get_theme_mod('archive_use_unified_settings', true);
+}
+
+/**
+ * 統一アーカイブ設定が有効かどうかを判定
+ *
+ * @return bool 統一設定が有効な場合true
+ */
+function backbone_is_unified_archive_settings_enabled() {
+    return get_theme_mod('archive_use_unified_settings', true);
 }

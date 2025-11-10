@@ -1,0 +1,26 @@
+/**
+ * カスタマイザーコントロールのスタイル
+ */
+
+/* アーカイブセクションの見出し */
+.archive-section-heading-item {
+    position: relative;
+}
+
+/* 見出しの後に続くコントロールに左右の枠線を追加 */
+.archive-section-content-item {
+    margin-left: -12px !important;
+    margin-right: -12px !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    background: #fafafa;
+}
+
+/* セクションの最後のコントロールに下線を追加 */
+.archive-section-last-item {
+    border-bottom: 1px solid #ddd !important;
+    margin-bottom: 15px !important;
+    padding-bottom: 12px !important;
+}

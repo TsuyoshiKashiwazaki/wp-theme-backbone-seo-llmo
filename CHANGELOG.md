@@ -2,6 +2,33 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.16] - 2025-11-10
+
+### Fixed
+- Archive pagination displaying posts in wrong order on page 2+ (added secondary sort key with ID)
+- Random post order not working in archive settings (added 'rand' support in backbone_force_correct_post_order)
+
+### Added
+- Conditional visibility for unified/individual archive settings (active_callback functions)
+- backbone_is_unified_archive_settings_enabled() function for showing common settings
+- backbone_force_correct_post_order() function to enforce correct post order at template_redirect
+
+### Improved
+- Archive settings sections now visually grouped with subtle borders in customizer
+- Query execution priority increased to 9999 to prevent plugin interference
+
+### Technical
+- Modified `functions.php`: Changed orderby to array format with secondary ID sort key
+- Modified `functions.php`: Increased pre_get_posts priority from default to 9999
+- Modified `functions.php`: Added template_redirect hook to force correct post order
+- Modified `inc/customizer/archive-settings.php`: Added active_callback to all archive setting controls
+- Added `css/customizer-controls.css`: Section border styling
+- Modified `js/customizer-controls.js`: Section grouping logic
+- Modified `js/subdirectory-customizer-preview.js`: Removed console.log debug output
+
+### Documentation
+- Added GitHub repository URL to CLAUDE.md
+
 ## [1.0.15] - 2025-11-10
 
 ### Fixed

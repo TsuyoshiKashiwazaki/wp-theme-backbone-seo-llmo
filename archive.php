@@ -155,6 +155,7 @@ get_header(); ?>
                     <?php
                     // ページネーション（カスタム /page-2/ 形式）
                     global $wp_query;
+
                     if ($wp_query->max_num_pages > 1) {
                         $current_page = max(1, get_query_var('paged'));
 
