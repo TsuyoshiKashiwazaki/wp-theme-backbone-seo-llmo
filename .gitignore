@@ -27,6 +27,7 @@ desktop.ini
 *.tmp
 *.temp
 .cache/
+tmp/
 
 # Uploads directory
 uploads/
@@ -43,7 +44,9 @@ gh_*/
 .claude/
 CLAUDE.md
 
-# Playwright test screenshots and artifacts
+# Playwright MCP configuration and artifacts
+playwright-config.json
+screenshots/
 .playwright-mcp/
 playwright-report/
 test-results/

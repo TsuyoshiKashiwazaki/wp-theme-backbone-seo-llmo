@@ -438,6 +438,392 @@ document.addEventListener('DOMContentLoaded', function () {
     handleResponsiveLayout(); // handleResponsiveLayout の呼び出し位置
 
     /**
+     * スティッキーサイドバー（追従機能）
+     * サイドバーの下端が画面下端に到達したら追従開始
+     */
+    function handleStickySidebar() {
+        var sidebars = document.querySelectorAll('.sidebar-1, .sidebar-2');
+
+        if (!sidebars.length) return;
+
+        var sidebarData = [];
+
+        // 各サイドバーの初期位置を記録
+        sidebars.forEach(function (sidebar) {
+            sidebarData.push({
+                element: sidebar,
+                originalTop: 0,
+                originalLeft: 0,
+                isSticky: false
+            });
+        });
+
+        var updateSidebarPositions = function () {
+            var windowWidth = window.innerWidth;
+
+            // PC（1280px以上）でのみ有効
+            if (windowWidth < 1280) {
+                sidebarData.forEach(function (data) {
+                    data.element.classList.remove('is-sticky');
+                    data.element.style.position = '';
+                    data.element.style.top = '';
+                    data.element.style.bottom = '';
+                    data.element.style.left = '';
+                    data.element.style.width = '';
+                    data.isSticky = false;
+                });
+                return;
+            }
+
+            sidebarData.forEach(function (data) {
+                var sidebar = data.element;
+                var contentArea = document.querySelector('.content-area');
+
+                if (!contentArea) return;
+
+                var sidebarHeight = sidebar.offsetHeight;
+                var contentHeight = contentArea.offsetHeight;
+
+                // サイドバーがコンテンツより高い場合は追従しない
+                if (sidebarHeight > contentHeight) {
+                    sidebar.classList.remove('is-sticky');
+                    sidebar.style.position = '';
+                    sidebar.style.top = '';
+                    sidebar.style.bottom = '';
+                    sidebar.style.left = '';
+                    sidebar.style.width = '';
+                    data.isSticky = false;
+                    return;
+                }
+
+                // サイドバーの元の位置を取得（初回のみ）
+                if (data.originalTop === 0) {
+                    sidebar.style.position = '';
+                    sidebar.style.top = '';
+                    sidebar.style.bottom = '';
+                    sidebar.style.left = '';
+                    var rect = sidebar.getBoundingClientRect();
+                    data.originalTop = rect.top + window.pageYOffset;
+                    data.originalLeft = rect.left;
+                }
+
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                var windowHeight = window.innerHeight;
+                var sidebarBottom = data.originalTop + sidebarHeight;
+                var scrollBottom = scrollTop + windowHeight;
+
+                // サイドバーの下端が画面の下端に到達したら固定開始
+                if (scrollBottom >= sidebarBottom && !data.isSticky) {
+                    var sidebarWidth = sidebar.offsetWidth;
+                    sidebar.classList.add('is-sticky');
+                    sidebar.style.width = sidebarWidth + 'px';
+                    sidebar.style.left = data.originalLeft + 'px';
+
+                    // サイドバーの高さに応じて固定方法を変更
+                    if (sidebarHeight <= windowHeight) {
+                        // サイドバーが画面より短い：上端固定（ヘッダーの下に配置）
+                        var header = document.querySelector('header, .site-header');
+                        var headerHeight = header ? header.offsetHeight : 0;
+
+                        sidebar.style.position = 'fixed';
+                        sidebar.style.top = headerHeight + 'px';
+                        sidebar.style.bottom = 'auto';
+                    } else {
+                        // サイドバーが画面より長い：下端固定（下の方から見える）
+                        sidebar.style.position = 'fixed';
+                        sidebar.style.bottom = '0';
+                        sidebar.style.top = 'auto';
+                    }
+
+                    data.isSticky = true;
+                }
+                // 上にスクロールして元の位置より上に戻ったら固定解除
+                else if (scrollBottom < sidebarBottom && data.isSticky) {
+                    sidebar.classList.remove('is-sticky');
+                    sidebar.style.position = '';
+                    sidebar.style.bottom = '';
+                    sidebar.style.top = '';
+                    sidebar.style.left = '';
+                    sidebar.style.width = '';
+                    data.isSticky = false;
+                }
+
+                // フッターを突き抜けないように制御
+                if (data.isSticky) {
+                    var footer = document.querySelector('footer, .site-footer');
+                    if (footer) {
+                        var footerRect = footer.getBoundingClientRect();
+                        var footerTop = footerRect.top + scrollTop;
+
+                        // .main-content の位置を取得（親要素）
+                        var mainContent = sidebar.closest('.main-content');
+                        var mainContentRect = mainContent ? mainContent.getBoundingClientRect() : null;
+                        var mainContentTop = mainContentRect ? (mainContentRect.top + scrollTop) : 0;
+
+                        // サイドバーのマージンを取得
+                        var sidebarStyle = window.getComputedStyle(sidebar);
+                        var marginTop = parseFloat(sidebarStyle.marginTop) || 0;
+                        var marginBottom = parseFloat(sidebarStyle.marginBottom) || 0;
+
+                        // フッターの上にサイドバーを配置する最大位置（ページ全体での絶対位置）
+                        // マージンも考慮する（1pxのバッファを追加して確実にフッターを突き抜けないようにする）
+                        var maxSidebarTop = footerTop - sidebarHeight - marginTop - marginBottom - 1;
+
+                        // position: absolute の top は親要素からの相対位置なので変換
+                        var maxSidebarTopRelative = maxSidebarTop - mainContentTop;
+
+                        // サイドバーの下端がフッターに到達したら固定を解除してフッターの上に配置
+                        if (sidebarHeight <= windowHeight) {
+                            // 短いサイドバー：上端固定の場合
+                            var header = document.querySelector('header, .site-header');
+                            var headerHeight = header ? header.offsetHeight : 0;
+
+                            // 現在のサイドバーの位置（ページ全体での絶対位置）
+                            var currentSidebarTop = scrollTop + headerHeight;
+                            var currentSidebarBottom = currentSidebarTop + sidebarHeight;
+
+                            // サイドバーの下端がフッターに到達したかチェック
+                            if (currentSidebarBottom >= footerTop) {
+                                // absoluteに切り替え：フッターの手前で止める
+                                // Grid レイアウト対応：grid-columnを保持
+                                var computedStyle = window.getComputedStyle(sidebar);
+                                var gridColumn = computedStyle.gridColumn;
+                                var gridArea = computedStyle.gridArea;
+
+                                sidebar.style.position = 'absolute';
+                                sidebar.style.top = maxSidebarTopRelative + 'px';
+                                sidebar.style.bottom = 'auto';
+                                sidebar.style.left = ''; // Grid レイアウトでは left を削除
+
+                                // Grid レイアウトの列位置を明示的に保持
+                                if (gridColumn && gridColumn !== 'auto') {
+                                    sidebar.style.gridColumn = gridColumn;
+                                }
+                                if (gridArea && gridArea !== 'auto') {
+                                    sidebar.style.gridArea = gridArea;
+                                }
+                            } else {
+                                // フッターから離れている：固定位置で追従
+                                sidebar.style.position = 'fixed';
+                                sidebar.style.top = headerHeight + 'px';
+                                sidebar.style.bottom = 'auto';
+                            }
+                        } else {
+                            // 長いサイドバー：下端固定の場合
+                            var currentSidebarTop = scrollTop + windowHeight - sidebarHeight;
+                            var currentSidebarBottom = scrollTop + windowHeight;
+
+                            // サイドバーの下端がフッターに到達したかチェック
+                            if (currentSidebarBottom >= footerTop) {
+                                // absoluteに切り替え：フッターの手前で止める
+                                // Grid レイアウト対応：grid-columnを保持
+                                var computedStyle = window.getComputedStyle(sidebar);
+                                var gridColumn = computedStyle.gridColumn;
+                                var gridArea = computedStyle.gridArea;
+
+                                sidebar.style.position = 'absolute';
+                                sidebar.style.top = maxSidebarTopRelative + 'px';
+                                sidebar.style.bottom = 'auto';
+                                sidebar.style.left = ''; // Grid レイアウトでは left を削除
+
+                                // Grid レイアウトの列位置を明示的に保持
+                                if (gridColumn && gridColumn !== 'auto') {
+                                    sidebar.style.gridColumn = gridColumn;
+                                }
+                                if (gridArea && gridArea !== 'auto') {
+                                    sidebar.style.gridArea = gridArea;
+                                }
+                            } else {
+                                // フッターから離れている：画面下端に固定
+                                sidebar.style.position = 'fixed';
+                                sidebar.style.top = 'auto';
+                                sidebar.style.bottom = '0';
+                            }
+                        }
+                    }
+                }
+            });
+        };
+
+        // 初期実行
+        setTimeout(updateSidebarPositions, 100);
+
+        // スクロール時の実行（スロットル付き）
+        var scrollTimer;
+        var isScrolling = false;
+        window.addEventListener('scroll', function () {
+            if (!isScrolling) {
+                window.requestAnimationFrame(function() {
+                    updateSidebarPositions();
+                    isScrolling = false;
+                });
+                isScrolling = true;
+            }
+        }, { passive: true });
+
+        // リサイズ時の実行（デバウンス付き）
+        var sidebarResizeTimer;
+        window.addEventListener('resize', function () {
+            // リサイズ時は初期位置をリセット
+            sidebarData.forEach(function (data) {
+                data.originalTop = 0;
+                data.originalLeft = 0;
+                data.isSticky = false;
+            });
+            clearTimeout(sidebarResizeTimer);
+            sidebarResizeTimer = setTimeout(updateSidebarPositions, 250);
+        });
+
+        // レイアウト変更時も再計算（カスタマイザー対応）
+        if (typeof wp !== 'undefined' && wp.customize) {
+            wp.customize('site_layout', function (value) {
+                value.bind(function () {
+                    sidebarData.forEach(function (data) {
+                        data.originalTop = 0;
+                        data.originalLeft = 0;
+                        data.isSticky = false;
+                    });
+                    setTimeout(updateSidebarPositions, 100);
+                });
+            });
+        }
+    }
+
+    // スティッキーサイドバーの初期化（設定が有効な場合のみ）
+    if (typeof backboneThemeSettings !== 'undefined' && backboneThemeSettings.enableStickySidebar) {
+        handleStickySidebar();
+    }
+
+    /**
+     * スティッキーヘッダーの高さ調整
+     */
+    function adjustStickyHeaderPadding() {
+        // スティッキーヘッダーが有効かチェック
+        if (!document.body.classList.contains('sticky-header-enabled')) {
+            return;
+        }
+
+        var header = document.querySelector('.site-header');
+        var siteWrapper = document.querySelector('.site-wrapper');
+
+        if (!header || !siteWrapper) {
+            return;
+        }
+
+        // ヘッダーの実際の高さを取得
+        var headerHeight = header.offsetHeight;
+
+        // site-wrapperのpadding-topを動的に設定
+        siteWrapper.style.paddingTop = headerHeight + 'px';
+    }
+
+    // スティッキーヘッダーの初期化
+    if (typeof backboneThemeSettings !== 'undefined' && backboneThemeSettings.enableStickyHeader) {
+        // 初回実行
+        adjustStickyHeaderPadding();
+
+        // ウィンドウリサイズ時に再計算
+        var resizeTimer;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                adjustStickyHeaderPadding();
+            }, 100);
+        });
+
+        // DOM変更時にも再計算（メニューの開閉など）
+        if (typeof MutationObserver !== 'undefined') {
+            var headerObserver = new MutationObserver(function() {
+                adjustStickyHeaderPadding();
+            });
+
+            var header = document.querySelector('.site-header');
+            if (header) {
+                headerObserver.observe(header, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    attributeFilter: ['class', 'style']
+                });
+            }
+        }
+
+        // スクロール時にヘッダーの透明度を変更
+        var scrollThreshold = 50; // スクロール量の閾値（px）
+        var lastScrollTop = 0;
+        var autohideEnabled = typeof backboneThemeSettings !== 'undefined' && backboneThemeSettings.stickyHeaderAutohide;
+
+        function handleHeaderScroll() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > scrollThreshold) {
+                document.body.classList.add('header-scrolled');
+            } else {
+                document.body.classList.remove('header-scrolled');
+            }
+
+            // 自動非表示が有効な場合、スクロール方向を検知
+            if (autohideEnabled && scrollTop > scrollThreshold) {
+                if (scrollTop > lastScrollTop) {
+                    // スクロールダウン：ヘッダーを隠す
+                    document.body.classList.add('header-hidden');
+                } else {
+                    // スクロールアップ：ヘッダーを表示
+                    document.body.classList.remove('header-hidden');
+                }
+            } else if (scrollTop <= scrollThreshold) {
+                // トップ付近ではヘッダーを常に表示
+                document.body.classList.remove('header-hidden');
+            }
+
+            lastScrollTop = scrollTop;
+        }
+
+        // 初回実行
+        handleHeaderScroll();
+
+        // スクロールイベント
+        var scrollTimer;
+        window.addEventListener('scroll', function() {
+            if (scrollTimer) {
+                window.cancelAnimationFrame(scrollTimer);
+            }
+            scrollTimer = window.requestAnimationFrame(function() {
+                handleHeaderScroll();
+            });
+        }, { passive: true });
+
+        // ヘッダー表示用のタブを追加（自動非表示が有効な場合）
+        if (autohideEnabled) {
+            var headerToggle = document.createElement('div');
+            headerToggle.className = 'header-toggle-tab';
+            headerToggle.innerHTML = '<span>▼</span>';
+            headerToggle.setAttribute('aria-label', 'ヘッダーを表示');
+            headerToggle.setAttribute('role', 'button');
+            headerToggle.setAttribute('tabindex', '0');
+
+            document.body.appendChild(headerToggle);
+
+            // タブクリックでヘッダーを表示
+            headerToggle.addEventListener('click', function() {
+                document.body.classList.remove('header-hidden');
+                // 一時的にヘッダーを表示し続ける
+                setTimeout(function() {
+                    // スクロール位置によっては自動的に隠れる
+                }, 3000);
+            });
+
+            // キーボード対応
+            headerToggle.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    headerToggle.click();
+                }
+            });
+        }
+    }
+
+    /**
      * サブメニュー（ドロップダウン）の機能強化
      */
     function initDropdownMenu() {

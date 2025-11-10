@@ -67,6 +67,42 @@ if (typeof wp !== 'undefined' && typeof wp.customize !== 'undefined') {
                 }
             }
         }, 2000);
+
+        // Rangeコントロールに現在値を表示
+        function initRangeValueDisplay() {
+            jQuery('input[type="range"][data-show-value]').each(function() {
+                var $input = jQuery(this);
+                var $label = $input.closest('.customize-control').find('.customize-control-title');
+
+                if ($label.length === 0) return;
+
+                // 初期値を表示
+                function updateValueDisplay() {
+                    var value = $input.val();
+                    var unit = $input.attr('data-unit') || '%';
+
+                    // 既存の値表示を削除
+                    $label.find('.range-value-display').remove();
+
+                    // 新しい値表示を追加
+                    $label.append(' <span class="range-value-display" style="font-weight: bold; color: #0073aa;">(' + value + unit + ')</span>');
+                }
+
+                // 初期表示
+                updateValueDisplay();
+
+                // 値変更時に更新
+                $input.on('input change', updateValueDisplay);
+            });
+        }
+
+        // 初期化
+        setTimeout(initRangeValueDisplay, 500);
+
+        // カスタマイザーのセクション展開時にも初期化
+        wp.customize.bind('pane-contents-reflowed', function() {
+            setTimeout(initRangeValueDisplay, 100);
+        });
     });
 }
 

@@ -96,6 +96,10 @@ body.layout-full-width {
     box-sizing: border-box;
     background-color: var(--background-color);
     justify-content: center;
+    align-items: start;
+    /* サイドバーを引き伸ばさない */
+    position: relative;
+    /* スティッキーサイドバーのabsolute位置計算の基準 */
 }
 
 /* スマホサイズでメインコンテンツのパディングを除去 */

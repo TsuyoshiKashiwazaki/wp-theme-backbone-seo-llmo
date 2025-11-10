@@ -93,8 +93,6 @@ function backbone_body_classes($classes) {
     // レイアウト値のバリデーション（上記で実施済み）
     $actual_layout = in_array($actual_layout, $valid_layouts) ? $actual_layout : 'two-columns';
 
-
-
     $classes[] = 'layout-' . str_replace('_', '-', $actual_layout);
 
     // サイドバー位置クラス

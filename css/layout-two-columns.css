@@ -25,10 +25,15 @@
         padding: 0 20px;
         justify-items: start;
     }
-    
-    /* PCサイズでコンテンツエリアにタブレットと同じpaddingを適用 */
+
+    /* PCサイズでコンテンツエリアとサイドバーのgrid-areaを設定 */
     body.layout-two-columns .content-area {
+        grid-area: content;
         padding: 15px !important;
+    }
+
+    body.layout-two-columns .sidebar-1 {
+        grid-area: sidebar1;
     }
 }
 

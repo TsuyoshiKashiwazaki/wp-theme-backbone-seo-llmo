@@ -11,7 +11,7 @@ get_header();
 $front_page_mode = get_theme_mod('backbone_front_page_mode', 'custom');
 
 if ($front_page_mode === 'custom') {
-    // カスタムフロントページを表示
+    // カスタムフロントページを表示（content-area内）
     get_template_part('template-parts/front-page-custom');
 } else {
     // 既存のページを使用

@@ -12,6 +12,7 @@ var CustomizerPreview = (function ($) {
         bindTypographyControls();
         bindColorControls();
         bindHeroImageControls();
+        bindLayoutControls();
     };
 
     // タイポグラフィ設定のライブプレビュー
@@ -132,6 +133,31 @@ var CustomizerPreview = (function ($) {
                         
                     }
                 });
+            });
+        });
+    }
+
+    // レイアウト設定のライブプレビュー
+    function bindLayoutControls() {
+        // サイドバー位置の変更
+        wp.customize('sidebar_position', function(value) {
+            value.bind(function(newval) {
+                // body classを更新
+                $('body').removeClass('sidebar-left sidebar-right');
+                $('body').addClass('sidebar-' + newval);
+            });
+        });
+
+        // スティッキーヘッダー透明度の変更
+        wp.customize('sticky_header_opacity', function(value) {
+            value.bind(function(newval) {
+                var opacityValue = parseFloat(newval) / 100;
+                var $style = $('#sticky-header-opacity-style');
+                if ($style.length === 0) {
+                    $style = $('<style id="sticky-header-opacity-style"></style>');
+                    $('head').append($style);
+                }
+                $style.text(':root { --sticky-header-opacity: ' + opacityValue + '; }');
             });
         });
     }

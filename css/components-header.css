@@ -37,6 +37,92 @@
     max-height: none;
 }
 
+/* スティッキーヘッダー */
+body.sticky-header-enabled .site-header {
+    position: fixed !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    transition: background-color 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease, transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 管理バーがある場合の調整 */
+body.sticky-header-enabled.admin-bar .site-header {
+    top: var(--admin-bar-height-desktop) !important;
+}
+
+@media screen and (max-width: 782px) {
+    body.sticky-header-enabled.admin-bar .site-header {
+        top: var(--admin-bar-height-mobile) !important;
+    }
+}
+
+/* スクロール時の透明度変更 */
+body.sticky-header-enabled.header-scrolled .site-header {
+    opacity: var(--sticky-header-opacity, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ヘッダー自動非表示 */
+body.sticky-header-enabled.sticky-header-autohide.header-hidden .site-header {
+    transform: translateY(-100%) !important;
+}
+
+/* ヘッダー表示用タブ */
+.header-toggle-tab {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 999;
+    background: var(--accent-color);
+    color: var(--text-primary);
+    padding: 5px 20px;
+    border-radius: 0 0 8px 8px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    box-shadow: 0 2px 8px var(--shadow-color);
+    border: 2px solid var(--primary-color);
+    font-size: 14px;
+    line-height: 1;
+}
+
+/* ヘッダーが隠れている時だけタブを表示 */
+body.header-hidden .header-toggle-tab {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* タブのホバー効果 */
+.header-toggle-tab:hover {
+    background: var(--primary-color);
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+/* タブの矢印アニメーション */
+.header-toggle-tab span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.header-toggle-tab:hover span {
+    transform: translateY(2px);
+}
+
+/* 管理バーがある場合のタブ位置調整 */
+body.admin-bar .header-toggle-tab {
+    top: var(--admin-bar-height-desktop);
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar .header-toggle-tab {
+        top: var(--admin-bar-height-mobile);
+    }
+}
+
+/* スティッキーヘッダー有効時のパディングはJavaScriptで動的に設定 */
+/* CSSでの固定値は削除（JavaScriptが自動計算） */
 
 /* 管理バー対応の標準設定を使用 */
 

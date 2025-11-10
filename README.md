@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.14--dev-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.15-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -135,32 +135,35 @@ The theme includes the following utility modules:
 
 **Plugin Integration**: This theme is designed as a minimal base theme. Advanced features such as SEO enhancements, LLMO (Large Language Model Optimization), and GEO (Geographic Optimization) are intended to be added via specialized plugins like "SEO・LLMO・GEO・AIO Optimization Plugin".
 
+## Child Theme
+
+**Official Child Theme Sample Available**
+
+A sample child theme is available for safe customization:
+
+🔗 **[Backbone SEO LLMO Child Theme](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child)**
+
+### Why Use a Child Theme?
+
+- ✅ **Safe Updates**: Parent theme updates won't overwrite your customizations
+- ✅ **Easy Customization**: Only modify the files you need
+- ✅ **Reversible**: Deactivate the child theme to return to the original
+- ✅ **Learning-Friendly**: Study parent theme code while customizing
+
+### Quick Start
+
+1. Download the child theme from [GitHub](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child)
+2. Install both parent and child themes
+3. Activate the **child theme** (not the parent)
+4. Customize via `style.css`, `functions.php`, or template files
+
+See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child) for detailed instructions.
+
 ## Changelog
 
-### Version 1.0.12 (2025-11-03)
+**Current Version:** 1.0.15 (2025-11-10)
 
-**Major Updates:**
-- **Removed WordPress Core "Colors" section** from customizer for cleaner UI
-- **Completely redesigned color themes**: Replaced 40+ themes with 22 WCAG AAA compliant themes
-  - Old themes preserved in `inc/color-themes/old/` directory
-  - New themes named after exoplanets and stars (Kepler-22b, Betelgeuse, Algorab, etc.)
-  - All themes support color-blind users with proper contrast ratios
-- **Removed all hardcoded colors** - Everything now uses CSS variables for theme consistency
-- **Improved visibility**: Fixed header subtitle and footer text readability on all themes
-- **Added link underlines**: Subtle 0.5px underlines on all links for better accessibility
-
-**New Color Themes (22 total = 11 colors x 2 patterns):**
-- Blue: Kepler-22b | Red: Betelgeuse | Green: Luyten 726-8
-- Yellow: WASP-12b | Purple: Psi Draconis
-- Orange: Algorab (fluorescent), Algorab K0V (black header), Arcturus
-- Grey: CoRoT-7b | White: Deneb | Black: Sirius B | Cream: Capella
-
-**Technical Improvements:**
-- Card backgrounds now properly inherit theme colors
-- Header and footer text forced to white for consistent visibility
-- All text decoration uses thin lines (0.5px) with proper offset
-
-See [CHANGELOG.md](CHANGELOG.md) for complete version history.
+For complete version history and detailed changes, see [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
@@ -172,25 +175,6 @@ License: https://www.gnu.org/licenses/gpl-2.0.html
 **Developer**: Tsuyoshi Kashiwazaki
 **Website**: https://www.tsuyoshikashiwazaki.jp/profile/
 **Support**: For questions or bug reports regarding this theme, please contact via the developer website.
-
-## Changelog
-
-### Version 1.0.14 (2025-11-05)
-
-**Major Updates:**
-- Improved hero image customizer settings with common/individual mode toggle
-- Fixed hero image style, alignment, and decoration not respecting common settings mode
-- Added live preview for hero image styles in customizer
-- Fixed fullwidth hero image CSS layout
-- Unified date badge size and format across all templates (0.75em, Y/m/d)
-
-### Version 1.0.13 (2025-11-04)
-- Unified 404 template structure with other templates (article, entry-header, entry-content)
-- Added max-width constraint to 404 page for better readability
-- Added proper 404 HTTP status code and no-cache headers
-- Simplified 404 page content (removed hardcoded suggestions)
-- Added admin notice for custom front page mode in reading settings
-- Improved UX by disabling WordPress standard homepage settings when custom mode is active
 
 ## Contributing
 

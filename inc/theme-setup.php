@@ -141,6 +141,26 @@ function backbone_scripts() {
         window.seoOptimus$ = jQuery;
     ', 'after');
 
+    // テーマ設定をJavaScriptに渡す
+    wp_localize_script('seo-optimus-script', 'backboneThemeSettings', array(
+        'enableStickySidebar' => get_theme_mod('enable_sticky_sidebar', true),
+        'enableStickyHeader' => get_theme_mod('enable_sticky_header', false),
+        'stickyHeaderAutohide' => get_theme_mod('sticky_header_autohide', false),
+    ));
+
+    // スティッキーヘッダーの透明度をCSSカスタムプロパティとして出力
+    if (get_theme_mod('enable_sticky_header', false)) {
+        $opacity_percent = get_theme_mod('sticky_header_opacity', 80);
+        $opacity_value = $opacity_percent / 100;
+
+        $custom_css = "
+            :root {
+                --sticky-header-opacity: {$opacity_value};
+            }
+        ";
+        wp_add_inline_style('seo-optimus-style', $custom_css);
+    }
+
     // コメント返信スクリプト
     if (is_singular() && comments_open() && get_option('thread_comments')) {
         wp_enqueue_script('comment-reply');
@@ -173,6 +193,21 @@ function backbone_fallback_menu() {
 
     echo '</ul>';
 }
+
+/**
+ * スティッキーヘッダー用のbodyクラスを追加
+ */
+function backbone_add_sticky_header_body_class($classes) {
+    if (get_theme_mod('enable_sticky_header', false)) {
+        $classes[] = 'sticky-header-enabled';
+
+        if (get_theme_mod('sticky_header_autohide', false)) {
+            $classes[] = 'sticky-header-autohide';
+        }
+    }
+    return $classes;
+}
+add_filter('body_class', 'backbone_add_sticky_header_body_class');
 
 /**
  * テーマアクティベート時にパーマリンク構造を設定

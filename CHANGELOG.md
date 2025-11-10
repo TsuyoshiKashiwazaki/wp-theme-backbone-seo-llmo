@@ -2,15 +2,34 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.15] - 2025-11-10
+
+### Fixed
+- Sticky sidebar penetrating through footer (added margin calculations for accurate collision detection)
+- Sidebar position logic reversed (sidebar-right now correctly places Sidebar-1 on the right side)
+- Sidebar-1 disappearing on scroll (preserved Grid layout properties when switching to position:absolute)
+
+### Added
+- Real-time opacity percentage display for scroll transparency setting in customizer
+- Live preview functionality for sidebar position changes in customizer
+
+### Changed
+- Sticky sidebar, sticky header, and auto-hide header are now enabled by default
+- Documentation terminology unified ("ヒーローイメージ" → "メインビジュアル（ヒーローイメージ）")
+
+### Documentation
+- Added official child theme reference (https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child)
+- Added child theme FAQ and quick start guide
+
 ## [1.0.14] - 2025-11-05
 
 ### Fixed
-- Hero image style, alignment, and decoration settings now respect common/individual mode setting
-- Fullwidth hero image CSS layout corrected
+- Main visual (hero image) style, alignment, and decoration settings now properly respect common/individual mode setting
+- Fullwidth main visual (hero image) CSS layout corrected
 
 ### Added
-- Hero image customizer common/individual mode radio toggle
-- Live preview for hero image style changes in customizer
+- Main visual settings (hero image) customizer common/individual mode radio toggle
+- Live preview for main visual (hero image) style changes in customizer
 - supportedPostTypes data passed to JavaScript for dynamic handlers
 
 ### Improved

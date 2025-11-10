@@ -147,3 +147,15 @@
 .widget a:hover {
     color: var(--link-hover-color);
 }
+
+/* ========================================
+   スティッキーサイドバー（追従機能）
+======================================== */
+/* PC（1280px以上）でのみ有効 */
+@media (min-width: 1280px) {
+    .sidebar.is-sticky {
+        /* position, top, bottom, width はJavaScriptで動的に設定 */
+        z-index: 100;
+        transition: none; /* スムーズなスクロール追従のため */
+    }
+}

@@ -138,15 +138,14 @@ function backbone_dynamic_layout_output() {
         $css .= "        padding: 10px !important;\n";
         $css .= "    }\n\n";
         
-        $css .= "    /* 要素順序のみ */\n";
-        $css .= "    html body .layout-three-columns.sidebar-right .sidebar-1 { order: 1 !important; }\n";
-        $css .= "    html body .layout-three-columns.sidebar-right .content-area { order: 2 !important; }\n";
-        $css .= "    html body .layout-three-columns.sidebar-right .sidebar-2 { order: 3 !important; }\n";
-        $css .= "    html body .layout-three-columns.sidebar-left .sidebar-2 { order: 1 !important; }\n";
-        $css .= "    html body .layout-three-columns.sidebar-left .content-area { order: 2 !important; }\n";
-        $css .= "    html body .layout-three-columns.sidebar-left .sidebar-1 { order: 3 !important; }\n";
+        $css .= "    /* 要素順序の制御 */\n";
+        // 3カラム：grid-areaで制御するため、orderは不要（layout-three-columns.cssで定義）
+
+        // 2カラム：grid-areaを使わないため、orderで制御
+        // 2カラム：sidebar-right = サイドバー1を右側に配置
         $css .= "    html body .layout-two-columns.sidebar-right .content-area { order: 1 !important; }\n";
         $css .= "    html body .layout-two-columns.sidebar-right .sidebar-1 { order: 2 !important; }\n";
+        // 2カラム：sidebar-left = サイドバー1を左側に配置
         $css .= "    html body .layout-two-columns.sidebar-left .sidebar-1 { order: 1 !important; }\n";
         $css .= "    html body .layout-two-columns.sidebar-left .content-area { order: 2 !important; }\n\n";
         

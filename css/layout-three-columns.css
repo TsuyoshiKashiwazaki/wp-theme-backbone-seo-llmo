@@ -19,27 +19,40 @@ body.layout-three-columns .sidebar-2 {
 /* 3カラム：PC（1280px以上）で横並び */
 @media (min-width: 1280px) {
 
-    /* 右サイドバー（デフォルト）：サイドバー1 - コンテンツ - サイドバー2 */
+    /* 右サイドバー（デフォルト）：サイドバー1を右側に配置 → サイドバー2 - コンテンツ - サイドバー1 */
     body.layout-three-columns.sidebar-right .main-content {
-        grid-template-columns: var(--sidebar-width, 300px) 1fr var(--sidebar-width, 300px);
-        grid-template-areas: "sidebar1 content sidebar2";
-        width: 100%;
-        margin: 0 auto;
-        gap: 20px;
-        padding: 0 20px;
-    }
-
-    /* 左サイドバー：サイドバー2 - コンテンツ - サイドバー1 */
-    body.layout-three-columns.sidebar-left .main-content {
         grid-template-columns: var(--sidebar-width, 300px) 1fr var(--sidebar-width, 300px);
         grid-template-areas: "sidebar2 content sidebar1";
         width: 100%;
         margin: 0 auto;
         gap: 20px;
         padding: 0 20px;
+    }
+
+    /* 左サイドバー：サイドバー1を左側に配置 → サイドバー1 - コンテンツ - サイドバー2 */
+    body.layout-three-columns.sidebar-left .main-content {
+        grid-template-columns: var(--sidebar-width, 300px) 1fr var(--sidebar-width, 300px);
+        grid-template-areas: "sidebar1 content sidebar2";
+        width: 100%;
+        margin: 0 auto;
+        gap: 20px;
+        padding: 0 20px;
         justify-items: start;
     }
-    
+
+    /* Grid-areaの明示的な指定（重要度を上げる） */
+    body.layout-three-columns .sidebar-1 {
+        grid-area: sidebar1 !important;
+    }
+
+    body.layout-three-columns .sidebar-2 {
+        grid-area: sidebar2 !important;
+    }
+
+    body.layout-three-columns .content-area {
+        grid-area: content !important;
+    }
+
     /* PCサイズでコンテンツエリアにタブレットと同じpaddingを適用 */
     body.layout-three-columns .content-area {
         padding: 15px !important;

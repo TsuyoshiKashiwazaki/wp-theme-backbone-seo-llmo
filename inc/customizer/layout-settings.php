@@ -252,4 +252,62 @@ function backbone_add_layout_settings($wp_customize) {
             'step' => 25,
         ),
     ));
+
+    // スティッキーサイドバーの有効化
+    $wp_customize->add_setting('enable_sticky_sidebar', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+
+    $wp_customize->add_control('enable_sticky_sidebar', array(
+        'label'       => __('スティッキーサイドバー', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'checkbox',
+        'description' => __('サイドバーがスクロールに追従するようにします。PC（1280px以上）でのみ有効です。', 'backbone-seo-llmo'),
+    ));
+
+    // スティッキーヘッダーの有効化
+    $wp_customize->add_setting('enable_sticky_header', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+
+    $wp_customize->add_control('enable_sticky_header', array(
+        'label'       => __('スティッキーヘッダー', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'checkbox',
+        'description' => __('ヘッダーを画面上部に固定してスクロールに追従するようにします。', 'backbone-seo-llmo'),
+    ));
+
+    // スティッキーヘッダーの透明度
+    $wp_customize->add_setting('sticky_header_opacity', array(
+        'default'           => 80,
+        'sanitize_callback' => 'absint',
+    ));
+
+    $wp_customize->add_control('sticky_header_opacity', array(
+        'label'       => __('スクロール時の透明度', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'range',
+        'description' => __('スクロール時のヘッダーの不透明度を設定します。100%で完全不透明、0%で完全透明です。', 'backbone-seo-llmo'),
+        'input_attrs' => array(
+            'min'  => 0,
+            'max'  => 100,
+            'step' => 5,
+            'data-show-value' => 'true',
+        ),
+    ));
+
+    // ヘッダー自動非表示
+    $wp_customize->add_setting('sticky_header_autohide', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+
+    $wp_customize->add_control('sticky_header_autohide', array(
+        'label'       => __('ヘッダー自動非表示', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'checkbox',
+        'description' => __('スクロールダウン時にヘッダーを隠します。上にスクロールするかタブをクリックすると再表示されます。', 'backbone-seo-llmo'),
+    ));
 }
