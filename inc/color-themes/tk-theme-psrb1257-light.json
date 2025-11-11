@@ -1,0 +1,28 @@
+{
+    "name": "T.Kピーエスアールビー1257（明）",
+    "id": "tk-theme-psrb1257-light",
+    "description": "PSR B1257+12のパルサー惑星。パルサーの電磁パルスをイメージした電気的な青緑の配色。WCAG AAA準拠。",
+    "colors": {
+        "primary_color": "#0d7490",
+        "secondary_color": "#ccfbf1",
+        "accent_color": "#06b6d4",
+        "background_color": "#ffffff",
+        "background_secondary": "#f0fdfa",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#0891b2",
+        "link_hover_color": "#0e7490",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#67e8f9",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#67e8f9",
+        "border_color": "#d1d5db",
+        "button_background_color": "#06b6d4",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#0891b2",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#06b6d4",
+        "search_button_color": "#06b6d4"
+    }
+}

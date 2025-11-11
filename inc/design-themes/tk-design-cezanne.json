@@ -1,0 +1,97 @@
+{
+    "name": "ポール・セザンヌ",
+    "id": "tk-design-cezanne",
+    "description": "構造主義の父！幾何学的で安定したカード型レイアウトと明確なセクション分割",
+    "layout": {
+        "type": "geometric_cards",
+        "content_width": "100%",
+        "sidebar_width": "auto",
+        "column_gap": "3%",
+        "container_padding": "0 2%"
+    },
+    "header": {
+        "layout": "full_width",
+        "height": "auto",
+        "padding": "2.5% 0 2%",
+        "position": "static",
+        "alignment": "stretch",
+        "margin": "0 0 5% 0",
+        "background": "var(--background-secondary)"
+    },
+    "navigation": {
+        "position": "below_header",
+        "padding": "3% 0",
+        "alignment": "center",
+        "background": "var(--background-color)",
+        "margin": "0 0 5% 0"
+    },
+    "content": {
+        "main_padding": "0",
+        "article_spacing": "5%",
+        "section_margins": "5% 0",
+        "margin": "0 auto",
+        "card_layout": true
+    },
+    "article": {
+        "card_style": true,
+        "padding": "4%",
+        "margin": "0 0 5% 0",
+        "border_radius": "6px",
+        "box_shadow": "0 2px 8px rgba(0,0,0,0.1)",
+        "background": "var(--background-color)",
+        "border": "1px solid var(--border-color)"
+    },
+    "footer": {
+        "layout": "structured",
+        "padding": "5% 3%",
+        "margin_top": "6%",
+        "margin_left": "auto",
+        "margin_right": "auto",
+        "background": "var(--background-secondary)"
+    },
+    "containers": {
+        "border_radius": "6px",
+        "spacing": "5%",
+        "alignment": "center",
+        "geometric_style": true
+    },
+    "columns": {
+        "border": {
+            "style": "dotted",
+            "width": "1px",
+            "color": "var(--border-color)",
+            "position": "left,right",
+            "radius": "6px"
+        },
+        "shadow": {
+            "type": "outer",
+            "intensity": "light",
+            "color": "var(--shadow-color, rgba(0,0,0,0.1))",
+            "blur": "8px",
+            "spread": "0",
+            "x_offset": "0",
+            "y_offset": "2px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0 0 4% 0",
+                "padding": "3%",
+                "background": "var(--background-color)",
+                "border-left": "1px solid var(--border-color)",
+                "border-right": "1px solid var(--border-color)"
+            }
+        }
+    },
+    "structure": {
+        "geometric_precision": true,
+        "clear_sections": true,
+        "stable_layout": true,
+        "card_based_design": true
+    }
+}

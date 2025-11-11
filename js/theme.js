@@ -525,8 +525,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         var header = document.querySelector('header, .site-header');
                         var headerHeight = header ? header.offsetHeight : 0;
 
+                        // WordPress Admin Bar の高さを追加
+                        var adminBar = document.getElementById('wpadminbar');
+                        var adminBarHeight = adminBar ? adminBar.offsetHeight : 0;
+
                         sidebar.style.position = 'fixed';
-                        sidebar.style.top = headerHeight + 'px';
+                        sidebar.style.top = (headerHeight + adminBarHeight) + 'px';
                         sidebar.style.bottom = 'auto';
                     } else {
                         // サイドバーが画面より長い：下端固定（下の方から見える）
@@ -566,8 +570,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         var marginBottom = parseFloat(sidebarStyle.marginBottom) || 0;
 
                         // フッターの上にサイドバーを配置する最大位置（ページ全体での絶対位置）
-                        // マージンも考慮する（1pxのバッファを追加して確実にフッターを突き抜けないようにする）
-                        var maxSidebarTop = footerTop - sidebarHeight - marginTop - marginBottom - 1;
+                        // absoluteのtop値はmarginTopの分だけ上に設定する必要があるため、marginTopとmarginBottomを引く
+                        // メインコンテンツと同じ50pxのバッファを追加
+                        var maxSidebarTop = footerTop - sidebarHeight - marginTop - marginBottom - 50;
 
                         // position: absolute の top は親要素からの相対位置なので変換
                         var maxSidebarTopRelative = maxSidebarTop - mainContentTop;
@@ -578,12 +583,18 @@ document.addEventListener('DOMContentLoaded', function () {
                             var header = document.querySelector('header, .site-header');
                             var headerHeight = header ? header.offsetHeight : 0;
 
-                            // 現在のサイドバーの位置（ページ全体での絶対位置）
-                            var currentSidebarTop = scrollTop + headerHeight;
-                            var currentSidebarBottom = currentSidebarTop + sidebarHeight;
+                            // WordPress Admin Bar の高さを追加
+                            var adminBar = document.getElementById('wpadminbar');
+                            var adminBarHeight = adminBar ? adminBar.offsetHeight : 0;
+                            var totalHeaderHeight = headerHeight + adminBarHeight;
 
-                            // サイドバーの下端がフッターに到達したかチェック
-                            if (currentSidebarBottom >= footerTop) {
+                            // 現在のサイドバーの位置（ページ全体での絶対位置）
+                            // fixed positionでtop: totalHeaderHeightに配置されるため、視覚的な下端はmarginTopも含む
+                            var currentSidebarTop = scrollTop + totalHeaderHeight;
+                            var currentSidebarBottom = currentSidebarTop + marginTop + sidebarHeight;
+
+                            // サイドバーの下端がフッターに到達したかチェック（50pxバッファを考慮）
+                            if (currentSidebarBottom + 50 >= footerTop) {
                                 // absoluteに切り替え：フッターの手前で止める
                                 // Grid レイアウト対応：grid-columnを保持
                                 var computedStyle = window.getComputedStyle(sidebar);
@@ -605,16 +616,17 @@ document.addEventListener('DOMContentLoaded', function () {
                             } else {
                                 // フッターから離れている：固定位置で追従
                                 sidebar.style.position = 'fixed';
-                                sidebar.style.top = headerHeight + 'px';
+                                sidebar.style.top = totalHeaderHeight + 'px';
                                 sidebar.style.bottom = 'auto';
                             }
                         } else {
                             // 長いサイドバー：下端固定の場合
-                            var currentSidebarTop = scrollTop + windowHeight - sidebarHeight;
+                            // fixed positionでbottom: 0に配置されるため、視覚的な上端はmarginTopを含む
+                            var currentSidebarTop = scrollTop + windowHeight - sidebarHeight - marginTop;
                             var currentSidebarBottom = scrollTop + windowHeight;
 
-                            // サイドバーの下端がフッターに到達したかチェック
-                            if (currentSidebarBottom >= footerTop) {
+                            // サイドバーの下端がフッターに到達したかチェック（50pxバッファを考慮）
+                            if (currentSidebarBottom + 50 >= footerTop) {
                                 // absoluteに切り替え：フッターの手前で止める
                                 // Grid レイアウト対応：grid-columnを保持
                                 var computedStyle = window.getComputedStyle(sidebar);

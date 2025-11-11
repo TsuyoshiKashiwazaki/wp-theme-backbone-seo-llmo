@@ -10,6 +10,54 @@
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
+<!-- 既存訪問者のキャッシュを一度だけクリア（Service Worker含む） -->
+<script>
+(function forceClearLegacyCache() {
+    var clearFlag = 'backbone_cache_cleared_20250111_v1';
+
+    if (!localStorage.getItem(clearFlag)) {
+        try {
+            // LocalStorage/SessionStorageをクリア
+            localStorage.clear();
+            sessionStorage.clear();
+
+            // Service Workerのキャッシュもクリア
+            if ('serviceWorker' in navigator && 'caches' in window) {
+                caches.keys().then(function(cacheNames) {
+                    return Promise.all(
+                        cacheNames.map(function(cacheName) {
+                            return caches.delete(cacheName);
+                        })
+                    );
+                }).then(function() {
+                    console.log('All caches cleared successfully');
+                    // Service Workerも登録解除
+                    return navigator.serviceWorker.getRegistrations();
+                }).then(function(registrations) {
+                    return Promise.all(
+                        registrations.map(function(registration) {
+                            return registration.unregister();
+                        })
+                    );
+                }).then(function() {
+                    console.log('Service Workers unregistered');
+                    localStorage.setItem(clearFlag, 'true');
+                    // ページをリロードして完全にクリア
+                    location.reload(true);
+                }).catch(function(error) {
+                    console.error('Failed to clear Service Worker cache:', error);
+                    localStorage.setItem(clearFlag, 'true');
+                });
+            } else {
+                localStorage.setItem(clearFlag, 'true');
+                console.log('Legacy cache cleared successfully');
+            }
+        } catch (e) {
+            console.error('Failed to clear cache:', e);
+        }
+    }
+})();
+</script>
 
 <div class="site-wrapper">
     <header class="site-header">

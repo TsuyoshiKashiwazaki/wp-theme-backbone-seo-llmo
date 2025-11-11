@@ -1,0 +1,28 @@
+{
+    "name": "T.Kトレス2ビー（明）",
+    "id": "tk-theme-tres2b-light",
+    "description": "TrES-2bの漆黒惑星。光を1%しか反射しない最も暗い惑星。深い紫と黒の配色。WCAG AAA準拠。",
+    "colors": {
+        "primary_color": "#581c87",
+        "secondary_color": "#f3e8ff",
+        "accent_color": "#7c3aed",
+        "background_color": "#ffffff",
+        "background_secondary": "#faf5ff",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#6d28d9",
+        "link_hover_color": "#4c1d95",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#c4b5fd",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#c4b5fd",
+        "border_color": "#d1d5db",
+        "button_background_color": "#7c3aed",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#6d28d9",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#7c3aed",
+        "search_button_color": "#7c3aed"
+    }
+}

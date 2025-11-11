@@ -1,0 +1,28 @@
+{
+    "name": "T.Kジェイワンツーワンフォービー（暗）",
+    "id": "tk-theme-gj1214b-dark",
+    "description": "GJ 1214bの水の世界。スーパーアース型の海洋惑星。深い海を思わせる濃紺と青緑の暗色配色。WCAG AAA準拠。",
+    "colors": {
+        "primary_color": "#38bdf8",
+        "secondary_color": "#0c4a6e",
+        "accent_color": "#7dd3fc",
+        "background_color": "#18181b",
+        "background_secondary": "#27272a",
+        "text_primary": "#ffffff",
+        "text_secondary": "#e5e5e5",
+        "text_light": "#a3a3a3",
+        "link_color": "#38bdf8",
+        "link_hover_color": "#7dd3fc",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#bae6fd",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#bae6fd",
+        "border_color": "#3f3f46",
+        "button_background_color": "#0284c7",
+        "button_text_color": "#18181b",
+        "button_hover_background_color": "#38bdf8",
+        "form_background_color": "#27272a",
+        "form_focus_color": "#0284c7",
+        "search_button_color": "#0284c7"
+    }
+}

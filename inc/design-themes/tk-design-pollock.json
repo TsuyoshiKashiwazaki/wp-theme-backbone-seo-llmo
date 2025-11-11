@@ -1,0 +1,79 @@
+{
+    "name": "ジャクソン・ポロック",
+    "id": "tk-design-pollock",
+    "description": "アクションペインティング！エネルギッシュで動的な抽象表現主義レイアウト",
+    "layout": {
+        "type": "action_painting",
+        "content_width": "88%",
+        "sidebar_enabled": true,
+        "container_padding": "0 6%"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "3rem 2.5rem 2.5rem 2rem",
+        "position": "static",
+        "alignment": "left",
+        "margin": "0 auto",
+        "nav_position": "inline",
+        "structure": "single_tier"
+    },
+    "navigation": {
+        "position": "header_right",
+        "padding": "1rem",
+        "alignment": "right",
+        "background": "transparent",
+        "border": "none"
+    },
+    "content": {
+        "main_padding": "3rem 2.5rem 3rem 3rem",
+        "article_spacing": "3.5rem",
+        "section_margins": "3rem 0",
+        "margin": "0 auto"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "2.5rem 2rem 3rem 2.5rem",
+        "margin_top": "3rem",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "3px",
+        "spacing": "3rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "dotted",
+            "width": "1px",
+            "color": "var(--text-secondary)",
+            "position": "left",
+            "radius": "3px"
+        },
+        "shadow": {
+            "type": "sharp",
+            "intensity": "strong",
+            "color": "rgba(var(--accent-rgb), 0.3)",
+            "blur": "0",
+            "spread": "0",
+            "x_offset": "3px",
+            "y_offset": "3px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id} .content-area",
+                ".design-{id} .sidebar"
+            ],
+            "properties": {
+                "margin": "1rem",
+                "padding": "3rem",
+                "background": "var(--background-color)",
+                "border-left": "1px dotted var(--text-secondary)",
+                "border-radius": "3px",
+                "box-shadow": "3px 3px 0 rgba(var(--accent-rgb), 0.3), 6px 6px 0 rgba(var(--secondary-rgb), 0.2)",
+                "position": "relative"
+            }
+        }
+    }
+}

@@ -1,0 +1,77 @@
+{
+    "name": "バンクシー",
+    "id": "tk-design-banksy",
+    "description": "覆面アーティストの叫び！ステンシル風のシャープなエッジと社会風刺的配置",
+    "layout": {
+        "type": "stencil",
+        "content_width": "95%",
+        "sidebar_enabled": true,
+        "container_padding": "0 1rem"
+    },
+    "header": {
+        "layout": "wide",
+        "height": "auto",
+        "padding": "2rem 1rem 2rem 3rem",
+        "position": "static",
+        "alignment": "left",
+        "margin": "0",
+        "nav_position": "inline",
+        "structure": "single_tier"
+    },
+    "navigation": {
+        "position": "header_right",
+        "padding": "0 3rem 0 0",
+        "alignment": "right",
+        "background": "transparent",
+        "border": "none"
+    },
+    "content": {
+        "main_padding": "2rem",
+        "article_spacing": "3rem",
+        "section_margins": "2rem 0",
+        "margin": "0"
+    },
+    "footer": {
+        "layout": "wide",
+        "padding": "2rem 3rem 2rem 1rem",
+        "margin_top": "3rem",
+        "margin_left": "0",
+        "margin_right": "0"
+    },
+    "containers": {
+        "border_radius": "0",
+        "spacing": "2rem",
+        "alignment": "left"
+    },
+    "columns": {
+        "border": {
+            "style": "solid",
+            "width": "1px",
+            "color": "var(--text-primary)",
+            "position": "left,right",
+            "radius": "0"
+        },
+        "shadow": {
+            "type": "hard",
+            "intensity": "stencil",
+            "color": "rgba(var(--text-rgb), 0.3)",
+            "blur": "0",
+            "spread": "0",
+            "x_offset": "4px",
+            "y_offset": "4px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id} .content-area",
+                ".design-{id} .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "2rem",
+                "background": "var(--background-color)",
+                "border": "1px solid var(--text-primary)",
+                "box-shadow": "4px 4px 0 rgba(var(--text-rgb), 0.3)"
+            }
+        }
+    }
+}

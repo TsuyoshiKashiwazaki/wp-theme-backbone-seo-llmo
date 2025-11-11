@@ -1,0 +1,28 @@
+{
+    "name": "T.Kハットピーセブンビー（暗）",
+    "id": "tk-theme-hatp7b-dark",
+    "description": "HAT-P-7bの宝石の雨。ルビーとサファイアの結晶が雨として降る惑星。インディゴと宝石色の暗色配色。WCAG AAA準拠。",
+    "colors": {
+        "primary_color": "#818cf8",
+        "secondary_color": "#312e81",
+        "accent_color": "#a5b4fc",
+        "background_color": "#18181b",
+        "background_secondary": "#27272a",
+        "text_primary": "#ffffff",
+        "text_secondary": "#e5e5e5",
+        "text_light": "#a3a3a3",
+        "link_color": "#818cf8",
+        "link_hover_color": "#a5b4fc",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#c7d2fe",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#c7d2fe",
+        "border_color": "#3f3f46",
+        "button_background_color": "#6366f1",
+        "button_text_color": "#18181b",
+        "button_hover_background_color": "#818cf8",
+        "form_background_color": "#27272a",
+        "form_focus_color": "#6366f1",
+        "search_button_color": "#6366f1"
+    }
+}

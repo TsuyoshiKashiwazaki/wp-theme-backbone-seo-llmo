@@ -1,0 +1,77 @@
+{
+    "name": "マルク・シャガール",
+    "id": "tk-design-chagall",
+    "description": "夢見る恋人たち！浮遊する要素と幻想的な色彩のファンタジーレイアウト",
+    "layout": {
+        "type": "fantasy",
+        "content_width": "90%",
+        "sidebar_enabled": true,
+        "container_padding": "0 2rem"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "3rem 0 2rem",
+        "position": "static",
+        "alignment": "center",
+        "margin": "0 auto",
+        "nav_position": "below",
+        "structure": "two_tier"
+    },
+    "navigation": {
+        "position": "below_header",
+        "padding": "1.5rem 0 2.5rem",
+        "alignment": "center",
+        "background": "transparent",
+        "border_bottom": "3px wavy var(--accent-color)"
+    },
+    "content": {
+        "main_padding": "3rem 2rem",
+        "article_spacing": "3.5rem",
+        "section_margins": "3rem 0",
+        "margin": "0 auto"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "3rem 0",
+        "margin_top": "4rem",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "20px 5px 20px 5px",
+        "spacing": "2.5rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "dotted",
+            "width": "1px",
+            "color": "var(--accent-color)",
+            "position": "all",
+            "radius": "20px 5px 20px 5px"
+        },
+        "shadow": {
+            "type": "dreamy",
+            "intensity": "soft",
+            "color": "rgba(var(--accent-color), 0.2)",
+            "blur": "25px",
+            "spread": "5px",
+            "x_offset": "-5px",
+            "y_offset": "10px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id} .content-area"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "3rem",
+                "background": "radial-gradient(ellipse at top left, var(--background-secondary) 0%, var(--background-color) 50%)",
+                "border": "1px dotted var(--accent-color)",
+                "border-radius": "1px 5px 20px 5px",
+                "transform": "rotate(0.5deg)"
+            }
+        }
+    }
+}

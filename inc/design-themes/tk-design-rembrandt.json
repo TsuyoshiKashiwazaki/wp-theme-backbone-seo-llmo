@@ -1,0 +1,101 @@
+{
+    "name": "レンブラント",
+    "id": "tk-design-rembrandt",
+    "description": "光と影の巨匠！キアロスクーロ技法による劇的な明暗対比のバロックレイアウト",
+    "layout": {
+        "type": "chiaroscuro",
+        "content_width": "85%",
+        "sidebar_enabled": true,
+        "container_padding": "0 7.5%"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "2rem 3rem 2rem 0",
+        "position": "static",
+        "alignment": "left",
+        "margin": "0 auto",
+        "nav_position": "split",
+        "structure": "baroque_tier",
+        "background": "linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 30%, transparent 70%)"
+    },
+    "navigation": {
+        "position": "header_split",
+        "padding": "1rem 0 1rem 3rem",
+        "alignment": "left",
+        "background": "linear-gradient(270deg, transparent 0%, rgba(var(--background-rgb), 0.5) 100%)",
+        "border": "none",
+        "text_shadow": "2px 2px 4px rgba(0,0,0,0.8)"
+    },
+    "content": {
+        "main_padding": "4rem 3rem 3rem 2rem",
+        "article_spacing": "5rem",
+        "section_margins": "4rem 0",
+        "margin": "0 auto",
+        "position": "relative",
+        "background": "radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.05) 0%, transparent 40%)"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "3rem 0 3rem 3rem",
+        "margin_top": "5rem",
+        "margin_left": "auto",
+        "margin_right": "auto",
+        "background": "linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 100%)"
+    },
+    "containers": {
+        "border_radius": "3px",
+        "spacing": "4rem",
+        "alignment": "left"
+    },
+    "columns": {
+        "border": {
+            "style": "solid",
+            "width": "1px",
+            "color": "rgba(139,69,19,0.3)",
+            "position": "left",
+            "radius": "3px"
+        },
+        "shadow": {
+            "type": "dramatic",
+            "intensity": "chiaroscuro",
+            "color": "rgba(0,0,0,0.3)",
+            "blur": "30px",
+            "spread": "-5px",
+            "x_offset": "10px",
+            "y_offset": "15px",
+            "multiple": "10px 15px 30px rgba(0,0,0,0.3), -3px -3px 15px rgba(255,255,255,0.02)"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id} .content-area",
+                ".design-{id} .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "3rem 2.5rem",
+                "background": "linear-gradient(135deg, rgba(255,255,255,0.02) 0%, var(--background-color) 40%, rgba(0,0,0,0.05) 100%)",
+                "border-left": "1px solid rgba(139,69,19,0.3)",
+                "box-shadow": "10px 15px 30px rgba(0,0,0,0.3), -3px -3px 15px rgba(255,255,255,0.02), inset -30px -30px 60px rgba(0,0,0,0.1)",
+                "position": "relative",
+                "overflow": "hidden"
+            }
+        },
+        "before_css": {
+            "selectors": [
+                ".design-{id} .content-area::before"
+            ],
+            "properties": {
+                "content": "''",
+                "position": "absolute",
+                "top": "-20%",
+                "left": "-10%",
+                "width": "50%",
+                "height": "50%",
+                "background": "radial-gradient(ellipse, rgba(255,223,186,0.08) 0%, transparent 70%)",
+                "filter": "blur(30px)",
+                "z-index": "-1"
+            }
+        }
+    }
+}

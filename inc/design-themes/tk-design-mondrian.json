@@ -1,0 +1,78 @@
+{
+    "name": "モンドリアン",
+    "id": "tk-design-mondrian",
+    "description": "幾何学抽象の極致！水平線と垂直線、原色の矩形で構成されたグリッドレイアウト",
+    "layout": {
+        "type": "grid_abstract",
+        "content_width": "100%",
+        "sidebar_enabled": true,
+        "container_padding": "0"
+    },
+    "header": {
+        "layout": "wide",
+        "height": "auto",
+        "padding": "2rem",
+        "position": "static",
+        "alignment": "left",
+        "margin": "0",
+        "nav_position": "inline",
+        "structure": "single_tier"
+    },
+    "navigation": {
+        "position": "header_right",
+        "padding": "0",
+        "alignment": "left",
+        "background": "transparent",
+        "border": "none"
+    },
+    "content": {
+        "main_padding": "2rem",
+        "article_spacing": "2rem",
+        "section_margins": "2rem 0",
+        "margin": "0"
+    },
+    "footer": {
+        "layout": "wide",
+        "padding": "2rem",
+        "margin_top": "0",
+        "margin_left": "0",
+        "margin_right": "0"
+    },
+    "containers": {
+        "border_radius": "0",
+        "spacing": "0",
+        "alignment": "left"
+    },
+    "columns": {
+        "border": {
+            "style": "solid",
+            "width": "1px",
+            "color": "var(--text-primary)",
+            "position": "all",
+            "radius": "0"
+        },
+        "shadow": {
+            "type": "none",
+            "intensity": "none",
+            "color": "transparent",
+            "blur": "0",
+            "spread": "0",
+            "x_offset": "0",
+            "y_offset": "0"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "2rem",
+                "background": "var(--background-color)",
+                "border": "1px solid var(--text-primary)"
+            }
+        }
+    }
+}

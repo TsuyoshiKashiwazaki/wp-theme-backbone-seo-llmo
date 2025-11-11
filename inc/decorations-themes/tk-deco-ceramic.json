@@ -1,0 +1,90 @@
+{
+    "name": "T.Kセラミック",
+    "id": "tk-deco-ceramic",
+    "description": "セラミックの滑らかな質感と艶を表現する洗練されたデザイン",
+    "headings": {
+        "h1": {
+            "border": "2px solid rgba(var(--accent-color), 0.25)",
+            "border_radius": "8px",
+            "background": "linear-gradient(180deg, rgba(255,255,255,0.6), rgba(var(--accent-color), 0.08), rgba(255,255,255,0.3))",
+            "box_shadow": "0 6px 16px rgba(0,0,0,0.1), inset 0 2px 0 rgba(255,255,255,0.8), inset 0 -2px 0 rgba(0,0,0,0.05)"
+        },
+        "h2": {
+            "border_left": "5px solid var(--accent-color)",
+            "border_radius": "0 6px 6px 0",
+            "background": "linear-gradient(90deg, rgba(var(--accent-color), 0.1), rgba(var(--accent-color), 0.03), rgba(255,255,255,0.2))",
+            "box_shadow": "3px 3px 12px rgba(0,0,0,0.08), inset 5px 0 4px rgba(255,255,255,0.3)"
+        },
+        "h3": {
+            "border_bottom": "2px solid rgba(var(--accent-color), 0.3)",
+            "border_radius": "4px 4px 0 0",
+            "background": "linear-gradient(180deg, rgba(var(--accent-color), 0.05), rgba(255,255,255,0.15))",
+            "box_shadow": "0 3px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.5)"
+        },
+        "h4": {
+            "border_left": "4px solid rgba(var(--accent-color), 0.4)",
+            "border_radius": "0 4px 4px 0",
+            "background": "linear-gradient(90deg, rgba(var(--accent-color), 0.04), rgba(255,255,255,0.1))",
+            "box_shadow": "2px 2px 6px rgba(0,0,0,0.05)"
+        },
+        "h5": {
+            "border_bottom": "1px solid rgba(var(--accent-color), 0.25)",
+            "background": "rgba(255,255,255,0.08)"
+        },
+        "h6": {
+            "border_bottom": "1px solid rgba(var(--accent-color), 0.2)",
+            "background": "rgba(255,255,255,0.05)"
+        }
+    },
+    "badge_padding": "4px 11px",
+    "badge_padding_mobile": "3px 9px",
+    "lists": {
+        "ul": {
+            "list_style_type": "none",
+            "background": "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(var(--accent-color), 0.02))",
+            "border_radius": "6px",
+            "box_shadow": "0 2px 8px rgba(0,0,0,0.06), inset 0 1px 0 rgba(255,255,255,0.3)",
+            "item_position": "relative",
+            "item_padding_left": "2.2em",
+            "item_before": {
+                "content": "●",
+                "position": "absolute",
+                "left": "0.6em",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "color": "var(--accent-color)",
+                "font_size": "0.7em",
+                "filter": "drop-shadow(0 1px 2px rgba(255,255,255,0.5))"
+            }
+        },
+        "ol": {
+            "list_style_type": "none",
+            "background": "linear-gradient(90deg, rgba(255,255,255,0.08), rgba(var(--accent-color), 0.015))",
+            "border_radius": "6px",
+            "box_shadow": "0 2px 6px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.2)",
+            "counter_reset": "ceramic-counter",
+            "item_counter_increment": "ceramic-counter",
+            "item_position": "relative",
+            "item_padding_left": "2.8em",
+            "item_before": {
+                "content": "counter(ceramic-counter)",
+                "position": "absolute",
+                "left": "0.6em",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "width": "1.4em",
+                "height": "1.4em",
+                "background": "linear-gradient(135deg, rgba(var(--accent-color), 0.2), rgba(var(--accent-color), 0.1))",
+                "border": "1px solid rgba(var(--accent-color), 0.4)",
+                "color": "var(--text-primary)",
+                "border_radius": "50%",
+                "box_shadow": "0 2px 4px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.4)",
+                "display": "flex",
+                "align_items": "center",
+                "justify_content": "center",
+                "font_size": "0.75em",
+                "font_weight": "bold"
+            }
+        }
+    }
+}

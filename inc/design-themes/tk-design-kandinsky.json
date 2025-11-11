@@ -1,0 +1,113 @@
+{
+    "name": "ワシリー・カンディンスキー",
+    "id": "tk-design-kandinsky",
+    "description": "抽象絵画の開拓者！幾何学的で有機的な線の組み合わせとリズミカルな構造",
+    "layout": {
+        "type": "rhythmic_abstract",
+        "content_width": "100%",
+        "sidebar_width": "auto",
+        "column_gap": "3%",
+        "container_padding": "0",
+        "edge_to_edge": true
+    },
+    "header": {
+        "layout": "full_width",
+        "height": "auto",
+        "padding": "2.8% 0 2.2%",
+        "position": "static",
+        "alignment": "stretch",
+        "margin": "0",
+        "background": "radial-gradient(ellipse at center, var(--primary-color), var(--secondary-color))",
+        "color": "var(--background-color)",
+        "border_left": "4px solid var(--accent-color)",
+        "border_right": "4px dotted var(--primary-color)",
+        "full_width": true
+    },
+    "navigation": {
+        "position": "below_header",
+        "padding": "2% 4%",
+        "alignment": "left",
+        "background": "linear-gradient(90deg, var(--background-secondary), transparent)",
+        "border_left": "4px solid var(--accent-color)",
+        "border_right": "4px dotted var(--primary-color)"
+    },
+    "content": {
+        "main_padding": "3% 4%",
+        "article_spacing": "4%",
+        "section_margins": "4% 0",
+        "margin": "0",
+        "abstract_layout": true
+    },
+    "article": {
+        "abstract_style": true,
+        "padding": "3% 3%",
+        "margin": "0 0 4% 0",
+        "border_radius": "0",
+        "background": "var(--background-color)",
+        "border_left": "3px double var(--primary-color)",
+        "border_right": "1px dashed var(--border-color)"
+    },
+    "footer": {
+        "layout": "full_width",
+        "padding": "4% 0 3%",
+        "margin_top": "5%",
+        "margin_left": "0",
+        "margin_right": "0",
+        "background": "conic-gradient(var(--accent-color), var(--primary-color), var(--secondary-color))",
+        "color": "var(--background-color)",
+        "full_width": true
+    },
+    "containers": {
+        "border_radius": "0",
+        "spacing": "4%",
+        "alignment": "center",
+        "abstract_design": true,
+        "rhythmic_spacing": true
+    },
+    "columns": {
+        "border": {
+            "style": "groove",
+            "width": "1px",
+            "color": "var(--accent-color)",
+            "position": "left,right",
+            "radius": "0"
+        },
+        "shadow": {
+            "type": "multiple",
+            "intensity": "variable",
+            "color": "var(--shadow-color)",
+            "blur": "6px",
+            "spread": "2px",
+            "x_offset": "3px",
+            "y_offset": "3px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0 0 3% 0",
+                "padding": "3%",
+                "background": "var(--background-color)",
+                "border-left": "1px groove var(--accent-color)",
+                "border-right": "1px ridge var(--border-color)"
+            }
+        }
+    },
+    "decorative_elements": {
+        "geometric_accents": true,
+        "asymmetric_borders": true,
+        "rhythmic_patterns": true,
+        "abstract_compositions": true
+    },
+    "effects": {
+        "gradient_backgrounds": true,
+        "mixed_border_styles": true,
+        "abstract_transitions": true,
+        "geometric_harmony": true,
+        "color_rhythm": true
+    }
+}

@@ -1,0 +1,76 @@
+{
+    "name": "サルバドール・ダリ",
+    "id": "tk-design-dali",
+    "description": "溶ける時計の超現実主義！歪んだ遠近法と夢のような非対称レイアウト",
+    "layout": {
+        "type": "surreal",
+        "content_width": "85%",
+        "sidebar_enabled": true,
+        "container_padding": "0 3rem 0 1rem"
+    },
+    "header": {
+        "layout": "wide",
+        "height": "auto",
+        "padding": "4rem 2rem 2rem 5rem",
+        "position": "static",
+        "alignment": "left",
+        "margin": "0 0 0 -20px",
+        "nav_position": "below",
+        "structure": "two_tier"
+    },
+    "navigation": {
+        "position": "below_header",
+        "padding": "1rem 5rem 2rem 1rem",
+        "alignment": "right",
+        "background": "transparent",
+        "border_top": "3px double var(--border-color)",
+        "border_bottom": "1px solid var(--border-color)"
+    },
+    "content": {
+        "main_padding": "3rem 1rem 2rem 4rem",
+        "article_spacing": "5rem",
+        "section_margins": "3rem 0 2rem -10px",
+        "margin": "0"
+    },
+    "footer": {
+        "layout": "wide",
+        "padding": "2rem 6rem 4rem 1rem",
+        "margin_top": "3rem",
+        "margin_left": "10px",
+        "margin_right": "-15px"
+    },
+    "containers": {
+        "border_radius": "50% 0 30% 10%",
+        "spacing": "3rem",
+        "alignment": "left"
+    },
+    "columns": {
+        "border": {
+            "style": "double",
+            "width": "1px",
+            "color": "var(--accent-color)",
+            "position": "left,bottom",
+            "radius": "0 100px 0 0"
+        },
+        "shadow": {
+            "type": "outer",
+            "intensity": "surreal",
+            "color": "rgba(0,0,0,0.2)",
+            "blur": "30px",
+            "spread": "-10px",
+            "x_offset": "15px",
+            "y_offset": "20px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id} .content-area"
+            ],
+            "properties": {
+                "margin": "0 0 0 -15px",
+                "padding": "3rem 2rem 4rem 3rem",
+                "background": "linear-gradient(135deg, var(--background-color) 0%, var(--background-secondary) 60%, var(--background-color) 100%)",
+                "transform": "perspective(1000px) rotateY(-2deg)"
+            }
+        }
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "name": "T.Kティーオーアイ5205ビー（暗）",
+    "id": "tk-theme-toi5205b-dark",
+    "description": "TOI-5205bの巨大ガス惑星。2022年発見。赤色矮星を周回する巨大惑星の神秘的なオレンジと紫の暗色配色。WCAG AAA準拠。",
+    "colors": {
+        "primary_color": "#fb923c",
+        "secondary_color": "#431407",
+        "accent_color": "#f97316",
+        "background_color": "#18181b",
+        "background_secondary": "#27272a",
+        "text_primary": "#ffffff",
+        "text_secondary": "#e5e5e5",
+        "text_light": "#a3a3a3",
+        "link_color": "#fb923c",
+        "link_hover_color": "#fdba74",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#fed7aa",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#fed7aa",
+        "border_color": "#3f3f46",
+        "button_background_color": "#f97316",
+        "button_text_color": "#18181b",
+        "button_hover_background_color": "#fb923c",
+        "form_background_color": "#27272a",
+        "form_focus_color": "#f97316",
+        "search_button_color": "#f97316"
+    }
+}

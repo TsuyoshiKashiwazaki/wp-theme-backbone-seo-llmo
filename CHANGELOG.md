@@ -2,6 +2,35 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.18] - 2025-11-11
+
+### Added
+- 20 new color themes (10 pairs dark/light): 55 Cancri e, GJ 1214b, HAT-P-7b, HD 189733b, HD 209458b, KELT-9b, PSR B1257+12, TOI-5205b, TrES-2b, WASP-76b
+- 20 new design themes (artist names): Banksy, Basquiat, Calder, Chagall, Dalí, Duchamp, Escher, Gaudí, Haring, Hokusai, Kahlo, Kandinsky, Klimt, Kusama, Matisse, Miró, Mondrian, Mucha, Pollock, Rembrandt, Rothko, Warhol
+- 10 new decoration themes: Velvet, Marble, Wood, Glass, Paper, Neon, Leather, Fabric, Concrete, Ceramic
+- One-time cache clearing script in header.php for existing visitors (clears LocalStorage, SessionStorage, Service Worker caches)
+
+### Fixed
+- Sticky sidebar positioning issue when WordPress Admin Bar is present (added adminBarHeight calculation in js/theme.js)
+
+### Changed
+- Standardized directory naming with `-themes` suffix: `inc/designs/` → `inc/design-themes/`, `inc/typography/` → `inc/typography-themes/`
+- Consolidated color-themes documentation into single README.md
+- Updated design-utilities.php and typography-utilities.php to use new directory paths
+- Adjusted all thick borders (2px+) to 1px with transparency for better readability
+- Optimized shadow intensities across all new design themes
+
+### Removed
+- Deleted `inc/color-themes/old/` directory (45 legacy theme files)
+- Removed backup and disabled files (.backup, .disabled extensions)
+- Removed redundant documentation files (CHANGELOG.md, COLOR_VARIABLE_MAPPING.md from color-themes)
+
+### Technical
+- Modified `js/theme.js`: Added WordPress Admin Bar height detection in sticky sidebar calculations (lines 528-533, 586-619)
+- Modified `header.php`: Added forceClearLegacyCache() function with flag 'backbone_cache_cleared_20250111_v1'
+- Modified `css/utilities.css`: Updated utility styles
+- Renamed directories: `inc/designs/` → `inc/design-themes/`, `inc/typography/` → `inc/typography-themes/`
+
 ## [1.0.17] - 2025-11-11
 
 ### Added

@@ -1,0 +1,78 @@
+{
+    "name": "グスタフ・クリムト",
+    "id": "tk-design-klimt",
+    "description": "黄金の装飾美！象徴主義的な華麗なレイアウト",
+    "layout": {
+        "type": "golden",
+        "content_width": "100%",
+        "sidebar_enabled": true,
+        "container_padding": "0 1rem"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "3rem 0 2rem",
+        "position": "static",
+        "alignment": "center",
+        "margin": "0 auto",
+        "nav_position": "below",
+        "structure": "two_tier"
+    },
+    "navigation": {
+        "position": "below_header",
+        "padding": "1.5rem 0 2.5rem",
+        "alignment": "center",
+        "background": "transparent",
+        "border_top": "1px solid var(--accent-color, #d4af37)",
+        "border_bottom": "1px solid var(--accent-color, #d4af37)"
+    },
+    "content": {
+        "main_padding": "2rem",
+        "article_spacing": "3rem",
+        "section_margins": "2.5rem 0",
+        "margin": "0 auto"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "3rem 0",
+        "margin_top": "3rem",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "8px",
+        "spacing": "3rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "double",
+            "width": "1px",
+            "color": "var(--accent-color, #d4af37)",
+            "position": "all",
+            "radius": "8px"
+        },
+        "shadow": {
+            "type": "soft",
+            "intensity": "golden",
+            "color": "rgba(212,175,55,0.15)",
+            "blur": "12px",
+            "spread": "0",
+            "x_offset": "0",
+            "y_offset": "2px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "2rem",
+                "background": "var(--background-color, #fff)"
+            }
+        }
+    }
+}

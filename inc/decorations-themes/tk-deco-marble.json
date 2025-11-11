@@ -1,0 +1,78 @@
+{
+    "name": "T.K大理石",
+    "id": "tk-deco-marble",
+    "description": "大理石の重厚感と古典的な美しさを表現する格調高いデザイン",
+    "headings": {
+        "h1": {
+            "border": "2px solid var(--border-color)",
+            "border_top": "4px double var(--accent-color)",
+            "border_bottom": "4px double var(--accent-color)",
+            "background": "linear-gradient(180deg, rgba(var(--accent-color), 0.05), rgba(var(--accent-color), 0.02), rgba(var(--accent-color), 0.05))",
+            "box_shadow": "0 8px 16px rgba(0,0,0,0.1), inset 0 2px 0 rgba(255,255,255,0.1)"
+        },
+        "h2": {
+            "border_left": "8px solid var(--accent-color)",
+            "border_right": "1px solid var(--border-color)",
+            "background": "linear-gradient(90deg, rgba(var(--accent-color), 0.08), rgba(var(--accent-color), 0.02))",
+            "box_shadow": "4px 0 8px rgba(0,0,0,0.08)"
+        },
+        "h3": {
+            "border_bottom": "3px solid var(--border-color)",
+            "border_top": "1px solid var(--border-color)",
+            "background": "rgba(var(--accent-color), 0.03)",
+            "box_shadow": "0 2px 4px rgba(0,0,0,0.06)"
+        },
+        "h4": {
+            "border_left": "5px solid rgba(var(--accent-color), 0.5)",
+            "border_right": "1px solid var(--border-color)",
+            "background": "rgba(var(--accent-color), 0.02)"
+        },
+        "h5": {
+            "border_bottom": "2px solid var(--border-color)",
+            "background": "rgba(var(--accent-color), 0.01)"
+        },
+        "h6": {
+            "border_bottom": "1px solid var(--border-color)"
+        }
+    },
+    "badge_padding": "4px 10px",
+    "badge_padding_mobile": "3px 8px",
+    "lists": {
+        "ul": {
+            "list_style_type": "none",
+            "background": "linear-gradient(135deg, rgba(var(--accent-color), 0.03), transparent)",
+            "border_left": "2px solid var(--border-color)",
+            "item_position": "relative",
+            "item_padding_left": "2.2em",
+            "item_before": {
+                "content": "◼",
+                "position": "absolute",
+                "left": "0.5em",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "color": "var(--accent-color)",
+                "font_size": "0.6em"
+            }
+        },
+        "ol": {
+            "list_style_type": "none",
+            "background": "linear-gradient(90deg, rgba(var(--accent-color), 0.02), transparent)",
+            "border_left": "2px solid var(--border-color)",
+            "counter_reset": "marble-counter",
+            "item_counter_increment": "marble-counter",
+            "item_position": "relative",
+            "item_padding_left": "3em",
+            "item_before": {
+                "content": "counter(marble-counter, upper-roman)",
+                "position": "absolute",
+                "left": "0.5em",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "color": "var(--accent-color)",
+                "font_size": "0.85em",
+                "font_weight": "bold",
+                "font_family": "serif"
+            }
+        }
+    }
+}

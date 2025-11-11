@@ -1,0 +1,79 @@
+{
+    "name": "ジョアン・ミロ",
+    "id": "tk-design-miro",
+    "description": "遊び心の宇宙！星と線と原色が踊るシュールで楽しいレイアウト",
+    "layout": {
+        "type": "playful",
+        "content_width": "92%",
+        "sidebar_enabled": true,
+        "container_padding": "0 1.5rem"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "3rem 0 2rem",
+        "position": "static",
+        "alignment": "center",
+        "margin": "0 auto",
+        "nav_position": "below",
+        "structure": "single_tier"
+    },
+    "navigation": {
+        "position": "below_header",
+        "padding": "1rem 0 2rem",
+        "alignment": "center",
+        "background": "transparent",
+        "border_top": "2px dashed var(--accent-color)",
+        "border_bottom": "2px dashed var(--accent-color)"
+    },
+    "content": {
+        "main_padding": "2.5rem 2rem",
+        "article_spacing": "3rem",
+        "section_margins": "2.5rem 0",
+        "margin": "0 auto"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "3rem 0",
+        "margin_top": "3rem",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "20px 5px 20px 5px",
+        "spacing": "2rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "solid",
+            "width": "1px",
+            "color": "var(--accent-color)",
+            "position": "all",
+            "radius": "20px 5px 20px 5px"
+        },
+        "shadow": {
+            "type": "playful",
+            "intensity": "colorful",
+            "color": "rgba(var(--accent-color), 0.15)",
+            "blur": "15px",
+            "spread": "3px",
+            "x_offset": "5px",
+            "y_offset": "5px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id} .content-area",
+                ".design-{id} .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "2.5rem",
+                "background": "var(--background-color)",
+                "border": "1px solid var(--accent-color)",
+                "border-radius": "1px 5px 20px 5px",
+                "transform": "none"
+            }
+        }
+    }
+}

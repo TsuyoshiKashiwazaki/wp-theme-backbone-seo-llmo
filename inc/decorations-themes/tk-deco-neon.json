@@ -1,0 +1,88 @@
+{
+    "name": "T.Kネオン",
+    "id": "tk-deco-neon",
+    "description": "ネオンサインの鮮やかな光を表現するサイバーパンクデザイン",
+    "headings": {
+        "h1": {
+            "border": "2px solid var(--accent-color)",
+            "background": "rgba(0,0,0,0.3)",
+            "box_shadow": "0 0 20px var(--accent-color), inset 0 0 20px rgba(var(--accent-color), 0.3), 0 0 40px rgba(var(--accent-color), 0.5)",
+            "text_shadow": "0 0 10px var(--accent-color), 0 0 20px var(--accent-color), 0 0 30px var(--accent-color)"
+        },
+        "h2": {
+            "border_left": "4px solid var(--accent-color)",
+            "background": "rgba(0,0,0,0.2)",
+            "box_shadow": "0 0 15px rgba(var(--accent-color), 0.8), inset 4px 0 15px rgba(var(--accent-color), 0.2)",
+            "text_shadow": "0 0 8px var(--accent-color), 0 0 15px var(--accent-color)"
+        },
+        "h3": {
+            "border_bottom": "2px solid var(--accent-color)",
+            "background": "rgba(0,0,0,0.15)",
+            "box_shadow": "0 0 12px rgba(var(--accent-color), 0.6)",
+            "text_shadow": "0 0 6px var(--accent-color), 0 0 12px var(--accent-color)"
+        },
+        "h4": {
+            "border_left": "3px solid var(--accent-color)",
+            "background": "rgba(0,0,0,0.1)",
+            "box_shadow": "0 0 10px rgba(var(--accent-color), 0.5)",
+            "text_shadow": "0 0 5px var(--accent-color)"
+        },
+        "h5": {
+            "border_bottom": "1px solid var(--accent-color)",
+            "background": "rgba(0,0,0,0.08)",
+            "text_shadow": "0 0 4px var(--accent-color)"
+        },
+        "h6": {
+            "border_bottom": "1px solid rgba(var(--accent-color), 0.7)",
+            "text_shadow": "0 0 3px var(--accent-color)"
+        }
+    },
+    "badge_padding": "3px 10px",
+    "badge_padding_mobile": "2px 8px",
+    "lists": {
+        "ul": {
+            "list_style_type": "none",
+            "background": "rgba(0,0,0,0.1)",
+            "item_position": "relative",
+            "item_padding_left": "2.2em",
+            "item_before": {
+                "content": "▸",
+                "position": "absolute",
+                "left": "0.5em",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "color": "var(--accent-color)",
+                "font_size": "1em",
+                "text_shadow": "0 0 8px var(--accent-color), 0 0 15px var(--accent-color)"
+            }
+        },
+        "ol": {
+            "list_style_type": "none",
+            "background": "rgba(0,0,0,0.08)",
+            "counter_reset": "neon-counter",
+            "item_counter_increment": "neon-counter",
+            "item_position": "relative",
+            "item_padding_left": "2.8em",
+            "item_before": {
+                "content": "counter(neon-counter)",
+                "position": "absolute",
+                "left": "0.5em",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "width": "1.4em",
+                "height": "1.4em",
+                "background": "rgba(0,0,0,0.5)",
+                "border": "2px solid var(--accent-color)",
+                "color": "var(--accent-color)",
+                "border_radius": "2px",
+                "box_shadow": "0 0 10px var(--accent-color), inset 0 0 10px rgba(var(--accent-color), 0.3)",
+                "display": "flex",
+                "align_items": "center",
+                "justify_content": "center",
+                "font_size": "0.75em",
+                "font_weight": "bold",
+                "text_shadow": "0 0 5px var(--accent-color)"
+            }
+        }
+    }
+}

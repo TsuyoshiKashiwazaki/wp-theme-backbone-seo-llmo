@@ -1,0 +1,72 @@
+{
+    "name": "T.K和紙",
+    "id": "tk-deco-paper",
+    "description": "和紙の柔らかな風合いと日本的な美意識を表現する繊細なデザイン",
+    "headings": {
+        "h1": {
+            "border": "none",
+            "border_top": "2px solid rgba(var(--accent-color), 0.2)",
+            "border_bottom": "2px solid rgba(var(--accent-color), 0.2)",
+            "background": "linear-gradient(180deg, rgba(var(--accent-color), 0.03), rgba(var(--accent-color), 0.01), rgba(var(--accent-color), 0.03))",
+            "box_shadow": "0 2px 8px rgba(0,0,0,0.05)"
+        },
+        "h2": {
+            "border_left": "4px solid rgba(var(--accent-color), 0.4)",
+            "background": "linear-gradient(90deg, rgba(var(--accent-color), 0.05), rgba(var(--accent-color), 0.01))",
+            "box_shadow": "1px 1px 4px rgba(0,0,0,0.04)"
+        },
+        "h3": {
+            "border_bottom": "1px solid rgba(var(--accent-color), 0.3)",
+            "background": "rgba(var(--accent-color), 0.02)",
+            "box_shadow": "0 1px 3px rgba(0,0,0,0.03)"
+        },
+        "h4": {
+            "border_left": "3px solid rgba(var(--accent-color), 0.3)",
+            "background": "rgba(var(--accent-color), 0.015)"
+        },
+        "h5": {
+            "border_bottom": "1px dotted rgba(var(--accent-color), 0.25)",
+            "background": "rgba(var(--accent-color), 0.01)"
+        },
+        "h6": {
+            "border_bottom": "1px dashed rgba(var(--accent-color), 0.2)"
+        }
+    },
+    "badge_padding": "3px 9px",
+    "badge_padding_mobile": "2px 7px",
+    "lists": {
+        "ul": {
+            "list_style_type": "none",
+            "background": "linear-gradient(135deg, rgba(var(--accent-color), 0.02), transparent)",
+            "item_position": "relative",
+            "item_padding_left": "2em",
+            "item_before": {
+                "content": "•",
+                "position": "absolute",
+                "left": "0.6em",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "color": "var(--accent-color)",
+                "font_size": "1em"
+            }
+        },
+        "ol": {
+            "list_style_type": "none",
+            "background": "linear-gradient(90deg, rgba(var(--accent-color), 0.015), transparent)",
+            "counter_reset": "paper-counter",
+            "item_counter_increment": "paper-counter",
+            "item_position": "relative",
+            "item_padding_left": "2.5em",
+            "item_before": {
+                "content": "counter(paper-counter)",
+                "position": "absolute",
+                "left": "0.5em",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "color": "var(--accent-color)",
+                "font_size": "0.9em",
+                "font_weight": "normal"
+            }
+        }
+    }
+}

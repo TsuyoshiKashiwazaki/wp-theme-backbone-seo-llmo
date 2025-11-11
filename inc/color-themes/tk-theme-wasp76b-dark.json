@@ -1,0 +1,28 @@
+{
+    "name": "T.Kワスプ76ビー（暗）",
+    "id": "tk-theme-wasp76b-dark",
+    "description": "WASP-76bの鉄の雨。極高温で鉄が蒸発し雨として降る惑星。メタリックな青灰色の暗色配色。WCAG AAA準拠。",
+    "colors": {
+        "primary_color": "#60a5fa",
+        "secondary_color": "#1e3a8a",
+        "accent_color": "#93bbfc",
+        "background_color": "#18181b",
+        "background_secondary": "#27272a",
+        "text_primary": "#ffffff",
+        "text_secondary": "#e5e5e5",
+        "text_light": "#a3a3a3",
+        "link_color": "#60a5fa",
+        "link_hover_color": "#93bbfc",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#bfdbfe",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#bfdbfe",
+        "border_color": "#3f3f46",
+        "button_background_color": "#3b82f6",
+        "button_text_color": "#18181b",
+        "button_hover_background_color": "#60a5fa",
+        "form_background_color": "#27272a",
+        "form_focus_color": "#3b82f6",
+        "search_button_color": "#3b82f6"
+    }
+}

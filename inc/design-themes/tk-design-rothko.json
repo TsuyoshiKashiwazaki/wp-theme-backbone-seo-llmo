@@ -1,0 +1,78 @@
+{
+    "name": "マーク・ロスコ",
+    "id": "tk-design-rothko",
+    "description": "色面の瞑想！シンプルで力強い色面構成の抽象表現主義レイアウト",
+    "layout": {
+        "type": "color_field",
+        "content_width": "90%",
+        "sidebar_enabled": true,
+        "container_padding": "0 5%"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "4rem 2rem",
+        "position": "static",
+        "alignment": "center",
+        "margin": "0 auto",
+        "nav_position": "inline",
+        "structure": "single_tier"
+    },
+    "navigation": {
+        "position": "header_center",
+        "padding": "1rem 0",
+        "alignment": "center",
+        "background": "transparent",
+        "border": "none"
+    },
+    "content": {
+        "main_padding": "4rem",
+        "article_spacing": "6rem",
+        "section_margins": "4rem 0",
+        "margin": "0 auto"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "4rem 2rem",
+        "margin_top": "4rem",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "0",
+        "spacing": "4rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "solid",
+            "width": "1px",
+            "color": "rgba(var(--accent-rgb), 0.4)",
+            "position": "top,bottom",
+            "radius": "0"
+        },
+        "shadow": {
+            "type": "soft",
+            "intensity": "medium",
+            "color": "rgba(0,0,0,0.1)",
+            "blur": "30px",
+            "spread": "0",
+            "x_offset": "0",
+            "y_offset": "10px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id} .content-area",
+                ".design-{id} .sidebar"
+            ],
+            "properties": {
+                "margin": "2rem 0",
+                "padding": "3rem",
+                "background": "var(--background-color)",
+                "border-top": "1px solid rgba(var(--accent-rgb), 0.4)",
+                "border-bottom": "1px solid rgba(var(--secondary-rgb), 0.4)",
+                "position": "relative"
+            }
+        }
+    }
+}

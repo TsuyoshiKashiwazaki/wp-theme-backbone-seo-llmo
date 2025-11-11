@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
  * タイポグラフィJSONファイルを読み込む
  */
 function backbone_get_typography_patterns() {
-    $typography_dir = get_template_directory() . '/inc/typography/';
+    $typography_dir = get_template_directory() . '/inc/typography-themes/';
     $patterns = array();
 
     // typographyディレクトリが存在しない場合は空配列を返す

@@ -1,0 +1,88 @@
+{
+    "name": "レオナルド・ダ・ヴィンチ",
+    "id": "tk-design-da-vinci",
+    "description": "万能の天才！エレガントで機能的なフローティングヘッダーと洗練された構造",
+    "layout": {
+        "type": "floating_elegant",
+        "content_width": "100%",
+        "sidebar_width": "auto",
+        "column_gap": "3%",
+        "container_padding": "0 2%"
+    },
+    "header": {
+        "layout": "full_width",
+        "height": "auto",
+        "padding": "2.2% 0",
+        "position": "static",
+        "alignment": "stretch",
+        "margin": "0",
+        "border_radius": "0",
+        "box_shadow": "elegant_float",
+        "background": "rgba(var(--background-color), 0.95)",
+        "backdrop_filter": "blur(10px)"
+    },
+    "navigation": {
+        "position": "inline_header",
+        "padding": "0.5rem 0",
+        "alignment": "right",
+        "background": "transparent",
+        "spacing": "4%"
+    },
+    "content": {
+        "main_padding": "4%",
+        "article_spacing": "6%",
+        "section_margins": "5% 0",
+        "margin": "0 auto"
+    },
+    "footer": {
+        "layout": "elegant",
+        "padding": "5% 3%",
+        "margin_top": "6%",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "12px",
+        "box_shadow": "0 4px 20px rgba(0,0,0,0.08)",
+        "spacing": "5%",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "dashed",
+            "width": "1px",
+            "color": "var(--border-color, rgba(0,0,0,0.1))",
+            "position": "left,right",
+            "radius": "12px"
+        },
+        "shadow": {
+            "type": "outer",
+            "intensity": "medium",
+            "color": "var(--shadow-color, rgba(0,0,0,0.12))",
+            "blur": "12px",
+            "spread": "0",
+            "x_offset": "0",
+            "y_offset": "4px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0 0 4% 0",
+                "padding": "3%",
+                "background": "var(--background-color)",
+                "backdrop-filter": "blur(5px)"
+            }
+        }
+    },
+    "effects": {
+        "glass_morphism": true,
+        "elegant_transitions": true,
+        "hover_elevation": true,
+        "smooth_animations": true
+    }
+}

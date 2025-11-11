@@ -1,0 +1,78 @@
+{
+    "name": "ウォーホル",
+    "id": "tk-design-warhol",
+    "description": "ポップアートの王様！大胆な色彩と繰り返しパターンのポップレイアウト",
+    "layout": {
+        "type": "pop",
+        "content_width": "96%",
+        "sidebar_enabled": true,
+        "container_padding": "0 1rem"
+    },
+    "header": {
+        "layout": "wide",
+        "height": "auto",
+        "padding": "2rem 1.5rem",
+        "position": "static",
+        "alignment": "center",
+        "margin": "0",
+        "nav_position": "inline",
+        "structure": "single_tier"
+    },
+    "navigation": {
+        "position": "header_center",
+        "padding": "0",
+        "alignment": "center",
+        "background": "transparent",
+        "border": "none"
+    },
+    "content": {
+        "main_padding": "2rem 1.5rem",
+        "article_spacing": "2.5rem",
+        "section_margins": "2rem 0",
+        "margin": "0"
+    },
+    "footer": {
+        "layout": "wide",
+        "padding": "2rem 1.5rem",
+        "margin_top": "2rem",
+        "margin_left": "0",
+        "margin_right": "0"
+    },
+    "containers": {
+        "border_radius": "4px",
+        "spacing": "1.5rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "solid",
+            "width": "1px",
+            "color": "var(--accent-color)",
+            "position": "all",
+            "radius": "4px"
+        },
+        "shadow": {
+            "type": "outer",
+            "intensity": "vibrant",
+            "color": "var(--accent-color)",
+            "blur": "0",
+            "spread": "0",
+            "x_offset": "6px",
+            "y_offset": "6px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "1.5rem",
+                "background": "var(--background-color)",
+                "border": "1px solid var(--accent-color)"
+            }
+        }
+    }
+}

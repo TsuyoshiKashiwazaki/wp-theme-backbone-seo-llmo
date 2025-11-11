@@ -1,0 +1,79 @@
+{
+    "name": "アレクサンダー・カルダー",
+    "id": "tk-design-calder",
+    "description": "動くモビール！バランスを保ちながら浮遊する軽やかなレイアウト",
+    "layout": {
+        "type": "mobile",
+        "content_width": "88%",
+        "sidebar_enabled": true,
+        "container_padding": "0 2rem"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "2.5rem 0",
+        "position": "static",
+        "alignment": "center",
+        "margin": "0 auto",
+        "nav_position": "inline",
+        "structure": "single_tier"
+    },
+    "navigation": {
+        "position": "header_center",
+        "padding": "1rem 0",
+        "alignment": "center",
+        "background": "transparent",
+        "border": "none"
+    },
+    "content": {
+        "main_padding": "2.5rem 2rem",
+        "article_spacing": "3rem",
+        "section_margins": "2.5rem 0",
+        "margin": "0 auto"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "2.5rem 0",
+        "margin_top": "3rem",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "25px",
+        "spacing": "3rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "solid",
+            "width": "1px",
+            "color": "var(--border-color)",
+            "position": "all",
+            "radius": "25px"
+        },
+        "shadow": {
+            "type": "floating",
+            "intensity": "light",
+            "color": "rgba(0,0,0,0.08)",
+            "blur": "20px",
+            "spread": "0",
+            "x_offset": "0",
+            "y_offset": "10px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id} .content-area",
+                ".design-{id} .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "2.5rem",
+                "background": "var(--background-color)",
+                "border": "1px solid var(--border-color)",
+                "border-radius": "25px",
+                "transform": "translateY(-2px)",
+                "transition": "transform 0.3s ease"
+            }
+        }
+    }
+}

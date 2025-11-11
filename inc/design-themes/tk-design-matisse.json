@@ -1,0 +1,108 @@
+{
+    "name": "アンリ・マティス",
+    "id": "tk-design-matisse",
+    "description": "色彩の魔術師！鮮やかでミニマルな全幅デザインと大胆なタイポグラフィ",
+    "layout": {
+        "type": "full_width_minimal",
+        "content_width": "100%",
+        "sidebar_width": "auto",
+        "sidebar_enabled": false,
+        "container_padding": "0",
+        "edge_to_edge": true
+    },
+    "header": {
+        "layout": "full_width",
+        "height": "auto",
+        "padding": "2.6% 0 2.1%",
+        "position": "static",
+        "alignment": "stretch",
+        "margin": "0",
+        "background": "linear-gradient(135deg, var(--primary-color), var(--accent-color))",
+        "color": "var(--background-color)",
+        "border_bottom": "5px ridge var(--accent-color)",
+        "full_width": true
+    },
+    "navigation": {
+        "position": "overlay_header",
+        "padding": "1% 5%",
+        "alignment": "center",
+        "background": "transparent",
+        "position_absolute": true,
+        "top": "2%"
+    },
+    "content": {
+        "main_padding": "5% 4%",
+        "article_spacing": "5%",
+        "section_margins": "5% 0",
+        "margin": "0",
+        "full_width": true
+    },
+    "article": {
+        "minimal_style": true,
+        "padding": "6% 0",
+        "margin": "0 auto",
+        "max_width": "60%",
+        "border_radius": "0",
+        "background": "transparent",
+        "typography_focus": true
+    },
+    "footer": {
+        "layout": "full_width",
+        "padding": "5% 4%",
+        "margin_top": "5%",
+        "margin_left": "0",
+        "margin_right": "0",
+        "background": "var(--background-secondary)",
+        "full_width": true
+    },
+    "containers": {
+        "border_radius": "0",
+        "spacing": "4%",
+        "alignment": "center",
+        "minimal_design": true
+    },
+    "columns": {
+        "border": {
+            "style": "groove",
+            "width": "1px",
+            "color": "var(--primary-color, transparent)",
+            "position": "top",
+            "radius": "0"
+        },
+        "shadow": {
+            "type": "none",
+            "intensity": "none",
+            "color": "transparent",
+            "blur": "0",
+            "spread": "0",
+            "x_offset": "0",
+            "y_offset": "0"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "5% 0",
+                "background": "transparent",
+                "max-width": "none"
+            }
+        }
+    },
+    "typography": {
+        "bold_headings": true,
+        "large_scale": true,
+        "minimal_decoration": true,
+        "focus_on_content": true
+    },
+    "effects": {
+        "color_blocking": true,
+        "minimal_transitions": true,
+        "bold_contrasts": true,
+        "clean_aesthetics": true
+    }
+}

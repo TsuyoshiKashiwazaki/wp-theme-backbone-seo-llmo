@@ -1,0 +1,78 @@
+{
+    "name": "エッシャー",
+    "id": "tk-design-escher",
+    "description": "幾何学の魔術師！錯視的なグリッドと複雑な幾何学パターンのレイアウト",
+    "layout": {
+        "type": "grid",
+        "content_width": "95%",
+        "sidebar_enabled": true,
+        "container_padding": "0 1rem"
+    },
+    "header": {
+        "layout": "wide",
+        "height": "auto",
+        "padding": "2rem 1rem",
+        "position": "static",
+        "alignment": "center",
+        "margin": "0",
+        "nav_position": "inline",
+        "structure": "single_tier"
+    },
+    "navigation": {
+        "position": "header_right",
+        "padding": "0",
+        "alignment": "center",
+        "background": "transparent",
+        "border": "none"
+    },
+    "content": {
+        "main_padding": "1.5rem",
+        "article_spacing": "2rem",
+        "section_margins": "2rem 0",
+        "margin": "0"
+    },
+    "footer": {
+        "layout": "wide",
+        "padding": "2rem 1rem",
+        "margin_top": "2rem",
+        "margin_left": "0",
+        "margin_right": "0"
+    },
+    "containers": {
+        "border_radius": "8px",
+        "spacing": "1.5rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "solid",
+            "width": "1px",
+            "color": "var(--border-color)",
+            "position": "all",
+            "radius": "8px"
+        },
+        "shadow": {
+            "type": "inset",
+            "intensity": "medium",
+            "color": "rgba(0,0,0,0.1)",
+            "blur": "10px",
+            "spread": "0",
+            "x_offset": "0",
+            "y_offset": "0"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "1.5rem",
+                "background": "var(--background-secondary)",
+                "border": "1px solid var(--border-color)"
+            }
+        }
+    }
+}

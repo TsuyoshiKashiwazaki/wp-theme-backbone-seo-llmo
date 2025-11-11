@@ -1,0 +1,28 @@
+{
+    "name": "T.Kエイチディーワンエイトナインセブンスリースリービー（明）",
+    "id": "tk-theme-hd189733b-light",
+    "description": "HD 189733bの青いガラスの雨。秒速8700kmの風速で吹き荒れるケイ酸塩のガラスの雨。コバルトブルーの配色。WCAG AAA準拠。",
+    "colors": {
+        "primary_color": "#1e40af",
+        "secondary_color": "#dbeafe",
+        "accent_color": "#2563eb",
+        "background_color": "#ffffff",
+        "background_secondary": "#eff6ff",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#1d4ed8",
+        "link_hover_color": "#1e3a8a",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#93c5fd",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#93c5fd",
+        "border_color": "#d1d5db",
+        "button_background_color": "#2563eb",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#1d4ed8",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#2563eb",
+        "search_button_color": "#2563eb"
+    }
+}

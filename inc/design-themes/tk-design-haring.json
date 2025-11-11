@@ -1,0 +1,77 @@
+{
+    "name": "キース・ヘリング",
+    "id": "tk-design-haring",
+    "description": "踊る人形たち！ポップで楽しいストリートアートレイアウト",
+    "layout": {
+        "type": "pop_street",
+        "content_width": "100%",
+        "sidebar_enabled": true,
+        "container_padding": "0 1rem"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "2rem 0",
+        "position": "static",
+        "alignment": "center",
+        "margin": "0 auto",
+        "nav_position": "inline",
+        "structure": "single_tier"
+    },
+    "navigation": {
+        "position": "header_center",
+        "padding": "0",
+        "alignment": "center",
+        "background": "transparent",
+        "border": "none"
+    },
+    "content": {
+        "main_padding": "2rem",
+        "article_spacing": "2.5rem",
+        "section_margins": "2rem 0",
+        "margin": "0 auto"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "2rem 0",
+        "margin_top": "2.5rem",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "10px",
+        "spacing": "2rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "solid",
+            "width": "1px",
+            "color": "var(--text-primary, #000)",
+            "position": "all",
+            "radius": "10px"
+        },
+        "shadow": {
+            "type": "pop",
+            "intensity": "medium",
+            "color": "rgba(0,0,0,0.15)",
+            "blur": "0",
+            "spread": "0",
+            "x_offset": "3px",
+            "y_offset": "3px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "2rem",
+                "background": "var(--background-color, #fff)"
+            }
+        }
+    }
+}

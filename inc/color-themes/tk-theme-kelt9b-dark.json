@@ -1,0 +1,28 @@
+{
+    "name": "T.Kケルトナインビー（暗）",
+    "id": "tk-theme-kelt9b-dark",
+    "description": "KELT-9bの灼熱惑星。表面温度4300℃、恒星よりも熱い最も高温の惑星。極彩色の赤と炎の暗色配色。WCAG AAA準拠。",
+    "colors": {
+        "primary_color": "#f87171",
+        "secondary_color": "#7f1d1d",
+        "accent_color": "#fca5a5",
+        "background_color": "#18181b",
+        "background_secondary": "#27272a",
+        "text_primary": "#ffffff",
+        "text_secondary": "#e5e5e5",
+        "text_light": "#a3a3a3",
+        "link_color": "#f87171",
+        "link_hover_color": "#fca5a5",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#fecaca",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#fecaca",
+        "border_color": "#3f3f46",
+        "button_background_color": "#ef4444",
+        "button_text_color": "#18181b",
+        "button_hover_background_color": "#f87171",
+        "form_background_color": "#27272a",
+        "form_focus_color": "#ef4444",
+        "search_button_color": "#ef4444"
+    }
+}

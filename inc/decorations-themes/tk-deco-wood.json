@@ -1,0 +1,78 @@
+{
+    "name": "T.K木材",
+    "id": "tk-deco-wood",
+    "description": "木材の温かみと自然な質感を表現するナチュラルデザイン",
+    "headings": {
+        "h1": {
+            "border": "3px solid rgba(var(--accent-color), 0.3)",
+            "background": "repeating-linear-gradient(90deg, rgba(var(--accent-color), 0.08), rgba(var(--accent-color), 0.04) 2px, rgba(var(--accent-color), 0.08) 4px)",
+            "box_shadow": "0 4px 12px rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.05)"
+        },
+        "h2": {
+            "border_left": "6px solid var(--accent-color)",
+            "border_bottom": "1px solid rgba(var(--accent-color), 0.2)",
+            "background": "repeating-linear-gradient(180deg, rgba(var(--accent-color), 0.05), rgba(var(--accent-color), 0.02) 1px, rgba(var(--accent-color), 0.05) 2px)",
+            "box_shadow": "2px 2px 8px rgba(0,0,0,0.08)"
+        },
+        "h3": {
+            "border_bottom": "2px solid rgba(var(--accent-color), 0.4)",
+            "background": "linear-gradient(90deg, rgba(var(--accent-color), 0.04), rgba(var(--accent-color), 0.02))"
+        },
+        "h4": {
+            "border_left": "4px solid rgba(var(--accent-color), 0.5)",
+            "background": "rgba(var(--accent-color), 0.03)"
+        },
+        "h5": {
+            "border_bottom": "2px dotted rgba(var(--accent-color), 0.4)",
+            "background": "rgba(var(--accent-color), 0.02)"
+        },
+        "h6": {
+            "border_bottom": "1px solid rgba(var(--accent-color), 0.3)"
+        }
+    },
+    "badge_padding": "4px 10px",
+    "badge_padding_mobile": "3px 8px",
+    "lists": {
+        "ul": {
+            "list_style_type": "none",
+            "background": "repeating-linear-gradient(180deg, rgba(var(--accent-color), 0.02), transparent 2px, rgba(var(--accent-color), 0.01) 4px)",
+            "item_position": "relative",
+            "item_padding_left": "2.2em",
+            "item_before": {
+                "content": "🌿",
+                "position": "absolute",
+                "left": "0.3em",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "font_size": "0.9em",
+                "filter": "grayscale(30%)"
+            }
+        },
+        "ol": {
+            "list_style_type": "none",
+            "background": "repeating-linear-gradient(90deg, rgba(var(--accent-color), 0.02), transparent 3px)",
+            "counter_reset": "wood-counter",
+            "item_counter_increment": "wood-counter",
+            "item_position": "relative",
+            "item_padding_left": "2.8em",
+            "item_before": {
+                "content": "counter(wood-counter)",
+                "position": "absolute",
+                "left": "0.3em",
+                "top": "15px",
+                "transform": "translateY(-50%)",
+                "width": "1.5em",
+                "height": "1.5em",
+                "background": "rgba(var(--accent-color), 0.15)",
+                "border": "2px solid var(--accent-color)",
+                "color": "var(--accent-color)",
+                "border_radius": "4px",
+                "display": "flex",
+                "align_items": "center",
+                "justify_content": "center",
+                "font_size": "0.8em",
+                "font_weight": "bold"
+            }
+        }
+    }
+}

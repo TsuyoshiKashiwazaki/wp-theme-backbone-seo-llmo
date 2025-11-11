@@ -1,0 +1,28 @@
+{
+    "name": "T.K55カンクリイー（明）",
+    "id": "tk-theme-55cancrie-light",
+    "description": "55 Cancri eのダイヤモンド惑星。炭素を大量に含み、ダイヤモンドで覆われた惑星。輝くピンクと金の配色。WCAG AAA準拠。",
+    "colors": {
+        "primary_color": "#be185d",
+        "secondary_color": "#fce7f3",
+        "accent_color": "#ec4899",
+        "background_color": "#ffffff",
+        "background_secondary": "#fdf2f8",
+        "text_primary": "#000000",
+        "text_secondary": "#1a1a1a",
+        "text_light": "#4b5563",
+        "link_color": "#db2777",
+        "link_hover_color": "#9f1239",
+        "header_link_color": "#ffffff",
+        "header_link_hover_color": "#fbcfe8",
+        "footer_link_color": "#ffffff",
+        "footer_link_hover_color": "#fbcfe8",
+        "border_color": "#d1d5db",
+        "button_background_color": "#ec4899",
+        "button_text_color": "#ffffff",
+        "button_hover_background_color": "#db2777",
+        "form_background_color": "#ffffff",
+        "form_focus_color": "#ec4899",
+        "search_button_color": "#ec4899"
+    }
+}

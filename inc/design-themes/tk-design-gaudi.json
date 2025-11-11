@@ -1,0 +1,78 @@
+{
+    "name": "ガウディ",
+    "id": "tk-design-gaudi",
+    "description": "有機的曲線美！自然と一体化した流れるような曲線のオーガニックレイアウト",
+    "layout": {
+        "type": "organic",
+        "content_width": "92%",
+        "sidebar_enabled": true,
+        "container_padding": "0 1.5rem"
+    },
+    "header": {
+        "layout": "contained",
+        "height": "auto",
+        "padding": "2.5rem 0 2rem",
+        "position": "static",
+        "alignment": "center",
+        "margin": "0 auto",
+        "nav_position": "below",
+        "structure": "two_tier"
+    },
+    "navigation": {
+        "position": "below_header",
+        "padding": "1.5rem 0",
+        "alignment": "center",
+        "background": "transparent",
+        "border_bottom": "2px solid var(--border-color)"
+    },
+    "content": {
+        "main_padding": "2.5rem 2rem",
+        "article_spacing": "3rem",
+        "section_margins": "2.5rem 0",
+        "margin": "0 auto"
+    },
+    "footer": {
+        "layout": "contained",
+        "padding": "2.5rem 0",
+        "margin_top": "3rem",
+        "margin_left": "auto",
+        "margin_right": "auto"
+    },
+    "containers": {
+        "border_radius": "16px",
+        "spacing": "2rem",
+        "alignment": "center"
+    },
+    "columns": {
+        "border": {
+            "style": "solid",
+            "width": "1px",
+            "color": "var(--border-color)",
+            "position": "all",
+            "radius": "16px"
+        },
+        "shadow": {
+            "type": "outer",
+            "intensity": "soft",
+            "color": "rgba(0,0,0,0.08)",
+            "blur": "16px",
+            "spread": "0",
+            "x_offset": "0",
+            "y_offset": "4px"
+        },
+        "css": {
+            "selectors": [
+                ".design-{id}.layout-two-columns .content-area",
+                ".design-{id}.layout-two-columns .sidebar",
+                ".design-{id}.layout-three-columns .content-area",
+                ".design-{id}.layout-three-columns .sidebar"
+            ],
+            "properties": {
+                "margin": "0",
+                "padding": "2rem",
+                "background": "var(--background-color)",
+                "border-radius": "16px"
+            }
+        }
+    }
+}

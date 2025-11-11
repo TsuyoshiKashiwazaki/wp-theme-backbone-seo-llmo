@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
  */
 function backbone_get_design_patterns() {
     $patterns = array();
-    $pattern_files = glob(get_template_directory() . '/inc/designs/*.json');
+    $pattern_files = glob(get_template_directory() . '/inc/design-themes/*.json');
 
     foreach ($pattern_files as $file) {
         $json_content = file_get_contents($file);
