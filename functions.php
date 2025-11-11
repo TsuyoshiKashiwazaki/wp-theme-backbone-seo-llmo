@@ -70,13 +70,12 @@ add_action('after_setup_theme', 'backbone_remove_default_background_support', 20
 function backbone_enqueue_responsive_typography() {
     // フロントエンドキャッシュバスティング設定を取得
     $cache_busting_frontend = get_theme_mod('enable_cache_busting_frontend', false);
-    $version = $cache_busting_frontend ? current_time('YmdHis') : '1.0.0';
 
     wp_enqueue_style(
         'typography-responsive',
         get_template_directory_uri() . '/css/typography-responsive.css',
         array('style'),
-        $version
+        backbone_get_file_version('/css/typography-responsive.css', $cache_busting_frontend)
     );
 }
 add_action('wp_enqueue_scripts', 'backbone_enqueue_responsive_typography', 25);
@@ -87,13 +86,12 @@ add_action('wp_enqueue_scripts', 'backbone_enqueue_responsive_typography', 25);
 function backbone_enqueue_front_page_sections() {
     // フロントエンドキャッシュバスティング設定を取得
     $cache_busting_frontend = get_theme_mod('enable_cache_busting_frontend', false);
-    $version = $cache_busting_frontend ? current_time('YmdHis') : '1.0.1';
 
     wp_enqueue_style(
         'front-page-sections',
         get_template_directory_uri() . '/css/front-page-sections.css',
         array('seo-optimus-style'),
-        $version
+        backbone_get_file_version('/css/front-page-sections.css', $cache_busting_frontend)
     );
 }
 add_action('wp_enqueue_scripts', 'backbone_enqueue_front_page_sections', 26);

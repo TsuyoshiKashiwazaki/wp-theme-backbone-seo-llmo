@@ -287,13 +287,12 @@ add_action('wp_head', 'backbone_generate_subdirectory_design_css', 1000);
 function backbone_subdirectory_customizer_preview_scripts() {
     // 管理画面キャッシュバスティング設定を取得
     $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
-    $version_admin = $cache_busting_admin ? current_time('YmdHis') : '1.0.0';
 
     wp_enqueue_script(
         'subdirectory-customizer',
         get_template_directory_uri() . '/js/subdirectory-customizer.js',
         array('customize-controls', 'jquery'),
-        $version_admin,
+        backbone_get_file_version('/js/subdirectory-customizer.js', $cache_busting_admin),
         true
     );
 
@@ -302,7 +301,7 @@ function backbone_subdirectory_customizer_preview_scripts() {
         'subdirectory-auto-reload',
         get_template_directory_uri() . '/js/subdirectory-auto-reload.js',
         array('customize-controls', 'jquery'),
-        $version_admin,
+        backbone_get_file_version('/js/subdirectory-auto-reload.js', $cache_busting_admin),
         true
     );
 
@@ -331,13 +330,12 @@ add_action('customize_controls_enqueue_scripts', 'backbone_subdirectory_customiz
 function backbone_subdirectory_customizer_preview_frame_scripts() {
     // 管理画面キャッシュバスティング設定を取得
     $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
-    $version_admin = $cache_busting_admin ? current_time('YmdHis') : '1.0.0';
 
     wp_enqueue_script(
         'subdirectory-customizer-preview',
         get_template_directory_uri() . '/js/subdirectory-customizer-preview.js',
         array('customize-preview'),
-        $version_admin,
+        backbone_get_file_version('/js/subdirectory-customizer-preview.js', $cache_busting_admin),
         true
     );
 }

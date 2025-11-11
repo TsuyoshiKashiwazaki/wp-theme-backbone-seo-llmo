@@ -80,37 +80,46 @@ function backbone_remove_colors_section($wp_customize) {
 add_action('customize_register', 'backbone_remove_colors_section', 15);
 
 /**
+ * ファイルバージョン取得ヘルパー関数
+ */
+function backbone_get_file_version($relative_path, $cache_busting) {
+    if ($cache_busting) {
+        return current_time('YmdHis');
+    } else {
+        $full_path = get_template_directory() . $relative_path;
+        return file_exists($full_path) ? filemtime($full_path) : time();
+    }
+}
+
+/**
  * スタイルとスクリプトの読み込み
  */
 function backbone_scripts() {
     // フロントエンドキャッシュバスティング設定を取得
     $cache_busting_frontend = get_theme_mod('enable_cache_busting_frontend', false);
 
-    // バージョン文字列を決定（キャッシュバスティングが有効なら現在時刻、無効なら固定バージョン）
-    $version = $cache_busting_frontend ? current_time('YmdHis') : '1.0.0';
-
 
     // メインスタイルシート（キャッシュバスティング対応）
-    wp_enqueue_style('seo-optimus-style', get_stylesheet_uri(), array(), $version);
+    wp_enqueue_style('seo-optimus-style', get_stylesheet_uri(), array(), backbone_get_file_version('/style.css', $cache_busting_frontend));
 
     // 分割されたレイアウトCSSファイルの読み込み（キャッシュバスティング対応）
-    wp_enqueue_style('seo-optimus-layout-base', get_template_directory_uri() . '/css/layout-base.css', array('seo-optimus-style'), $version);
-    wp_enqueue_style('seo-optimus-layout-single-column', get_template_directory_uri() . '/css/layout-single-column.css', array('seo-optimus-layout-base'), $version);
-    wp_enqueue_style('seo-optimus-layout-full-width', get_template_directory_uri() . '/css/layout-full-width.css', array('seo-optimus-layout-base'), $version);
-    wp_enqueue_style('seo-optimus-layout-two-columns', get_template_directory_uri() . '/css/layout-two-columns.css', array('seo-optimus-layout-base'), $version);
-    wp_enqueue_style('seo-optimus-layout-three-columns', get_template_directory_uri() . '/css/layout-three-columns.css', array('seo-optimus-layout-base'), $version);
-    wp_enqueue_style('seo-optimus-layout-admin', get_template_directory_uri() . '/css/layout-admin.css', array('seo-optimus-layout-base'), $version);
-    
+    wp_enqueue_style('seo-optimus-layout-base', get_template_directory_uri() . '/css/layout-base.css', array('seo-optimus-style'), backbone_get_file_version('/css/layout-base.css', $cache_busting_frontend));
+    wp_enqueue_style('seo-optimus-layout-single-column', get_template_directory_uri() . '/css/layout-single-column.css', array('seo-optimus-layout-base'), backbone_get_file_version('/css/layout-single-column.css', $cache_busting_frontend));
+    wp_enqueue_style('seo-optimus-layout-full-width', get_template_directory_uri() . '/css/layout-full-width.css', array('seo-optimus-layout-base'), backbone_get_file_version('/css/layout-full-width.css', $cache_busting_frontend));
+    wp_enqueue_style('seo-optimus-layout-two-columns', get_template_directory_uri() . '/css/layout-two-columns.css', array('seo-optimus-layout-base'), backbone_get_file_version('/css/layout-two-columns.css', $cache_busting_frontend));
+    wp_enqueue_style('seo-optimus-layout-three-columns', get_template_directory_uri() . '/css/layout-three-columns.css', array('seo-optimus-layout-base'), backbone_get_file_version('/css/layout-three-columns.css', $cache_busting_frontend));
+    wp_enqueue_style('seo-optimus-layout-admin', get_template_directory_uri() . '/css/layout-admin.css', array('seo-optimus-layout-base'), backbone_get_file_version('/css/layout-admin.css', $cache_busting_frontend));
+
     // 検索ポップアップのCSS（検索ボタンが有効の場合のみ）
     if (get_theme_mod('search_button_enabled', true)) {
-        wp_enqueue_style('seo-optimus-search-popup', get_template_directory_uri() . '/css/search-popup.css', array('seo-optimus-style'), $version);
+        wp_enqueue_style('seo-optimus-search-popup', get_template_directory_uri() . '/css/search-popup.css', array('seo-optimus-style'), backbone_get_file_version('/css/search-popup.css', $cache_busting_frontend));
     }
 
     // メインビジュアル（ヒーローイメージ）のCSS
-    wp_enqueue_style('hero-image-styles', get_template_directory_uri() . '/css/hero-image-styles.css', array('seo-optimus-style'), $version);
+    wp_enqueue_style('hero-image-styles', get_template_directory_uri() . '/css/hero-image-styles.css', array('seo-optimus-style'), backbone_get_file_version('/css/hero-image-styles.css', $cache_busting_frontend));
 
     // アーカイブページグリッドレイアウトのCSS
-    wp_enqueue_style('archive-grid-styles', get_template_directory_uri() . '/css/archive-grid.css', array('seo-optimus-style'), $version);
+    wp_enqueue_style('archive-grid-styles', get_template_directory_uri() . '/css/archive-grid.css', array('seo-optimus-style'), backbone_get_file_version('/css/archive-grid.css', $cache_busting_frontend));
 
     // WordPress コア jQuery を明示的に読み込み
     wp_enqueue_script('jquery-core');
@@ -127,11 +136,11 @@ function backbone_scripts() {
     wp_enqueue_script('jquery-ui-tabs');
 
     // JavaScriptファイル（キャッシュバスティング対応）
-    wp_enqueue_script('seo-optimus-script', get_template_directory_uri() . '/js/theme.js', array('jquery', 'jquery-core', 'jquery-migrate'), $version, true);
-    
+    wp_enqueue_script('seo-optimus-script', get_template_directory_uri() . '/js/theme.js', array('jquery', 'jquery-core', 'jquery-migrate'), backbone_get_file_version('/js/theme.js', $cache_busting_frontend), true);
+
     // 検索ポップアップのJavaScript（検索ボタンが有効の場合のみ）
     if (get_theme_mod('search_button_enabled', true)) {
-        wp_enqueue_script('seo-optimus-search-popup', get_template_directory_uri() . '/js/search-popup-simple.js', array('jquery'), $version, true);
+        wp_enqueue_script('seo-optimus-search-popup', get_template_directory_uri() . '/js/search-popup-simple.js', array('jquery'), backbone_get_file_version('/js/search-popup-simple.js', $cache_busting_frontend), true);
     }
 
     // jQueryの競合回避を削除（WordPress コア jQuery を使用）

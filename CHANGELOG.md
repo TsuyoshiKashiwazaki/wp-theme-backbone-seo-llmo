@@ -2,6 +2,31 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.17] - 2025-11-11
+
+### Added
+- Individual file-based cache busting for all CSS and JavaScript files
+- Helper function `backbone_get_file_version()` in `inc/theme-setup.php` for consistent version management
+- Debounce functionality (150ms) to MutationObserver in `js/theme.js` for better performance
+
+### Fixed
+- Unwanted whitespace caused by sticky header padding adjustments
+- Removed all hardcoded version numbers (1.0.0, 1.0.1, 4.0.0) across the theme
+
+### Changed
+- Cache busting now uses individual file modification times instead of shared version numbers
+- Updated version management across all enqueue functions to use new helper
+- MutationObserver now checks for height changes before updating padding
+
+### Technical
+- Modified `inc/theme-setup.php`: Added backbone_get_file_version() helper, updated all wp_enqueue_style/script calls
+- Modified `functions.php`: Updated backbone_enqueue_responsive_typography() and backbone_enqueue_front_page_sections()
+- Modified `inc/customizer/index.php`: Updated all customizer scripts to use new helper
+- Modified `inc/widget-working-solution.php`: Updated widget editor script versioning
+- Modified `inc/customizer/custom-color-theme.php`: Updated customizer preview/controls scripts
+- Modified `inc/customizer/subdirectory-design-settings.php`: Updated subdirectory customizer scripts
+- Modified `js/theme.js`: Added debounce and height change detection to adjustStickyHeaderPadding()
+
 ## [1.0.16] - 2025-11-10
 
 ### Fixed

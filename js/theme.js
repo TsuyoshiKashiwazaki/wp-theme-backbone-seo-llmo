@@ -697,24 +697,42 @@ document.addEventListener('DOMContentLoaded', function () {
     /**
      * スティッキーヘッダーの高さ調整
      */
+    var lastHeaderHeight = 0; // 前回のヘッダー高さを保存
+
     function adjustStickyHeaderPadding() {
+        var siteWrapper = document.querySelector('.site-wrapper');
+
+        if (!siteWrapper) {
+            return;
+        }
+
         // スティッキーヘッダーが有効かチェック
         if (!document.body.classList.contains('sticky-header-enabled')) {
+            // スティッキーヘッダーが無効な場合はpadding-topを削除
+            siteWrapper.style.paddingTop = '';
+            lastHeaderHeight = 0;
             return;
         }
 
         var header = document.querySelector('.site-header');
-        var siteWrapper = document.querySelector('.site-wrapper');
 
-        if (!header || !siteWrapper) {
+        if (!header) {
+            siteWrapper.style.paddingTop = '';
+            lastHeaderHeight = 0;
             return;
         }
 
         // ヘッダーの実際の高さを取得
         var headerHeight = header.offsetHeight;
 
+        // 高さが変わっていない場合は何もしない（不要な再描画を防ぐ）
+        if (headerHeight === lastHeaderHeight && siteWrapper.style.paddingTop) {
+            return;
+        }
+
         // site-wrapperのpadding-topを動的に設定
         siteWrapper.style.paddingTop = headerHeight + 'px';
+        lastHeaderHeight = headerHeight;
     }
 
     // スティッキーヘッダーの初期化
@@ -733,8 +751,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // DOM変更時にも再計算（メニューの開閉など）
         if (typeof MutationObserver !== 'undefined') {
+            var mutationTimer;
             var headerObserver = new MutationObserver(function() {
-                adjustStickyHeaderPadding();
+                // debounce: 連続した変更を1回にまとめる
+                clearTimeout(mutationTimer);
+                mutationTimer = setTimeout(function() {
+                    adjustStickyHeaderPadding();
+                }, 150);
             });
 
             var header = document.querySelector('.site-header');
