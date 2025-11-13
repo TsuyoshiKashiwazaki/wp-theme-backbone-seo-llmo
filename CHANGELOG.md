@@ -2,6 +2,22 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.19] - 2025-11-13
+
+### Changed
+- Removed "コンテンツ最大幅 (px)" setting from Front Page Settings to eliminate contradiction with Layout Settings
+- Added "1カラム時のコンテンツ最大幅" setting to Layout Settings for single-column layouts only
+
+### Fixed
+- Fixed contradiction between Layout Settings sidebar width ("content area width is automatically adjusted") and Front Page Settings content max width
+- Content max width now only applies to single-column layouts; 2-column and 3-column layouts are unaffected
+
+### Technical
+- Modified `inc/customizer/front-page-settings.php`: Removed `backbone_front_content_max_width` setting (lines 227-248)
+- Modified `functions.php`: Removed `backbone_output_front_page_content_width()` function (lines 464-497)
+- Modified `inc/customizer/layout-settings.php`: Added `single_column_max_width` setting (lines 256-272)
+- Modified `inc/css-layout.php`: Added CSS output for single-column max width (lines 612-624)
+
 ## [1.0.18] - 2025-11-11
 
 ### Added

@@ -462,41 +462,6 @@ function backbone_force_correct_post_order() {
 add_action('template_redirect', 'backbone_force_correct_post_order', 99999);
 
 /**
- * フロントページのコンテンツ最大幅を出力
- */
-function backbone_output_front_page_content_width() {
-    $max_width = get_theme_mod('backbone_front_content_max_width', 1200);
-
-    // 明示的に0かどうかチェック
-    if ($max_width === 0 || $max_width === '0' || (is_numeric($max_width) && intval($max_width) === 0)) {
-        $custom_css = "
-        .hero-description,
-        .posts-list-section,
-        .pickup-section,
-        .services-section,
-        .free-content-section {
-            max-width: none !important;
-        }
-        ";
-        wp_add_inline_style('seo-optimus-style', $custom_css);
-    }
-    // 1200以外の値の場合は指定幅を適用
-    elseif ($max_width && $max_width != 1200) {
-        $custom_css = "
-        .hero-description,
-        .posts-list-section,
-        .pickup-section,
-        .services-section,
-        .free-content-section {
-            max-width: {$max_width}px !important;
-        }
-        ";
-        wp_add_inline_style('seo-optimus-style', $custom_css);
-    }
-}
-add_action('wp_enqueue_scripts', 'backbone_output_front_page_content_width');
-
-/**
  * カスタマイザーコントロール用CSSとJSを読み込み
  */
 function backbone_enqueue_customizer_controls_assets($wp_customize) {
