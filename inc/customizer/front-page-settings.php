@@ -224,29 +224,6 @@ function backbone_add_front_page_settings($wp_customize) {
         },
     )));
 
-    // --- コンテンツ最大幅 ---
-    $wp_customize->add_setting('backbone_front_content_max_width', array(
-        'default' => 1200,
-        'sanitize_callback' => 'absint',
-        'transport' => 'refresh',
-    ));
-
-    $wp_customize->add_control('backbone_front_content_max_width', array(
-        'label' => __('コンテンツ最大幅 (px)', 'backbone-seo-llmo'),
-        'section' => 'static_front_page',
-        'priority' => 72,
-        'type' => 'number',
-        'input_attrs' => array(
-            'min' => 0,
-            'max' => 2000,
-            'step' => 50,
-        ),
-        'description' => __('セクションの最大幅を設定します。0で全幅表示。初期値: 1200px', 'backbone-seo-llmo'),
-        'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
-        },
-    ));
-
     // --- フリーコンテンツエリア ---
     $wp_customize->add_setting('backbone_front_free_content', array(
         'default' => '',

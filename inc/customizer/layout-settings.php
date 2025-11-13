@@ -253,6 +253,24 @@ function backbone_add_layout_settings($wp_customize) {
         ),
     ));
 
+    // 1カラムレイアウト時のコンテンツ最大幅
+    $wp_customize->add_setting('single_column_max_width', array(
+        'default'           => '1200',
+        'sanitize_callback' => 'backbone_sanitize_number',
+    ));
+
+    $wp_customize->add_control('single_column_max_width', array(
+        'label'       => __('1カラム時のコンテンツ最大幅', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'number',
+        'description' => __('1カラムレイアウト時のコンテンツ最大幅を設定します（px）。2カラム・3カラムには影響しません。', 'backbone-seo-llmo'),
+        'input_attrs' => array(
+            'min'  => 600,
+            'max'  => 1920,
+            'step' => 50,
+        ),
+    ));
+
     // スティッキーサイドバーの有効化
     $wp_customize->add_setting('enable_sticky_sidebar', array(
         'default'           => true,

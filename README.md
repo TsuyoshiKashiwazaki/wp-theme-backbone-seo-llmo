@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.18-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.19-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -161,7 +161,12 @@ See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-th
 
 ## Changelog
 
-**Current Version:** 1.0.18 (2025-11-11)
+### [1.0.19] - 2025-11-13
+- **Changed**: Removed "Content Max Width" from Front Page Settings, added "Single Column Max Width" to Layout Settings
+- **Fixed**: Resolved contradiction between Layout Settings and Front Page Settings
+- **Improved**: Content max width now only applies to single-column layouts, not affecting 2-column or 3-column layouts
+
+**Current Version:** 1.0.19 (2025-11-13)
 
 For complete version history and detailed changes, see [CHANGELOG.md](CHANGELOG.md).
 

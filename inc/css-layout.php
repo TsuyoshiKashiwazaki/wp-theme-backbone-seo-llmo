@@ -609,6 +609,31 @@ function backbone_dynamic_layout_output() {
         $css .= "}\n\n";
     }
 
+    // 1カラムレイアウト時のコンテンツ最大幅
+    $single_column_max_width = get_theme_mod('single_column_max_width', '1200');
+    if ($single_column_max_width > 0) {
+        $css .= "/* 1カラムレイアウト時のコンテンツ最大幅 - 全デザインパターンに対応 */\n";
+        $css .= "@media (min-width: 1280px) {\n";
+        $css .= "    html body.layout-single-column .main-content,\n";
+        $css .= "    html body.layout-single-column .content-area,\n";
+        $css .= "    html body[class*=\"design-\"].layout-single-column .main-content,\n";
+        $css .= "    html body[class*=\"design-\"].layout-single-column .content-area {\n";
+        $css .= "        max-width: {$single_column_max_width}px !important;\n";
+        $css .= "        margin-left: auto !important;\n";
+        $css .= "        margin-right: auto !important;\n";
+        $css .= "    }\n";
+        $css .= "    \n";
+        $css .= "    /* フロントページのセクションも連動 */\n";
+        $css .= "    html body.layout-single-column .hero-description,\n";
+        $css .= "    html body.layout-single-column .posts-list-section,\n";
+        $css .= "    html body.layout-single-column .pickup-section,\n";
+        $css .= "    html body.layout-single-column .services-section,\n";
+        $css .= "    html body.layout-single-column .free-content-section {\n";
+        $css .= "        max-width: {$single_column_max_width}px !important;\n";
+        $css .= "    }\n";
+        $css .= "}\n\n";
+    }
+
     // ブロックウィジェットのmin-height問題を解決
     $css .= "/* ブロックウィジェットのmin-heightオーバーライド */\n";
     $css .= ".widget.widget_block,\n";
