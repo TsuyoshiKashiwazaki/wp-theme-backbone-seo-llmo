@@ -38,6 +38,7 @@ $inc_files = array(
     'theme-setup.php',          // テーマ基本設定
     'widgets.php',              // ウィジェット関連
     'widget-working-solution.php',  // ウィジェット実用版
+    'author-custom-urls.php',   // 著者カスタムURL設定
     'customizer/index.php',     // カスタマイザー設定（utilities.phpの関数を使用）
     'color-file-storage.php',   // ファイルベースカラー保存
     'css-output.php',           // CSS出力関数（utilities.phpの関数を使用）
