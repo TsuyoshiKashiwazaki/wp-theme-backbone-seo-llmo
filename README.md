@@ -162,7 +162,7 @@ See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-th
 ## Changelog
 
 ### [1.0.20] - 2025-11-14
-- **Added**: カスタム著者URL設定機能
+- **Added**: Custom author URL setting feature
 
 ### [1.0.19] - 2025-11-13
 - **Changed**: Removed "Content Max Width" from Front Page Settings, added "Single Column Max Width" to Layout Settings
