@@ -2,6 +2,14 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.20] - 2025-11-14
+
+### Added
+- Custom author URL setting feature (`inc/author-custom-urls.php`)
+- Ability to customize WordPress author URL (`/author/{username}/`) to any URL
+- Support for relative paths (`profile`) or full URLs (`https://example.com/profile/`)
+- Automatic integration with all plugins and themes via `author_link` filter
+
 ## [1.0.19] - 2025-11-13
 
 ### Changed
