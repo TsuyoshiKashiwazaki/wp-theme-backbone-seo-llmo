@@ -18,6 +18,7 @@ require_once get_template_directory() . '/inc/customizer/custom-color-theme.php'
 // require_once get_template_directory() . '/inc/customizer/color-settings.php'; // カスタムカラー機能削除
 // require_once get_template_directory() . '/inc/customizer/typography-settings.php';
 require_once get_template_directory() . '/inc/customizer/layout-settings.php';
+require_once get_template_directory() . '/inc/customizer/navigation-settings.php';
 require_once get_template_directory() . '/inc/customizer/subdirectory-logos.php';
 require_once get_template_directory() . '/inc/customizer/subdirectory-design-settings.php';
 require_once get_template_directory() . '/inc/customizer/hero-image-settings.php';
@@ -45,6 +46,7 @@ function backbone_customize_register($wp_customize) {
     // backbone_add_color_settings($wp_customize); // カスタムカラー機能削除
     // backbone_add_typography_settings($wp_customize);
     backbone_add_layout_settings($wp_customize);
+    backbone_add_navigation_settings($wp_customize);
     backbone_add_subdirectory_logo_settings($wp_customize);
     backbone_add_subdirectory_design_settings($wp_customize);
     backbone_add_hero_image_settings($wp_customize);

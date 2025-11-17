@@ -48,6 +48,7 @@ function backbone_add_single_post_settings($wp_customize) {
         'section' => 'post_meta_settings',
         'priority' => 5,
         'description' => __('全投稿タイプに適用される共通設定です。', 'backbone-seo-llmo'),
+        'active_callback' => 'backbone_is_unified_post_meta_settings_enabled',
     )));
 
     // 投稿日表示
@@ -63,6 +64,7 @@ function backbone_add_single_post_settings($wp_customize) {
         'type' => 'checkbox',
         'description' => __('記事の公開日を表示します。SEO・ユーザビリティ向上のため推奨。', 'backbone-seo-llmo'),
         'priority' => 10,
+        'active_callback' => 'backbone_is_unified_post_meta_settings_enabled',
     ));
 
     // 更新日表示
@@ -78,6 +80,7 @@ function backbone_add_single_post_settings($wp_customize) {
         'type' => 'checkbox',
         'description' => __('記事の最終更新日を表示します。公開日と異なる場合のみ表示されます。コンテンツの鮮度を示すため推奨。', 'backbone-seo-llmo'),
         'priority' => 20,
+        'active_callback' => 'backbone_is_unified_post_meta_settings_enabled',
     ));
 
     // 著者情報表示
@@ -93,6 +96,7 @@ function backbone_add_single_post_settings($wp_customize) {
         'type' => 'checkbox',
         'description' => __('記事の著者名を表示します。複数著者サイトの場合に有用。', 'backbone-seo-llmo'),
         'priority' => 30,
+        'active_callback' => 'backbone_is_unified_post_meta_settings_enabled',
     ));
 
     // カテゴリ表示
@@ -108,6 +112,7 @@ function backbone_add_single_post_settings($wp_customize) {
         'type' => 'checkbox',
         'description' => __('記事のカテゴリを表示します。必要に応じて有効化してください。', 'backbone-seo-llmo'),
         'priority' => 40,
+        'active_callback' => 'backbone_is_unified_post_meta_settings_enabled',
     ));
 
     // タグ表示
@@ -123,6 +128,7 @@ function backbone_add_single_post_settings($wp_customize) {
         'type' => 'checkbox',
         'description' => __('記事のタグをヘッダーに表示します。タグが多い場合は表示が煩雑になるため、通常はオフ推奨。', 'backbone-seo-llmo'),
         'priority' => 50,
+        'active_callback' => 'backbone_is_unified_post_meta_settings_enabled',
     ));
 
     // タグ表示数の上限
@@ -138,6 +144,7 @@ function backbone_add_single_post_settings($wp_customize) {
         'type' => 'number',
         'description' => __('ヘッダーに表示するタグの最大数。多すぎるとレイアウトが崩れるため、5〜10個を推奨。', 'backbone-seo-llmo'),
         'priority' => 55,
+        'active_callback' => 'backbone_is_unified_post_meta_settings_enabled',
         'input_attrs' => array(
             'min' => 1,
             'max' => 50,
@@ -169,6 +176,7 @@ function backbone_add_post_type_meta_controls($wp_customize, $post_type, $label,
         'section' => 'post_meta_settings',
         'priority' => $priority,
         'description' => sprintf(__('%s の個別設定。「すべて共通設定を使用」がオフの時に有効。', 'backbone-seo-llmo'), $label),
+        'active_callback' => 'backbone_is_individual_post_meta_settings_enabled',
     )));
 
     // 投稿日
@@ -181,6 +189,7 @@ function backbone_add_post_type_meta_controls($wp_customize, $post_type, $label,
         'section' => 'post_meta_settings',
         'type' => 'checkbox',
         'priority' => $priority + 1,
+        'active_callback' => 'backbone_is_individual_post_meta_settings_enabled',
     ));
 
     // 更新日
@@ -193,6 +202,7 @@ function backbone_add_post_type_meta_controls($wp_customize, $post_type, $label,
         'section' => 'post_meta_settings',
         'type' => 'checkbox',
         'priority' => $priority + 2,
+        'active_callback' => 'backbone_is_individual_post_meta_settings_enabled',
     ));
 
     // 著者
@@ -205,6 +215,7 @@ function backbone_add_post_type_meta_controls($wp_customize, $post_type, $label,
         'section' => 'post_meta_settings',
         'type' => 'checkbox',
         'priority' => $priority + 3,
+        'active_callback' => 'backbone_is_individual_post_meta_settings_enabled',
     ));
 
     // カテゴリ
@@ -217,6 +228,7 @@ function backbone_add_post_type_meta_controls($wp_customize, $post_type, $label,
         'section' => 'post_meta_settings',
         'type' => 'checkbox',
         'priority' => $priority + 4,
+        'active_callback' => 'backbone_is_individual_post_meta_settings_enabled',
     ));
 
     // タグ
@@ -229,6 +241,7 @@ function backbone_add_post_type_meta_controls($wp_customize, $post_type, $label,
         'section' => 'post_meta_settings',
         'type' => 'checkbox',
         'priority' => $priority + 5,
+        'active_callback' => 'backbone_is_individual_post_meta_settings_enabled',
     ));
 
     // タグ表示数
@@ -241,6 +254,7 @@ function backbone_add_post_type_meta_controls($wp_customize, $post_type, $label,
         'section' => 'post_meta_settings',
         'type' => 'number',
         'priority' => $priority + 6,
+        'active_callback' => 'backbone_is_individual_post_meta_settings_enabled',
         'input_attrs' => array('min' => 1, 'max' => 50),
     ));
 }
@@ -281,4 +295,22 @@ function backbone_get_post_meta_setting($key, $default = false) {
         $individual_key = 'post_meta_' . $post_type . '_' . $key;
         return get_theme_mod($individual_key, get_theme_mod('single_' . $key, $default));
     }
+}
+
+/**
+ * 個別メタ情報設定が有効かどうかを判定
+ *
+ * @return bool 個別設定が有効な場合true
+ */
+function backbone_is_individual_post_meta_settings_enabled() {
+    return !get_theme_mod('post_meta_use_unified', true);
+}
+
+/**
+ * 統一メタ情報設定が有効かどうかを判定
+ *
+ * @return bool 統一設定が有効な場合true
+ */
+function backbone_is_unified_post_meta_settings_enabled() {
+    return get_theme_mod('post_meta_use_unified', true);
 }

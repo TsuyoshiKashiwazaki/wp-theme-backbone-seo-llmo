@@ -2,6 +2,50 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.21] - 2025-11-17
+
+### Added
+- Navigation menu customizer settings integrated into WordPress native menu panel (`inc/customizer/navigation-settings.php`)
+- Deep hierarchy submenu display direction setting (vertical/horizontal for 3rd level and beyond)
+- Dynamic visibility control for post meta settings (unified vs individual mode)
+- Body class for submenu direction (`submenu-third-vertical` or `submenu-third-horizontal`)
+
+### Changed
+- Default submenu third-level direction changed from 'horizontal' to 'vertical' (stair-step indentation)
+- Navigation settings moved to: Appearance → Customize → Menu → Menu Display Options
+- Post meta settings now dynamically show/hide based on unified/individual mode selection
+- Submenu hover effects improved with underline animation under text
+- Mobile menu hidden styles commented out (delegated to plugin control)
+
+### Improved
+- Navigation CSS refactored in `css/components-navigation.css`:
+  - Top-level menu items only show bottom border decoration
+  - Submenu items have text-underline hover effect
+  - Panel design improved with better padding and background handling
+  - Full-width layout submenu display fixed with overflow settings
+- Post meta settings UI now cleaner with active_callback functions:
+  - `backbone_is_unified_post_meta_settings_enabled()`
+  - `backbone_is_individual_post_meta_settings_enabled()`
+
+### Fixed
+- Submenu visibility in full-width layouts (`css/components-header.css`)
+- Navigation hover fix CSS consolidated into `components-navigation.css`
+- Third-level vertical submenu spacing issue when nested items exist
+- Third-level vertical submenu background transparency causing visibility issues when overlapping
+- Z-index layering for third-level vertical submenus to properly overlap lower menu items
+
+### Technical
+- Modified: `inc/customizer/index.php` - Added navigation-settings.php registration
+- Modified: `inc/css-body-classes.php` - Added submenu direction body class
+- Modified: `inc/css-layout.php` - Removed submenu background/border (applied to individual items only)
+- Modified: `inc/theme-setup.php` - Commented out navigation-hover-fix.css loading
+- Modified: `css/responsive.css` - Commented out mobile menu hiding (plugin handles it)
+- Modified: `css/components-navigation.css` - Fixed third-level vertical submenu display behavior:
+  - Changed initial display from `block` to `none` to prevent space occupation when hidden
+  - Changed background from `transparent` to `var(--primary-color)` for proper visibility
+  - Increased z-index to `9999999` for proper layering above sibling menu items
+  - Added box-shadow and padding for visual distinction
+
 ## [1.0.20] - 2025-11-14
 
 ### Added
@@ -13,8 +57,8 @@ All notable changes to Backbone Theme for SEO + LLMO will be documented in this 
 ## [1.0.19] - 2025-11-13
 
 ### Changed
-- Removed "コンテンツ最大幅 (px)" setting from Front Page Settings to eliminate contradiction with Layout Settings
-- Added "1カラム時のコンテンツ最大幅" setting to Layout Settings for single-column layouts only
+- Removed "Content Max Width (px)" setting from Front Page Settings to eliminate contradiction with Layout Settings
+- Added "Single Column Max Width" setting to Layout Settings for single-column layouts only
 
 ### Fixed
 - Fixed contradiction between Layout Settings sidebar width ("content area width is automatically adjusted") and Front Page Settings content max width

@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.20-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.21-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -161,6 +161,14 @@ See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-th
 
 ## Changelog
 
+### [1.0.21] - 2025-11-17
+- **Added**: Navigation menu customizer settings integrated into WordPress native menu panel
+- **Added**: Deep hierarchy submenu display direction setting (vertical/horizontal)
+- **Changed**: Default submenu direction from horizontal to vertical (stair-step indentation)
+- **Improved**: Post meta settings with dynamic visibility control (unified vs individual mode)
+- **Improved**: Navigation CSS with better hover effects and panel design
+- **Fixed**: Submenu visibility in full-width layouts
+
 ### [1.0.20] - 2025-11-14
 - **Added**: Custom author URL setting feature
 
@@ -169,7 +177,7 @@ See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-th
 - **Fixed**: Resolved contradiction between Layout Settings and Front Page Settings
 - **Improved**: Content max width now only applies to single-column layouts, not affecting 2-column or 3-column layouts
 
-**Current Version:** 1.0.20 (2025-11-14)
+**Current Version:** 1.0.21 (2025-11-17)
 
 For complete version history and detailed changes, see [CHANGELOG.md](CHANGELOG.md).
 

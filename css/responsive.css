@@ -169,6 +169,9 @@
 
 
 
+    /* ハンバーガーメニューはプラグインで制御するため、
+       テーマ側でのモバイルメニュー非表示は削除 */
+    /*
     body .main-navigation ul {
         display: none !important;
         flex-direction: column;
@@ -186,6 +189,7 @@
     .main-navigation ul.active {
         display: flex;
     }
+    */
 
     /* モバイル時のサブメニュー調整 */
     .main-navigation .sub-menu {

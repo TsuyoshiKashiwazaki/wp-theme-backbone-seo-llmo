@@ -24,8 +24,8 @@ body .main-navigation {
     background: transparent !important;
 }
 
-/* 各メニュー項目に下線装飾を適用 */
-body .main-navigation li::after {
+/* 各メニュー項目に下線装飾を適用（トップレベルのみ） */
+body .main-navigation > ul > li::after {
     content: '';
     position: absolute;
     bottom: -5px;
@@ -33,12 +33,38 @@ body .main-navigation li::after {
     transform: translateX(-50%);
     width: 0;
     height: 2px;
-    background: var(--accent-color);
+    background: rgba(0, 0, 0, 0.2);
     transition: width 0.3s ease;
 }
 
-body .main-navigation li:hover::after {
+body .main-navigation > ul > li:hover::after {
     width: 80%;
+}
+
+/* サブメニュー項目のホバー下線（テキストの真下に表示） */
+body .main-navigation .sub-menu li {
+    position: relative;
+}
+
+body .main-navigation .sub-menu a {
+    position: relative; /* 下線を正しく配置するため */
+}
+
+body .main-navigation .sub-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 8px; /* パディング内でテキストの真下に配置 */
+    left: 20px;
+    right: 20px;
+    height: 1px;
+    background: var(--header-link-hover-color);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.2s ease;
+}
+
+body .main-navigation .sub-menu a:hover::after {
+    transform: scaleX(1);
 }
 
 body .main-navigation li {
@@ -62,7 +88,7 @@ body .main-navigation a {
 
 body .main-navigation a:hover {
     color: var(--header-link-hover-color);
-    border-color: var(--accent-color);
+    border-color: transparent;
 }
 
 /* サブメニュー（ドロップダウン） */
@@ -70,12 +96,12 @@ body .main-navigation .sub-menu {
     position: absolute;
     top: 100%;
     left: 0;
-    background: var(--primary-color);
-    color: var(--secondary-color);
-    min-width: 200px;
-    padding: 10px 0;
+    background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
+    color: var(--header-link-color);
+    min-width: 220px; /* パネル用に少し幅を広げる */
+    padding: 6px; /* パネル周囲に適度な余白 */
     /* border-radius はデコレーションパターンで管理 */
-    border: 1px solid var(--border-color);
+    border: none; /* ボーダーも削除 */
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
@@ -86,20 +112,92 @@ body .main-navigation .sub-menu {
     gap: 0;
     /* メインコンテンツにめり込まないようにする */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
 }
 
 /* フルワイドレイアウトでのサブメニュー表示修正 */
-body .layout-full-width .main-navigation .sub-menu {
+body.layout-full-width .main-navigation .sub-menu {
     z-index: 99999;
     /* フルワイドレイアウトではより高いz-indexを設定 */
     position: absolute;
     top: 100%;
     left: 0;
     /* メインコンテンツにめり込まないようにする */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    background: var(--primary-color);
-    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
+    border-radius: 0;
+    background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
+    border: none; /* ボーダーも削除 */
+    padding: 6px; /* パネル用の余白 */
+}
+
+/* フルワイドレイアウトでの3階層目以降のサブメニュー表示 - 横展開（右側表示） */
+body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .sub-menu {
+    position: absolute !important;
+    top: 0 !important; /* パネルを垂直に揃える */
+    left: calc(100% - 1px) !important; /* パネル間の隙間を最小限にする */
+    z-index: 999999 !important;
+    /* より高い優先度でデスクトップでの右側表示を確保 */
+    transform: none !important;
+    opacity: 0;
+    visibility: hidden;
+    margin: 0 !important;
+    padding: 6px !important; /* パネル用の余白 */
+    background: var(--primary-color) !important; /* ヘッダーと同じ背景色 */
+    border: none !important; /* border削除 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    min-width: 200px !important;
+    display: block !important;
+    flex-direction: column !important;
+    width: auto !important;
+}
+
+/* フルワイドレイアウトでの3階層目以降のサブメニュー表示 - 縦展開（直下表示） */
+body.layout-full-width.submenu-third-vertical .main-navigation .sub-menu .sub-menu {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    z-index: 9999999 !important; /* より高いz-indexで下のメニューに重ねる */
+    transform: none !important;
+    margin: 0 0 0 16px !important; /* 上マージンを削除してパネル同士を密着 */
+    padding: 6px !important; /* パネル用の余白を追加 */
+    background: var(--primary-color) !important; /* 透明化せず背景色を設定 */
+    border: none !important; /* すべてのborder削除 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important; /* 影を追加して浮き上がり効果 */
+    min-width: auto !important;
+    display: none !important; /* 初期状態は非表示にしてスペースを占有しないようにする */
+    flex-direction: column !important;
+    width: 100% !important;
+}
+
+/* 4階層目以降も同じルールを継承（横展開） */
+body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .sub-menu .sub-menu,
+body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .sub-menu .sub-menu .sub-menu,
+body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu {
+    /* 3階層目と同じスタイルを継承 */
+}
+
+/* 4階層目以降も同じルールを継承（縦展開） - さらにインデントを追加 */
+body.layout-full-width.submenu-third-vertical .main-navigation .sub-menu .sub-menu .sub-menu {
+    margin-left: 32px !important; /* 4階層目はさらにインデント */
+}
+body.layout-full-width.submenu-third-vertical .main-navigation .sub-menu .sub-menu .sub-menu .sub-menu {
+    margin-left: 48px !important; /* 5階層目はさらにインデント */
+}
+body.layout-full-width.submenu-third-vertical .main-navigation .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu {
+    margin-left: 64px !important; /* 6階層目はさらにインデント */
+}
+
+/* フルワイドレイアウト - 横展開時のホバー表示 */
+body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+}
+
+/* フルワイドレイアウト - 縦展開時のホバー表示 */
+body.layout-full-width.submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu {
+    display: block !important; /* ホバー時に表示 */
 }
 
 body .main-navigation li:hover>.sub-menu {
@@ -110,36 +208,58 @@ body .main-navigation li:hover>.sub-menu {
 
 body .main-navigation .sub-menu li {
     width: 100%;
+    margin: 3px 0; /* 各パネル間に隙間を作る */
 }
 
 body .main-navigation .sub-menu a {
-    color: var(--header-link-color);
-    padding: 12px 20px;
-    /* border-radius はデコレーションパターンで管理 */
+    color: var(--header-link-color); /* ヘッダーリンクと同じ色 */
+    padding: 12px 20px; /* 適度なパディング */
+    border-radius: 0; /* シャープなエッジでモダンなパネル感 */
     /* font-weight はタイポグラフィパターンで管理 */
-    border-bottom: 1px solid var(--border-color);
     transition: all 0.2s ease;
+    display: block;
+    margin: 0; /* マージンを削除 */
+    background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
+    border-left: 3px solid transparent; /* 左ボーダーでアクセント */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* 薄いボーダーで区切り線 */
+    position: relative;
+    /* サブメニューは折り返さない */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px; /* 最大幅を設定して省略記号を表示 */
 }
 
 body .main-navigation .sub-menu li:last-child a {
-    border-bottom: none;
+    border-bottom: none; /* 最後のアイテムは下ボーダーなし */
 }
 
 body .main-navigation .sub-menu a:hover {
-    color: var(--header-link-hover-color);
-    background-color: var(--accent-color);
+    color: var(--header-link-hover-color); /* メインメニューと同じオレンジ系の色 */
+    background: color-mix(in srgb, var(--primary-color) 85%, black); /* CSS変数での暗い色 */
+    border-left-color: var(--header-link-hover-color); /* 左ボーダーをオレンジに */
+    padding-left: 24px; /* 少し内側にずらしてインタラクティブ感 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 軽い外側の影で浮き上がり効果 */
 }
 
 /* サブメニューの矢印アイコン */
-body .main-navigation .menu-item-has-children>a::after {
-    content: "▼";
-    /* font-size はタイポグラフィパターンで管理 */
-    margin-left: 8px;
-    transition: transform 0.2s ease;
+body .main-navigation .menu-item-has-children>a {
+    position: relative;
+    padding-left: 2em; /* 左側に+記号用のスペースを確保 */
 }
 
-body .main-navigation .menu-item-has-children:hover>a::after {
-    transform: rotate(180deg);
+body .main-navigation .menu-item-has-children>a::before {
+    content: "+";
+    position: absolute;
+    left: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: content 0.2s ease;
+    font-weight: bold;
+}
+
+body .main-navigation .menu-item-has-children:hover>a::before {
+    content: "-";
 }
 
 /* ハンバーガーメニューの基本レイアウト改善 */
@@ -150,7 +270,7 @@ body .main-navigation ul.active {
     gap: 0;
 
     /* メニューパネルの基本スタイル（カラーテーマのヘッダー色を使用） */
-    background: var(--primary-color);
+    background: var(--background-color);
     border: 1px solid var(--border-color);
     border-radius: 6px;
     padding: 16px;
@@ -192,31 +312,31 @@ body .main-navigation ul.active>li>a {
     padding: 12px 16px;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--header-link-color);
+    color: var(--text-color); /* ハンバーガーメニューでは通常のテキスト色を使用 */
     text-decoration: none;
     border-radius: 4px;
-    background: var(--primary-color);
+    background: var(--background-color); /* 個別項目に背景を追加 */
 }
 
 body .main-navigation ul.active>li>a:hover {
-    background: var(--accent-color);
-    color: var(--header-link-hover-color);
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--text-color);
 }
 
 /* サブメニューの差別化 */
 body .main-navigation ul.active .sub-menu {
     margin: 8px 0 0 0;
     padding: 0 0 0 20px;
-    border-left: 1px solid var(--border-color);
+    /* border削除 */
 }
 
 body .main-navigation ul.active .sub-menu li {
     margin: 0 0 8px 0;
-    border-bottom: 2px solid var(--border-color);
+    /* border削除 */
 }
 
 body .main-navigation ul.active .sub-menu li:last-child {
-    border-bottom: none;
+    /* border削除 */
 }
 
 body .main-navigation ul.active .sub-menu a {
@@ -224,84 +344,156 @@ body .main-navigation ul.active .sub-menu a {
     padding: 8px 16px;
     font-size: 0.9rem;
     font-weight: 400;
-    color: var(--header-link-color);
+    color: var(--header-link-color); /* ヘッダーリンクと同じ色 */
     text-decoration: none;
-    background: transparent;
+    background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
     border: none;
     border-radius: 0;
 }
 
 body .main-navigation ul.active .sub-menu a:hover {
-    background: var(--accent-color);
+    background: color-mix(in srgb, var(--primary-color) 85%, black); /* CSS変数での暗い色 */
     border: none;
     color: var(--header-link-hover-color);
 }
 
-/* 3階層目以降のサブメニューを横展開（デスクトップ） */
-body .main-navigation .sub-menu .sub-menu {
+/* 3階層目以降のサブメニュー - 横展開（右側表示） - フルワイドレイアウトを除く */
+body:not(.layout-full-width).submenu-third-horizontal .main-navigation .sub-menu .sub-menu {
     position: absolute;
-    top: -10px;
-    left: calc(100% + 2px);
+    top: 0; /* パネルを垂直に揃える */
+    left: 100%; /* 隙間なくパネルを接続 */
     margin: 0;
     transform: translateY(0);
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
     z-index: 99999;
-    background: var(--primary-color);
-    border: 1px solid var(--border-color);
+    background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
+    border: none; /* border削除 */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     min-width: 200px;
-    padding: 10px 0;
+    padding: 0;
 }
 
-body .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu {
-    opacity: 1;
-    visibility: visible;
-}
-
-/* サブメニューの矢印を右向きに（回転しないよう固定） */
-body .main-navigation .sub-menu .menu-item-has-children>a::after {
-    content: "▶";
-    float: right;
-    margin-left: 8px;
-    margin-right: 0;
-    transform: none !important;
-    transition: none !important;
-}
-
-/* 3階層目のサブメニュー（モバイル用） */
-body .main-navigation ul.active .sub-menu .sub-menu {
-    margin: 4px 0 0 0;
-    padding: 0 0 0 18px;
-    border-left: 1px solid var(--border-color);
+/* 3階層目以降のサブメニュー - 縦展開（直下表示） - フルワイドレイアウトを除く */
+body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .sub-menu {
     position: static;
+    top: auto;
+    left: auto;
+    margin: 0 0 0 16px;
+    transform: none;
+    transition: all 0.3s ease;
+    z-index: 9999999; /* より高いz-indexで下のメニューに重ねる */
+    background: var(--primary-color); /* 透明化せず背景色を設定 */
+    border: none; /* すべてのborder削除 */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* 影を追加して浮き上がり効果 */
+    min-width: auto;
+    padding: 6px; /* パネル用の余白を追加 */
+    width: 100%;
+    display: none; /* 初期状態は非表示にしてスペースを占有しないようにする */
+}
+
+/* 4階層目以降も同じルールを継承（横展開） */
+body:not(.layout-full-width).submenu-third-horizontal .main-navigation .sub-menu .sub-menu .sub-menu,
+body:not(.layout-full-width).submenu-third-horizontal .main-navigation .sub-menu .sub-menu .sub-menu .sub-menu,
+body:not(.layout-full-width).submenu-third-horizontal .main-navigation .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu {
+    /* 3階層目と同じスタイルを継承 */
+}
+
+/* 4階層目以降も同じルールを継承（縦展開） - さらにインデントを追加 */
+body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .sub-menu .sub-menu {
+    margin-left: 32px; /* 4階層目はさらにインデント */
+}
+body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .sub-menu .sub-menu .sub-menu {
+    margin-left: 48px; /* 5階層目はさらにインデント */
+}
+body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .sub-menu .sub-menu .sub-menu .sub-menu {
+    margin-left: 64px; /* 6階層目はさらにインデント */
+}
+
+body:not(.layout-full-width).submenu-third-horizontal .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu {
     opacity: 1;
     visibility: visible;
 }
 
-body .main-navigation ul.active .sub-menu .sub-menu li {
-    border-bottom: 1px solid var(--border-color);
+body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu {
+    display: block; /* ホバー時に表示 */
 }
 
-body .main-navigation ul.active .sub-menu .sub-menu li:last-child {
-    border-bottom: none;
+/* サブメニューの矢印 - 横展開時はプラス */
+body.submenu-third-horizontal .main-navigation .sub-menu .menu-item-has-children>a {
+    position: relative;
+    padding-left: 2em;
 }
 
-body .main-navigation ul.active .sub-menu .sub-menu a {
-    padding: 6px 14px;
-    font-size: 0.85rem;
-    font-weight: 300;
-    color: var(--header-link-color);
-    background: transparent;
-    border: none;
-    border-radius: 0;
+body.submenu-third-horizontal .main-navigation .sub-menu .menu-item-has-children>a::before {
+    content: "+";
+    position: absolute;
+    left: 0.5em;
+    top: 50%;
+    transform: translateY(-50%) !important;
+    transition: content 0.2s ease;
+    font-weight: bold;
 }
 
-body .main-navigation ul.active .sub-menu .sub-menu a:hover {
-    background: var(--accent-color);
-    border: none;
-    color: var(--header-link-hover-color);
+body.submenu-third-horizontal .main-navigation .sub-menu .menu-item-has-children:hover>a::before {
+    content: "-";
+}
+
+/* サブメニューの矢印 - 縦展開時はプラス */
+body.submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children>a {
+    position: relative;
+    padding-left: 2em;
+}
+
+body.submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children>a::before {
+    content: "+";
+    position: absolute;
+    left: 0.5em;
+    top: 50%;
+    transform: translateY(-50%) !important;
+    transition: content 0.2s ease;
+    font-weight: bold;
+}
+
+body.submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children:hover>a::before {
+    content: "-";
+}
+
+/* 3階層目のサブメニュー（モバイル用） - デスクトップでは適用しない */
+@media (max-width: 1279px) {
+    body .main-navigation ul.active .sub-menu .sub-menu {
+        margin: 4px 0 0 0;
+        padding: 0 0 0 18px;
+        /* border削除 */
+        position: static;
+        opacity: 1;
+        visibility: visible;
+    }
+
+    body .main-navigation ul.active .sub-menu .sub-menu li {
+        /* border削除 */
+    }
+
+    body .main-navigation ul.active .sub-menu .sub-menu li:last-child {
+        /* border削除 */
+    }
+
+    body .main-navigation ul.active .sub-menu .sub-menu a {
+        padding: 6px 14px;
+        font-size: 0.85rem;
+        font-weight: 300;
+        color: var(--header-link-color); /* ヘッダーリンクと同じ色 */
+        background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
+        border: none;
+        border-radius: 0;
+    }
+
+    body .main-navigation ul.active .sub-menu .sub-menu a:hover {
+        background: color-mix(in srgb, var(--primary-color) 85%, black); /* CSS変数での暗い色 */
+        border: none;
+        color: var(--header-link-hover-color);
+    }
 }
 
 /* メニュー項目のアイコン */
@@ -319,8 +511,8 @@ body .main-navigation ul.active .menu-item-has-children>a::after {
 /* アクティブなメニュー項目 */
 body .main-navigation ul.active .current-menu-item>a,
 body .main-navigation ul.active .current_page_item>a {
-    background: var(--accent-color);
-    color: var(--background-color);
+    background: rgba(0, 0, 0, 0.1);
+    color: var(--text-color);
     font-weight: 700;
     position: relative;
     z-index: 9998;
@@ -335,7 +527,7 @@ body .main-navigation ul.active .current_page_item>a::after {
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.8rem;
-    color: var(--primary-color);
+    color: var(--text-color);
     font-weight: bold;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
     display: block;
@@ -353,7 +545,7 @@ body .main-navigation ul.active .sub-menu .current_page_item>a::after {
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.7rem;
-    color: var(--primary-color);
+    color: var(--text-color);
     font-weight: bold;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }
@@ -367,7 +559,7 @@ body .main-navigation ul.active .sub-menu .sub-menu .current_page_item>a::after 
     top: 50%;
     transform: translateY(-50%);
     font-size: 0.65rem;
-    color: var(--primary-color);
+    color: var(--text-color);
     font-weight: bold;
     text-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
 }

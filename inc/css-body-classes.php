@@ -169,6 +169,12 @@ function backbone_body_classes($classes) {
         $classes[] = 'page-type-' . $page_type;
     }
 
+    // 深階層サブメニュー（3階層目以降）の表示方向クラス
+    if (function_exists('backbone_get_submenu_third_level_direction')) {
+        $submenu_direction = backbone_get_submenu_third_level_direction();
+        $classes[] = 'submenu-third-' . $submenu_direction;
+    }
+
     return $classes;
 }
 add_filter('body_class', 'backbone_body_classes');

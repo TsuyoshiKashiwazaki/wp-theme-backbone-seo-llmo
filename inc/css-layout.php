@@ -467,10 +467,11 @@ function backbone_dynamic_layout_output() {
         $css .= "    position: absolute !important;\n";
         $css .= "    top: 100% !important;\n";
         $css .= "    left: 0 !important;\n";
-        $css .= "    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;\n";
-        $css .= "    border-radius: 4px !important;\n";
-        $css .= "    background: var(--primary-color) !important;\n";
-        $css .= "    border: 1px solid var(--border-color) !important;\n";
+        $css .= "    /* 背景とボーダーは削除（個別項目のみに背景を適用） */\n";
+        $css .= "    box-shadow: none !important;\n";
+        $css .= "    border-radius: 0 !important;\n";
+        $css .= "    background: transparent !important;\n";
+        $css .= "    border: none !important;\n";
         $css .= "}\n\n";
 
         $css .= ".layout-full-width .main-navigation ul.active {\n";

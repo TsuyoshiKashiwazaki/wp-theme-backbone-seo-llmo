@@ -121,6 +121,9 @@ function backbone_scripts() {
     // アーカイブページグリッドレイアウトのCSS
     wp_enqueue_style('archive-grid-styles', get_template_directory_uri() . '/css/archive-grid.css', array('seo-optimus-style'), backbone_get_file_version('/css/archive-grid.css', $cache_busting_frontend));
 
+    // ナビゲーションホバー判定改善CSS（無効化 - components-navigation.cssで管理）
+    // wp_enqueue_style('navigation-hover-fix', get_template_directory_uri() . '/css/navigation-hover-fix.css', array('seo-optimus-style'), backbone_get_file_version('/css/navigation-hover-fix.css', $cache_busting_frontend));
+
     // WordPress コア jQuery を明示的に読み込み
     wp_enqueue_script('jquery-core');
     wp_enqueue_script('jquery-migrate');

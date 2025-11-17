@@ -362,3 +362,12 @@ body .site-header a {
 body .site-header a:hover {
     color: var(--header-link-hover-color);
 }
+
+/* フルワイドレイアウトでのサブメニュー表示を保証 */
+body.layout-full-width .site-header,
+body.layout-full-width .site-header .container,
+body.layout-full-width .header-content {
+    overflow: visible !important;
+    overflow-x: visible !important;
+    overflow-y: visible !important;
+}

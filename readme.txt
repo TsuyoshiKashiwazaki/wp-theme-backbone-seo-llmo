@@ -5,290 +5,334 @@ Tags: blog, accessibility-ready, custom-colors, custom-logo, custom-menu, editor
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.16
+Stable tag: 1.0.21
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-メディア運用に特化したシンプルなベーステーマ。基本的なSEO対応とレイアウト機能を提供し、高度な機能は専用プラグインでの拡張を前提とした設計。
+A minimal WordPress base theme optimized for media sites with built-in SEO support, designed for plugin-based extensibility.
 
 == Description ==
 
-Backbone Theme for SEO + LLMO は、メディア運用に特化したシンプルなWordPressベーステーマです。基本的なSEO対応とレイアウト機能を提供し、高度な機能は専用プラグイン（SEO・LLMO・GEO・AIO最適化プラグイン）での拡張を前提とした設計となっています。
+Backbone Theme for SEO + LLMO is a streamlined WordPress base theme specifically designed for media operations. It provides essential SEO functionality while intentionally keeping advanced features modular through plugin architecture (such as SEO・LLMO・GEO・AIO optimization plugins).
 
-= 主な特徴 =
+= Key Features =
 
-* **プラグインファースト設計** - 専用プラグインによる拡張を前提とした設計
-* **WCAG AAA準拠カラーテーマ** - 22個の系外惑星・恒星名テーマ（色覚多様性対応）
-* **基本的なSEO対応** - メタディスクリプション自動抽出、タイトル最適化
-* **柔軟なレイアウト** - 1-3カラム、フルワイドレイアウトに対応
-* **カスタマイザー統合** - 色、レイアウト、タイポグラフィなど基本的なデザイン調整が可能
-* **メディア最適化** - ブログやメディアサイトに特化した設計
-* **軽量設計** - 必要最小限の機能のみを搭載
-* **レスポンシブ対応** - モバイルファーストのデザインアプローチ
-* **アクセシビリティ重視** - WCAG AAA準拠、色覚多様性対応
+* **Plugin-First Architecture** - Designed for extension via specialized plugins
+* **WCAG AAA Compliant Color Themes** - 22 exoplanet/star-themed accessible color schemes
+* **Basic SEO Support** - Meta description extraction, title optimization
+* **Flexible Layouts** - 1-3 column layouts and full-width support
+* **Customizer Integration** - Color, layout, typography, and design adjustments
+* **Media-Optimized** - Tailored for blogs and media sites
+* **Lightweight Design** - Minimal footprint with essential features only
+* **Responsive** - Mobile-first design approach
+* **Accessibility-Focused** - WCAG AAA compliance, color vision diversity support
 
-= カラーテーマ（22種類） =
+= Color Themes (22 variants) =
 
-系外惑星・恒星をモチーフにした、WCAG AAA準拠のアクセシブルなカラーテーマ:
+WCAG AAA compliant accessible color themes inspired by exoplanets and stars:
 
-* Blue: Kepler-22b（海洋型惑星）
-* Red: Betelgeuse（赤色超巨星）
-* Green: Luyten 726-8（赤色矮星）
-* Yellow: WASP-12b（灼熱の木星型惑星）
-* Purple: Psi Draconis（連星系）
-* Orange: Algorab（蛍光オレンジ）、Algorab K0V（黒ヘッダー版）、Arcturus（橙色巨星）
-* Grey: CoRoT-7b（溶岩惑星）
-* White: Deneb（白色超巨星）
-* Black: Sirius B（白色矮星）
-* Cream: Capella（黄白色巨星）
+* Blue: Kepler-22b (oceanic exoplanet)
+* Red: Betelgeuse (red supergiant star)
+* Green: Luyten 726-8 (red dwarf star)
+* Yellow: WASP-12b (ultra-hot Jupiter)
+* Purple: Psi Draconis (binary star system)
+* Orange: Algorab (fluorescent orange), Algorab K0V (black header), Arcturus (orange giant)
+* Grey: CoRoT-7b (lava planet)
+* White: Deneb (white supergiant)
+* Black: Sirius B (white dwarf)
+* Cream: Capella (yellow-white giant)
 
-各色に明（light）・暗（dark）の2パターン、計22テーマ。すべて色覚多様性のある方に配慮したコントラスト比を実現。
+Each color has light and dark variants (22 themes total), all with contrast ratios suitable for color vision diversity.
 
-= テーマサポート機能 =
+= Theme Support Features =
 
-* カスタムロゴ
-* カスタムメニュー（メインメニュー、フッターメニュー）
-* アイキャッチ画像
-* ヒーローイメージ（メインビジュアル）
-* HTML5マークアップ
-* 自動フィードリンク
-* タイトルタグサポート
-* エディタースタイル
-* ワイドアラインメント
-* レスポンシブ埋め込み
-* ページの抜粋とタグサポート
+* Custom Logo
+* Custom Menus (Main, Footer)
+* Featured Images
+* Hero Images (Main Visual)
+* HTML5 Markup
+* Automatic Feed Links
+* Title Tag Support
+* Editor Styles
+* Wide Alignment
+* Responsive Embeds
+* Page Excerpts and Tags
 
-= レイアウト機能 =
+= Layout Features =
 
-* 1カラム、2カラム、3カラム、フルワイドレイアウト
-* サイドバー位置選択（左/右）
-* コンテナ幅設定
-* アーカイブグリッドレイアウト（2/3/4カラム）
-* フロントページセクション（5リストセクション + 5個別記事セクション）
-* ドラッグ&ドロップでセクション順序制御
+* 1-column, 2-column, 3-column, and full-width layouts
+* Sidebar position selection (left/right)
+* Container width settings
+* Archive grid layouts (2/3/4 columns)
+* Front page sections (5 list sections + 5 individual post sections)
+* Drag & drop section order control
 
-= ウィジェットエリア =
+= Widget Areas =
 
-* サイドバーウィジェットエリア
-* フッターウィジェットエリア（マルチカラム対応）
+* Sidebar widget area
+* Footer widget areas (multi-column support)
 
-= SEO機能 =
+= SEO Features =
 
-* メタディスクリプション自動抽出（抜粋または本文の最初の25単語から生成）
-* タイトルタグの最適化（カスタマイズ可能なセパレーター、自動タイトル生成）
-* ページのSEO拡張（抜粋フィールドとタグサポート）
-* SEOフレンドリーなURL（/page-2/形式のカスタムページネーション）
-* HTML5セマンティックマークアップ
-* レスポンシブデザイン
+* Auto meta description extraction (from excerpt or first 25 words)
+* Title tag optimization (customizable separator, auto title generation)
+* Page SEO extensions (excerpt field and tags support)
+* SEO-friendly URLs (custom pagination format /page-2/)
+* HTML5 semantic markup
+* Responsive design
 
-= カスタマイザー機能 =
+= Customizer Features =
 
-* **カラー設定** - 22種類のプリセットテーマ、カスタムカラーテーマ作成
-* **レイアウト設定** - カラム数、サイドバー位置、コンテナ幅
-* **タイポグラフィ設定** - 10種類のプリセット（ゴシック、明朝、Sansなど）
-* **デザインパターン** - 7種類のアーティストテーマ（Monet、Van Gogh、Picassoなど）
-* **装飾テーマ** - 8種類（Diamond、Crystal、Metalなど）
-* **ヘッダー/フッター設定** - ロゴ、メニュー、ウィジェットエリア、カスタムコード
-* **フロントページ設定** - セクション管理、ピックアップ投稿、サービスカード、ヒーローイメージ
-* **アーカイブ設定** - グリッドレイアウト、ソート順、表示要素制御
-* **フォーム設定** - パディング、フォントサイズ、ボーダー、余白
-* **カスタムコード** - サイト全体・投稿タイプ別のCSS/JavaScript追加
-* **開発者設定** - キャッシュバスティング機能
+* **Color Settings** - 22 preset themes, custom color theme creation
+* **Layout Settings** - Column count, sidebar position, container width
+* **Typography Settings** - 10 presets (Gothic, Mincho, Sans, etc.)
+* **Design Patterns** - 7 artist-themed designs (Monet, Van Gogh, Picasso, etc.)
+* **Decoration Themes** - 8 variants (Diamond, Crystal, Metal, etc.)
+* **Header/Footer Settings** - Logo, menus, widget areas, custom code
+* **Front Page Settings** - Section management, featured posts, service cards, hero images
+* **Archive Settings** - Grid layouts, sort order, display element control
+* **Form Settings** - Padding, font size, borders, spacing
+* **Custom Code** - Site-wide and post-type-specific CSS/JavaScript
+* **Developer Settings** - Cache busting functionality
 
-= 開発者向け機能 =
+= Developer Features =
 
-* キャッシュバスティング機能（CSS/JSファイルのタイムスタンプベースのバージョニング）
-* ユーティリティ関数モジュール（core、layout、typography、color、design、decoration、hero-image）
-* プラグイン拡張を前提とした柔軟な構造
-* カスタムヘッダーコードメタボックス（個別ページ用）
+* Cache busting (timestamp-based versioning for CSS/JS files)
+* Utility function modules (core, layout, typography, color, design, decoration, hero-image)
+* Flexible structure designed for plugin extension
+* Custom header code meta box (per-page customization)
 
-= 推奨プラグイン =
+= Recommended Plugins =
 
-このテーマは、高度な機能を専用プラグインで拡張することを前提に設計されています。以下のような機能は専用プラグインでの実装を推奨します：
+This theme is designed to be extended with specialized plugins. Advanced features recommended for plugin implementation:
 
-* 構造化データ（JSON-LD、Schema.org）
-* Open Graphタグ（FacebookなどのSNS）
-* Twitter Cardタグ
-* Canonical URLタグ
-* 高度なrobots metaタグコントロール
-* LLMO（Large Language Model Optimization - 大規模言語モデル最適化）
-* GEO（Generative Engine Optimization - 生成エンジン最適化）
+* Structured data (JSON-LD, Schema.org)
+* Open Graph tags (Facebook, social media)
+* Twitter Card tags
+* Canonical URL tags
+* Advanced robots meta tag control
+* LLMO (Large Language Model Optimization)
+* GEO (Generative Engine Optimization)
 
 == Installation ==
 
-= 自動インストール =
+= Automatic Installation =
 
-1. WordPressダッシュボードから「外観」→「テーマ」→「新規追加」を選択
-2. 「Backbone Theme for SEO + LLMO」を検索
-3. 「インストール」をクリックし、その後「有効化」をクリック
+1. From WordPress dashboard, select "Appearance" → "Themes" → "Add New"
+2. Search for "Backbone Theme for SEO + LLMO"
+3. Click "Install" and then "Activate"
 
-= 手動インストール =
+= Manual Installation =
 
-1. テーマのZIPファイルをダウンロード
-2. WordPressダッシュボードから「外観」→「テーマ」→「新規追加」→「テーマのアップロード」を選択
-3. ZIPファイルを選択してインストール
-4. テーマを有効化
+1. Download the theme ZIP file
+2. From WordPress dashboard, select "Appearance" → "Themes" → "Add New" → "Upload Theme"
+3. Select the ZIP file and install
+4. Activate the theme
 
-= セットアップ =
+= Setup =
 
-1. 「外観」→「カスタマイズ」から、色、レイアウト、タイポグラフィの設定を調整
-2. 「外観」→「メニュー」から、メインメニューとフッターメニューを作成
-3. 「外観」→「ウィジェット」から、サイドバーとフッターにウィジェットを追加
-4. 投稿や固定ページにアイキャッチ画像を設定
+1. Go to "Appearance" → "Customize" to adjust colors, layouts, and typography
+2. Go to "Appearance" → "Menus" to create main and footer menus
+3. Go to "Appearance" → "Widgets" to add widgets to sidebar and footer
+4. Set featured images for posts and pages
 
 == Frequently Asked Questions ==
 
-= このテーマはどのようなサイトに適していますか？ =
+= What types of sites is this theme suitable for? =
 
-ブログ、メディアサイト、ニュースサイトなど、コンテンツ中心のウェブサイトに最適です。シンプルで拡張性の高い設計により、様々な用途に対応できます。
+This theme is ideal for content-focused websites such as blogs, media sites, and news sites. Its simple and extensible design can adapt to various purposes.
 
-= プラグインなしで使用できますか？ =
+= Can I use this theme without plugins? =
 
-はい、基本的なブログやウェブサイトとして十分機能します。ただし、より高度なSEO機能やLLMO機能が必要な場合は、専用プラグインの使用を推奨します。
+Yes, it functions perfectly as a basic blog or website. However, for advanced SEO, LLMO, or GEO features, we recommend using specialized plugins.
 
-= カラーテーマは何種類ありますか？ =
+= How many color themes are available? =
 
-22種類のWCAG AAA準拠カラーテーマ（11色 × 明暗2パターン）を提供しています。すべて色覚多様性のある方に配慮したコントラスト比を実現しており、視覚障害の方でも読みやすい設計です。
+22 WCAG AAA compliant color themes (11 colors × 2 variants each). All themes have contrast ratios suitable for color vision diversity, making them readable for visually impaired users.
 
-= カスタマイザーでどのような設定ができますか？ =
+= What settings are available in the Customizer? =
 
-色の設定（プリセットテーマ、カスタムカラー）、レイアウト設定（カラム数、サイドバー位置、コンテナ幅）、タイポグラフィ設定（フォントファミリー、サイズ、行間）、デザインパターン、装飾テーマ、ヘッダー・フッター設定、フロントページ設定、アーカイブ設定、フォーム設定、カスタムコード追加などが可能です。
+Color settings (preset themes, custom colors), layout settings (column count, sidebar position, container width), typography settings (font family, size, line height), design patterns, decoration themes, header/footer settings, front page settings, archive settings, form settings, and custom code.
 
-= 子テーマは必要ですか？ =
+= Do I need a child theme? =
 
-カスタマイズを行う場合は、子テーマの使用を強く推奨します。テーマのアップデート時にカスタマイズが失われることを防ぐことができます。
+If you plan to customize the theme, we strongly recommend using a child theme. This prevents your customizations from being lost during theme updates.
 
-= 公式の子テーマサンプルはありますか？ =
+= Is there an official child theme sample? =
 
-はい、公式の子テーマサンプルを提供しています。以下のGitHubリポジトリからダウンロードできます：
+Yes, we provide an official child theme sample available at:
 https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 
-子テーマには、詳細なマニュアルとカスタマイズ例が含まれています。親テーマと子テーマの両方をインストールし、子テーマを有効化してください。
+The child theme includes detailed documentation and customization examples. Install both parent and child themes, then activate the child theme.
 
-= モバイルデバイスに対応していますか？ =
+= Is it mobile-responsive? =
 
-はい、モバイルファーストのレスポンシブデザインを採用しており、スマートフォン、タブレット、デスクトップなど、あらゆるデバイスで最適に表示されます。
+Yes, this theme uses a mobile-first responsive design and displays optimally on smartphones, tablets, and desktops.
 
-= どのブラウザに対応していますか？ =
+= Which browsers are supported? =
 
-モダンブラウザ（Chrome、Firefox、Safari、Edge）の最新バージョンに対応しています。
+This theme supports the latest versions of modern browsers (Chrome, Firefox, Safari, Edge).
 
 == Screenshots ==
 
-1. テーマのデフォルト表示（フロントページ）
-2. カスタマイザーの設定画面（カラーテーマ選択）
-3. レスポンシブデザイン（モバイル表示）
-4. アーカイブグリッドレイアウト（3カラム）
-5. 投稿詳細ページ
+1. Default theme display (front page)
+2. Customizer settings (color theme selection)
+3. Responsive design (mobile view)
+4. Archive grid layout (3-column)
+5. Single post page
 
 == Changelog ==
 
+= 1.0.21 - 2025-11-17 =
+* Added: Navigation menu customizer settings integrated into WordPress native menu panel
+* Added: Deep hierarchy submenu display direction setting (vertical/horizontal for 3rd level+)
+* Changed: Default submenu third-level direction from horizontal to vertical (stair-step indentation)
+* Improved: Post meta settings with dynamic visibility control (unified vs individual mode)
+* Improved: Navigation CSS with better hover effects and panel design
+* Fixed: Submenu visibility in full-width layouts
+* Fixed: Third-level vertical submenu spacing issue when nested items exist
+* Fixed: Third-level vertical submenu background transparency causing visibility issues
+* Fixed: Z-index layering for third-level vertical submenus
+
+= 1.0.20 - 2025-11-14 =
+* Added: Custom author URL setting feature
+* Added: Ability to customize WordPress author URL (/author/{username}/) to any URL
+* Added: Support for relative paths or full URLs
+* Added: Automatic integration with all plugins and themes via author_link filter
+
+= 1.0.19 - 2025-11-13 =
+* Changed: Removed "Content Max Width" from Front Page Settings, added "Single Column Max Width" to Layout Settings
+* Fixed: Content max width now only applies to single-column layouts, not affecting 2-column or 3-column layouts
+* Fixed: Resolved contradiction between Layout Settings and Front Page Settings
+
+= 1.0.18 - 2025-11-11 =
+* Added: 20 new color themes (10 pairs dark/light): 55 Cancri e, GJ 1214b, HAT-P-7b, HD 189733b, HD 209458b, KELT-9b, PSR B1257+12, TOI-5205b, TrES-2b, WASP-76b
+* Added: 20 new design themes (artist names): Banksy, Basquiat, Calder, Chagall, Dalí, Duchamp, Escher, Gaudí, Haring, Hokusai, Kahlo, Kandinsky, Klimt, Kusama, Matisse, Miró, Mondrian, Mucha, Pollock, Rembrandt, Rothko, Warhol
+* Added: 10 new decoration themes: Velvet, Marble, Wood, Glass, Paper, Neon, Leather, Fabric, Concrete, Ceramic
+* Fixed: Sticky sidebar positioning when WordPress Admin Bar is present
+* Changed: Standardized directory naming with -themes suffix
+* Changed: Adjusted all thick borders (2px+) to 1px for better readability
+
+= 1.0.17 - 2025-11-11 =
+* Added: Individual file-based cache busting for all CSS/JS files
+* Added: Helper function backbone_get_file_version() for consistent version management
+* Added: Debounce functionality (150ms) to MutationObserver for better performance
+* Fixed: Unwanted whitespace caused by sticky header padding adjustments
+* Fixed: Removed all hardcoded version numbers (1.0.0, 1.0.1, 4.0.0)
+
+= 1.0.16 - 2025-11-10 =
+* Fixed: Archive pagination displaying posts in wrong order on page 2+
+* Fixed: Random post order not working in archive settings
+* Added: Conditional visibility for unified/individual archive settings
+* Improved: Archive settings sections now visually grouped in customizer
+* Improved: Query execution priority increased to 9999 to prevent plugin interference
+
 = 1.0.15 - 2025-11-10 =
-* 修正: スティッキーサイドバーがフッターを突き抜ける問題を修正（margin計算を追加）
-* 修正: サイドバー位置設定が逆になる問題を修正（sidebar-right で Sidebar-1 が右側に正しく配置されるように）
-* 修正: スクロール時に Sidebar-1 が消える問題を修正（Grid layout との互換性を確保）
-* 追加: スクロール時の透明度をリアルタイム表示する機能を追加
-* 追加: サイドバー位置変更のライブプレビュー機能を追加
-* 変更: スティッキーサイドバー、スティッキーヘッダー、ヘッダー自動非表示をデフォルトで有効化
-* 改善: ドキュメント表記を統一（「ヒーローイメージ」→「メインビジュアル（ヒーローイメージ）」）
-* ドキュメント: 公式子テーマ（https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child）へのリンクと使用方法を追加
+* Fixed: Sticky sidebar footer collision (added margin calculation)
+* Fixed: Sidebar position setting reversal (sidebar-right now correctly displays Sidebar-1 on right)
+* Fixed: Sidebar-1 disappearing on scroll (ensured Grid layout compatibility)
+* Added: Real-time opacity display during scroll
+* Added: Live preview for sidebar position changes
+* Changed: Enabled sticky sidebar, sticky header, and header auto-hide by default
+* Improved: Unified documentation terminology ("Hero Image" → "Main Visual (Hero Image)")
+* Documentation: Added official child theme link and usage instructions
 
 = 1.0.14 - 2025-11-05 =
-* 改善: メインビジュアル設定（ヒーローイメージ）に共通設定/個別設定モード切り替えを追加
-* 修正: メインビジュアル（ヒーローイメージ）のスタイル、配置、装飾設定が共通モードを正しく反映するように修正
-* 追加: カスタマイザーでメインビジュアルスタイル変更のライブプレビュー機能を実装
-* 修正: フルワイドメインビジュアルのCSSレイアウトを修正
-* 改善: 全テンプレートで日付バッジのサイズ（0.75em）と形式（Y/m/d）を統一
+* Improved: Added unified/individual mode toggle for hero image settings
+* Fixed: Hero image style, placement, decoration settings now correctly reflect unified mode
+* Added: Live preview for hero image style changes in Customizer
+* Fixed: Full-width hero image CSS layout
+* Improved: Unified date badge size (0.75em) and format (Y/m/d) across all templates
 
 = 1.0.13 - 2025-11-04 =
-* 改善: 404テンプレート構造を他のテンプレートと統一（article、entry-header、entry-content）
-* 追加: 404ページにmax-width制約を追加し可読性を向上
-* 追加: 404ページに適切なHTTPステータスコードとno-cacheヘッダーを追加
-* 改善: 404ページコンテンツを簡素化（ハードコードされた提案を削除）
-* 追加: 表示設定ページにカスタムフロントページモード使用中の通知を追加
-* 改善: カスタムモード有効時にWordPress標準のホームページ設定を無効化してUXを改善
+* Improved: Unified 404 template structure with other templates (article, entry-header, entry-content)
+* Added: Max-width constraint to 404 page for improved readability
+* Added: Proper HTTP status code and no-cache headers for 404 page
+* Improved: Simplified 404 page content (removed hardcoded suggestions)
+* Added: Custom front page mode notification in Settings → Reading
+* Improved: Disabled WordPress standard homepage settings when custom mode is active for better UX
 
 = 1.0.12 - 2025-11-03 =
-* 削除: WordPressコアの「色」セクションをカスタマイザーから削除
-* 追加: 22個のWCAG AAA準拠カラーテーマ（11色 × 明暗2パターン）を新規作成
-* 変更: 従来の40個以上のカラーテーマを `inc/color-themes/old/` に移動
-* 追加: 太陽系惑星名から系外惑星・恒星名に変更（Kepler-22b、Betelgeuse、Sirius Bなど）
-* 改善: すべてのハードコードされた色をCSS変数に置き換え
-* 改善: ヘッダーサブタイトルの視認性を全テーマで改善
-* 改善: フッターテキストとリンクの視認性を全テーマで改善
-* 改善: カードテキストの視認性をダークテーマで改善
-* 追加: すべてのリンクに細い下線（0.5px）を追加してアクセシビリティ向上
+* Removed: WordPress core "Colors" section from Customizer
+* Added: 22 new WCAG AAA compliant color themes (11 colors × 2 variants)
+* Changed: Moved legacy 40+ color themes to inc/color-themes/old/
+* Added: Switched from solar system planet names to exoplanet/star names (Kepler-22b, Betelgeuse, Sirius B, etc.)
+* Improved: Replaced all hardcoded colors with CSS variables
+* Improved: Enhanced header subtitle visibility across all themes
+* Improved: Enhanced footer text and link visibility across all themes
+* Improved: Enhanced card text visibility in dark themes
+* Added: Added thin underlines (0.5px) to all links for improved accessibility
 
 = 1.0.11 - 2025-10-31 =
-* 追加: カスタムヘッダーコードメタボックス（個別ページカスタマイズ用）
-* 追加: 投稿タイプ別メタ情報表示設定
-* 改善: メタバッジのアクセシビリティ（WCAG AA準拠）
-* 修正: PHP XML拡張機能不足エラー
+* Added: Custom header code meta box (per-page customization)
+* Added: Post type-specific meta information display settings
+* Improved: Meta badge accessibility (WCAG AA compliance)
+* Fixed: PHP XML extension missing error
 
 = 1.0.10 - 2025-10-30 =
-* 修正: ERR_INCOMPLETE_CHUNKED_ENCODINGエラー
-* 変更: スクリプト・スタイル連結を無効化
+* Fixed: ERR_INCOMPLETE_CHUNKED_ENCODING error
+* Changed: Disabled script/style concatenation
 
 = 1.0.9 - 2025-10-28 =
-* 修正: フッターウィジェット表示問題
-* 修正: jQueryエラー
-* 追加: キャッシュバスティング個別設定
+* Fixed: Footer widget display issues
+* Fixed: jQuery errors
+* Added: Individual cache busting settings
 
 = 1.0.8 - 2025-10-26 =
-* 追加: フロントページセクション拡張（3→5セクション）
-* 追加: フォーム表示設定
-* 追加: アーカイブ統一/個別設定
+* Added: Expanded front page sections (3 → 5 sections)
+* Added: Form display settings
+* Added: Archive unified/individual settings
 
 = 1.0.7 - 2025-10-25 =
-* 追加: アーカイブレイアウト設定
-* 追加: ソート機能（公開日・更新日・ランダム）
-* 追加: バッジスタイル日付表示
+* Added: Archive layout settings
+* Added: Sort functionality (publish date, modified date, random)
+* Added: Badge-style date display
 
 = 1.0.6 - 2025-10-24 =
-* 追加: カスタムJavaScript/CSS機能
-* 改善: カスタマイザーメニュー再編成
+* Added: Custom JavaScript/CSS functionality
+* Improved: Reorganized Customizer menu
 
 = 1.0.5 - 2025-10-21 =
-* 修正: カスタム投稿タイプのページネーション404エラー
+* Fixed: Custom post type pagination 404 errors
 
 = 1.0.4 - 2025-10-20 =
-* 追加: リピーターコントロール
-* 追加: WYSIWYGサポート
+* Added: Repeater control
+* Added: WYSIWYG support
 
 = 1.0.3 - 2025-10-18 =
-* 追加: ヒーローイメージ機能
-* 追加: アーカイブグリッドレイアウト
-* 追加: カスタムページネーション形式（/page-2/）
+* Added: Hero image functionality
+* Added: Archive grid layout
+* Added: Custom pagination format (/page-2/)
 
 = 1.0.2 - 2025-10-13 =
-* 追加: サブディレクトリ設定機能
+* Added: Subdirectory settings functionality
 
 = 1.0.1 - 2025-10-06 =
-* 修正: タイトルタグ生成改善
-* 改善: SEO最適化
+* Fixed: Improved title tag generation
+* Improved: SEO optimization
 
 = 1.0.0 - 2025-09-28 =
-* 初回リリース
+* Initial release
 
 == Upgrade Notice ==
 
 = 1.0.15 =
-スティッキーサイドバーとヘッダーの動作改善。フッター衝突、サイドバー位置、Grid layout互換性の問題を修正。デフォルト設定を最適化。
+Improved sticky sidebar and header behavior. Fixed footer collision, sidebar position, and Grid layout compatibility issues. Optimized default settings.
 
 = 1.0.14 =
-メインビジュアル設定（ヒーローイメージ）の改善。共通設定/個別設定モード切り替え機能とライブプレビュー機能を追加。
+Improved hero image settings. Added unified/individual mode toggle and live preview functionality.
 
 = 1.0.13 =
-404ページのテンプレート構造を統一し、UXを改善。カスタムフロントページモード使用中の通知機能を追加し、管理画面での混乱を防止。
+Unified 404 page template structure and improved UX. Added custom front page mode notification to prevent confusion in admin panel.
 
 = 1.0.12 =
-カラーテーマを完全刷新。WCAG AAA準拠の22個の新テーマ（系外惑星・恒星名）を追加。すべてのハードコード色をCSS変数に置き換え、視認性とアクセシビリティを大幅改善。
+Complete color theme overhaul. Added 22 new WCAG AAA compliant themes (exoplanet/star names). Replaced all hardcoded colors with CSS variables for significantly improved visibility and accessibility.
 
 = 1.0.11 =
-カスタムヘッダーコード機能と投稿タイプ別メタ情報表示設定を追加。
+Added custom header code functionality and post type-specific meta information display settings.
 
 = 1.0.10 =
-重要なエラー修正。ERR_INCOMPLETE_CHUNKED_ENCODINGエラーを解消。
+Critical error fix. Resolved ERR_INCOMPLETE_CHUNKED_ENCODING error.
 
 == Credits ==
 
