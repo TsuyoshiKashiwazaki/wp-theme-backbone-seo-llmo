@@ -2,6 +2,27 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.22] - 2025-11-18
+
+### Added
+- Mobile menu breakpoint customizer setting (`mobile_menu_hide_breakpoint`)
+- Navigation CSS dynamic output module (`inc/css-navigation.php`)
+- Three breakpoint options: Always visible, Mobile only (≤767px), Tablet and below (≤1279px)
+- `.active` class support for plugin-based hamburger menu functionality
+
+### Changed
+- Navigation settings section now includes mobile menu breakpoint control
+- Responsive.css mobile menu styles replaced with dynamic CSS generation
+- Menu visibility control delegated to customizer setting instead of hardcoded CSS
+
+### Improved
+- Plugin-first architecture: Theme provides breakpoint control, plugins handle hamburger UI
+- Dynamic CSS output for better performance (only outputs when needed)
+- Clean separation between theme (breakpoint control) and plugin (UI/interaction) responsibilities
+
+### Fixed
+- File permissions issue with `inc/css-navigation.php` (changed from 600 to 644)
+
 ## [1.0.21] - 2025-11-17
 
 ### Added

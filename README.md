@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.21-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.22-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -161,6 +161,14 @@ See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-th
 
 ## Changelog
 
+### [1.0.22] - 2025-11-18
+- **Added**: Mobile menu breakpoint customizer setting (Always visible / Mobile only ≤767px / Tablet and below ≤1279px)
+- **Added**: Navigation CSS dynamic output module for responsive menu control
+- **Added**: `.active` class support for plugin-based hamburger menu functionality
+- **Improved**: Plugin-first architecture - theme controls breakpoints, plugins handle hamburger UI
+- **Changed**: Menu visibility control delegated to customizer instead of hardcoded CSS
+- **Fixed**: File permissions issue with navigation CSS module
+
 ### [1.0.21] - 2025-11-17
 - **Added**: Navigation menu customizer settings integrated into WordPress native menu panel
 - **Added**: Deep hierarchy submenu display direction setting (vertical/horizontal)
@@ -177,7 +185,7 @@ See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-th
 - **Fixed**: Resolved contradiction between Layout Settings and Front Page Settings
 - **Improved**: Content max width now only applies to single-column layouts, not affecting 2-column or 3-column layouts
 
-**Current Version:** 1.0.21 (2025-11-17)
+**Current Version:** 1.0.22 (2025-11-18)
 
 For complete version history and detailed changes, see [CHANGELOG.md](CHANGELOG.md).
 

@@ -168,28 +168,9 @@
     }
 
 
-
-    /* ハンバーガーメニューはプラグインで制御するため、
-       テーマ側でのモバイルメニュー非表示は削除 */
-    /*
-    body .main-navigation ul {
-        display: none !important;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        text-align: center;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background: var(--primary-color);
-        padding: 20px;
-        z-index: 999;
-    }
-
-    .main-navigation ul.active {
-        display: flex;
-    }
-    */
+    /* モバイルメニュー非表示設定はカスタマイザーで制御
+       外観 > カスタマイズ > メニュー > メニュー表示オプション
+       動的CSSで出力（inc/css-navigation.php） */
 
     /* モバイル時のサブメニュー調整 */
     .main-navigation .sub-menu {

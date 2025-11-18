@@ -57,6 +57,41 @@ function backbone_add_navigation_settings($wp_customize) {
         ),
         'description' => __('3階層目以降のサブメニューをどのように表示するかを選択してください。「縦に展開」を選択すると、親メニューの直下に階段状にインデントして表示されます。「横に展開」を選択すると、親メニューの右側に表示されます。', 'backbone-seo-llmo'),
     ));
+
+    // ━━━ モバイルメニュー非表示ブレークポイント設定 ━━━
+    // 見出しの代わりに説明テキストを表示
+    $wp_customize->add_setting('mobile_menu_hide_info', array(
+        'default' => '',
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control('mobile_menu_hide_info', array(
+        'label' => __('モバイルメニュー非表示設定', 'backbone-seo-llmo'),
+        'section' => 'menu_options',
+        'priority' => 30,
+        'type' => 'hidden',
+        'description' => __('どのブレークポイントでメニューを非表示にするかを設定します。ハンバーガーメニュー等はプラグインで実装してください。', 'backbone-seo-llmo'),
+    ));
+
+    // モバイルメニューを非表示にするブレークポイント
+    $wp_customize->add_setting('mobile_menu_hide_breakpoint', array(
+        'default' => 'none',
+        'sanitize_callback' => 'backbone_sanitize_mobile_menu_breakpoint',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('mobile_menu_hide_breakpoint', array(
+        'label' => __('メニューを非表示にするブレークポイント', 'backbone-seo-llmo'),
+        'section' => 'menu_options',
+        'type' => 'radio',
+        'priority' => 40,
+        'choices' => array(
+            'none' => __('常に表示（非表示にしない）', 'backbone-seo-llmo'),
+            'mobile' => __('スマホのみ非表示（767px以下）', 'backbone-seo-llmo'),
+            'tablet' => __('タブレット以下非表示（1279px以下）', 'backbone-seo-llmo'),
+        ),
+        'description' => __('選択したブレークポイントでメインメニューを非表示にします。プラグイン側で.activeクラスを付与することでメニューを表示できます。', 'backbone-seo-llmo'),
+    ));
 }
 
 /**
@@ -84,4 +119,27 @@ function backbone_get_submenu_third_level_direction() {
     return get_theme_mod('submenu_third_level_direction', 'horizontal');
 }
 
-// モバイル関連の関数は削除（ハンバーガーメニューはプラグインで実装）
+/**
+ * モバイルメニュー非表示ブレークポイントのサニタイズ関数
+ *
+ * @param string $value 入力値
+ * @return string サニタイズ済みの値
+ */
+function backbone_sanitize_mobile_menu_breakpoint($value) {
+    $valid_breakpoints = array('none', 'mobile', 'tablet');
+
+    if (in_array($value, $valid_breakpoints, true)) {
+        return $value;
+    }
+
+    return 'none';
+}
+
+/**
+ * モバイルメニュー非表示ブレークポイントを取得
+ *
+ * @return string 'none', 'mobile', または 'tablet'
+ */
+function backbone_get_mobile_menu_hide_breakpoint() {
+    return get_theme_mod('mobile_menu_hide_breakpoint', 'none');
+}
