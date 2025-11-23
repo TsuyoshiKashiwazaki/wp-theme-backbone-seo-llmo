@@ -104,9 +104,10 @@ function backbone_output_custom_css($position) {
  * カスタマイザーでのリアルタイムプレビュー用のJavaScript
  */
 function backbone_custom_css_customize_preview() {
-    ?>
-    <script type="text/javascript">
-    (function($) {
+    // スクリプト本体を構築
+    $post_types = get_post_types(array('public' => true), 'objects');
+
+    $script = "(function($) {
         'use strict';
 
         // 全体共通CSSのCSS設定変更を監視
@@ -126,44 +127,39 @@ function backbone_custom_css_customize_preview() {
             value.bind(function(newval) {
                 wp.customize.preview.send('refresh');
             });
+        });";
+
+    // 投稿タイプ別のCSS設定変更を監視
+    foreach ($post_types as $post_type) {
+        $post_type_name = $post_type->name;
+        $script .= "
+
+        // {$post_type_name} のCSS有効化設定
+        wp.customize('custom_css_enable_{$post_type_name}', function(value) {
+            value.bind(function(newval) {
+                wp.customize.preview.send('refresh');
+            });
         });
 
-        // 投稿タイプ別のCSS設定変更を監視
-        <?php
-        $post_types = get_post_types(array('public' => true), 'objects');
-        foreach ($post_types as $post_type) {
-            $post_type_name = $post_type->name;
-            ?>
-
-            // <?php echo $post_type_name; ?> のCSS有効化設定
-            wp.customize('custom_css_enable_<?php echo $post_type_name; ?>', function(value) {
-                value.bind(function(newval) {
-                    // プレビューをリロード
-                    wp.customize.preview.send('refresh');
-                });
+        // {$post_type_name} のCSS出力場所設定
+        wp.customize('custom_css_position_{$post_type_name}', function(value) {
+            value.bind(function(newval) {
+                wp.customize.preview.send('refresh');
             });
+        });
 
-            // <?php echo $post_type_name; ?> のCSS出力場所設定
-            wp.customize('custom_css_position_<?php echo $post_type_name; ?>', function(value) {
-                value.bind(function(newval) {
-                    // プレビューをリロード
-                    wp.customize.preview.send('refresh');
-                });
+        // {$post_type_name} のCSSコード
+        wp.customize('custom_css_code_{$post_type_name}', function(value) {
+            value.bind(function(newval) {
+                wp.customize.preview.send('refresh');
             });
+        });";
+    }
 
-            // <?php echo $post_type_name; ?> のCSSコード
-            wp.customize('custom_css_code_<?php echo $post_type_name; ?>', function(value) {
-                value.bind(function(newval) {
-                    // プレビューをリロード（CSSコードの変更は即座に反映）
-                    wp.customize.preview.send('refresh');
-                });
-            });
+    $script .= "
+    })(jQuery);";
 
-            <?php
-        }
-        ?>
-    })(jQuery);
-    </script>
-    <?php
+    // customize-preview スクリプトに依存関係付きで追加（jQueryが確実に読み込まれた後に実行）
+    wp_add_inline_script('customize-preview', $script);
 }
 add_action('customize_preview_init', 'backbone_custom_css_customize_preview');

@@ -2,6 +2,26 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.23] - 2025-11-23
+
+### Fixed
+- Customizer jQuery dependency errors causing preview infinite loop on rental servers
+- Script duplicate registration in customizer controls (`functions.php` and `inc/customizer/index.php`)
+- Inline script execution before jQuery loaded in `custom-js-output.php`
+- Inline script execution before jQuery loaded in `custom-css-output.php`
+- Inline script execution before jQuery loaded in `widget-working-solution.php`
+
+### Improved
+- Inline script dependency management using `wp_add_inline_script` with proper dependencies
+- Script loading order for customizer preview (using `customize-preview` dependency)
+- Script loading order for customizer controls (using `customize-controls` dependency)
+- Added missing customizer scripts (`customizer-storage.js`, `customizer-themes.js`, `customizer-ui.js`) to `inc/customizer/index.php`
+
+### Changed
+- Removed duplicate `backbone_enqueue_customizer_modules()` function from `functions.php`
+- Removed duplicate `backbone_enqueue_customizer_controls_assets()` function from `functions.php`
+- Changed `backbone_customizer_notice()` hook from `customize_controls_print_footer_scripts` to `customize_controls_enqueue_scripts`
+
 ## [1.0.22] - 2025-11-18
 
 ### Added

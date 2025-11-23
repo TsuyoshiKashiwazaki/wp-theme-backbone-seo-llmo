@@ -5,7 +5,7 @@ Tags: blog, accessibility-ready, custom-colors, custom-logo, custom-menu, editor
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.21
+Stable tag: 1.0.23
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,20 @@ This theme supports the latest versions of modern browsers (Chrome, Firefox, Saf
 5. Single post page
 
 == Changelog ==
+
+= 1.0.23 - 2025-11-23 =
+* Fixed: Customizer jQuery dependency errors causing preview infinite loop on rental servers
+* Fixed: Script duplicate registration in customizer controls
+* Improved: Inline script dependency management using wp_add_inline_script
+* Improved: Proper script loading order for customizer preview and controls
+
+= 1.0.22 - 2025-11-18 =
+* Added: Mobile menu breakpoint customizer setting (Always visible / Mobile only ≤767px / Tablet and below ≤1279px)
+* Added: Navigation CSS dynamic output module for responsive menu control
+* Added: .active class support for plugin-based hamburger menu functionality
+* Improved: Plugin-first architecture - theme controls breakpoints, plugins handle hamburger UI
+* Changed: Menu visibility control delegated to customizer instead of hardcoded CSS
+* Fixed: File permissions issue with navigation CSS module
 
 = 1.0.21 - 2025-11-17 =
 * Added: Navigation menu customizer settings integrated into WordPress native menu panel

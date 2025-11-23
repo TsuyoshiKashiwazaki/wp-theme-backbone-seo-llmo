@@ -233,10 +233,47 @@ function backbone_customize_controls_js() {
         }
     ');
 
+    // カスタマイザー用ユーティリティスクリプト（基盤）
+    wp_enqueue_script(
+        'customizer-utils-controls',
+        get_template_directory_uri() . '/js/customizer-utils.js',
+        array('jquery', 'customize-controls'),
+        backbone_get_file_version('/js/customizer-utils.js', $cache_busting_admin),
+        true
+    );
+
+    // ストレージ機能
+    wp_enqueue_script(
+        'customizer-storage',
+        get_template_directory_uri() . '/js/customizer-storage.js',
+        array('jquery', 'customize-controls', 'customizer-utils-controls'),
+        backbone_get_file_version('/js/customizer-storage.js', $cache_busting_admin),
+        true
+    );
+
+    // テーマ処理
+    wp_enqueue_script(
+        'customizer-themes',
+        get_template_directory_uri() . '/js/customizer-themes.js',
+        array('jquery', 'customize-controls', 'customizer-utils-controls'),
+        backbone_get_file_version('/js/customizer-themes.js', $cache_busting_admin),
+        true
+    );
+
+    // UI コンポーネント
+    wp_enqueue_script(
+        'customizer-ui',
+        get_template_directory_uri() . '/js/customizer-ui.js',
+        array('jquery', 'customize-controls', 'customizer-utils-controls', 'customizer-storage', 'customizer-themes'),
+        backbone_get_file_version('/js/customizer-ui.js', $cache_busting_admin),
+        true
+    );
+
+    // メインコントロール
     wp_enqueue_script(
         'seo-optimus-customizer-controls',
         get_template_directory_uri() . '/js/customizer-controls.js',
-        array('customize-controls', 'jquery', 'jquery-core', 'jquery-migrate', 'wp-color-picker'),
+        array('customize-controls', 'jquery', 'jquery-core', 'jquery-migrate', 'wp-color-picker', 'customizer-utils-controls', 'customizer-storage', 'customizer-themes', 'customizer-ui'),
         backbone_get_file_version('/js/customizer-controls.js', $cache_busting_admin),
         true
     );

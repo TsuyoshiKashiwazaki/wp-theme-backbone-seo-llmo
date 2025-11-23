@@ -100,26 +100,27 @@ add_action('admin_notices', 'backbone_widget_screen_notice');
  * カスタマイザーでの通知
  */
 function backbone_customizer_notice() {
-    ?>
-    <script>
-    jQuery(function($) {
+    $admin_url = admin_url('widgets.php');
+
+    $script = "jQuery(function($) {
         if (wp.customize) {
             wp.customize.bind('ready', function() {
                 wp.customize.panel('widgets', function(panel) {
-                    var notice = '<div style="margin: 10px; padding: 10px; background: #f0f0f1; border-left: 4px solid #2271b1;">' +
+                    var notice = '<div style=\"margin: 10px; padding: 10px; background: #f0f0f1; border-left: 4px solid #2271b1;\">' +
                         '<strong>ウィジェット編集オプション</strong><br>' +
-                        'ブロックエディタは <a href="<?php echo admin_url('widgets.php'); ?>" target="_blank">外観 > ウィジェット</a> で利用できます。' +
+                        'ブロックエディタは <a href=\"{$admin_url}\" target=\"_blank\">外観 > ウィジェット</a> で利用できます。' +
                         '</div>';
 
                     if (!panel.container.find('.backbone-customizer-notice').length) {
                         panel.container.find('.accordion-section-content').first()
-                            .prepend('<div class="backbone-customizer-notice">' + notice + '</div>');
+                            .prepend('<div class=\"backbone-customizer-notice\">' + notice + '</div>');
                     }
                 });
             });
         }
-    });
-    </script>
-    <?php
+    });";
+
+    // customize-controls スクリプトに依存関係付きで追加
+    wp_add_inline_script('customize-controls', $script);
 }
-add_action('customize_controls_print_footer_scripts', 'backbone_customizer_notice');
+add_action('customize_controls_enqueue_scripts', 'backbone_customizer_notice');

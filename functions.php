@@ -171,68 +171,70 @@ add_filter('pre_get_posts', 'backbone_include_pages_in_tag_archives');
 
 /**
  * カスタマイザーのJavaScriptモジュールを読み込み
- * customize_controls_enqueue_scripts フック内で実行されるため、
- * コントロールパネル側でのみ動作する
+ * 注意: この関数は inc/customizer/index.php の backbone_customize_controls_js() で
+ *       既に処理されているため、削除しました。
+ *       重複登録を防ぐため、カスタマイザー関連のスクリプト読み込みは
+ *       inc/customizer/index.php で一元管理します。
  */
-function backbone_enqueue_customizer_modules() {
-    // is_customize_preview() チェックは不要
-    // このフック自体がカスタマイザーコントロール内でのみ実行される
-
-    // 管理画面キャッシュバスティング設定を取得
-    $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
-    $version_admin = $cache_busting_admin ? current_time('YmdHis') : '1.0.0';
-
-    // モジュールを順番に読み込み（依存関係を考慮）
-    wp_enqueue_script(
-        'customizer-utils',
-        get_template_directory_uri() . '/js/customizer-utils.js',
-        array('jquery'),
-        $version_admin,
-        true
-    );
-
-    wp_enqueue_script(
-        'customizer-storage',
-        get_template_directory_uri() . '/js/customizer-storage.js',
-        array('jquery', 'customizer-utils'),
-        $version_admin,
-        true
-    );
-
-    wp_enqueue_script(
-        'customizer-preview',
-        get_template_directory_uri() . '/js/customizer-preview.js',
-        array('jquery', 'customize-preview', 'customizer-utils'),
-        $version_admin,
-        true
-    );
-
-    wp_enqueue_script(
-        'customizer-themes',
-        get_template_directory_uri() . '/js/customizer-themes.js',
-        array('jquery', 'customize-controls', 'customizer-utils'),
-        $version_admin,
-        true
-    );
-
-    wp_enqueue_script(
-        'customizer-ui',
-        get_template_directory_uri() . '/js/customizer-ui.js',
-        array('jquery', 'customize-controls', 'customizer-utils', 'customizer-storage', 'customizer-preview', 'customizer-themes'),
-        $version_admin,
-        true
-    );
-
-    // メインコントロールファイル（最後に読み込み）
-    wp_enqueue_script(
-        'customizer-controls-main',
-        get_template_directory_uri() . '/js/customizer-controls.js',
-        array('jquery', 'customize-controls', 'customizer-utils', 'customizer-storage', 'customizer-preview', 'customizer-themes', 'customizer-ui'),
-        $version_admin,
-        true
-    );
-}
-add_action('customize_controls_enqueue_scripts', 'backbone_enqueue_customizer_modules');
+// function backbone_enqueue_customizer_modules() {
+//     // is_customize_preview() チェックは不要
+//     // このフック自体がカスタマイザーコントロール内でのみ実行される
+//
+//     // 管理画面キャッシュバスティング設定を取得
+//     $cache_busting_admin = get_theme_mod('enable_cache_busting_admin', false);
+//     $version_admin = $cache_busting_admin ? current_time('YmdHis') : '1.0.0';
+//
+//     // モジュールを順番に読み込み（依存関係を考慮）
+//     wp_enqueue_script(
+//         'customizer-utils',
+//         get_template_directory_uri() . '/js/customizer-utils.js',
+//         array('jquery'),
+//         $version_admin,
+//         true
+//     );
+//
+//     wp_enqueue_script(
+//         'customizer-storage',
+//         get_template_directory_uri() . '/js/customizer-storage.js',
+//         array('jquery', 'customizer-utils'),
+//         $version_admin,
+//         true
+//     );
+//
+//     wp_enqueue_script(
+//         'customizer-preview',
+//         get_template_directory_uri() . '/js/customizer-preview.js',
+//         array('jquery', 'customize-preview', 'customizer-utils'),
+//         $version_admin,
+//         true
+//     );
+//
+//     wp_enqueue_script(
+//         'customizer-themes',
+//         get_template_directory_uri() . '/js/customizer-themes.js',
+//         array('jquery', 'customize-controls', 'customizer-utils'),
+//         $version_admin,
+//         true
+//     );
+//
+//     wp_enqueue_script(
+//         'customizer-ui',
+//         get_template_directory_uri() . '/js/customizer-ui.js',
+//         array('jquery', 'customize-controls', 'customizer-utils', 'customizer-storage', 'customizer-preview', 'customizer-themes'),
+//         $version_admin,
+//         true
+//     );
+//
+//     // メインコントロールファイル（最後に読み込み）
+//     wp_enqueue_script(
+//         'customizer-controls-main',
+//         get_template_directory_uri() . '/js/customizer-controls.js',
+//         array('jquery', 'customize-controls', 'customizer-utils', 'customizer-storage', 'customizer-preview', 'customizer-themes', 'customizer-ui'),
+//         $version_admin,
+//         true
+//     );
+// }
+// add_action('customize_controls_enqueue_scripts', 'backbone_enqueue_customizer_modules');
 
 /**
  * 誤ったリダイレクトのみを防ぐ（正常なリダイレクトは許可）
@@ -464,23 +466,27 @@ add_action('template_redirect', 'backbone_force_correct_post_order', 99999);
 
 /**
  * カスタマイザーコントロール用CSSとJSを読み込み
+ * 注意: この関数は inc/customizer/index.php の backbone_customize_controls_js() と
+ *       backbone_customize_styles() で既に処理されているため、削除しました。
+ *       重複登録を防ぐため、カスタマイザー関連のアセット読み込みは
+ *       inc/customizer/index.php で一元管理します。
  */
-function backbone_enqueue_customizer_controls_assets($wp_customize) {
-    // CSS
-    wp_enqueue_style(
-        "backbone-customizer-controls",
-        get_template_directory_uri() . "/css/customizer-controls.css",
-        array(),
-        "1.0.0"
-    );
-
-    // JavaScript
-    wp_enqueue_script(
-        "backbone-customizer-controls",
-        get_template_directory_uri() . "/js/customizer-controls.js",
-        array("jquery", "customize-controls"),
-        "1.0.0",
-        true
-    );
-}
-add_action("customize_controls_enqueue_scripts", "backbone_enqueue_customizer_controls_assets");
+// function backbone_enqueue_customizer_controls_assets($wp_customize) {
+//     // CSS
+//     wp_enqueue_style(
+//         "backbone-customizer-controls",
+//         get_template_directory_uri() . "/css/customizer-controls.css",
+//         array(),
+//         "1.0.0"
+//     );
+//
+//     // JavaScript
+//     wp_enqueue_script(
+//         "backbone-customizer-controls",
+//         get_template_directory_uri() . "/js/customizer-controls.js",
+//         array("jquery", "customize-controls"),
+//         "1.0.0",
+//         true
+//     );
+// }
+// add_action("customize_controls_enqueue_scripts", "backbone_enqueue_customizer_controls_assets");
