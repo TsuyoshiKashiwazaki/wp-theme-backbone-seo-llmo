@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.23-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.24-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -160,6 +160,12 @@ A sample child theme is available for safe customization:
 See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child) for detailed instructions.
 
 ## Changelog
+
+### [1.0.24] - 2025-11-24
+- **Added**: SEO meta tags enable/disable settings in customizer (Meta Description / Meta Keywords)
+- **Improved**: Meta description automatic generation for all page types (home, archives, search, 404)
+- **Improved**: Meta keywords automatic extraction from tags, categories, and content
+- **Added**: Helper function for intelligent keyword extraction with stop-word filtering
 
 ### [1.0.23] - 2025-11-23
 - **Fixed**: Customizer jQuery dependency errors causing preview infinite loop

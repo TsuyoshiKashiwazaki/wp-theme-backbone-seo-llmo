@@ -55,22 +55,389 @@ function backbone_pagination() {
  * SEO対応のメタディスクリプション
  */
 function backbone_meta_description() {
+    // Check if meta description is enabled in customizer settings
+    if (!get_theme_mod('seo_meta_description_enabled', true)) {
+        return;
+    }
+
+    $description = '';
+
+    // 個別投稿・固定ページ
     if (is_single() || is_page()) {
         global $post;
         if ($post->post_excerpt) {
-            echo '<meta name="description" content="' . esc_attr($post->post_excerpt) . '">' . "\n";
+            $description = $post->post_excerpt;
         } else {
             $description = wp_trim_words($post->post_content, 25, '');
-            echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";
         }
-    } elseif (is_category()) {
-        $description = category_description();
-        if ($description) {
-            echo '<meta name="description" content="' . esc_attr(strip_tags($description)) . '">' . "\n";
+    }
+    // ホームページ/ブログページ
+    elseif (is_home() || is_front_page()) {
+        $description = get_bloginfo('description');
+        if (empty($description)) {
+            $description = get_bloginfo('name') . ' - ' . __('Latest posts and updates', 'backbone-seo-llmo');
         }
+    }
+    // カテゴリーアーカイブ
+    elseif (is_category()) {
+        $term_description = category_description();
+        if ($term_description) {
+            $description = strip_tags($term_description);
+        } else {
+            $category = get_queried_object();
+            $description = sprintf(__('Archive for %s category', 'backbone-seo-llmo'), $category->name);
+        }
+    }
+    // タグアーカイブ
+    elseif (is_tag()) {
+        $term_description = tag_description();
+        if ($term_description) {
+            $description = strip_tags($term_description);
+        } else {
+            $tag = get_queried_object();
+            $description = sprintf(__('Posts tagged with %s', 'backbone-seo-llmo'), $tag->name);
+        }
+    }
+    // カスタム投稿タイプアーカイブ
+    elseif (is_post_type_archive()) {
+        $post_type = get_queried_object();
+        if ($post_type && isset($post_type->description) && !empty($post_type->description)) {
+            $description = $post_type->description;
+        } else {
+            $post_type_obj = get_post_type_object(get_post_type());
+            $description = sprintf(__('Archive for %s', 'backbone-seo-llmo'), $post_type_obj->labels->name);
+        }
+    }
+    // カスタムタクソノミーアーカイブ
+    elseif (is_tax()) {
+        $term = get_queried_object();
+        if ($term && !empty($term->description)) {
+            $description = strip_tags($term->description);
+        } else {
+            $description = sprintf(__('Archive for %s', 'backbone-seo-llmo'), $term->name);
+        }
+    }
+    // 著者アーカイブ
+    elseif (is_author()) {
+        $author = get_queried_object();
+        $author_description = get_the_author_meta('description', $author->ID);
+        if ($author_description) {
+            $description = strip_tags($author_description);
+        } else {
+            $description = sprintf(__('Posts by %s', 'backbone-seo-llmo'), $author->display_name);
+        }
+    }
+    // 日付アーカイブ
+    elseif (is_date()) {
+        if (is_year()) {
+            $description = sprintf(__('Posts from %s', 'backbone-seo-llmo'), get_the_date('Y'));
+        } elseif (is_month()) {
+            $description = sprintf(__('Posts from %s', 'backbone-seo-llmo'), get_the_date('F Y'));
+        } elseif (is_day()) {
+            $description = sprintf(__('Posts from %s', 'backbone-seo-llmo'), get_the_date('F j, Y'));
+        }
+    }
+    // 検索結果ページ
+    elseif (is_search()) {
+        $search_query = get_search_query();
+        $description = sprintf(__('Search results for "%s"', 'backbone-seo-llmo'), $search_query);
+    }
+    // 404ページ
+    elseif (is_404()) {
+        $description = __('Page not found - The page you are looking for does not exist.', 'backbone-seo-llmo');
+    }
+
+    // descriptionが設定されている場合のみ出力
+    if (!empty($description)) {
+        // HTMLタグを除去し、改行を空白に置換、連続する空白を1つにまとめる
+        $description = preg_replace('/\s+/', ' ', trim(strip_tags($description)));
+        // 最大160文字に制限（SEO推奨長）
+        if (strlen($description) > 160) {
+            $description = mb_substr($description, 0, 157) . '...';
+        }
+        echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";
     }
 }
 add_action('wp_head', 'backbone_meta_description');
+
+/**
+ * SEO対応のメタキーワード自動生成
+ */
+function backbone_meta_keywords() {
+    // Check if meta keywords is enabled in customizer settings
+    if (!get_theme_mod('seo_meta_keywords_enabled', true)) {
+        return;
+    }
+
+    $keywords = array();
+
+    // 個別投稿・固定ページ
+    if (is_single() || is_page()) {
+        global $post;
+        $title_keywords = array(); // タイトルキーワードを後で追加するために保存
+
+        // 1. カスタムフィールドからフォーカスキーワードを取得（最優先）
+        $focus_keyword = get_post_meta($post->ID, 'focus_keyword', true);
+        if (!empty($focus_keyword)) {
+            $keywords[] = $focus_keyword;
+        }
+
+        // 2. 投稿の場合：タグとカテゴリーを優先的に追加
+        if (is_single()) {
+            // タグを取得（重要度：高）
+            $post_tags = get_the_tags($post->ID);
+            if ($post_tags) {
+                foreach ($post_tags as $tag) {
+                    $keywords[] = $tag->name;
+                }
+            }
+
+            // カテゴリーを取得（重要度：高）
+            $categories = get_the_category($post->ID);
+            if ($categories) {
+                foreach ($categories as $category) {
+                    $keywords[] = $category->name;
+                }
+            }
+        }
+
+        // 3. 固定ページの場合：ページタグを優先的に追加
+        if (is_page()) {
+            $page_tags = get_the_tags($post->ID);
+            if ($page_tags) {
+                foreach ($page_tags as $tag) {
+                    $keywords[] = $tag->name;
+                }
+            }
+        }
+
+        // 4. タイトルからキーワードを抽出（補助的・最後に追加）
+        $title = get_the_title($post->ID);
+        $title_keywords = backbone_extract_keywords_from_text($title);
+
+        // タイトルキーワードは最後に追加（優先度：低）
+        $keywords = array_merge($keywords, $title_keywords);
+    }
+    // ホームページ/ブログページ
+    elseif (is_home() || is_front_page()) {
+        // 1. 主要カテゴリーを優先的に取得（重要度：最高）
+        $categories = get_categories(array(
+            'orderby' => 'count',
+            'order' => 'DESC',
+            'number' => 5
+        ));
+        foreach ($categories as $category) {
+            $keywords[] = $category->name;
+        }
+
+        // 2. 人気のあるタグも追加（重要度：高）
+        $tags = get_tags(array(
+            'orderby' => 'count',
+            'order' => 'DESC',
+            'number' => 3
+        ));
+        foreach ($tags as $tag) {
+            $keywords[] = $tag->name;
+        }
+
+        // 3. サイトタイトルからキーワードを抽出（補助的）
+        $site_name = get_bloginfo('name');
+        if (!empty($site_name)) {
+            $site_keywords = backbone_extract_keywords_from_text($site_name);
+            $keywords = array_merge($keywords, $site_keywords);
+        }
+
+        // 4. キャッチフレーズからキーワードを抽出（補助的）
+        $tagline = get_bloginfo('description');
+        if (!empty($tagline)) {
+            $tagline_keywords = backbone_extract_keywords_from_text($tagline);
+            $keywords = array_merge($keywords, $tagline_keywords);
+        }
+    }
+    // カテゴリーアーカイブ
+    elseif (is_category()) {
+        $category = get_queried_object();
+        $keywords[] = $category->name;
+
+        // 親カテゴリーがある場合は追加
+        if ($category->parent) {
+            $parent_category = get_category($category->parent);
+            $keywords[] = $parent_category->name;
+        }
+
+        // カテゴリー説明からキーワードを抽出
+        if (!empty($category->description)) {
+            $desc_keywords = backbone_extract_keywords_from_text($category->description);
+            $keywords = array_merge($keywords, $desc_keywords);
+        }
+    }
+    // タグアーカイブ
+    elseif (is_tag()) {
+        $tag = get_queried_object();
+        $keywords[] = $tag->name;
+
+        // 関連するタグを取得
+        $related_tags = get_tags(array(
+            'number' => 5,
+            'orderby' => 'count',
+            'order' => 'DESC'
+        ));
+        foreach ($related_tags as $related_tag) {
+            if ($related_tag->term_id !== $tag->term_id) {
+                $keywords[] = $related_tag->name;
+            }
+        }
+    }
+    // カスタム投稿タイプアーカイブ
+    elseif (is_post_type_archive()) {
+        $post_type = get_queried_object();
+        if ($post_type) {
+            $keywords[] = $post_type->labels->name;
+            $keywords[] = $post_type->labels->singular_name;
+        }
+    }
+    // カスタムタクソノミーアーカイブ
+    elseif (is_tax()) {
+        $term = get_queried_object();
+        if ($term) {
+            $keywords[] = $term->name;
+
+            // タクソノミー名も追加
+            $taxonomy = get_taxonomy($term->taxonomy);
+            if ($taxonomy) {
+                $keywords[] = $taxonomy->labels->singular_name;
+            }
+        }
+    }
+    // 著者アーカイブ
+    elseif (is_author()) {
+        $author = get_queried_object();
+        $keywords[] = $author->display_name;
+        $keywords[] = 'author';
+        $keywords[] = '著者';
+    }
+    // 日付アーカイブ
+    elseif (is_date()) {
+        if (is_year()) {
+            $keywords[] = get_the_date('Y年');
+            $keywords[] = get_the_date('Y');
+        } elseif (is_month()) {
+            $keywords[] = get_the_date('Y年n月');
+            $keywords[] = get_the_date('F Y');
+        }
+        $keywords[] = 'アーカイブ';
+        $keywords[] = 'archive';
+    }
+    // 検索結果ページ
+    elseif (is_search()) {
+        $search_query = get_search_query();
+        if (!empty($search_query)) {
+            $search_keywords = backbone_extract_keywords_from_text($search_query);
+            $keywords = array_merge($keywords, $search_keywords);
+        }
+        $keywords[] = '検索結果';
+        $keywords[] = 'search';
+    }
+
+    // キーワードの重複を削除し、空の要素を除外
+    $keywords = array_filter(array_unique($keywords));
+
+    // フィルターフックを提供（プラグインや子テーマでカスタマイズ可能）
+    $keywords = apply_filters('backbone_meta_keywords_list', $keywords);
+
+    // 最大10個に制限
+    $keywords = array_slice($keywords, 0, 10);
+
+    // キーワードが存在する場合のみ出力
+    if (!empty($keywords)) {
+        // 各キーワードをエスケープしてカンマ区切りで結合
+        $escaped_keywords = array_map('esc_attr', $keywords);
+        $keywords_string = implode(', ', $escaped_keywords);
+        echo '<meta name="keywords" content="' . $keywords_string . '">' . "\n";
+    }
+}
+
+/**
+ * テキストからキーワードを抽出するヘルパー関数
+ */
+function backbone_extract_keywords_from_text($text, $max_words = 5) {
+    $keywords = array();
+
+    // HTMLタグを除去
+    $text = strip_tags($text);
+
+    // 記号や特殊文字を除去
+    $text = preg_replace('/[!@#$%^&*()_+=\[\]{};:"\'<>,.?\/\\|`~]/', ' ', $text);
+
+    // 日本語の処理
+    // 助詞や接続詞を区切り文字として使用
+    $japanese_delimiters = array('の', 'を', 'に', 'は', 'が', 'で', 'と', 'から', 'まで', 'より', 'へ', 'や', 'など', 'ため');
+    foreach ($japanese_delimiters as $delimiter) {
+        $text = str_replace($delimiter, ' ', $text);
+    }
+
+    // 連続する空白を1つにまとめる
+    $text = preg_replace('/\s+/', ' ', trim($text));
+
+    // スペースと句読点で分割
+    $text = str_replace(array('、', '。', '・', '｜', '|', '/', '－', '−'), ' ', $text);
+    $words = explode(' ', $text);
+
+    // ストップワードリスト（拡張版）
+    $stop_words = array(
+        // 日本語ストップワード
+        'です', 'ます', 'する', 'なる', 'ある', 'いる', 'こと', 'もの', 'ため',
+        'これ', 'それ', 'あれ', 'この', 'その', 'あの', 'どの', 'ここ', 'そこ',
+        'いつ', 'どこ', 'だれ', 'なに', 'どう', 'どんな', 'という', 'といった',
+        'ような', 'ように', 'よう', 'みたい', 'らしい', 'そう', 'でしょう',
+        '向け', '無料', '公開', '初心者', 'について', '関する',
+        // 英語ストップワード
+        'the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 'i',
+        'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you', 'do', 'at',
+        'this', 'but', 'his', 'by', 'from', 'they', 'we', 'say', 'her', 'she',
+        'or', 'an', 'will', 'my', 'one', 'all', 'would', 'there', 'their',
+        'what', 'so', 'up', 'out', 'if', 'about', 'who', 'get', 'which', 'go'
+    );
+
+    foreach ($words as $word) {
+        $word = trim($word);
+
+        // 空文字や短すぎる単語をスキップ（日本語は2文字以上、英語は3文字以上）
+        $word_length = mb_strlen($word);
+        if ($word_length < 2) {
+            continue;
+        }
+
+        // 数字のみの単語をスキップ
+        if (preg_match('/^[0-9]+$/', $word)) {
+            continue;
+        }
+
+        // ひらがなのみの短い単語（3文字以下）をスキップ
+        if (preg_match('/^[ぁ-ん]{1,3}$/', $word)) {
+            continue;
+        }
+
+        // ストップワードをスキップ
+        if (in_array(mb_strtolower($word), $stop_words)) {
+            continue;
+        }
+
+        // 重要そうな単語を抽出
+        // 漢字、カタカナ、英数字を含む単語を優先
+        if (preg_match('/[一-龯々ァ-ヶａ-ｚＡ-Ｚa-zA-Z0-9]/', $word)) {
+            $keywords[] = $word;
+        }
+    }
+
+    // 重複を削除
+    $keywords = array_unique($keywords);
+
+    // 最大数を制限
+    return array_slice($keywords, 0, $max_words);
+}
+
+add_action('wp_head', 'backbone_meta_keywords');
 
 /**
  * カスタムタイポグラフィ用のヘルパー関数

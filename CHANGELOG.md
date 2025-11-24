@@ -2,6 +2,20 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.24] - 2025-11-24
+
+### Added
+- SEO meta tags enable/disable settings in customizer (`seo_meta_description_enabled`, `seo_meta_keywords_enabled`)
+- Helper function `backbone_extract_keywords_from_text()` for intelligent keyword extraction with stop-word filtering
+- Comprehensive meta description generation for all WordPress page types (home, archives, search, 404, etc.)
+- Automatic meta keywords extraction from tags, categories, post titles, and content
+
+### Improved
+- `backbone_meta_description()` function now supports all page types with appropriate descriptions
+- Meta description character limit enforcement (160 characters max for SEO)
+- Meta keywords now prioritizes tags and categories over content extraction
+- Japanese and English stop-word filtering for better keyword quality
+
 ## [1.0.23] - 2025-11-23
 
 ### Fixed

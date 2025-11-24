@@ -152,6 +152,48 @@ function backbone_add_single_post_settings($wp_customize) {
         ),
     ));
 
+    // ━━━ SEOメタタグ設定 ━━━
+    $wp_customize->add_setting('seo_meta_tags_heading', array(
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+
+    $wp_customize->add_control(new Backbone_Customize_Heading_Control($wp_customize, 'seo_meta_tags_heading', array(
+        'label' => __('SEOメタタグ設定', 'backbone-seo-llmo'),
+        'section' => 'post_meta_settings',
+        'priority' => 60,
+        'description' => __('HTMLヘッダーに出力するSEOメタタグの制御設定です。', 'backbone-seo-llmo'),
+    )));
+
+    // Meta Description の有効/無効
+    $wp_customize->add_setting('seo_meta_description_enabled', array(
+        'default' => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('seo_meta_description_enabled', array(
+        'label' => __('Meta Description を出力', 'backbone-seo-llmo'),
+        'section' => 'post_meta_settings',
+        'type' => 'checkbox',
+        'description' => __('ページのメタディスクリプションタグを出力します。抜粋がある場合は抜粋を、ない場合は本文から自動生成します。', 'backbone-seo-llmo'),
+        'priority' => 65,
+    ));
+
+    // Meta Keywords の有効/無効
+    $wp_customize->add_setting('seo_meta_keywords_enabled', array(
+        'default' => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('seo_meta_keywords_enabled', array(
+        'label' => __('Meta Keywords を出力', 'backbone-seo-llmo'),
+        'section' => 'post_meta_settings',
+        'type' => 'checkbox',
+        'description' => __('ページのメタキーワードタグを出力します。タグ・カテゴリから優先的に、本文からも自動抽出します。', 'backbone-seo-llmo'),
+        'priority' => 70,
+    ));
+
     // 個別投稿タイプ設定
     backbone_add_post_type_meta_controls($wp_customize, 'post', __('通常投稿の個別設定', 'backbone-seo-llmo'), 100);
     backbone_add_post_type_meta_controls($wp_customize, 'page', __('固定ページの個別設定', 'backbone-seo-llmo'), 150);
