@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.24-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.25-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -161,6 +161,10 @@ See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-th
 
 ## Changelog
 
+### [1.0.25] - 2025-11-25
+- **Fixed**: Vertical submenu (3rd level+) disappearing when hovering on parent items
+- **Fixed**: Added hover region extension and JavaScript handling for vertical layout stability
+
 ### [1.0.24] - 2025-11-24
 - **Added**: SEO meta tags enable/disable settings in customizer (Meta Description / Meta Keywords)
 - **Improved**: Meta description automatic generation for all page types (home, archives, search, 404)
@@ -197,7 +201,7 @@ See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-th
 - **Fixed**: Resolved contradiction between Layout Settings and Front Page Settings
 - **Improved**: Content max width now only applies to single-column layouts, not affecting 2-column or 3-column layouts
 
-**Current Version:** 1.0.23 (2025-11-23)
+**Current Version:** 1.0.25 (2025-11-25)
 
 For complete version history and detailed changes, see [CHANGELOG.md](CHANGELOG.md).
 

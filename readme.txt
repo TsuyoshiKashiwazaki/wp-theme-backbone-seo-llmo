@@ -5,7 +5,7 @@ Tags: blog, accessibility-ready, custom-colors, custom-logo, custom-menu, editor
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.23
+Stable tag: 1.0.25
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,16 @@ This theme supports the latest versions of modern browsers (Chrome, Firefox, Saf
 5. Single post page
 
 == Changelog ==
+
+= 1.0.25 - 2025-11-25 =
+* Fixed: Vertical submenu (3rd level+) disappearing when hovering on parent items in `submenu-third-vertical` layout
+* Fixed: Added CSS hover region extension and JavaScript handling for vertical layout stability
+
+= 1.0.24 - 2025-11-24 =
+* Added: SEO meta tags enable/disable settings in customizer (Meta Description / Meta Keywords)
+* Improved: Meta description automatic generation for all page types (home, archives, search, 404)
+* Improved: Meta keywords automatic extraction from tags, categories, and content
+* Added: Helper function for intelligent keyword extraction with stop-word filtering
 
 = 1.0.23 - 2025-11-23 =
 * Fixed: Customizer jQuery dependency errors causing preview infinite loop on rental servers
