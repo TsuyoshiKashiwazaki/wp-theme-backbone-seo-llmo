@@ -2,6 +2,18 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.25] - 2025-11-25
+
+### Fixed
+- Vertical submenu (3rd level+) disappearing when hovering on parent items in `submenu-third-vertical` layout
+- Added CSS `::after` pseudo-element to extend hover region below parent items in vertical layout
+- Added `.submenu-active` class support for maintaining submenu visibility through JavaScript
+- Modified JavaScript `mouseleave` handler to delay menu closing when child submenu is visible in vertical layout
+
+### Technical
+- Modified: `css/components-navigation.css` - Added hover region extension and `.submenu-active` selector for vertical layout
+- Modified: `js/theme.js` - Added vertical layout detection and special handling in `mouseleave` event
+
 ## [1.0.24] - 2025-11-24
 
 ### Added

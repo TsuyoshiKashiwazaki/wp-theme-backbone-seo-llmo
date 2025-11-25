@@ -96,16 +96,17 @@ body .main-navigation .sub-menu {
     position: absolute;
     top: 100%;
     left: 0;
+    margin-top: 0 !important; /* 隙間をなくす */
     background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
     color: var(--header-link-color);
     min-width: 220px; /* パネル用に少し幅を広げる */
-    padding: 6px; /* パネル周囲に適度な余白 */
+    padding: 0 6px 6px 6px !important; /* 上は0、他は6px - 親メニューとの隙間をなくす */
     /* border-radius はデコレーションパターンで管理 */
     border: none; /* ボーダーも削除 */
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
+    transform: translateY(0);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
     z-index: 9999;
     display: block;
     flex-direction: column;
@@ -122,20 +123,20 @@ body.layout-full-width .main-navigation .sub-menu {
     position: absolute;
     top: 100%;
     left: 0;
+    margin-top: 0; /* 隙間をなくす */
     /* メインコンテンツにめり込まないようにする */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
     border-radius: 0;
-    background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
     border: none; /* ボーダーも削除 */
-    padding: 6px; /* パネル用の余白 */
+    padding: 0 6px 6px 6px; /* 上は0、他は6px */
 }
 
 /* フルワイドレイアウトでの3階層目以降のサブメニュー表示 - 横展開（右側表示） */
 body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .sub-menu {
     position: absolute !important;
     top: 0 !important; /* パネルを垂直に揃える */
-    left: calc(100% - 1px) !important; /* パネル間の隙間を最小限にする */
+    left: 100% !important; /* 親パネルに隣接 */
     z-index: 999999 !important;
     /* より高い優先度でデスクトップでの右側表示を確保 */
     transform: none !important;
@@ -150,6 +151,17 @@ body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .sub-
     display: block !important;
     flex-direction: column !important;
     width: auto !important;
+}
+
+/* 3階層目サブメニューの左側に透明なホバー領域を追加（横展開時） */
+body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .sub-menu::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -30px; /* 親サブメニューとの隙間をカバー（広げた） */
+    width: 40px;
+    height: calc(100% + 40px);
+    background: transparent;
 }
 
 /* フルワイドレイアウトでの3階層目以降のサブメニュー表示 - 縦展開（直下表示） */
@@ -189,26 +201,58 @@ body.layout-full-width.submenu-third-vertical .main-navigation .sub-menu .sub-me
 }
 
 /* フルワイドレイアウト - 横展開時のホバー表示 */
-body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu {
+body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu,
+body.layout-full-width.submenu-third-horizontal .main-navigation .sub-menu .menu-item-has-children.submenu-active > .sub-menu {
     opacity: 1 !important;
     visibility: visible !important;
     display: block !important;
 }
 
+/* JavaScriptで設定される disabled-pointer クラス（3階層目以降のサブメニュー表示時） */
+body .main-navigation .sub-menu li.disabled-pointer {
+    pointer-events: none !important;
+}
+
 /* フルワイドレイアウト - 縦展開時のホバー表示 */
-body.layout-full-width.submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu {
+body.layout-full-width.submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu,
+body.layout-full-width.submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children.submenu-active > .sub-menu {
     display: block !important; /* ホバー時に表示 */
 }
 
-body .main-navigation li:hover>.sub-menu {
+body .main-navigation li:hover>.sub-menu,
+body .main-navigation li.submenu-active>.sub-menu {
     opacity: 1;
     visibility: visible;
-    transform: translateY(0);
+}
+
+/* サブメニューの上部に透明なホバー領域を追加（親メニューとの隙間対策） */
+body .main-navigation .sub-menu::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 100%;
+    height: 15px;
+    background: transparent;
 }
 
 body .main-navigation .sub-menu li {
     width: 100%;
-    margin: 3px 0; /* 各パネル間に隙間を作る */
+    margin: 0; /* 隙間をなくす */
+    position: relative;
+}
+
+/* サブメニュー項目のリンクにホバー領域を拡張（項目間の隙間対策） */
+body .main-navigation .sub-menu li a {
+    /* パディングを増やしてホバー領域を広げる */
+    margin: -2px 0; /* 負のマージンで項目を重ねる */
+    padding-top: 14px; /* 上パディングを増加 */
+    padding-bottom: 14px; /* 下パディングを増加 */
+}
+
+/* 最初のサブメニュー項目は上マージンなし - 親メニューとの隙間をなくす */
+body .main-navigation .sub-menu li:first-child {
+    margin-top: 0 !important;
 }
 
 body .main-navigation .sub-menu a {
@@ -366,13 +410,24 @@ body:not(.layout-full-width).submenu-third-horizontal .main-navigation .sub-menu
     transform: translateY(0);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s ease;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
     z-index: 99999;
     background: var(--primary-color); /* グローバルメニューと同じCSS変数 */
     border: none; /* border削除 */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     min-width: 200px;
     padding: 0;
+}
+
+/* 3階層目サブメニューの左側に透明なホバー領域を追加（横展開時） - フルワイドレイアウトを除く */
+body:not(.layout-full-width).submenu-third-horizontal .main-navigation .sub-menu .sub-menu::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -30px; /* 親サブメニューとの隙間をカバー（広げた） */
+    width: 40px;
+    height: calc(100% + 40px);
+    background: transparent;
 }
 
 /* 3階層目以降のサブメニュー - 縦展開（直下表示） - フルワイドレイアウトを除く */
@@ -391,6 +446,23 @@ body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .
     padding: 6px; /* パネル用の余白を追加 */
     width: 100%;
     display: none; /* 初期状態は非表示にしてスペースを占有しないようにする */
+}
+
+/* 縦展開時の3階層目親要素に::afterでホバー領域を拡張 */
+body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children {
+    position: relative;
+}
+
+/* 縦展開時、3階層目を持つ親項目の下側にホバー領域を追加 */
+body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+    pointer-events: auto;
 }
 
 /* 4階層目以降も同じルールを継承（横展開） */
@@ -416,8 +488,9 @@ body:not(.layout-full-width).submenu-third-horizontal .main-navigation .sub-menu
     visibility: visible;
 }
 
-body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu {
-    display: block; /* ホバー時に表示 */
+body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children:hover > .sub-menu,
+body:not(.layout-full-width).submenu-third-vertical .main-navigation .sub-menu .menu-item-has-children.submenu-active > .sub-menu {
+    display: block; /* ホバー時またはsubmenu-activeクラスで表示 */
 }
 
 /* サブメニューの矢印 - 横展開時はプラス */

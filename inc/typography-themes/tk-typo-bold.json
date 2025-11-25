@@ -21,7 +21,7 @@
             "letter_spacing": "-0.02em",
             "margin_top": "2.5rem",
             "margin_bottom": "1.5rem",
-            "text_indent": "0.5rem",
+            "text_indent": "0",
             "word_spacing": "0.05em"
         },
         "h2": {
@@ -31,7 +31,7 @@
             "letter_spacing": "-0.01em",
             "margin_top": "2.2rem",
             "margin_bottom": "1.2rem",
-            "text_indent": "0.5rem",
+            "text_indent": "0",
             "word_spacing": "0.04em"
         },
         "h3": {
@@ -41,7 +41,7 @@
             "letter_spacing": "0em",
             "margin_top": "2rem",
             "margin_bottom": "1rem",
-            "text_indent": "0.5rem",
+            "text_indent": "0",
             "word_spacing": "0.03em"
         },
         "h4": {
@@ -51,7 +51,7 @@
             "letter_spacing": "0.005em",
             "margin_top": "1.8rem",
             "margin_bottom": "0.9rem",
-            "text_indent": "0.5rem",
+            "text_indent": "0",
             "word_spacing": "0.02em"
         },
         "h5": {
@@ -61,7 +61,7 @@
             "letter_spacing": "0.01em",
             "margin_top": "1.6rem",
             "margin_bottom": "0.8rem",
-            "text_indent": "0.5rem",
+            "text_indent": "0",
             "word_spacing": "0.015em"
         },
         "h6": {
@@ -71,13 +71,13 @@
             "letter_spacing": "0.015em",
             "margin_top": "1.4rem",
             "margin_bottom": "0.7rem",
-            "text_indent": "0.5rem",
+            "text_indent": "0",
             "word_spacing": "0.01em"
         }
     },
     "paragraphs": {
         "margin_bottom": "1.5em",
-        "text_indent": "0.5rem",
+        "text_indent": "0",
         "word_spacing": "0.01em"
     },
     "lists": {
@@ -85,7 +85,7 @@
         "margin_top": "1em",
         "line_height": "1.6",
         "letter_spacing": "0.005em",
-        "text_indent": "0.5rem"
+        "text_indent": "0"
     },
     "elements": {
         "site_title": {

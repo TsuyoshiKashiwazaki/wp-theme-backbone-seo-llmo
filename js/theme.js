@@ -860,64 +860,220 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /**
      * サブメニュー（ドロップダウン）の機能強化
+     * - カーソル移動中にサブメニューが消えないよう遅延を追加
+     * - 親メニューから子サブメニューへの移動時も親を維持
+     * - 全階層でグローバルなタイマー管理
+     * - 縦展開時のサブメニュー表示による親要素変化への対応
      */
     function initDropdownMenu() {
+        var SUBMENU_HIDE_DELAY = 800; // サブメニュー消失遅延（0.8秒）
+        var globalHideTimer = null; // グローバルタイマー（全メニュー共通）
+        var activeMenuPath = []; // 現在アクティブなメニューのパス（階層順）
+        var isVerticalSubmenu = document.body.classList.contains('submenu-third-vertical'); // 縦展開かどうか
+
+        /**
+         * メニューパスを活性化（親も含めて全てアクティブに）
+         */
+        function activateMenuPath(menuItem) {
+            // このメニュー項目から親方向へ遡り、全ての親をアクティブに
+            var current = menuItem;
+            var newPath = [];
+
+            while (current) {
+                if (current.classList && current.classList.contains('menu-item-has-children')) {
+                    newPath.unshift(current); // 親から順に追加
+                    current.classList.add('submenu-active');
+                }
+                current = current.parentElement ? current.parentElement.closest('.menu-item-has-children') : null;
+            }
+
+            activeMenuPath = newPath;
+
+            // 3階層目以降のサブメニューが表示されている時、
+            // 親サブメニュー内の兄弟項目のポインターイベントを無効化
+            disableSiblingPointerEvents(menuItem);
+        }
+
+        /**
+         * サブメニュー内の兄弟項目のポインターイベントを無効化
+         * （3階層目以降が表示されている時）
+         */
+        function disableSiblingPointerEvents(activeItem) {
+            // まず全ての disabled-pointer クラスを削除
+            document.querySelectorAll('.main-navigation .disabled-pointer').forEach(function(el) {
+                el.classList.remove('disabled-pointer');
+            });
+
+            // アクティブなメニュー項目が2階層目以降（サブメニュー内）の場合
+            var parentSubMenu = activeItem.closest('.sub-menu');
+            if (parentSubMenu) {
+                // このサブメニュー内の全ての li 要素
+                var siblings = parentSubMenu.querySelectorAll(':scope > li');
+                siblings.forEach(function(sibling) {
+                    // アクティブな項目以外にクラスを追加
+                    if (sibling !== activeItem && !activeItem.contains(sibling) && !sibling.contains(activeItem)) {
+                        sibling.classList.add('disabled-pointer');
+                    }
+                });
+            }
+        }
+
+        /**
+         * 全てのサブメニューを非アクティブに
+         */
+        function deactivateAllMenus() {
+            document.querySelectorAll('.main-navigation .menu-item-has-children').forEach(function(item) {
+                item.classList.remove('submenu-active');
+                item.classList.remove('focus');
+            });
+            // disabled-pointer クラスも削除
+            document.querySelectorAll('.main-navigation .disabled-pointer').forEach(function(el) {
+                el.classList.remove('disabled-pointer');
+            });
+            activeMenuPath = [];
+        }
+
+        /**
+         * グローバルタイマーをクリア
+         */
+        function clearGlobalTimer() {
+            if (globalHideTimer) {
+                clearTimeout(globalHideTimer);
+                globalHideTimer = null;
+            }
+        }
+
+        /**
+         * 遅延後に全メニューを閉じる
+         */
+        function scheduleHideAll() {
+            clearGlobalTimer();
+            globalHideTimer = setTimeout(function() {
+                deactivateAllMenus();
+            }, SUBMENU_HIDE_DELAY);
+        }
+
+        // 全てのメニュー項目（子を持つもの）にイベントを設定
         var menuItems = document.querySelectorAll('.main-navigation .menu-item-has-children');
 
         menuItems.forEach(function (item) {
-            var link = item.querySelector('a');
-            var submenu = item.querySelector('.sub-menu');
+            var link = item.querySelector(':scope > a');
+            var submenu = item.querySelector(':scope > .sub-menu');
 
-            if (!link || !submenu) return;
+            if (!link) return;
+
+            // マウスがメニュー項目に入ったとき
+            item.addEventListener('mouseenter', function (e) {
+                e.stopPropagation();
+                clearGlobalTimer();
+                activateMenuPath(item);
+            });
+
+            // マウスがメニュー項目から離れたとき
+            item.addEventListener('mouseleave', function (e) {
+                e.stopPropagation();
+                var relatedTarget = e.relatedTarget;
+
+                // サブメニュー内の別の項目に移動する場合は何もしない
+                if (relatedTarget && item.contains(relatedTarget)) {
+                    return;
+                }
+
+                // 縦展開時：子サブメニューが表示された直後はmouseleaveを無視
+                // （position: staticによるレイアウト変化でカーソルが外れる問題対策）
+                if (isVerticalSubmenu) {
+                    var childSubmenu = item.querySelector(':scope > .sub-menu');
+                    if (childSubmenu && window.getComputedStyle(childSubmenu).display !== 'none') {
+                        // 子サブメニューが表示されている場合、遅延して閉じる
+                        // すぐには閉じない
+                        scheduleHideAll();
+                        return;
+                    }
+                }
+
+                // ナビゲーション内のどこかに移動する場合は閉じない
+                // （リンク、サブメニュー、メニュー項目すべてを含む）
+                if (relatedTarget && relatedTarget.closest('.main-navigation')) {
+                    return; // 移動先で処理される
+                }
+
+                // ナビゲーション外に出た場合は遅延後に閉じる
+                scheduleHideAll();
+            });
 
             // キーボードナビゲーション対応
-            // `link.addEventListener` のチェックは不要
-            link.addEventListener('focus', function () {
-                item.classList.add('focus');
-            });
+            if (link) {
+                link.addEventListener('focus', function () {
+                    clearGlobalTimer();
+                    activateMenuPath(item);
+                    item.classList.add('focus');
+                });
 
-            link.addEventListener('blur', function () {
-                setTimeout(function () {
-                    // `item.contains` のチェックは不要
-                    if (!item.contains(document.activeElement)) {
-                        item.classList.remove('focus');
-                    }
-                }, 100);
-            });
-
-            // Escapeキーでサブメニューを閉じる
-            // `submenu.addEventListener` のチェックは不要
-            submenu.addEventListener('keydown', function (e) {
-                if (e.key === 'Escape') {
-                    link.focus();
-                    item.classList.remove('focus');
-                }
-            });
-
-            // サブメニューの最後の項目からTabで次のメイン項目に移動
-            var lastSubmenuItem = submenu.querySelector('li:last-child a');
-            if (lastSubmenuItem) {
-                // `lastSubmenuItem.addEventListener` のチェックは不要
-                lastSubmenuItem.addEventListener('blur', function () {
+                link.addEventListener('blur', function () {
                     setTimeout(function () {
-                        // `item.contains` のチェックは不要
-                        if (!item.contains(document.activeElement)) {
-                            item.classList.remove('focus');
+                        var activeElement = document.activeElement;
+                        // フォーカスがナビゲーション外に移動した場合
+                        if (!activeElement || !activeElement.closest('.main-navigation')) {
+                            scheduleHideAll();
                         }
                     }, 100);
                 });
             }
-        }); // forEach の閉じ括弧
 
-        // サブメニュー外をクリックしたら閉じる
-        // `document.addEventListener` のチェックは不要
-        document.addEventListener('click', function (e) {
-            if (!e.target.closest('.main-navigation')) {
-                menuItems.forEach(function (item) {
-                    item.classList.remove('focus');
+            // Escapeキーでサブメニューを閉じる
+            if (submenu) {
+                submenu.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape') {
+                        if (link) link.focus();
+                        deactivateAllMenus();
+                    }
                 });
             }
         });
+
+        // サブメニュー内のすべてのリンクにmouseenterを追加
+        // これにより、子メニュー項目（menu-item-has-childrenでないもの）に
+        // カーソルが乗った時も親メニューをアクティブに維持する
+        var allSubMenuLinks = document.querySelectorAll('.main-navigation .sub-menu a');
+        allSubMenuLinks.forEach(function(link) {
+            link.addEventListener('mouseenter', function(e) {
+                clearGlobalTimer();
+                // このリンクの親のmenu-item-has-childrenを探してアクティブに
+                var parentMenuItem = link.closest('.menu-item-has-children');
+                if (parentMenuItem) {
+                    activateMenuPath(parentMenuItem);
+                }
+            });
+        });
+
+        // サブメニュー自体にもmouseenterを追加（隙間対策）
+        var allSubMenus = document.querySelectorAll('.main-navigation .sub-menu');
+        allSubMenus.forEach(function(submenu) {
+            submenu.addEventListener('mouseenter', function(e) {
+                clearGlobalTimer();
+                // このサブメニューの親メニュー項目をアクティブに
+                var parentMenuItem = submenu.closest('.menu-item-has-children');
+                if (parentMenuItem) {
+                    activateMenuPath(parentMenuItem);
+                }
+            });
+        });
+
+        // サブメニュー外をクリックしたら即座に閉じる
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.main-navigation')) {
+                clearGlobalTimer();
+                deactivateAllMenus();
+            }
+        });
+
+        // ナビゲーション全体からマウスが離れた場合の保険
+        var mainNav = document.querySelector('.main-navigation');
+        if (mainNav) {
+            mainNav.addEventListener('mouseleave', function() {
+                scheduleHideAll();
+            });
+        }
     } // initDropdownMenu の閉じ括弧
 
     // サブメニュー機能の初期化
