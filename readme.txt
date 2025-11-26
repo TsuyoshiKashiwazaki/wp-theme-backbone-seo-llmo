@@ -5,7 +5,7 @@ Tags: blog, accessibility-ready, custom-colors, custom-logo, custom-menu, editor
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.25
+Stable tag: 1.0.26
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,11 @@ This theme supports the latest versions of modern browsers (Chrome, Firefox, Saf
 5. Single post page
 
 == Changelog ==
+
+= 1.0.26 - 2025-11-26 =
+* Added: Extended individual layout settings to all post types (Posts, Custom Post Types)
+* Changed: Unified "Full Width" label with Customizer terminology
+* Changed: Updated meta box definition for broader compatibility
 
 = 1.0.25 - 2025-11-25 =
 * Fixed: Vertical submenu (3rd level+) disappearing when hovering on parent items in `submenu-third-vertical` layout

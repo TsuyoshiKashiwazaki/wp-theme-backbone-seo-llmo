@@ -2,6 +2,15 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.26] - 2025-11-26
+
+### Added
+- Extended individual layout settings to all post types (Posts, Custom Post Types)
+
+### Changed
+- Unified "Full Width" label with Customizer terminology
+- Updated meta box definition for broader compatibility
+
 ## [1.0.25] - 2025-11-25
 
 ### Fixed

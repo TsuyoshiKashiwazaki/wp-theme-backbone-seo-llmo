@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.25-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.26-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -160,6 +160,11 @@ A sample child theme is available for safe customization:
 See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child) for detailed instructions.
 
 ## Changelog
+
+### [1.0.26] - 2025-11-26
+- **Added**: Extended individual layout settings to all post types (Posts, Custom Post Types)
+- **Changed**: Unified "Full Width" label with Customizer terminology
+- **Changed**: Updated meta box definition for broader compatibility
 
 ### [1.0.25] - 2025-11-25
 - **Fixed**: Vertical submenu (3rd level+) disappearing when hovering on parent items

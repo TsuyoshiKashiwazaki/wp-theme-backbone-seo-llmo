@@ -16,6 +16,25 @@ if (!defined('ABSPATH')) {
 function backbone_get_layout() {
     // 配布テーマ用：厳重なバリデーション付きレイアウト取得
     $valid_layouts = array('single-column', 'two-columns', 'three-columns', 'full-width');
+
+    // 個別投稿・固定ページのレイアウト設定をチェック（最優先）
+    if (is_singular() || (is_home() && get_option('show_on_front') === 'page')) {
+        $queried_object_id = get_queried_object_id();
+        if ($queried_object_id) {
+            // 新しいキーを優先
+            $meta_layout = get_post_meta($queried_object_id, '_backbone_layout_settings', true);
+            
+            // 古いキーのフォールバック（互換性維持）
+            if (empty($meta_layout)) {
+                $meta_layout = get_post_meta($queried_object_id, '_backbone_page_layout', true);
+            }
+            
+            if (!empty($meta_layout) && $meta_layout !== 'default' && in_array($meta_layout, $valid_layouts)) {
+                return $meta_layout;
+            }
+        }
+    }
+
     $raw_site_layout = get_theme_mod('site_layout', backbone_get_default_layout());
     $default_layout = in_array($raw_site_layout, $valid_layouts) ? $raw_site_layout : backbone_get_default_layout();
 

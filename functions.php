@@ -48,6 +48,7 @@ $inc_files = array(
     'rest-api-fix.php',         // REST API JSONエラー修正
     'meta-boxes/hero-image-meta.php', // メインビジュアルのメタボックス
     'meta-boxes/custom-schema-meta.php', // カスタム構造化データのメタボックス
+    'meta-boxes/layout-meta.php', // レイアウト設定のメタボックス
 );
 
 foreach ($inc_files as $file) {
