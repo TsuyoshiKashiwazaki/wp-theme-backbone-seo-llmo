@@ -2,6 +2,17 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.27] - 2025-12-02
+
+### Fixed
+- Mobile layout issue where sidebar content was cut off due to improper full-width calculation in `layout-two-columns.css`
+- Sidebar widgets not showing on mobile due to `overflow: hidden` in `components-sidebar.css`
+- Mobile sidebar order issue where it appeared above main content instead of below
+
+### Changed
+- Replaced fragile `width: 100vw` hack with standard `width: 100%` to respect parent container padding
+- Restored default mobile sidebar order (below main content)
+
 ## [1.0.26] - 2025-11-26
 
 ### Added

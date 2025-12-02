@@ -323,6 +323,7 @@
     /* サイドバーをモバイルで適切に表示 */
     .sidebar {
         margin-top: 30px;
+        margin-bottom: 0;
         order: 2;
         /* サイドバーをコンテンツエリア下に移動 */
     }

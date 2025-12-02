@@ -41,8 +41,8 @@
 @media (max-width: 767px) {
     body.layout-two-columns .main-content {
         padding: 10px 0;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
+        width: 100%;
+        margin-left: 0;
     }
     
     body.layout-two-columns .content-area {
@@ -58,7 +58,9 @@
         padding: 15px 12px !important;
         box-sizing: border-box !important;
         border-top: 1px solid #e0e0e0;
+        border-bottom: none;
         margin-top: 20px !important;
+        margin-bottom: 0 !important;
     }
 
     /* サイドバー位置の適用 */
@@ -102,7 +104,9 @@
         min-width: 0;
         padding: 20px 12px !important;
         border-top: 2px solid #e0e0e0;
+        border-bottom: none;
         margin-top: 20px !important;
+        margin-bottom: 0 !important;
     }
 }
 

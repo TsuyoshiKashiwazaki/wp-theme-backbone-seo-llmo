@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.26-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.27-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -160,6 +160,13 @@ A sample child theme is available for safe customization:
 See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child) for detailed instructions.
 
 ## Changelog
+
+### [1.0.27] - 2025-12-02
+- **Fixed**: Mobile layout issue where sidebar content was cut off due to improper full-width calculation in `layout-two-columns.css`
+- **Fixed**: Sidebar widgets not showing on mobile due to `overflow: hidden` in `components-sidebar.css`
+- **Fixed**: Mobile sidebar order issue where it appeared above main content instead of below
+- **Changed**: Replaced fragile `width: 100vw` hack with standard `width: 100%` to respect parent container padding
+- **Changed**: Restored default mobile sidebar order (below main content)
 
 ### [1.0.26] - 2025-11-26
 - **Added**: Extended individual layout settings to all post types (Posts, Custom Post Types)

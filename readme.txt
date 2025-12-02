@@ -5,7 +5,7 @@ Tags: blog, accessibility-ready, custom-colors, custom-logo, custom-menu, editor
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.26
+Stable tag: 1.0.27
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,13 @@ This theme supports the latest versions of modern browsers (Chrome, Firefox, Saf
 5. Single post page
 
 == Changelog ==
+
+= 1.0.27 - 2025-12-02 =
+* Fixed: Mobile layout issue where sidebar content was cut off due to improper full-width calculation in `layout-two-columns.css`
+* Fixed: Sidebar widgets not showing on mobile due to `overflow: hidden` in `components-sidebar.css`
+* Fixed: Mobile sidebar order issue where it appeared above main content instead of below
+* Changed: Replaced fragile `width: 100vw` hack with standard `width: 100%` to respect parent container padding
+* Changed: Restored default mobile sidebar order (below main content)
 
 = 1.0.26 - 2025-11-26 =
 * Added: Extended individual layout settings to all post types (Posts, Custom Post Types)
