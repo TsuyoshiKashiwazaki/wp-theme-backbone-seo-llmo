@@ -161,14 +161,24 @@ function backbone_rest_api_page_excerpt() {
 add_action('rest_api_init', 'backbone_rest_api_page_excerpt');
 
 /**
- * 固定ページをタグアーカイブに含める
+ * タクソノミーアーカイブに、全ての公開投稿タイプを含める
+ * プラグインの設定不備でタクソノミーに正しく登録されていない投稿タイプも表示
  */
-function backbone_include_pages_in_tag_archives($query) {
-    if ($query->is_tag() && $query->is_main_query()) {
-        $query->set('post_type', array('post', 'page'));
+function backbone_include_all_post_types_in_taxonomy_archives($query) {
+    if (!$query->is_main_query() || is_admin()) {
+        return;
+    }
+
+    // タグアーカイブまたはカテゴリアーカイブ
+    if ($query->is_tag() || $query->is_category()) {
+        // 全ての公開投稿タイプを取得
+        $post_types = get_post_types(array('public' => true), 'names');
+        // attachment は除外
+        unset($post_types['attachment']);
+        $query->set('post_type', array_values($post_types));
     }
 }
-add_filter('pre_get_posts', 'backbone_include_pages_in_tag_archives');
+add_filter('pre_get_posts', 'backbone_include_all_post_types_in_taxonomy_archives');
 
 /**
  * カスタマイザーのJavaScriptモジュールを読み込み
@@ -297,10 +307,24 @@ function backbone_add_custom_pagination_rules() {
         }
     }
 
+    // タグ一覧ページ（/tag/ ルート）- タグクラウド表示
+    add_rewrite_rule(
+        'tag/?$',
+        'index.php?taxonomy_root=post_tag',
+        'top'
+    );
+
     // タグアーカイブのページネーション
     add_rewrite_rule(
         'tag/([^/]+)/page-([0-9]{1,})/?$',
         'index.php?tag=$matches[1]&paged=$matches[2]',
+        'top'
+    );
+
+    // カテゴリ一覧ページ（/category/ ルート）- カテゴリクラウド表示
+    add_rewrite_rule(
+        'category/?$',
+        'index.php?taxonomy_root=category',
         'top'
     );
 
@@ -353,9 +377,54 @@ add_action('init', 'backbone_add_custom_pagination_rules');
  */
 function backbone_add_query_vars($vars) {
     $vars[] = 'old_pagination';
+    $vars[] = 'taxonomy_root';
     return $vars;
 }
 add_filter('query_vars', 'backbone_add_query_vars');
+
+/**
+ * タクソノミールートページ（/tag/, /category/）のテンプレート読み込み
+ */
+function backbone_taxonomy_root_template($template) {
+    $taxonomy_root = get_query_var('taxonomy_root');
+    if ($taxonomy_root) {
+        // taxonomy-root.php があれば使用、なければ archive.php
+        $new_template = locate_template('taxonomy-root.php');
+        if ($new_template) {
+            return $new_template;
+        }
+        return locate_template('archive.php');
+    }
+    return $template;
+}
+add_filter('template_include', 'backbone_taxonomy_root_template');
+
+/**
+ * タクソノミールートページのドキュメントタイトルを設定
+ */
+function backbone_taxonomy_root_document_title($title) {
+    $taxonomy_root = get_query_var('taxonomy_root');
+    if ($taxonomy_root) {
+        $taxonomy_obj = get_taxonomy($taxonomy_root);
+        $page_title = $taxonomy_obj ? $taxonomy_obj->labels->name : __('タクソノミー', 'backbone-seo-llmo');
+        $title['title'] = $page_title;
+    }
+    return $title;
+}
+add_filter('document_title_parts', 'backbone_taxonomy_root_document_title');
+
+/**
+ * タクソノミールートページでis_404をfalseに設定
+ */
+function backbone_taxonomy_root_set_404($wp_query) {
+    $taxonomy_root = get_query_var('taxonomy_root');
+    if ($taxonomy_root && $wp_query->is_main_query()) {
+        $wp_query->is_404 = false;
+        $wp_query->is_archive = true;
+        status_header(200);
+    }
+}
+add_action('parse_query', 'backbone_taxonomy_root_set_404');
 
 /**
  * 旧ページネーション形式から新形式へリダイレクト

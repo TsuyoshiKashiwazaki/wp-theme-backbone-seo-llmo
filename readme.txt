@@ -5,7 +5,7 @@ Tags: blog, accessibility-ready, custom-colors, custom-logo, custom-menu, editor
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.27
+Stable tag: 1.0.28
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,12 @@ This theme supports the latest versions of modern browsers (Chrome, Firefox, Saf
 5. Single post page
 
 == Changelog ==
+
+= 1.0.28 - 2025-12-04 =
+* Added: Taxonomy root pages (/tag/, /category/) with tag cloud display
+* Added: Custom query variable `taxonomy_root` for taxonomy listing pages
+* Fixed: Taxonomy root pages now correctly use "Other Archives" layout setting in Customizer
+* Fixed: Body class `page-type-archive` now correctly applied to taxonomy root pages
 
 = 1.0.27 - 2025-12-02 =
 * Fixed: Mobile layout issue where sidebar content was cut off due to improper full-width calculation in `layout-two-columns.css`

@@ -101,7 +101,10 @@ function backbone_body_classes($classes) {
     // 現在のページタイプクラス（backbone_get_layout()と同じロジックを使用）
     $page_type = '';
 
-    if (is_home() || is_front_page()) {
+    // タクソノミールートページ（/tag/, /category/）は最優先で「その他のアーカイブ」扱い
+    if (get_query_var('taxonomy_root')) {
+        $page_type = 'archive';
+    } elseif (is_home() || is_front_page()) {
         // URLパス解析でカスタム投稿タイプアーカイブの可能性をチェック（utilities.phpと同じロジック）
         $request_uri = $_SERVER['REQUEST_URI'];
         $path_parts = explode('/', trim($request_uri, '/'));

@@ -2,6 +2,26 @@
 
 All notable changes to Backbone Theme for SEO + LLMO will be documented in this file.
 
+## [1.0.28] - 2025-12-04
+
+### Added
+- Taxonomy root page template (`taxonomy-root.php`) for `/tag/` and `/category/` URLs
+- Tag cloud display for taxonomy root pages with dynamic font sizing based on post count
+- Rewrite rules for `/tag/` and `/category/` root pages to fix WordPress core design limitation
+
+### Fixed
+- `/tag/` and `/category/` root URLs returning 404 (WordPress doesn't provide root pages for taxonomy directories)
+- Category and tag archives not showing posts from all associated post types
+- Changed `backbone_include_pages_in_tag_archives()` to include all public post types in taxonomy archives
+- Taxonomy root pages now correctly use "Other Archives" (`post_type_layout_archive`) layout setting in Customizer
+- Body class `page-type-archive` now correctly applied to taxonomy root pages (was incorrectly showing `page-type-front_page`)
+
+### Technical
+- Added `taxonomy_root` query variable for taxonomy root page detection
+- Added `template_include` filter for taxonomy root template loading
+- Added `document_title_parts` filter for proper page titles on taxonomy root pages
+- Added `parse_query` action to set correct HTTP status for taxonomy root pages
+
 ## [1.0.27] - 2025-12-02
 
 ### Fixed

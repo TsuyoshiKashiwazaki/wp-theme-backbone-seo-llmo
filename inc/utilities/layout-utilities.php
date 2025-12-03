@@ -41,7 +41,10 @@ function backbone_get_layout() {
     // 現在のページタイプを判定
     $current_type = '';
 
-    if (is_home() || is_front_page()) {
+    // タクソノミールートページ（/tag/, /category/）は最優先で「その他のアーカイブ」扱い
+    if (get_query_var('taxonomy_root')) {
+        $current_type = 'archive';
+    } elseif (is_home() || is_front_page()) {
         // URLパス解析でカスタム投稿タイプアーカイブの可能性をチェック
         $request_uri = $_SERVER['REQUEST_URI'];
         $path_parts = explode('/', trim($request_uri, '/'));

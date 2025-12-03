@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.27-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.28-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -161,6 +161,12 @@ See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-th
 
 ## Changelog
 
+### [1.0.28] - 2025-12-04
+- **Added**: Taxonomy root pages (`/tag/`, `/category/`) with tag cloud display
+- **Added**: Custom query variable `taxonomy_root` for taxonomy listing pages
+- **Fixed**: Taxonomy root pages now correctly use "Other Archives" layout setting in Customizer
+- **Fixed**: Body class `page-type-archive` now correctly applied to taxonomy root pages
+
 ### [1.0.27] - 2025-12-02
 - **Fixed**: Mobile layout issue where sidebar content was cut off due to improper full-width calculation in `layout-two-columns.css`
 - **Fixed**: Sidebar widgets not showing on mobile due to `overflow: hidden` in `components-sidebar.css`
@@ -213,7 +219,7 @@ See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-th
 - **Fixed**: Resolved contradiction between Layout Settings and Front Page Settings
 - **Improved**: Content max width now only applies to single-column layouts, not affecting 2-column or 3-column layouts
 
-**Current Version:** 1.0.25 (2025-11-25)
+**Current Version:** 1.0.28 (2025-12-04)
 
 For complete version history and detailed changes, see [CHANGELOG.md](CHANGELOG.md).
 
