@@ -3,246 +3,255 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.0.28-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.0.29-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
-A minimal WordPress base theme optimized for media sites with built-in SEO and LLMO support, designed for plugin-based extensibility.
+メディアサイト向けに最適化された軽量WordPressベーステーマ。SEO・LLMO対応機能を内蔵し、プラグインによる拡張を前提とした設計。
 
-> A lightweight foundation theme for efficient media operations, designed to work seamlessly with specialized plugins
+> 専用プラグインとの連携で効率的なメディア運用を実現する軽量ベーステーマ
 
-## Overview
+## 概要
 
-Backbone Theme for SEO + LLMO is a streamlined WordPress base theme specifically designed for media operations. It provides essential functionality while intentionally keeping advanced features modular through plugin architecture (such as SEO・LLMO・GEO・AIO optimization plugins). This design philosophy enables efficient management of media sites and blogs through the combination of theme and plugins.
+Backbone Theme for SEO + LLMO は、メディア運用に特化したシンプルなWordPressベーステーマです。基本的なSEO対応とレイアウト機能を提供し、高度な機能は専用プラグイン（SEO・LLMO・GEO・AIO最適化プラグイン）での拡張を前提とした設計です。テーマとプラグインの組み合わせにより、効率的なメディアサイト・ブログ運用を実現します。
 
-### Key Features
+### 主な機能
 
-- **Plugin-First Architecture** - Designed for extension via specialized plugins
-- **Basic SEO Support** - Meta description extraction, title optimization
-- **Flexible Layouts** - 1-3 column layouts and full-width support
-- **Customizer Integration** - Basic color and design adjustments
-- **Media-Optimized** - Tailored for blogs and media sites
-- **Lightweight Design** - Minimal footprint with essential features only
-- **Responsive** - Mobile-first design approach
-- **Developer-Friendly** - Cache busting functionality included
+- **プラグイン優先設計** - 専用プラグインによる拡張を前提とした設計
+- **基本SEO対応** - メタディスクリプション抽出、タイトル最適化
+- **柔軟なレイアウト** - 1〜3カラムレイアウト、フルワイド対応
+- **カスタマイザー連携** - 基本的なカラー・デザイン調整
+- **メディア最適化** - ブログ・メディアサイト向けに最適化
+- **軽量設計** - 必要最小限の機能のみ搭載
+- **レスポンシブ** - モバイルファースト設計
+- **開発者向け機能** - キャッシュバスティング機能搭載
 
-## Quick Start
+## クイックスタート
 
-### Installation
+### インストール
 
-1. Download the theme ZIP file
-2. Navigate to WordPress Admin: **Appearance** → **Themes** → **Add New** → **Upload Theme**
-3. Select the ZIP file and install
-4. Activate the theme
+1. テーマのZIPファイルをダウンロード
+2. WordPress管理画面: **外観** → **テーマ** → **新規追加** → **テーマのアップロード**
+3. ZIPファイルを選択してインストール
+4. テーマを有効化
 
-### System Requirements
+### 動作環境
 
-- WordPress 5.0 or higher
-- PHP 7.2 or higher
-- Modern web browser with HTML5 support
+- WordPress 5.0 以上
+- PHP 7.2 以上
+- HTML5対応のモダンブラウザ
 
-## Theme Structure
+## テーマ構造
 
-### Template Files
+### テンプレートファイル
 
-- `front-page.php` - Front page template
-- `home.php` - Blog home page template
-- `single.php` - Single post template
-- `page.php` - Page template
-- `archive.php` - Archive template
-- `search.php` - Search results template
-- `404.php` - 404 error page template
-- `comments.php` - Comments template
-- `sidebar.php` - Sidebar template
+- `front-page.php` - フロントページテンプレート
+- `home.php` - ブログホームページテンプレート
+- `single.php` - 投稿詳細テンプレート
+- `page.php` - 固定ページテンプレート
+- `archive.php` - アーカイブテンプレート
+- `search.php` - 検索結果テンプレート
+- `404.php` - 404エラーページテンプレート
+- `comments.php` - コメントテンプレート
+- `sidebar.php` - サイドバーテンプレート
 
-### Directory Structure
+### ディレクトリ構造
 
 ```
-/css/              - Stylesheet files (base, layouts, components, etc.)
-/inc/              - PHP include files (feature modules)
-/inc/utilities/    - Utility functions
-/inc/customizer/   - Customizer settings
-/js/               - JavaScript files (customizer related)
+/css/              - スタイルシート（base, layouts, components等）
+/inc/              - PHPインクルードファイル（機能モジュール）
+/inc/utilities/    - ユーティリティ関数
+/inc/customizer/   - カスタマイザー設定
+/js/               - JavaScriptファイル（カスタマイザー関連）
 ```
 
-## Customizer Settings
+## カスタマイザー設定
 
-Access the following settings via WordPress Customizer:
+WordPressカスタマイザーから以下の設定にアクセスできます:
 
-- **Color Settings** - Theme colors, background, text colors
-- **Layout Settings** - Column count, sidebar position, container width
-- **Typography Settings** - Font family, size, line height
-- **Design Patterns** - Button styles, cards, and other design elements
-- **Header/Footer Settings** - Logo, menus, widget areas
+- **カラー設定** - テーマカラー、背景色、テキストカラー
+- **レイアウト設定** - カラム数、サイドバー位置、コンテナ幅
+- **タイポグラフィ設定** - フォント、サイズ、行間
+- **デザインパターン** - ボタンスタイル、カードなどのデザイン要素
+- **ヘッダー/フッター設定** - ロゴ、メニュー、ウィジェットエリア
 
-## Widget Areas
+## ウィジェットエリア
 
-- Sidebar Widget Area
-- Footer Widget Areas (multi-column support)
+- サイドバーウィジェットエリア
+- フッターウィジェットエリア（複数カラム対応）
 
-## SEO Features
+## SEO機能
 
-### Built-in SEO Functionality
+### 内蔵SEO機能
 
-- **Meta Description Auto-extraction** - Extracts from excerpt or first 25 words of content
-- **Title Tag Optimization** - Customizable separator, automatic title generation
-- **Page SEO Extensions** - Excerpt field and tag support for pages
-- **SEO-Friendly URLs** - Automatic permalink structure optimization
-- **HTML5 Semantic Markup** - Search engine friendly structure
-- **Responsive Design** - Mobile-first approach
+- **メタディスクリプション自動抽出** - 抜粋または本文の最初の25語から抽出
+- **タイトルタグ最適化** - カスタマイズ可能な区切り文字、自動タイトル生成
+- **固定ページSEO拡張** - 抜粋フィールドとタグのサポート
+- **SEOフレンドリーURL** - パーマリンク構造の自動最適化
+- **HTML5セマンティックマークアップ** - 検索エンジンフレンドリーな構造
+- **レスポンシブデザイン** - モバイルファースト対応
 
-### Plugin-Based Extensions
+### プラグインによる拡張
 
-Advanced SEO features are intended to be added via specialized plugins such as "SEO・LLMO・GEO・AIO Optimization Plugin":
+高度なSEO機能は「SEO・LLMO・GEO・AIO最適化プラグイン」などの専用プラグインで追加することを想定:
 
-- Structured Data (JSON-LD, Schema.org)
-- Open Graph tags (Facebook and other SNS)
-- Twitter Card tags
-- Canonical URL tags
-- Advanced robots meta tag control
+- 構造化データ（JSON-LD、Schema.org）
+- Open Graphタグ（Facebook等のSNS）
+- Twitter Cardタグ
+- Canonical URLタグ
+- 高度なrobotsメタタグ制御
 
-## Developer Features
+## 開発者向け機能
 
-### Cache Busting
+### キャッシュバスティング
 
-The theme implements timestamp-based versioning for CSS and JavaScript files to resolve cache issues during development. This feature can be toggled on/off via the Customizer.
+開発時のキャッシュ問題を解決するため、CSSとJavaScriptファイルにタイムスタンプベースのバージョニングを実装。カスタマイザーでオン/オフの切り替えが可能。
 
-### Utility Functions
+### ユーティリティ関数
 
-The theme includes the following utility modules:
+以下のユーティリティモジュールを搭載:
 
-- `core-utilities.php` - Core functionality helper functions
-- `layout-utilities.php` - Layout-related functions
-- `typography-utilities.php` - Typography functions
-- `color-utilities.php` - Color processing functions
-- `design-utilities.php` - Design pattern functions
-- `decoration-utilities.php` - Decoration-related functions
+- `core-utilities.php` - コア機能ヘルパー関数
+- `layout-utilities.php` - レイアウト関連関数
+- `typography-utilities.php` - タイポグラフィ関数
+- `color-utilities.php` - カラー処理関数
+- `design-utilities.php` - デザインパターン関数
+- `decoration-utilities.php` - 装飾関連関数
 
-## WordPress Theme Support
+## WordPressテーマサポート
 
-- Custom Logo
-- Custom Menus (Main, Footer)
-- Post Thumbnails
-- HTML5 Markup
-- Automatic Feed Links
-- Title Tag Support
-- Editor Styles
-- Wide Alignment
-- Responsive Embeds
-- Page Excerpts and Tags
+- カスタムロゴ
+- カスタムメニュー（メイン、フッター）
+- アイキャッチ画像
+- HTML5マークアップ
+- 自動フィードリンク
+- タイトルタグサポート
+- エディタースタイル
+- ワイドアライメント
+- レスポンシブ埋め込み
+- 固定ページの抜粋とタグ
 
-## Important Note
+## 重要事項
 
-**Plugin Integration**: This theme is designed as a minimal base theme. Advanced features such as SEO enhancements, LLMO (Large Language Model Optimization), and GEO (Geographic Optimization) are intended to be added via specialized plugins like "SEO・LLMO・GEO・AIO Optimization Plugin".
+**プラグイン連携**: このテーマは必要最小限のベーステーマとして設計されています。SEO強化、LLMO（大規模言語モデル最適化）、GEO（生成エンジン最適化）などの高度な機能は、「SEO・LLMO・GEO・AIO最適化プラグイン」などの専用プラグインで追加することを想定しています。
 
-## Child Theme
+## 子テーマ
 
-**Official Child Theme Sample Available**
+**公式子テーマサンプルを提供**
 
-A sample child theme is available for safe customization:
+安全なカスタマイズのためのサンプル子テーマを用意しています:
 
-🔗 **[Backbone SEO LLMO Child Theme](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child)**
+**[Backbone SEO LLMO Child Theme](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child)**
 
-### Why Use a Child Theme?
+### 子テーマを使う理由
 
-- ✅ **Safe Updates**: Parent theme updates won't overwrite your customizations
-- ✅ **Easy Customization**: Only modify the files you need
-- ✅ **Reversible**: Deactivate the child theme to return to the original
-- ✅ **Learning-Friendly**: Study parent theme code while customizing
+- **安全なアップデート**: 親テーマの更新でカスタマイズが上書きされない
+- **簡単なカスタマイズ**: 必要なファイルだけを変更
+- **元に戻せる**: 子テーマを無効化すればオリジナルに戻る
+- **学習に最適**: カスタマイズしながら親テーマのコードを学習
 
-### Quick Start
+### クイックスタート
 
-1. Download the child theme from [GitHub](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child)
-2. Install both parent and child themes
-3. Activate the **child theme** (not the parent)
-4. Customize via `style.css`, `functions.php`, or template files
+1. [GitHub](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child)から子テーマをダウンロード
+2. 親テーマと子テーマの両方をインストール
+3. **子テーマ**を有効化（親テーマではなく）
+4. `style.css`、`functions.php`、またはテンプレートファイルでカスタマイズ
 
-See the [child theme documentation](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child) for detailed instructions.
+詳細は[子テーマドキュメント](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child)を参照。
 
-## Changelog
+## 更新履歴
+
+### [1.0.29] - 2025-12-08
+- **追加**: テーマ診断・バックアップページ（`backbone-diagnostics`）を管理メニューに追加
+- **追加**: 設定バックアップの作成・復元・削除機能（最大5件まで保持）
+- **追加**: サブディレクトリ設定の独立バックアップ機能（`backbone_subdirectory_settings`に自動保存）
+- **追加**: カスタマイザー保存時とテーマ切り替え時の自動バックアップ
+- **追加**: カスタマイザー変更ログ（最新50件）
+- **追加**: theme_modsが空の場合のフォールバック復元機能（独立バックアップから自動復元）
+- **改善**: サブディレクトリの追加・削除時に独立バックアップを更新しログに記録
 
 ### [1.0.28] - 2025-12-04
-- **Added**: Taxonomy root pages (`/tag/`, `/category/`) with tag cloud display
-- **Added**: Custom query variable `taxonomy_root` for taxonomy listing pages
-- **Fixed**: Taxonomy root pages now correctly use "Other Archives" layout setting in Customizer
-- **Fixed**: Body class `page-type-archive` now correctly applied to taxonomy root pages
+- **追加**: タクソノミールートページ（`/tag/`、`/category/`）にタグクラウド表示
+- **追加**: タクソノミー一覧ページ用のカスタムクエリ変数 `taxonomy_root`
+- **修正**: タクソノミールートページがカスタマイザーの「その他のアーカイブ」レイアウト設定を正しく使用するように
+- **修正**: タクソノミールートページに `page-type-archive` ボディクラスが正しく適用されるように
 
 ### [1.0.27] - 2025-12-02
-- **Fixed**: Mobile layout issue where sidebar content was cut off due to improper full-width calculation in `layout-two-columns.css`
-- **Fixed**: Sidebar widgets not showing on mobile due to `overflow: hidden` in `components-sidebar.css`
-- **Fixed**: Mobile sidebar order issue where it appeared above main content instead of below
-- **Changed**: Replaced fragile `width: 100vw` hack with standard `width: 100%` to respect parent container padding
-- **Changed**: Restored default mobile sidebar order (below main content)
+- **修正**: `layout-two-columns.css` の不適切な全幅計算によりモバイルでサイドバーコンテンツが切れる問題
+- **修正**: `components-sidebar.css` の `overflow: hidden` によりモバイルでサイドバーウィジェットが表示されない問題
+- **修正**: モバイルでサイドバーがメインコンテンツの上に表示される順序の問題
+- **変更**: 不安定な `width: 100vw` ハックを標準的な `width: 100%` に置き換え
+- **変更**: モバイルでのサイドバー順序をデフォルト（メインコンテンツの下）に復元
 
 ### [1.0.26] - 2025-11-26
-- **Added**: Extended individual layout settings to all post types (Posts, Custom Post Types)
-- **Changed**: Unified "Full Width" label with Customizer terminology
-- **Changed**: Updated meta box definition for broader compatibility
+- **追加**: 全投稿タイプ（投稿、カスタム投稿タイプ）に個別レイアウト設定を拡張
+- **変更**: カスタマイザー用語と「全幅」ラベルを統一
+- **変更**: より広い互換性のためメタボックス定義を更新
 
 ### [1.0.25] - 2025-11-25
-- **Fixed**: Vertical submenu (3rd level+) disappearing when hovering on parent items
-- **Fixed**: Added hover region extension and JavaScript handling for vertical layout stability
+- **修正**: 親アイテムにホバー時に垂直サブメニュー（3階層以上）が消える問題
+- **修正**: 垂直レイアウトの安定性のためホバー領域拡張とJavaScript処理を追加
 
 ### [1.0.24] - 2025-11-24
-- **Added**: SEO meta tags enable/disable settings in customizer (Meta Description / Meta Keywords)
-- **Improved**: Meta description automatic generation for all page types (home, archives, search, 404)
-- **Improved**: Meta keywords automatic extraction from tags, categories, and content
-- **Added**: Helper function for intelligent keyword extraction with stop-word filtering
+- **追加**: カスタマイザーにSEOメタタグの有効/無効設定（メタディスクリプション/メタキーワード）
+- **改善**: 全ページタイプ（ホーム、アーカイブ、検索、404）のメタディスクリプション自動生成
+- **改善**: タグ、カテゴリー、コンテンツからのメタキーワード自動抽出
+- **追加**: ストップワードフィルタリング付きのインテリジェントキーワード抽出ヘルパー関数
 
 ### [1.0.23] - 2025-11-23
-- **Fixed**: Customizer jQuery dependency errors causing preview infinite loop
-- **Fixed**: Script duplicate registration in customizer controls
-- **Improved**: Inline script dependency management using `wp_add_inline_script`
-- **Improved**: Proper script loading order for customizer preview and controls
+- **修正**: プレビューの無限ループを引き起こすカスタマイザーのjQuery依存エラー
+- **修正**: カスタマイザーコントロールでのスクリプト重複登録
+- **改善**: `wp_add_inline_script` を使用したインラインスクリプト依存関係管理
+- **改善**: カスタマイザープレビューとコントロールの適切なスクリプト読み込み順序
 
 ### [1.0.22] - 2025-11-18
-- **Added**: Mobile menu breakpoint customizer setting (Always visible / Mobile only ≤767px / Tablet and below ≤1279px)
-- **Added**: Navigation CSS dynamic output module for responsive menu control
-- **Added**: `.active` class support for plugin-based hamburger menu functionality
-- **Improved**: Plugin-first architecture - theme controls breakpoints, plugins handle hamburger UI
-- **Changed**: Menu visibility control delegated to customizer instead of hardcoded CSS
-- **Fixed**: File permissions issue with navigation CSS module
+- **追加**: モバイルメニューブレークポイントのカスタマイザー設定（常に表示/モバイルのみ≤767px/タブレット以下≤1279px）
+- **追加**: レスポンシブメニュー制御用のナビゲーションCSS動的出力モジュール
+- **追加**: プラグインベースのハンバーガーメニュー機能用 `.active` クラスサポート
+- **改善**: プラグイン優先アーキテクチャ - テーマがブレークポイントを制御、プラグインがハンバーガーUIを担当
+- **変更**: メニュー表示制御をハードコードCSSからカスタマイザーに委譲
+- **修正**: ナビゲーションCSSモジュールのファイルパーミッション問題
 
 ### [1.0.21] - 2025-11-17
-- **Added**: Navigation menu customizer settings integrated into WordPress native menu panel
-- **Added**: Deep hierarchy submenu display direction setting (vertical/horizontal)
-- **Changed**: Default submenu direction from horizontal to vertical (stair-step indentation)
-- **Improved**: Post meta settings with dynamic visibility control (unified vs individual mode)
-- **Improved**: Navigation CSS with better hover effects and panel design
-- **Fixed**: Submenu visibility in full-width layouts
+- **追加**: WordPressネイティブメニューパネルに統合されたナビゲーションメニューカスタマイザー設定
+- **追加**: 深い階層のサブメニュー表示方向設定（垂直/水平）
+- **変更**: サブメニューのデフォルト方向を水平から垂直（階段状インデント）に変更
+- **改善**: 動的表示制御（統一/個別モード）付きの投稿メタ設定
+- **改善**: より良いホバー効果とパネルデザインのナビゲーションCSS
+- **修正**: 全幅レイアウトでのサブメニュー表示
 
 ### [1.0.20] - 2025-11-14
-- **Added**: Custom author URL setting feature
+- **追加**: カスタム著者URL設定機能
 
 ### [1.0.19] - 2025-11-13
-- **Changed**: Removed "Content Max Width" from Front Page Settings, added "Single Column Max Width" to Layout Settings
-- **Fixed**: Resolved contradiction between Layout Settings and Front Page Settings
-- **Improved**: Content max width now only applies to single-column layouts, not affecting 2-column or 3-column layouts
+- **変更**: フロントページ設定から「コンテンツ最大幅」を削除、レイアウト設定に「1カラム最大幅」を追加
+- **修正**: レイアウト設定とフロントページ設定の矛盾を解消
+- **改善**: コンテンツ最大幅が1カラムレイアウトのみに適用され、2カラム・3カラムレイアウトには影響しないように
 
-**Current Version:** 1.0.28 (2025-12-04)
+**現在のバージョン:** 1.0.29 (2025-12-08)
 
-For complete version history and detailed changes, see [CHANGELOG.md](CHANGELOG.md).
+完全なバージョン履歴と詳細な変更点については [CHANGELOG.md](CHANGELOG.md) を参照してください。
 
-## License
+## ライセンス
 
-This theme is licensed under GPL v2 or later.
-License: https://www.gnu.org/licenses/gpl-2.0.html
+このテーマは GPL v2 以降でライセンスされています。
+ライセンス: https://www.gnu.org/licenses/gpl-2.0.html
 
-## Support & Development
+## サポート・開発
 
-**Developer**: Tsuyoshi Kashiwazaki
-**Website**: https://www.tsuyoshikashiwazaki.jp/profile/
-**Support**: For questions or bug reports regarding this theme, please contact via the developer website.
+**開発者**: 柏崎 剛（Tsuyoshi Kashiwazaki）
+**ウェブサイト**: https://www.tsuyoshikashiwazaki.jp/profile/
+**サポート**: このテーマに関するご質問やバグ報告は、開発者ウェブサイトからお問い合わせください。
 
-## Contributing
+## コントリビューション
 
-Contributions are welcome! Please feel free to submit pull requests or open issues on GitHub.
+コントリビューションを歓迎します！GitHubでプルリクエストやイシューをお気軽にお寄せください。
 
 ---
 
 <div align="center">
 
-**Keywords**: WordPress theme, base theme, SEO, LLMO, media optimization, plugin-extensible, lightweight, responsive, customizer, blog theme
+**キーワード**: WordPressテーマ, ベーステーマ, SEO, LLMO, メディア最適化, プラグイン拡張, 軽量, レスポンシブ, カスタマイザー, ブログテーマ
 
 Made by [Tsuyoshi Kashiwazaki](https://github.com/TsuyoshiKashiwazaki)
 

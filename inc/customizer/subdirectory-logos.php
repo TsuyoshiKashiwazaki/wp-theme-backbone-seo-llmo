@@ -260,6 +260,16 @@ function backbone_handle_add_subdirectory() {
     // theme_modを直接更新
     set_theme_mod('subdirectory_count', $count);
 
+    // 独立バックアップを更新
+    if (function_exists('backbone_save_independent_backup')) {
+        backbone_save_independent_backup();
+    }
+
+    // 変更ログに記録
+    if (function_exists('backbone_log_customizer_change')) {
+        backbone_log_customizer_change(sprintf(__('サブディレクトリ設定を追加（計%d件）', 'backbone-seo-llmo'), $count));
+    }
+
     wp_send_json_success(array('count' => $count));
 }
 
@@ -341,6 +351,16 @@ function backbone_handle_delete_subdirectory() {
     // カウントを更新
     $new_count = max(0, $current_count - 1);
     set_theme_mod('subdirectory_count', $new_count);
+
+    // 独立バックアップを更新
+    if (function_exists('backbone_save_independent_backup')) {
+        backbone_save_independent_backup();
+    }
+
+    // 変更ログに記録
+    if (function_exists('backbone_log_customizer_change')) {
+        backbone_log_customizer_change(sprintf(__('サブディレクトリ設定を削除（残り%d件）', 'backbone-seo-llmo'), $new_count));
+    }
 
     wp_send_json_success(array('count' => $new_count));
 }
