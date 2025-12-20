@@ -873,19 +873,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
         /**
          * メニューパスを活性化（親も含めて全てアクティブに）
+         * 他のサブメニューは自動的に閉じる
          */
         function activateMenuPath(menuItem) {
             // このメニュー項目から親方向へ遡り、全ての親をアクティブに
             var current = menuItem;
             var newPath = [];
 
+            // 新しいパスを構築
             while (current) {
                 if (current.classList && current.classList.contains('menu-item-has-children')) {
                     newPath.unshift(current); // 親から順に追加
-                    current.classList.add('submenu-active');
                 }
                 current = current.parentElement ? current.parentElement.closest('.menu-item-has-children') : null;
             }
+
+            // 新しいパスに含まれない項目から submenu-active を削除（他のサブメニューを閉じる）
+            document.querySelectorAll('.main-navigation .menu-item-has-children.submenu-active').forEach(function(item) {
+                if (newPath.indexOf(item) === -1) {
+                    item.classList.remove('submenu-active');
+                }
+            });
+
+            // 新しいパスの項目に submenu-active を追加
+            newPath.forEach(function(item) {
+                item.classList.add('submenu-active');
+            });
 
             activeMenuPath = newPath;
 

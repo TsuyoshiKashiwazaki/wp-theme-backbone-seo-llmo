@@ -34,6 +34,7 @@ get_header(); ?>
 
             // 表示要素の設定
             $show_thumbnail = backbone_get_archive_setting('show_thumbnail', true);
+            $thumbnail_size = backbone_get_archive_setting('thumbnail_size', 'full');
             $show_date = backbone_get_archive_setting('show_date', true);
             $show_modified = backbone_get_archive_setting('show_modified', false);
             $show_category = backbone_get_archive_setting('show_category', false);
@@ -77,7 +78,7 @@ get_header(); ?>
                     <?php if ($show_thumbnail && has_post_thumbnail()) : ?>
                         <div class="post-thumbnail">
                             <a href="<?php the_permalink(); ?>">
-                                <?php the_post_thumbnail('medium'); ?>
+                                <?php the_post_thumbnail($thumbnail_size); ?>
                             </a>
                         </div>
                     <?php endif; ?>

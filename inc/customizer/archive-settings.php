@@ -192,6 +192,37 @@ function backbone_add_archive_setting_controls($wp_customize, $type, $section, $
     }
     $wp_customize->add_control($prefix . 'show_thumbnail', $control_args);
 
+    // アイキャッチ画像サイズ
+    $wp_customize->add_setting($prefix . 'thumbnail_size', array(
+        'default' => 'full',
+        'sanitize_callback' => 'backbone_sanitize_thumbnail_size',
+        'transport' => 'refresh',
+    ));
+
+    $control_args = array(
+        'label' => __('アイキャッチ画像サイズ', 'backbone-seo-llmo'),
+        'section' => $section,
+        'type' => 'select',
+        'choices' => array(
+            'full' => __('フルサイズ', 'backbone-seo-llmo'),
+            'large' => __('大サイズ', 'backbone-seo-llmo'),
+            'medium_large' => __('中大サイズ', 'backbone-seo-llmo'),
+            'medium' => __('中サイズ', 'backbone-seo-llmo'),
+            'thumbnail' => __('サムネイル', 'backbone-seo-llmo'),
+        ),
+        'priority' => $priority++,
+    );
+    if ($is_individual) {
+        $control_args['active_callback'] = function() use ($prefix) {
+            return backbone_is_individual_archive_settings_enabled() && get_theme_mod($prefix . 'show_thumbnail', true);
+        };
+    } else {
+        $control_args['active_callback'] = function() use ($prefix) {
+            return backbone_is_unified_archive_settings_enabled() && get_theme_mod($prefix . 'show_thumbnail', true);
+        };
+    }
+    $wp_customize->add_control($prefix . 'thumbnail_size', $control_args);
+
     // 投稿日表示
     $wp_customize->add_setting($prefix . 'show_date', array(
         'default' => true,
@@ -359,6 +390,22 @@ function backbone_sanitize_archive_orderby($value) {
     }
 
     return 'date';
+}
+
+/**
+ * アイキャッチ画像サイズのサニタイズ関数
+ *
+ * @param string $value 入力値
+ * @return string サニタイズ済みの値
+ */
+function backbone_sanitize_thumbnail_size($value) {
+    $valid_sizes = array('full', 'large', 'medium_large', 'medium', 'thumbnail');
+
+    if (in_array($value, $valid_sizes, true)) {
+        return $value;
+    }
+
+    return 'full';
 }
 
 /**

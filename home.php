@@ -33,6 +33,11 @@ get_header(); ?>
 
         <!-- 投稿一覧の表示 -->
         <?php if (have_posts()) : ?>
+            <?php
+            // アーカイブ設定を取得
+            $show_thumbnail = backbone_get_archive_setting('show_thumbnail', true);
+            $thumbnail_size = backbone_get_archive_setting('thumbnail_size', 'full');
+            ?>
             <div class="posts-section">
                 <header class="posts-section-header">
                     <h2 class="posts-section-title"><?php _e('最新の投稿', 'backbone-seo-llmo'); ?></h2>
@@ -72,10 +77,10 @@ get_header(); ?>
                                 </div>
                             </header>
 
-                            <?php if (has_post_thumbnail()) : ?>
+                            <?php if ($show_thumbnail && has_post_thumbnail()) : ?>
                                 <div class="post-thumbnail">
                                     <a href="<?php the_permalink(); ?>">
-                                        <?php the_post_thumbnail('medium'); ?>
+                                        <?php the_post_thumbnail($thumbnail_size); ?>
                                     </a>
                                 </div>
                             <?php endif; ?>

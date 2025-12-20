@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.29
+Stable tag: 1.0.30
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,11 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.0.30 - 2025-12-20 =
+* 追加: アーカイブページのアイキャッチ画像サイズ選択機能（フルサイズ/大/中大/中/サムネイル）
+* 追加: サブメニュー表示時に他のサブメニューを自動で閉じる機能
+* 変更: README.mdから更新履歴を削除（CHANGELOG.mdに一元化）
 
 = 1.0.29 - 2025-12-08 =
 * 追加: テーマ診断・バックアップページ（backbone-diagnostics）を管理メニューに追加
