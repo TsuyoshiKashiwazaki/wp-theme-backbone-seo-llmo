@@ -368,6 +368,17 @@ function backbone_add_front_page_settings($wp_customize) {
                 'type' => 'checkbox',
                 'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
             ),
+            'thumbnail_size' => array(
+                'type' => 'select',
+                'label' => __('アイキャッチ画像サイズ', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'full' => __('フルサイズ', 'backbone-seo-llmo'),
+                    'large' => __('大サイズ', 'backbone-seo-llmo'),
+                    'medium_large' => __('中大サイズ', 'backbone-seo-llmo'),
+                    'medium' => __('中サイズ', 'backbone-seo-llmo'),
+                    'thumbnail' => __('サムネイル', 'backbone-seo-llmo'),
+                ),
+            ),
             'show_date' => array(
                 'type' => 'checkbox',
                 'label' => __('投稿日を表示', 'backbone-seo-llmo'),
@@ -498,6 +509,17 @@ function backbone_add_front_page_settings($wp_customize) {
                 'type' => 'checkbox',
                 'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
             ),
+            'thumbnail_size' => array(
+                'type' => 'select',
+                'label' => __('アイキャッチ画像サイズ', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'full' => __('フルサイズ', 'backbone-seo-llmo'),
+                    'large' => __('大サイズ', 'backbone-seo-llmo'),
+                    'medium_large' => __('中大サイズ', 'backbone-seo-llmo'),
+                    'medium' => __('中サイズ', 'backbone-seo-llmo'),
+                    'thumbnail' => __('サムネイル', 'backbone-seo-llmo'),
+                ),
+            ),
             'show_date' => array(
                 'type' => 'checkbox',
                 'label' => __('投稿日を表示', 'backbone-seo-llmo'),
@@ -514,14 +536,16 @@ function backbone_add_front_page_settings($wp_customize) {
                 'type' => 'checkbox',
                 'label' => __('抜粋を表示', 'backbone-seo-llmo'),
             ),
+            'show_archive_link' => array(
+                'type' => 'checkbox',
+                'label' => __('一覧表示リンクを表示', 'backbone-seo-llmo'),
+            ),
         ),
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
                    get_theme_mod('backbone_front_list_2_enable', false);
         },
     )));
-
-    // Note: show_archive_link already added above for sections 1-5
 
     // --- 一覧表示セクション 3 ---
     $wp_customize->add_setting('backbone_front_list_3_enable', array(
@@ -625,6 +649,17 @@ function backbone_add_front_page_settings($wp_customize) {
             'show_thumbnail' => array(
                 'type' => 'checkbox',
                 'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'thumbnail_size' => array(
+                'type' => 'select',
+                'label' => __('アイキャッチ画像サイズ', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'full' => __('フルサイズ', 'backbone-seo-llmo'),
+                    'large' => __('大サイズ', 'backbone-seo-llmo'),
+                    'medium_large' => __('中大サイズ', 'backbone-seo-llmo'),
+                    'medium' => __('中サイズ', 'backbone-seo-llmo'),
+                    'thumbnail' => __('サムネイル', 'backbone-seo-llmo'),
+                ),
             ),
             'show_date' => array(
                 'type' => 'checkbox',
@@ -756,6 +791,17 @@ function backbone_add_front_page_settings($wp_customize) {
                 'type' => 'checkbox',
                 'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
             ),
+            'thumbnail_size' => array(
+                'type' => 'select',
+                'label' => __('アイキャッチ画像サイズ', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'full' => __('フルサイズ', 'backbone-seo-llmo'),
+                    'large' => __('大サイズ', 'backbone-seo-llmo'),
+                    'medium_large' => __('中大サイズ', 'backbone-seo-llmo'),
+                    'medium' => __('中サイズ', 'backbone-seo-llmo'),
+                    'thumbnail' => __('サムネイル', 'backbone-seo-llmo'),
+                ),
+            ),
             'show_date' => array(
                 'type' => 'checkbox',
                 'label' => __('投稿日を表示', 'backbone-seo-llmo'),
@@ -885,6 +931,17 @@ function backbone_add_front_page_settings($wp_customize) {
             'show_thumbnail' => array(
                 'type' => 'checkbox',
                 'label' => __('アイキャッチ画像を表示', 'backbone-seo-llmo'),
+            ),
+            'thumbnail_size' => array(
+                'type' => 'select',
+                'label' => __('アイキャッチ画像サイズ', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'full' => __('フルサイズ', 'backbone-seo-llmo'),
+                    'large' => __('大サイズ', 'backbone-seo-llmo'),
+                    'medium_large' => __('中大サイズ', 'backbone-seo-llmo'),
+                    'medium' => __('中サイズ', 'backbone-seo-llmo'),
+                    'thumbnail' => __('サムネイル', 'backbone-seo-llmo'),
+                ),
             ),
             'show_date' => array(
                 'type' => 'checkbox',
@@ -1763,6 +1820,7 @@ function backbone_sanitize_list_sections_json($value) {
         $sanitized_section['layout'] = isset($section['layout']) ? backbone_sanitize_layout_unified($section['layout']) : '3col';
         $sanitized_section['orderby'] = isset($section['orderby']) ? backbone_sanitize_posts_orderby($section['orderby']) : 'date';
         $sanitized_section['show_thumbnail'] = isset($section['show_thumbnail']) ? rest_sanitize_boolean($section['show_thumbnail']) : true;
+        $sanitized_section['thumbnail_size'] = isset($section['thumbnail_size']) ? backbone_sanitize_thumbnail_size($section['thumbnail_size']) : 'full';
         $sanitized_section['show_date'] = isset($section['show_date']) ? rest_sanitize_boolean($section['show_date']) : true;
         $sanitized_section['show_modified'] = isset($section['show_modified']) ? rest_sanitize_boolean($section['show_modified']) : false;
         $sanitized_section['show_category'] = isset($section['show_category']) ? rest_sanitize_boolean($section['show_category']) : true;

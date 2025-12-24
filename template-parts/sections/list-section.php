@@ -22,6 +22,7 @@ $layout = isset($section['layout']) ? $section['layout'] : '3col';
 $orderby = isset($section['orderby']) ? $section['orderby'] : 'date';
 
 $show_thumbnail = isset($section['show_thumbnail']) ? $section['show_thumbnail'] : true;
+$thumbnail_size = isset($section['thumbnail_size']) ? $section['thumbnail_size'] : 'full';
 $show_date = isset($section['show_date']) ? $section['show_date'] : true;
 $show_modified = isset($section['show_modified']) ? $section['show_modified'] : false;
 $show_category = isset($section['show_category']) ? $section['show_category'] : true;
@@ -102,7 +103,7 @@ if ($posts_query->have_posts()) :
                     <?php if ($show_thumbnail && has_post_thumbnail()) : ?>
                         <div class="post-thumbnail">
                             <a href="<?php the_permalink(); ?>">
-                                <?php the_post_thumbnail('medium'); ?>
+                                <?php the_post_thumbnail($thumbnail_size); ?>
                             </a>
                         </div>
                     <?php endif; ?>

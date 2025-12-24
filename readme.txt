@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.30
+Stable tag: 1.0.31
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,9 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.0.31 - 2025-12-24 =
+* 追加: フロントページ一覧表示セクションにアイキャッチ画像サイズ選択オプション（デフォルト: フルサイズ）
 
 = 1.0.30 - 2025-12-20 =
 * 追加: アーカイブページのアイキャッチ画像サイズ選択機能（フルサイズ/大/中大/中/サムネイル）
