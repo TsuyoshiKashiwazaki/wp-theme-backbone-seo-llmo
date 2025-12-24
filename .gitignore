@@ -27,7 +27,10 @@ desktop.ini
 *.tmp
 *.temp
 .cache/
+.tmp/
+.temp/
 tmp/
+temp/
 
 # Uploads directory
 uploads/

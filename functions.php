@@ -76,7 +76,7 @@ function backbone_enqueue_responsive_typography() {
     wp_enqueue_style(
         'typography-responsive',
         get_template_directory_uri() . '/css/typography-responsive.css',
-        array('style'),
+        array('seo-optimus-style'),
         backbone_get_file_version('/css/typography-responsive.css', $cache_busting_frontend)
     );
 }

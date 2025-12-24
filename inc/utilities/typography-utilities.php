@@ -18,27 +18,39 @@ if (!defined('ABSPATH')) {
  * タイポグラフィJSONファイルを読み込む
  */
 function backbone_get_typography_patterns() {
-    $typography_dir = get_template_directory() . '/inc/typography-themes/';
     $patterns = array();
 
-    // typographyディレクトリが存在しない場合は空配列を返す
-    if (!is_dir($typography_dir)) {
-        return $patterns;
+    // 親テーマのパターンを読み込み
+    $parent_dir = get_template_directory() . '/inc/typography-themes/';
+    if (is_dir($parent_dir)) {
+        $patterns = backbone_load_typography_from_dir($parent_dir, $patterns);
     }
 
-    // JSONファイルを読み込む
-    $files = glob($typography_dir . '*.json');
-
-    foreach ($files as $file) {
-        $json_content = file_get_contents($file);
-        $pattern_data = json_decode($json_content, true);
-
-        // JSONが正しく読み込めた場合のみ追加
-        if ($pattern_data && isset($pattern_data['id']) && isset($pattern_data['name'])) {
-            $patterns[$pattern_data['id']] = $pattern_data;
+    // 子テーマのパターンを読み込み（上書き可能）
+    if (get_template_directory() !== get_stylesheet_directory()) {
+        $child_dir = get_stylesheet_directory() . '/inc/typography-themes/';
+        if (is_dir($child_dir)) {
+            $patterns = backbone_load_typography_from_dir($child_dir, $patterns);
         }
     }
 
+    return $patterns;
+}
+
+/**
+ * 指定ディレクトリからタイポグラフィパターンを読み込む
+ */
+function backbone_load_typography_from_dir($dir, $patterns) {
+    $files = glob($dir . '*.json');
+    if ($files) {
+        foreach ($files as $file) {
+            $json_content = file_get_contents($file);
+            $pattern_data = json_decode($json_content, true);
+            if ($pattern_data && isset($pattern_data['id']) && isset($pattern_data['name'])) {
+                $patterns[$pattern_data['id']] = $pattern_data;
+            }
+        }
+    }
     return $patterns;
 }
 

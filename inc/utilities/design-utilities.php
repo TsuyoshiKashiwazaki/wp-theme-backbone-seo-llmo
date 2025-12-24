@@ -19,17 +19,38 @@ if (!defined('ABSPATH')) {
  */
 function backbone_get_design_patterns() {
     $patterns = array();
-    $pattern_files = glob(get_template_directory() . '/inc/design-themes/*.json');
 
-    foreach ($pattern_files as $file) {
-        $json_content = file_get_contents($file);
-        $pattern = json_decode($json_content, true);
+    // 親テーマのパターンを読み込み
+    $parent_dir = get_template_directory() . '/inc/design-themes/';
+    if (is_dir($parent_dir)) {
+        $patterns = backbone_load_design_from_dir($parent_dir, $patterns);
+    }
 
-        if ($pattern && isset($pattern['id'], $pattern['name'])) {
-            $patterns[$pattern['id']] = $pattern;
+    // 子テーマのパターンを読み込み（上書き可能）
+    if (get_template_directory() !== get_stylesheet_directory()) {
+        $child_dir = get_stylesheet_directory() . '/inc/design-themes/';
+        if (is_dir($child_dir)) {
+            $patterns = backbone_load_design_from_dir($child_dir, $patterns);
         }
     }
 
+    return $patterns;
+}
+
+/**
+ * 指定ディレクトリからデザインパターンを読み込む
+ */
+function backbone_load_design_from_dir($dir, $patterns) {
+    $files = glob($dir . '*.json');
+    if ($files) {
+        foreach ($files as $file) {
+            $json_content = file_get_contents($file);
+            $pattern_data = json_decode($json_content, true);
+            if ($pattern_data && isset($pattern_data['id']) && isset($pattern_data['name'])) {
+                $patterns[$pattern_data['id']] = $pattern_data;
+            }
+        }
+    }
     return $patterns;
 }
 

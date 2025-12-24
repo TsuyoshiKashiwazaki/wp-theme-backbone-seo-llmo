@@ -100,7 +100,8 @@ function backbone_scripts() {
 
 
     // メインスタイルシート（キャッシュバスティング対応）
-    wp_enqueue_style('seo-optimus-style', get_stylesheet_uri(), array(), backbone_get_file_version('/style.css', $cache_busting_frontend));
+    // 親テーマのstyle.cssを常に読み込む（子テーマがアクティブでも）
+    wp_enqueue_style('seo-optimus-style', get_template_directory_uri() . '/style.css', array(), backbone_get_file_version('/style.css', $cache_busting_frontend));
 
     // 分割されたレイアウトCSSファイルの読み込み（キャッシュバスティング対応）
     wp_enqueue_style('seo-optimus-layout-base', get_template_directory_uri() . '/css/layout-base.css', array('seo-optimus-style'), backbone_get_file_version('/css/layout-base.css', $cache_busting_frontend));

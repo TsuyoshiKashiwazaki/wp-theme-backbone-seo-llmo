@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.31
+Stable tag: 1.0.32
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,12 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.0.32 - 2025-12-25 =
+* 修正: CSS依存関係バグ修正（array('style') → array('seo-optimus-style')）
+* 修正: get_stylesheet_uri() を get_template_directory_uri() に変更（子テーマ対応）
+* 修正: 1920px以上で2カラム・3カラムレイアウトのメインコンテンツが縮小する問題（typography-responsive.css）
+* 追加: パターンファイルの子テーマ対応（typography/decoration/design utilities）
 
 = 1.0.31 - 2025-12-24 =
 * 追加: フロントページ一覧表示セクションにアイキャッチ画像サイズ選択オプション（デフォルト: フルサイズ）

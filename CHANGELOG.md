@@ -2,6 +2,16 @@
 
 Backbone Theme for SEO + LLMO のすべての重要な変更はこのファイルに記録されます。
 
+## [1.0.32] - 2025-12-25
+
+### 修正
+- CSS依存関係バグ修正（`array('style')` → `array('seo-optimus-style')`）
+- `get_stylesheet_uri()` を `get_template_directory_uri() . '/style.css'` に変更（子テーマ対応）
+- 1920px以上で2カラム・3カラムレイアウトのメインコンテンツが縮小する問題を修正（`typography-responsive.css`）
+
+### 追加
+- パターンファイルの子テーマ対応（typography/decoration/design utilities）
+
 ## [1.0.31] - 2025-12-24
 
 ### 追加

@@ -53,6 +53,12 @@
     .layout-full-width .entry-content {
         max-width: none;
     }
+
+    /* 2カラム・3カラムレイアウトでも最大幅制限を解除 */
+    .layout-two-columns .entry-content,
+    .layout-three-columns .entry-content {
+        max-width: none;
+    }
 }
 
 /* 印刷用スタイル */
