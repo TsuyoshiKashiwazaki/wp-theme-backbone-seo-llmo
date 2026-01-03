@@ -158,7 +158,105 @@ function backbone_add_front_page_settings($wp_customize) {
         },
     ));
 
-    // --- 説明文 ---
+    // --- 説明文ソース選択 ---
+    $wp_customize->add_setting('backbone_front_description_source', array(
+        'default' => 'manual',
+        'sanitize_callback' => 'sanitize_text_field',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_description_source', array(
+        'label' => __('説明文のソース', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 68,
+        'type' => 'radio',
+        'choices' => array(
+            'manual' => __('手動入力', 'backbone-seo-llmo'),
+            'page' => __('ページから取得', 'backbone-seo-llmo'),
+        ),
+        'description' => __('説明文を直接入力するか、既存のページから取得するかを選択してください。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
+        },
+    ));
+
+    // --- 説明文ソースページ選択（検索可能） ---
+    $wp_customize->add_setting('backbone_front_description_page', array(
+        'default' => 0,
+        'sanitize_callback' => 'absint',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control(new Backbone_Customize_Searchable_Select_Control($wp_customize, 'backbone_front_description_page', array(
+        'label' => __('ソースページ', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 69,
+        'choices' => backbone_get_all_posts_for_dropdown(),
+        'description' => __('コンテンツを取得するページ・投稿・カスタム投稿を選択してください。検索できます。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_description_source', 'manual') === 'page';
+        },
+    )));
+
+    // --- ソースページのタイトル表示 ---
+    $wp_customize->add_setting('backbone_front_description_show_title', array(
+        'default' => false,
+        'sanitize_callback' => 'wp_validate_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_description_show_title', array(
+        'label' => __('タイトル（h1）を表示する', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 69,
+        'type' => 'checkbox',
+        'description' => __('ソースページのタイトルも説明文の前に表示します。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_description_source', 'manual') === 'page';
+        },
+    ));
+
+    // --- ソースページのタイトルをページタイトルに使用 ---
+    $wp_customize->add_setting('backbone_front_use_source_title', array(
+        'default' => false,
+        'sanitize_callback' => 'wp_validate_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_use_source_title', array(
+        'label' => __('TITLEを「投稿タイトル | サイト名」にする', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 69,
+        'type' => 'checkbox',
+        'description' => __('ブラウザのタイトルタグにソースページのタイトルを使用します。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_description_source', 'manual') === 'page';
+        },
+    ));
+
+    // --- ソースページのアイキャッチ画像をメインビジュアルに使用 ---
+    $wp_customize->add_setting('backbone_front_use_source_thumbnail', array(
+        'default' => false,
+        'sanitize_callback' => 'wp_validate_boolean',
+        'transport' => 'refresh',
+    ));
+
+    $wp_customize->add_control('backbone_front_use_source_thumbnail', array(
+        'label' => __('アイキャッチ画像をメインビジュアルに使用', 'backbone-seo-llmo'),
+        'section' => 'static_front_page',
+        'priority' => 69,
+        'type' => 'checkbox',
+        'description' => __('ソースページのアイキャッチ画像をヒーローイメージとして表示します。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_description_source', 'manual') === 'page';
+        },
+    ));
+
+    // --- 説明文（手動入力） ---
     $wp_customize->add_setting('backbone_front_description', array(
         'default' => '',
         'sanitize_callback' => 'backbone_sanitize_wysiwyg_content',
@@ -175,7 +273,8 @@ function backbone_add_front_page_settings($wp_customize) {
             'textarea_rows' => 6,
         ),
         'active_callback' => function() {
-            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom';
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
+                   get_theme_mod('backbone_front_description_source', 'manual') === 'manual';
         },
     )));
 
@@ -1583,7 +1682,7 @@ function backbone_get_posts_for_dropdown() {
         'order' => 'DESC',
     ));
 
-    $options = array(0 => __('— 選択してください —', 'backbone-seo-llmo'));
+    $options = array(0 => __('— 未選択 —', 'backbone-seo-llmo'));
 
     foreach ($posts as $post) {
         $options[$post->ID] = $post->post_title;
@@ -1630,7 +1729,7 @@ function backbone_get_all_posts_for_dropdown() {
         'order' => 'DESC',
     ));
 
-    $options = array(0 => __('— 選択してください —', 'backbone-seo-llmo'));
+    $options = array(0 => __('— 未選択 —', 'backbone-seo-llmo'));
 
     foreach ($posts as $post) {
         $post_type_label = get_post_type_object($post->post_type)->labels->singular_name;

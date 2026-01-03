@@ -99,6 +99,79 @@ function backbone_enqueue_front_page_sections() {
 add_action('wp_enqueue_scripts', 'backbone_enqueue_front_page_sections', 26);
 
 /**
+ * フロントページのヒーローセクションで使用される投稿のブロックコンテンツを
+ * グローバルポストに一時的に追加し、has_block() チェックを通過させる
+ *
+ * これにより、どのプラグインのブロックでも汎用的にアセットが読み込まれる
+ */
+function backbone_setup_hero_block_context() {
+    global $post, $backbone_hero_original_content;
+
+    // フロントページでのみ実行
+    if (!is_front_page()) {
+        return;
+    }
+
+    // カスタムフロントページモードでない場合はスキップ
+    if (get_theme_mod('backbone_front_page_mode', 'custom') !== 'custom') {
+        return;
+    }
+
+    // 説明文のソースがページの場合のみ
+    $description_source = get_theme_mod('backbone_front_description_source', 'manual');
+    if ($description_source !== 'page') {
+        return;
+    }
+
+    $source_page_id = get_theme_mod('backbone_front_description_page', 0);
+    if (!$source_page_id) {
+        return;
+    }
+
+    $source_post = get_post($source_page_id);
+    if (!$source_post || $source_post->post_status !== 'publish') {
+        return;
+    }
+
+    // ブロックが含まれている場合のみ処理
+    if (!has_blocks($source_post->post_content)) {
+        return;
+    }
+
+    // グローバルポストのコンテンツを一時的に拡張
+    // これにより has_block() がソース投稿のブロックも検出する
+    if ($post) {
+        $backbone_hero_original_content = $post->post_content;
+        $post->post_content .= "\n" . $source_post->post_content;
+    } else {
+        // グローバルポストがない場合は一時的なポストオブジェクトを作成
+        $post = $source_post;
+        $backbone_hero_original_content = null;
+    }
+}
+// 他のプラグインより先に実行（優先度1）
+add_action('wp_enqueue_scripts', 'backbone_setup_hero_block_context', 1);
+
+/**
+ * グローバルポストのコンテンツを元に戻す
+ */
+function backbone_restore_hero_block_context() {
+    global $post, $backbone_hero_original_content;
+
+    if (!is_front_page()) {
+        return;
+    }
+
+    // 元のコンテンツがある場合は復元
+    if ($post && $backbone_hero_original_content !== null) {
+        $post->post_content = $backbone_hero_original_content;
+        $backbone_hero_original_content = null;
+    }
+}
+// 全てのプラグインのエンキュー後に実行（優先度9999）
+add_action('wp_enqueue_scripts', 'backbone_restore_hero_block_context', 9999);
+
+/**
  * タイトルの区切り文字を変更（&#8211; → |）
  */
 function backbone_change_title_separator($sep) {
@@ -106,6 +179,54 @@ function backbone_change_title_separator($sep) {
 }
 add_filter('document_title_separator', 'backbone_change_title_separator');
 add_filter('wp_title_separator', 'backbone_change_title_separator');
+
+/**
+ * フロントページでソースページのタイトルを使用
+ */
+function backbone_front_page_source_title($title_parts) {
+    // フロントページでのみ実行
+    if (!is_front_page()) {
+        return $title_parts;
+    }
+
+    // カスタムフロントページモードでない場合はスキップ
+    if (get_theme_mod('backbone_front_page_mode', 'custom') !== 'custom') {
+        return $title_parts;
+    }
+
+    // 説明文のソースがページでない場合はスキップ
+    if (get_theme_mod('backbone_front_description_source', 'manual') !== 'page') {
+        return $title_parts;
+    }
+
+    // オプションが無効な場合はスキップ
+    if (!get_theme_mod('backbone_front_use_source_title', false)) {
+        return $title_parts;
+    }
+
+    // ソースページを取得
+    $source_page_id = get_theme_mod('backbone_front_description_page', 0);
+    if (!$source_page_id) {
+        return $title_parts;
+    }
+
+    $source_post = get_post($source_page_id);
+    if (!$source_post || $source_post->post_status !== 'publish') {
+        return $title_parts;
+    }
+
+    // タイトルをソースページのタイトルに変更
+    $title_parts['title'] = $source_post->post_title;
+
+    // tagline（キャッチフレーズ）をサイト名に置き換え
+    if (isset($title_parts['tagline'])) {
+        unset($title_parts['tagline']);
+    }
+    $title_parts['site'] = get_bloginfo('name');
+
+    return $title_parts;
+}
+add_filter('document_title_parts', 'backbone_front_page_source_title', 5);
 
 /**
  * 固定ページにタグを有効化

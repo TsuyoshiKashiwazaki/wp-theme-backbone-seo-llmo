@@ -39,6 +39,7 @@ function backbone_customize_register($wp_customize) {
     require_once get_template_directory() . '/inc/customizer/class-repeater-control.php';
     require_once get_template_directory() . '/inc/customizer/class-heading-control.php';
     require_once get_template_directory() . '/inc/customizer/class-section-order-control.php';
+    require_once get_template_directory() . '/inc/customizer/class-searchable-select-control.php';
 
     // 各設定セクションを追加
     backbone_add_design_settings($wp_customize);

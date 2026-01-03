@@ -605,7 +605,6 @@ function backbone_dynamic_layout_output() {
         $css .= "    display: block !important;\n";
         $css .= "    padding: 1rem;\n";
         $css .= "    margin: 1rem 0;\n";
-        $css .= "    color: var(--text-light);\n";
         $css .= "    text-align: center;\n";
         $css .= "}\n\n";
     }

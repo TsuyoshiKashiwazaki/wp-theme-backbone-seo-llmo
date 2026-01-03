@@ -1,0 +1,148 @@
+/**
+ * 検索可能セレクトボックス カスタマイザーコントロール用CSS
+ *
+ * @package Backbone_SEO_LLMO
+ */
+
+.searchable-select-wrapper {
+    position: relative;
+    width: 100%;
+    z-index: 100001;
+}
+
+/* カスタマイザー内でのオーバーフロー問題を解決 */
+#customize-controls .customize-control .searchable-select-wrapper {
+    overflow: visible !important;
+}
+
+#customize-controls .customize-control {
+    overflow: visible !important;
+}
+
+/* 現在の選択値表示エリア */
+.searchable-select-wrapper .searchable-select-current {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #8c8f94;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #fff;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+.searchable-select-wrapper .searchable-select-current:hover {
+    border-color: #2271b1;
+}
+
+.searchable-select-wrapper.is-open .searchable-select-current {
+    border-color: #2271b1;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.searchable-select-wrapper .searchable-select-current-text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #1e1e1e;
+}
+
+.searchable-select-wrapper .searchable-select-current-text:empty::before {
+    content: '— 選択されていません —';
+    color: #757575;
+}
+
+.searchable-select-wrapper .searchable-select-arrow {
+    font-size: 10px;
+    color: #757575;
+    margin-left: 8px;
+    transition: transform 0.2s ease;
+}
+
+.searchable-select-wrapper.is-open .searchable-select-arrow {
+    transform: rotate(180deg);
+}
+
+/* 検索入力コンテナ */
+.searchable-select-wrapper .searchable-select-search-container {
+    border: 1px solid #2271b1;
+    border-top: none;
+    background: #f6f7f7;
+    padding: 8px;
+}
+
+.searchable-select-wrapper .searchable-select-search {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1px solid #8c8f94;
+    border-radius: 3px;
+    font-size: 13px;
+    background: #fff;
+    box-sizing: border-box;
+}
+
+.searchable-select-wrapper .searchable-select-search:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+/* 隠しセレクト */
+.searchable-select-wrapper .searchable-select-dropdown {
+    position: absolute;
+    left: -9999px;
+    visibility: hidden;
+}
+
+/* 検索結果リスト */
+.searchable-select-wrapper .searchable-select-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    background: #fff !important;
+    border: 1px solid #2271b1;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000000;
+}
+
+.searchable-select-wrapper .searchable-select-option {
+    padding: 10px 12px;
+    cursor: pointer;
+    font-size: 13px;
+    border-bottom: 1px solid #f0f0f1;
+    transition: background-color 0.15s ease;
+    background-color: #fff;
+}
+
+.searchable-select-wrapper .searchable-select-option:last-child {
+    border-bottom: none;
+}
+
+.searchable-select-wrapper .searchable-select-option:hover,
+.searchable-select-wrapper .searchable-select-option.highlighted {
+    background-color: #2271b1;
+    color: #fff;
+}
+
+.searchable-select-wrapper .searchable-select-option:active {
+    background-color: #135e96;
+}
+
+/* 検索結果なしメッセージ */
+.searchable-select-wrapper .searchable-select-no-results {
+    padding: 12px;
+    text-align: center;
+    color: #757575;
+    font-size: 13px;
+}
