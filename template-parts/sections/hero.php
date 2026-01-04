@@ -28,7 +28,7 @@ if ($description_source === 'page') {
 
     if ($source_page_id) {
         $source_post = get_post($source_page_id);
-        if ($source_post && $source_post->post_status === 'publish') {
+        if ($source_post && in_array($source_post->post_status, array('publish', 'draft', 'private'), true)) {
             // タイトルを取得（オプション）
             if ($show_title) {
                 $description_title = $source_post->post_title;

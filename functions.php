@@ -129,7 +129,7 @@ function backbone_setup_hero_block_context() {
     }
 
     $source_post = get_post($source_page_id);
-    if (!$source_post || $source_post->post_status !== 'publish') {
+    if (!$source_post || !in_array($source_post->post_status, array('publish', 'draft', 'private'), true)) {
         return;
     }
 
@@ -211,7 +211,7 @@ function backbone_front_page_source_title($title_parts) {
     }
 
     $source_post = get_post($source_page_id);
-    if (!$source_post || $source_post->post_status !== 'publish') {
+    if (!$source_post || !in_array($source_post->post_status, array('publish', 'draft', 'private'), true)) {
         return $title_parts;
     }
 

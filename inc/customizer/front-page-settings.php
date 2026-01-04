@@ -1725,6 +1725,7 @@ function backbone_get_all_posts_for_dropdown() {
     $posts = get_posts(array(
         'post_type' => $post_types,
         'posts_per_page' => -1,
+        'post_status' => array('publish', 'draft', 'private'),
         'orderby' => 'date',
         'order' => 'DESC',
     ));
@@ -1733,7 +1734,13 @@ function backbone_get_all_posts_for_dropdown() {
 
     foreach ($posts as $post) {
         $post_type_label = get_post_type_object($post->post_type)->labels->singular_name;
-        $options[$post->ID] = '[' . $post_type_label . '] ' . $post->post_title;
+        $status_label = '';
+        if ($post->post_status === 'draft') {
+            $status_label = __('【下書き】', 'backbone-seo-llmo');
+        } elseif ($post->post_status === 'private') {
+            $status_label = __('【非公開】', 'backbone-seo-llmo');
+        }
+        $options[$post->ID] = '[' . $post_type_label . '] ' . $status_label . $post->post_title;
     }
 
     return $options;
