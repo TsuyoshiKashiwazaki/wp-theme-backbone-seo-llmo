@@ -1093,4 +1093,69 @@ document.addEventListener('DOMContentLoaded', function () {
     // サブメニュー機能の初期化
     initDropdownMenu(); // initDropdownMenu の呼び出し位置
 
+    /**
+     * ページトップへ戻るボタン
+     */
+    function initScrollToTop() {
+        // ボタン要素を作成
+        var scrollToTopBtn = document.createElement('button');
+        scrollToTopBtn.className = 'scroll-to-top-btn';
+        scrollToTopBtn.setAttribute('aria-label', 'ページトップへ戻る');
+        scrollToTopBtn.setAttribute('title', 'ページトップへ戻る');
+        scrollToTopBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>';
+
+        document.body.appendChild(scrollToTopBtn);
+
+        var scrollThreshold = 300; // ボタンが表示されるスクロール量
+        var isVisible = false;
+
+        // スクロール位置に応じてボタンの表示/非表示を切り替え
+        function toggleButtonVisibility() {
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (scrollTop > scrollThreshold && !isVisible) {
+                scrollToTopBtn.classList.add('visible');
+                isVisible = true;
+            } else if (scrollTop <= scrollThreshold && isVisible) {
+                scrollToTopBtn.classList.remove('visible');
+                isVisible = false;
+            }
+        }
+
+        // 初回チェック
+        toggleButtonVisibility();
+
+        // スクロールイベント（requestAnimationFrameでスロットリング）
+        var scrollTimer;
+        window.addEventListener('scroll', function() {
+            if (scrollTimer) {
+                window.cancelAnimationFrame(scrollTimer);
+            }
+            scrollTimer = window.requestAnimationFrame(function() {
+                toggleButtonVisibility();
+            });
+        }, { passive: true });
+
+        // クリックでページトップへスムーズスクロール
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // キーボード対応
+        scrollToTopBtn.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                scrollToTopBtn.click();
+            }
+        });
+    }
+
+    // ページトップへ戻るボタンの初期化（設定が有効な場合のみ）
+    if (typeof backboneThemeSettings !== 'undefined' && backboneThemeSettings.enableScrollToTop) {
+        initScrollToTop();
+    }
+
 }); // <-- document.addEventListener('DOMContentLoaded', ...); の閉じ括弧

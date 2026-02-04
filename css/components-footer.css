@@ -209,3 +209,73 @@ body .site-footer p strong a {
 .site-footer .widget a:hover {
     color: var(--link-hover-color);
 }
+
+/* ========================================
+   ページトップへ戻るボタン
+======================================== */
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: var(--scroll-to-top-size, 50px);
+    height: var(--scroll-to-top-size, 50px);
+    background-color: var(--primary-color, #333);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.3s ease;
+    z-index: 9999;
+}
+
+.scroll-to-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top-btn:hover {
+    background-color: var(--secondary-color, #555);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-to-top-btn:focus {
+    outline: 2px solid var(--accent-color, #007bff);
+    outline-offset: 2px;
+}
+
+.scroll-to-top-btn:active {
+    transform: translateY(0);
+}
+
+.scroll-to-top-btn svg {
+    width: calc(var(--scroll-to-top-size, 50px) * 0.48) !important;
+    min-width: calc(var(--scroll-to-top-size, 50px) * 0.48) !important;
+    height: calc(var(--scroll-to-top-size, 50px) * 0.48) !important;
+    stroke: currentColor;
+    flex-shrink: 0;
+}
+
+/* スマホ用の調整 */
+@media (max-width: 767px) {
+    .scroll-to-top-btn {
+        bottom: 20px;
+        right: 20px;
+        width: calc(var(--scroll-to-top-size, 50px) * 0.88);
+        height: calc(var(--scroll-to-top-size, 50px) * 0.88);
+    }
+
+    .scroll-to-top-btn svg {
+        width: calc(var(--scroll-to-top-size, 50px) * 0.42) !important;
+        min-width: calc(var(--scroll-to-top-size, 50px) * 0.42) !important;
+        height: calc(var(--scroll-to-top-size, 50px) * 0.42) !important;
+    }
+}

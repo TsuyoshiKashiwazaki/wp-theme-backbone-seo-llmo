@@ -314,6 +314,9 @@ function backbone_add_layout_settings($wp_customize) {
             'step' => 5,
             'data-show-value' => 'true',
         ),
+        'active_callback' => function() {
+            return get_theme_mod('enable_sticky_header', true);
+        },
     ));
 
     // ヘッダー自動非表示
@@ -327,5 +330,81 @@ function backbone_add_layout_settings($wp_customize) {
         'section'     => 'backbone_layout',
         'type'        => 'checkbox',
         'description' => __('スクロールダウン時にヘッダーを隠します。上にスクロールするかタブをクリックすると再表示されます。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('enable_sticky_header', true);
+        },
+    ));
+
+    // ページトップへ戻るボタン
+    $wp_customize->add_setting('enable_scroll_to_top', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+
+    $wp_customize->add_control('enable_scroll_to_top', array(
+        'label'       => __('ページトップへ戻るボタン', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'checkbox',
+        'description' => __('画面右下に「ページトップへ戻る」ボタンを表示します。スクロールすると表示され、クリックでページ最上部へスムーズにスクロールします。', 'backbone-seo-llmo'),
+    ));
+
+    // ページトップボタンのサイズ
+    $wp_customize->add_setting('scroll_to_top_size', array(
+        'default'           => 50,
+        'sanitize_callback' => 'absint',
+    ));
+
+    $wp_customize->add_control('scroll_to_top_size', array(
+        'label'       => __('ボタンサイズ（px）', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'range',
+        'input_attrs' => array(
+            'min'  => 30,
+            'max'  => 80,
+            'step' => 5,
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('enable_scroll_to_top', true);
+        },
+    ));
+
+    // ページトップボタンの下からの距離
+    $wp_customize->add_setting('scroll_to_top_bottom', array(
+        'default'           => 30,
+        'sanitize_callback' => 'absint',
+    ));
+
+    $wp_customize->add_control('scroll_to_top_bottom', array(
+        'label'       => __('下からの距離（px）', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'range',
+        'input_attrs' => array(
+            'min'  => 10,
+            'max'  => 100,
+            'step' => 5,
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('enable_scroll_to_top', true);
+        },
+    ));
+
+    // ページトップボタンの位置
+    $wp_customize->add_setting('scroll_to_top_position', array(
+        'default'           => 'right',
+        'sanitize_callback' => 'backbone_sanitize_select',
+    ));
+
+    $wp_customize->add_control('scroll_to_top_position', array(
+        'label'       => __('ボタン位置', 'backbone-seo-llmo'),
+        'section'     => 'backbone_layout',
+        'type'        => 'select',
+        'choices'     => array(
+            'left'   => __('左', 'backbone-seo-llmo'),
+            'center' => __('中央', 'backbone-seo-llmo'),
+            'right'  => __('右', 'backbone-seo-llmo'),
+        ),
+        'active_callback' => function() {
+            return get_theme_mod('enable_scroll_to_top', true);
+        },
     ));
 }

@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.36
+Stable tag: 1.0.37
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,11 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.0.37 - 2026-02-04 =
+* 追加: ページトップへ戻るボタン機能（サイズ・位置のカスタマイズ対応）
+* 改善: カスタマイザーUIを改善 - スティッキーヘッダー無効時に関連オプションを非表示
+* 修正: フロントページ説明文の表示条件を修正（タイトルなしでも表示可能に）
 
 = 1.0.36 - 2026-01-07 =
 * 修正: 著者アーカイブページのh1見出しで<span class="vcard">タグが文字として表示される問題を修正

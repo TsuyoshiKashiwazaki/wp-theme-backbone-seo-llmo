@@ -73,8 +73,8 @@ if ($description_source === 'page') {
     $description = get_theme_mod('backbone_front_description', '');
 }
 
-// ヒーローイメージまたはタイトルがある場合のみ表示
-if ($hero_image_id || $title) :
+// ヒーローイメージ、タイトル、または説明文がある場合のみ表示
+if ($hero_image_id || $title || $description || $description_title) :
 ?>
     <section class="hero-section">
         <?php if ($hero_image_id) :

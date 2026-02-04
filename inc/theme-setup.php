@@ -159,6 +159,7 @@ function backbone_scripts() {
         'enableStickySidebar' => get_theme_mod('enable_sticky_sidebar', true),
         'enableStickyHeader' => get_theme_mod('enable_sticky_header', false),
         'stickyHeaderAutohide' => get_theme_mod('sticky_header_autohide', false),
+        'enableScrollToTop' => get_theme_mod('enable_scroll_to_top', true),
     ));
 
     // スティッキーヘッダーの透明度をCSSカスタムプロパティとして出力
@@ -172,6 +173,67 @@ function backbone_scripts() {
             }
         ";
         wp_add_inline_style('seo-optimus-style', $custom_css);
+    }
+
+    // ページトップボタンのスタイルをCSSカスタムプロパティとして出力
+    if (get_theme_mod('enable_scroll_to_top', true)) {
+        $btn_size = intval(get_theme_mod('scroll_to_top_size', 50));
+        $btn_bottom = intval(get_theme_mod('scroll_to_top_bottom', 30));
+        $btn_position = get_theme_mod('scroll_to_top_position', 'right');
+        $svg_size = round($btn_size * 0.48);
+
+        $scroll_btn_css = "
+            .scroll-to-top-btn {
+                position: fixed !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                width: {$btn_size}px !important;
+                height: {$btn_size}px !important;
+                bottom: {$btn_bottom}px !important;
+                right: 30px !important;
+                padding: 0 !important;
+                z-index: 9999 !important;
+                border-radius: 50% !important;
+                border: none !important;
+                cursor: pointer !important;
+            }
+            .scroll-to-top-btn svg {
+                width: {$svg_size}px !important;
+                height: {$svg_size}px !important;
+            }
+        ";
+
+        // 位置に応じたスタイル
+        if ($btn_position === 'left') {
+            $scroll_btn_css .= "
+                .scroll-to-top-btn {
+                    left: 30px !important;
+                    right: auto !important;
+                }
+                @media (max-width: 767px) {
+                    .scroll-to-top-btn {
+                        left: 20px !important;
+                    }
+                }
+            ";
+        } elseif ($btn_position === 'center') {
+            $scroll_btn_css .= "
+                .scroll-to-top-btn {
+                    left: 50% !important;
+                    right: auto !important;
+                    transform: translateX(-50%) translateY(20px) !important;
+                }
+                .scroll-to-top-btn.visible {
+                    transform: translateX(-50%) translateY(0) !important;
+                }
+                .scroll-to-top-btn:hover {
+                    transform: translateX(-50%) translateY(-3px) !important;
+                }
+            ";
+        }
+
+        wp_add_inline_style('seo-optimus-style', $scroll_btn_css);
     }
 
     // コメント返信スクリプト
