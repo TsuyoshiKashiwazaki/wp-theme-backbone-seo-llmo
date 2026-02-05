@@ -363,6 +363,76 @@
                         }, 100);
                     }
 
+                    // show_archive_linkチェックボックスの条件付き表示
+                    if (fieldKey === 'show_archive_link') {
+                        $input.on('change', function() {
+                            var isChecked = $(this).prop('checked');
+                            var $item = $(this).closest('.repeater-item');
+                            var $linkTypeField = $item.find('[data-field="archive_link_type"]').closest('.repeater-field');
+                            var $customUrlField = $item.find('[data-field="archive_link_custom_url"]').closest('.repeater-field');
+
+                            if (isChecked) {
+                                $linkTypeField.show();
+                                // archive_link_typeの値に応じてカスタムURLフィールドを表示
+                                var linkType = $item.find('[data-field="archive_link_type"]').val();
+                                if (linkType === 'custom') {
+                                    $customUrlField.show();
+                                } else {
+                                    $customUrlField.hide();
+                                }
+                            } else {
+                                $linkTypeField.hide();
+                                $customUrlField.hide();
+                            }
+                        });
+
+                        // 初期状態で適切なフィールドを表示
+                        setTimeout(function() {
+                            $input.trigger('change');
+                        }, 150);
+                    }
+
+                    // archive_link_typeセレクトボックスの条件付き表示
+                    if (fieldKey === 'archive_link_type') {
+                        $input.on('change', function() {
+                            var selectedType = $(this).val();
+                            var $item = $(this).closest('.repeater-item');
+                            var $customUrlField = $item.find('[data-field="archive_link_custom_url"]').closest('.repeater-field');
+
+                            if (selectedType === 'custom') {
+                                $customUrlField.show();
+                            } else {
+                                $customUrlField.hide();
+                            }
+                        });
+
+                        // 初期状態で適切なフィールドを表示
+                        setTimeout(function() {
+                            $input.trigger('change');
+                        }, 200);
+                    }
+
+                    // archive_link_custom_urlのバリデーション（カスタムURL入力時）
+                    if (fieldKey === 'archive_link_custom_url') {
+                        $input.on('blur', function() {
+                            var $item = $(this).closest('.repeater-item');
+                            var linkType = $item.find('[data-field="archive_link_type"]').val();
+                            var showArchiveLink = $item.find('[data-field="show_archive_link"]').prop('checked');
+                            var customUrl = $(this).val().trim();
+
+                            // カスタムURLが選択されていて、一覧表示リンクがONで、URLが空の場合
+                            if (showArchiveLink && linkType === 'custom' && !customUrl) {
+                                $(this).css('border-color', '#dc3232');
+                                if (!$(this).next('.archive-url-error').length) {
+                                    $(this).after('<p class="archive-url-error" style="color: #dc3232; font-size: 12px; margin: 4px 0 0;">カスタムURLを入力してください</p>');
+                                }
+                            } else {
+                                $(this).css('border-color', '');
+                                $(this).next('.archive-url-error').remove();
+                            }
+                        });
+                    }
+
                     $content.append($fieldWrapper);
                 });
 

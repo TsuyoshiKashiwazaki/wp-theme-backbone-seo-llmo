@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.37
+Stable tag: 1.0.38
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,10 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.0.38 - 2026-02-05 =
+* 追加: 一覧表示セクションのリンク先を選択可能に（自動取得/カスタムURL）
+* 修正: 一覧表示リンクが表示されない問題を修正（postタイプ対応）
 
 = 1.0.37 - 2026-02-04 =
 * 追加: ページトップへ戻るボタン機能（サイズ・位置のカスタマイズ対応）

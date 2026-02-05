@@ -2,6 +2,23 @@
 
 Backbone Theme for SEO + LLMO のすべての重要な変更はこのファイルに記録されます。
 
+## [1.0.38] - 2026-02-05
+
+### 追加
+- 一覧表示セクションのリンク先を選択可能に
+  - 「自動取得」: 表示対象に応じたアーカイブページに自動リンク
+  - 「カスタムURL」: 任意のURLを指定可能
+- カスタムURL選択時のバリデーション（空の場合はエラー表示）
+
+### 修正
+- 一覧表示リンクが表示されない問題を修正
+  - `post`タイプの場合も投稿ページまたはホームURLを取得するよう改善
+
+### 技術的変更
+- 変更: `inc/customizer/front-page-settings.php` - 一覧表示セクション1〜5に `archive_link_type`, `archive_link_custom_url` フィールド追加
+- 変更: `js/customizer-repeater.js` - 条件付き表示とバリデーションロジック追加
+- 変更: `template-parts/sections/list-section.php` - リンクタイプに応じた出力処理
+
 ## [1.0.37] - 2026-02-04
 
 ### 追加

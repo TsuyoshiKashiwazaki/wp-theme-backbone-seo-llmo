@@ -498,6 +498,18 @@ function backbone_add_front_page_settings($wp_customize) {
                 'type' => 'checkbox',
                 'label' => __('一覧表示リンクを表示', 'backbone-seo-llmo'),
             ),
+            'archive_link_type' => array(
+                'type' => 'select',
+                'label' => __('リンク先', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'auto' => __('自動取得', 'backbone-seo-llmo'),
+                    'custom' => __('カスタムURL', 'backbone-seo-llmo'),
+                ),
+            ),
+            'archive_link_custom_url' => array(
+                'type' => 'url',
+                'label' => __('カスタムURL', 'backbone-seo-llmo'),
+            ),
         ),
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
@@ -638,6 +650,18 @@ function backbone_add_front_page_settings($wp_customize) {
             'show_archive_link' => array(
                 'type' => 'checkbox',
                 'label' => __('一覧表示リンクを表示', 'backbone-seo-llmo'),
+            ),
+            'archive_link_type' => array(
+                'type' => 'select',
+                'label' => __('リンク先', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'auto' => __('自動取得', 'backbone-seo-llmo'),
+                    'custom' => __('カスタムURL', 'backbone-seo-llmo'),
+                ),
+            ),
+            'archive_link_custom_url' => array(
+                'type' => 'url',
+                'label' => __('カスタムURL', 'backbone-seo-llmo'),
             ),
         ),
         'active_callback' => function() {
@@ -780,6 +804,18 @@ function backbone_add_front_page_settings($wp_customize) {
                 'type' => 'checkbox',
                 'label' => __('一覧表示リンクを表示', 'backbone-seo-llmo'),
             ),
+            'archive_link_type' => array(
+                'type' => 'select',
+                'label' => __('リンク先', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'auto' => __('自動取得', 'backbone-seo-llmo'),
+                    'custom' => __('カスタムURL', 'backbone-seo-llmo'),
+                ),
+            ),
+            'archive_link_custom_url' => array(
+                'type' => 'url',
+                'label' => __('カスタムURL', 'backbone-seo-llmo'),
+            ),
         ),
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
@@ -921,6 +957,18 @@ function backbone_add_front_page_settings($wp_customize) {
                 'type' => 'checkbox',
                 'label' => __('一覧表示リンクを表示', 'backbone-seo-llmo'),
             ),
+            'archive_link_type' => array(
+                'type' => 'select',
+                'label' => __('リンク先', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'auto' => __('自動取得', 'backbone-seo-llmo'),
+                    'custom' => __('カスタムURL', 'backbone-seo-llmo'),
+                ),
+            ),
+            'archive_link_custom_url' => array(
+                'type' => 'url',
+                'label' => __('カスタムURL', 'backbone-seo-llmo'),
+            ),
         ),
         'active_callback' => function() {
             return get_theme_mod('backbone_front_page_mode', 'custom') === 'custom' &&
@@ -1061,6 +1109,18 @@ function backbone_add_front_page_settings($wp_customize) {
             'show_archive_link' => array(
                 'type' => 'checkbox',
                 'label' => __('一覧表示リンクを表示', 'backbone-seo-llmo'),
+            ),
+            'archive_link_type' => array(
+                'type' => 'select',
+                'label' => __('リンク先', 'backbone-seo-llmo'),
+                'choices' => array(
+                    'auto' => __('自動取得', 'backbone-seo-llmo'),
+                    'custom' => __('カスタムURL', 'backbone-seo-llmo'),
+                ),
+            ),
+            'archive_link_custom_url' => array(
+                'type' => 'url',
+                'label' => __('カスタムURL', 'backbone-seo-llmo'),
             ),
         ),
         'active_callback' => function() {
@@ -1932,6 +1992,8 @@ function backbone_sanitize_list_sections_json($value) {
         $sanitized_section['show_category'] = isset($section['show_category']) ? rest_sanitize_boolean($section['show_category']) : true;
         $sanitized_section['show_excerpt'] = isset($section['show_excerpt']) ? rest_sanitize_boolean($section['show_excerpt']) : true;
         $sanitized_section['show_archive_link'] = isset($section['show_archive_link']) ? rest_sanitize_boolean($section['show_archive_link']) : false;
+        $sanitized_section['archive_link_type'] = isset($section['archive_link_type']) && in_array($section['archive_link_type'], array('auto', 'custom'), true) ? $section['archive_link_type'] : 'auto';
+        $sanitized_section['archive_link_custom_url'] = isset($section['archive_link_custom_url']) ? esc_url_raw($section['archive_link_custom_url']) : '';
 
         $sanitized_sections[] = $sanitized_section;
     }

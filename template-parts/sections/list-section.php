@@ -166,37 +166,55 @@ if ($posts_query->have_posts()) :
         if ($show_archive_link) {
             $archive_url = '';
             $archive_text = __('一覧を表示', 'backbone-seo-llmo');
+            $archive_link_type = isset($section['archive_link_type']) ? $section['archive_link_type'] : 'auto';
 
-            switch ($display_type) {
-                case 'category':
-                    if ($category_id > 0) {
-                        $archive_url = get_category_link($category_id);
-                    }
-                    break;
-                case 'tag':
-                    if ($tag_id > 0) {
-                        $archive_url = get_tag_link($tag_id);
-                    }
-                    break;
-                case 'post_type':
-                    if ($post_type && $post_type !== 'post') {
-                        $archive_url = get_post_type_archive_link($post_type);
-                    }
-                    break;
-                case 'author':
-                    if ($author_id > 0) {
-                        $archive_url = get_author_posts_url($author_id);
-                    }
-                    break;
-                case 'date':
-                    if (isset($args['year'])) {
-                        if (isset($args['monthnum'])) {
-                            $archive_url = get_month_link($args['year'], $args['monthnum']);
-                        } else {
-                            $archive_url = get_year_link($args['year']);
+            // カスタムURLが選択されている場合
+            if ($archive_link_type === 'custom') {
+                $archive_url = isset($section['archive_link_custom_url']) ? $section['archive_link_custom_url'] : '';
+            } else {
+                // WP標準の一覧ページを自動取得
+                switch ($display_type) {
+                    case 'category':
+                        if ($category_id > 0) {
+                            $archive_url = get_category_link($category_id);
                         }
-                    }
-                    break;
+                        break;
+                    case 'tag':
+                        if ($tag_id > 0) {
+                            $archive_url = get_tag_link($tag_id);
+                        }
+                        break;
+                    case 'post_type':
+                        if ($post_type) {
+                            // 'post'の場合はホームURLまたは投稿ページを取得
+                            if ($post_type === 'post') {
+                                // 投稿ページが設定されていればその URL、なければホームURL
+                                $posts_page_id = get_option('page_for_posts');
+                                if ($posts_page_id) {
+                                    $archive_url = get_permalink($posts_page_id);
+                                } else {
+                                    $archive_url = home_url('/');
+                                }
+                            } else {
+                                $archive_url = get_post_type_archive_link($post_type);
+                            }
+                        }
+                        break;
+                    case 'author':
+                        if ($author_id > 0) {
+                            $archive_url = get_author_posts_url($author_id);
+                        }
+                        break;
+                    case 'date':
+                        if (isset($args['year'])) {
+                            if (isset($args['monthnum'])) {
+                                $archive_url = get_month_link($args['year'], $args['monthnum']);
+                            } else {
+                                $archive_url = get_year_link($args['year']);
+                            }
+                        }
+                        break;
+                }
             }
 
             if ($archive_url) : ?>
