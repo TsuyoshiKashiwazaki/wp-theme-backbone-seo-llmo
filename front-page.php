@@ -39,7 +39,7 @@ if ($front_page_mode === 'custom') {
                 <?php endif; ?>
             </header>
 
-            <?php if (has_post_thumbnail()) : ?>
+            <?php if (get_theme_mod('front_page_show_thumbnail', true) && has_post_thumbnail()) : ?>
                 <div class="post-thumbnail">
                     <?php the_post_thumbnail('large'); ?>
                 </div>

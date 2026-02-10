@@ -35,6 +35,7 @@ $inc_files = array(
     'utilities/design-utilities.php',     // デザインパターン関連の関数
     'utilities/color-utilities.php',      // カラーテーマ関連の関数
     'utilities/hero-image-utilities.php', // メインビジュアル関連の関数
+    'default-featured-image.php',         // デフォルトアイキャッチ画像
     'theme-setup.php',          // テーマ基本設定
     'widgets.php',              // ウィジェット関連
     'widget-working-solution.php',  // ウィジェット実用版

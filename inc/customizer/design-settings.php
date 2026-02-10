@@ -75,6 +75,20 @@ function backbone_add_design_settings($wp_customize) {
         'choices'  => backbone_get_decoration_pattern_choices(),
         'description' => __('見出しやリストの装飾スタイルを選択できます。', 'kashiwazaki-searchcraft'),
     ));
+
+    // デフォルトアイキャッチ画像
+    $wp_customize->add_setting('default_featured_image', array(
+        'default'           => '',
+        'sanitize_callback' => 'absint',
+        'transport'         => 'refresh',
+    ));
+
+    $wp_customize->add_control(new WP_Customize_Media_Control($wp_customize, 'default_featured_image', array(
+        'label'       => __('デフォルトアイキャッチ画像', 'backbone-seo-llmo'),
+        'section'     => 'backbone_design',
+        'mime_type'   => 'image',
+        'description' => __('アイキャッチ画像が未設定の投稿に表示されるデフォルト画像', 'backbone-seo-llmo'),
+    )));
 }
 
 

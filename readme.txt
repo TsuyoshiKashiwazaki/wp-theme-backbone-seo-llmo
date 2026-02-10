@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.38
+Stable tag: 1.0.39
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,11 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.0.39 - 2026-02-10 =
+* 追加: デフォルトアイキャッチ画像機能（カスタマイザーのデザイン設定から設定可能）
+* 追加: アイキャッチ未設定の投稿・固定ページに自動でフォールバック画像を表示
+* 追加: post_thumbnail_idフィルターによる透過的な実装（テンプレート変更不要）
 
 = 1.0.38 - 2026-02-05 =
 * 追加: 一覧表示セクションのリンク先を選択可能に（自動取得/カスタムURL）

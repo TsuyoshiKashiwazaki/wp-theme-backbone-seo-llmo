@@ -2,6 +2,23 @@
 
 Backbone Theme for SEO + LLMO のすべての重要な変更はこのファイルに記録されます。
 
+## [1.0.39] - 2026-02-10
+
+### 追加
+- デフォルトアイキャッチ画像機能
+  - カスタマイザーのデザイン設定から`WP_Customize_Media_Control`で画像を選択可能
+  - アイキャッチ未設定の投稿・固定ページに自動でフォールバック画像を表示
+  - `post_thumbnail_id`フィルターによる透過的な実装（テンプレート変更不要）
+  - `has_post_thumbnail()`と`the_post_thumbnail()`の両方に自動適用
+  - `backbone_has_own_featured_image()`ヘルパー関数（投稿本来のアイキャッチ有無を判定）
+  - `static`キャッシュにより`get_theme_mod()`はページロードごとに1回のみ呼出
+  - 画像削除済みチェック（`wp_get_attachment_image_url()`で検証）
+
+### 技術的変更
+- 新規: `inc/default-featured-image.php` - フィルターロジックとヘルパー関数
+- 変更: `functions.php` - `$inc_files`配列に`default-featured-image.php`を追加
+- 変更: `inc/customizer/design-settings.php` - デザイン設定セクション末尾にデフォルトアイキャッチ画像コントロールを追加
+
 ## [1.0.38] - 2026-02-05
 
 ### 追加

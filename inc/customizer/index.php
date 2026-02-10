@@ -169,6 +169,23 @@ function backbone_customize_register($wp_customize) {
         },
     ));
 
+    // フロントページのアイキャッチ画像表示設定
+    $wp_customize->add_setting('front_page_show_thumbnail', array(
+        'default'           => true,
+        'sanitize_callback' => 'rest_sanitize_boolean',
+    ));
+
+    $wp_customize->add_control('front_page_show_thumbnail', array(
+        'label'       => __('フロントページでアイキャッチ画像を表示', 'backbone-seo-llmo'),
+        'section'     => 'static_front_page',
+        'priority'    => 111,
+        'type'        => 'checkbox',
+        'description' => __('フロントページ（ホームページ）でアイキャッチ画像を表示するかどうかを設定します。「既存のページを使用」モードの時に適用されます。', 'backbone-seo-llmo'),
+        'active_callback' => function() {
+            return get_theme_mod('backbone_front_page_mode', 'custom') === 'page';
+        },
+    ));
+
 }
 
 // カスタマイザーに登録
