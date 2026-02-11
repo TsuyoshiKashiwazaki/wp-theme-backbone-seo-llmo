@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.0.39
+Stable tag: 1.0.40
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,9 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.0.40 - 2026-02-11 =
+* 修正: タグ・カテゴリ一覧ページのカウント表示がアーカイブの実数と一致しない問題を修正
 
 = 1.0.39 - 2026-02-10 =
 * 追加: デフォルトアイキャッチ画像機能（カスタマイザーのデザイン設定から設定可能）

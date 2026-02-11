@@ -22,13 +22,39 @@ $terms = get_terms(array(
 // タイトル
 $page_title = $taxonomy_obj ? $taxonomy_obj->labels->name : __('タクソノミー', 'backbone-seo-llmo');
 
+// 実際の公開記事数を一括取得（$term->countはDBキャッシュで不正確な場合がある）
+$actual_counts = array();
+if (!empty($terms) && !is_wp_error($terms)) {
+    global $wpdb;
+    $post_types = get_post_types(array('public' => true), 'names');
+    unset($post_types['attachment']);
+    $post_type_in = "'" . implode("','", esc_sql(array_values($post_types))) . "'";
+
+    $tt_ids = wp_list_pluck($terms, 'term_taxonomy_id');
+    $tt_ids_in = implode(',', array_map('intval', $tt_ids));
+
+    $rows = $wpdb->get_results(
+        "SELECT tr.term_taxonomy_id, COUNT(DISTINCT p.ID) as cnt
+         FROM {$wpdb->term_relationships} tr
+         JOIN {$wpdb->posts} p ON p.ID = tr.object_id
+         WHERE tr.term_taxonomy_id IN ({$tt_ids_in})
+           AND p.post_status = 'publish'
+           AND p.post_type IN ({$post_type_in})
+         GROUP BY tr.term_taxonomy_id"
+    );
+    foreach ($rows as $row) {
+        $actual_counts[$row->term_taxonomy_id] = (int) $row->cnt;
+    }
+}
+
 // 最大・最小投稿数を取得（フォントサイズ計算用）
 $max_count = 0;
 $min_count = PHP_INT_MAX;
 if (!empty($terms) && !is_wp_error($terms)) {
     foreach ($terms as $term) {
-        if ($term->count > $max_count) $max_count = $term->count;
-        if ($term->count < $min_count) $min_count = $term->count;
+        $count = isset($actual_counts[$term->term_taxonomy_id]) ? $actual_counts[$term->term_taxonomy_id] : 0;
+        if ($count > $max_count) $max_count = $count;
+        if ($count < $min_count) $min_count = $count;
     }
 }
 ?>
@@ -46,18 +72,20 @@ if (!empty($terms) && !is_wp_error($terms)) {
             <div class="tag-cloud-wrapper">
                 <?php
                 foreach ($terms as $term) :
+                    $count = isset($actual_counts[$term->term_taxonomy_id]) ? $actual_counts[$term->term_taxonomy_id] : 0;
+                    if ($count === 0) continue;
                     // フォントサイズを計算（0.85em〜2em）
                     if ($max_count === $min_count) {
                         $font_size = 1.2;
                     } else {
-                        $font_size = 0.85 + (($term->count - $min_count) / ($max_count - $min_count)) * 1.15;
+                        $font_size = 0.85 + (($count - $min_count) / ($max_count - $min_count)) * 1.15;
                     }
                     ?>
                     <a href="<?php echo esc_url(get_term_link($term)); ?>"
                        class="tag-cloud-link"
                        style="font-size: <?php echo esc_attr(round($font_size, 2)); ?>em;"
-                       title="<?php echo esc_attr($term->name . ' (' . $term->count . '件)'); ?>">
-                        <?php echo esc_html($term->name); ?><span class="tag-count">(<?php echo esc_html($term->count); ?>)</span>
+                       title="<?php echo esc_attr($term->name . ' (' . $count . '件)'); ?>">
+                        <?php echo esc_html($term->name); ?><span class="tag-count">(<?php echo esc_html($count); ?>)</span>
                     </a>
                 <?php endforeach; ?>
             </div>
