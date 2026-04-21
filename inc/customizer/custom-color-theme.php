@@ -40,7 +40,7 @@ function backbone_add_custom_color_theme_settings($wp_customize) {
     // セクション：独自カラーテーマ設定
     // 常にセクションを追加し、active_callbackで表示制御を行う
     $wp_customize->add_section('backbone_custom_color_theme', array(
-        'title'    => __('独自カラーテーマの設定', 'kashiwazaki-searchcraft'),
+        'title'    => __('独自カラーテーマの設定', 'backbone-seo-llmo'),
         'priority' => 35,
         'active_callback' => 'backbone_is_custom_color_theme_active'
     ));
@@ -53,98 +53,98 @@ function backbone_add_custom_color_theme_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('custom_color_base_theme', array(
-        'label'    => __('ベースカラーテーマ', 'kashiwazaki-searchcraft'),
+        'label'    => __('ベースカラーテーマ', 'backbone-seo-llmo'),
         'section'  => 'backbone_custom_color_theme',
         'type'     => 'select',
         'choices'  => backbone_get_base_theme_choices(),
-        'description' => __('カスタマイズのベースとなるカラーテーマを選択してください。', 'kashiwazaki-searchcraft'),
+        'description' => __('カスタマイズのベースとなるカラーテーマを選択してください。', 'backbone-seo-llmo'),
     ));
 
     // カラー設定項目の定義
     $color_settings = array(
         'primary_color' => array(
-            'label' => __('プライマリカラー', 'kashiwazaki-searchcraft'),
-            'description' => __('ヘッダー、フッター、主要な要素の背景色', 'kashiwazaki-searchcraft'),
+            'label' => __('プライマリカラー', 'backbone-seo-llmo'),
+            'description' => __('ヘッダー、フッター、主要な要素の背景色', 'backbone-seo-llmo'),
         ),
         'secondary_color' => array(
-            'label' => __('セカンダリカラー', 'kashiwazaki-searchcraft'),
-            'description' => __('サブ要素やアクセントに使用', 'kashiwazaki-searchcraft'),
+            'label' => __('セカンダリカラー', 'backbone-seo-llmo'),
+            'description' => __('サブ要素やアクセントに使用', 'backbone-seo-llmo'),
         ),
         'accent_color' => array(
-            'label' => __('アクセントカラー', 'kashiwazaki-searchcraft'),
-            'description' => __('ボタンやリンクなど強調したい部分', 'kashiwazaki-searchcraft'),
+            'label' => __('アクセントカラー', 'backbone-seo-llmo'),
+            'description' => __('ボタンやリンクなど強調したい部分', 'backbone-seo-llmo'),
         ),
         'background_color' => array(
-            'label' => __('背景色', 'kashiwazaki-searchcraft'),
-            'description' => __('メインコンテンツエリアの背景色', 'kashiwazaki-searchcraft'),
+            'label' => __('背景色', 'backbone-seo-llmo'),
+            'description' => __('メインコンテンツエリアの背景色', 'backbone-seo-llmo'),
         ),
         'background_secondary' => array(
-            'label' => __('セカンダリ背景色', 'kashiwazaki-searchcraft'),
-            'description' => __('サイドバーや補助的なエリアの背景色', 'kashiwazaki-searchcraft'),
+            'label' => __('セカンダリ背景色', 'backbone-seo-llmo'),
+            'description' => __('サイドバーや補助的なエリアの背景色', 'backbone-seo-llmo'),
         ),
         'text_primary' => array(
-            'label' => __('メインテキスト色', 'kashiwazaki-searchcraft'),
-            'description' => __('本文の文字色', 'kashiwazaki-searchcraft'),
+            'label' => __('メインテキスト色', 'backbone-seo-llmo'),
+            'description' => __('本文の文字色', 'backbone-seo-llmo'),
         ),
         'text_secondary' => array(
-            'label' => __('セカンダリテキスト色', 'kashiwazaki-searchcraft'),
-            'description' => __('見出しや重要な文字の色', 'kashiwazaki-searchcraft'),
+            'label' => __('セカンダリテキスト色', 'backbone-seo-llmo'),
+            'description' => __('見出しや重要な文字の色', 'backbone-seo-llmo'),
         ),
         'text_light' => array(
-            'label' => __('薄いテキスト色', 'kashiwazaki-searchcraft'),
-            'description' => __('補助的な情報の文字色', 'kashiwazaki-searchcraft'),
+            'label' => __('薄いテキスト色', 'backbone-seo-llmo'),
+            'description' => __('補助的な情報の文字色', 'backbone-seo-llmo'),
         ),
         'link_color' => array(
-            'label' => __('リンク色', 'kashiwazaki-searchcraft'),
-            'description' => __('通常のリンクの色', 'kashiwazaki-searchcraft'),
+            'label' => __('リンク色', 'backbone-seo-llmo'),
+            'description' => __('通常のリンクの色', 'backbone-seo-llmo'),
         ),
         'link_hover_color' => array(
-            'label' => __('リンクホバー色', 'kashiwazaki-searchcraft'),
-            'description' => __('リンクにマウスを重ねた時の色', 'kashiwazaki-searchcraft'),
+            'label' => __('リンクホバー色', 'backbone-seo-llmo'),
+            'description' => __('リンクにマウスを重ねた時の色', 'backbone-seo-llmo'),
         ),
         'header_link_color' => array(
-            'label' => __('ヘッダーリンク色', 'kashiwazaki-searchcraft'),
-            'description' => __('ヘッダー内のリンクの色', 'kashiwazaki-searchcraft'),
+            'label' => __('ヘッダーリンク色', 'backbone-seo-llmo'),
+            'description' => __('ヘッダー内のリンクの色', 'backbone-seo-llmo'),
         ),
         'header_link_hover_color' => array(
-            'label' => __('ヘッダーリンクホバー色', 'kashiwazaki-searchcraft'),
-            'description' => __('ヘッダー内のリンクにマウスを重ねた時の色', 'kashiwazaki-searchcraft'),
+            'label' => __('ヘッダーリンクホバー色', 'backbone-seo-llmo'),
+            'description' => __('ヘッダー内のリンクにマウスを重ねた時の色', 'backbone-seo-llmo'),
         ),
         'footer_link_color' => array(
-            'label' => __('フッターリンク色', 'kashiwazaki-searchcraft'),
-            'description' => __('フッター内のリンクの色', 'kashiwazaki-searchcraft'),
+            'label' => __('フッターリンク色', 'backbone-seo-llmo'),
+            'description' => __('フッター内のリンクの色', 'backbone-seo-llmo'),
         ),
         'footer_link_hover_color' => array(
-            'label' => __('フッターリンクホバー色', 'kashiwazaki-searchcraft'),
-            'description' => __('フッター内のリンクにマウスを重ねた時の色', 'kashiwazaki-searchcraft'),
+            'label' => __('フッターリンクホバー色', 'backbone-seo-llmo'),
+            'description' => __('フッター内のリンクにマウスを重ねた時の色', 'backbone-seo-llmo'),
         ),
         'border_color' => array(
-            'label' => __('ボーダー色', 'kashiwazaki-searchcraft'),
-            'description' => __('区切り線や枠線の色', 'kashiwazaki-searchcraft'),
+            'label' => __('ボーダー色', 'backbone-seo-llmo'),
+            'description' => __('区切り線や枠線の色', 'backbone-seo-llmo'),
         ),
         'button_background_color' => array(
-            'label' => __('ボタン背景色', 'kashiwazaki-searchcraft'),
-            'description' => __('ボタンの背景色', 'kashiwazaki-searchcraft'),
+            'label' => __('ボタン背景色', 'backbone-seo-llmo'),
+            'description' => __('ボタンの背景色', 'backbone-seo-llmo'),
         ),
         'button_text_color' => array(
-            'label' => __('ボタンテキスト色', 'kashiwazaki-searchcraft'),
-            'description' => __('ボタン内の文字色', 'kashiwazaki-searchcraft'),
+            'label' => __('ボタンテキスト色', 'backbone-seo-llmo'),
+            'description' => __('ボタン内の文字色', 'backbone-seo-llmo'),
         ),
         'button_hover_background_color' => array(
-            'label' => __('ボタンホバー背景色', 'kashiwazaki-searchcraft'),
-            'description' => __('ボタンにマウスを重ねた時の背景色', 'kashiwazaki-searchcraft'),
+            'label' => __('ボタンホバー背景色', 'backbone-seo-llmo'),
+            'description' => __('ボタンにマウスを重ねた時の背景色', 'backbone-seo-llmo'),
         ),
         'form_background_color' => array(
-            'label' => __('フォーム背景色', 'kashiwazaki-searchcraft'),
-            'description' => __('入力フォームの背景色', 'kashiwazaki-searchcraft'),
+            'label' => __('フォーム背景色', 'backbone-seo-llmo'),
+            'description' => __('入力フォームの背景色', 'backbone-seo-llmo'),
         ),
         'form_focus_color' => array(
-            'label' => __('フォームフォーカス色', 'kashiwazaki-searchcraft'),
-            'description' => __('入力フォームがフォーカスされた時の枠線色', 'kashiwazaki-searchcraft'),
+            'label' => __('フォームフォーカス色', 'backbone-seo-llmo'),
+            'description' => __('入力フォームがフォーカスされた時の枠線色', 'backbone-seo-llmo'),
         ),
         'search_button_color' => array(
-            'label' => __('検索ボタン色', 'kashiwazaki-searchcraft'),
-            'description' => __('検索ボタンの色', 'kashiwazaki-searchcraft'),
+            'label' => __('検索ボタン色', 'backbone-seo-llmo'),
+            'description' => __('検索ボタンの色', 'backbone-seo-llmo'),
         ),
     );
 
@@ -184,17 +184,17 @@ function backbone_add_custom_color_theme_settings($wp_customize) {
 
     if (class_exists('Custom_Color_Reset_Control')) {
         $wp_customize->add_control(new Custom_Color_Reset_Control($wp_customize, 'custom_color_reset', array(
-            'label'       => __('色をリセット', 'kashiwazaki-searchcraft'),
+            'label'       => __('色をリセット', 'backbone-seo-llmo'),
             'section'     => 'backbone_custom_color_theme',
-            'description' => __('選択したベーステーマの色にリセットします。', 'kashiwazaki-searchcraft'),
+            'description' => __('選択したベーステーマの色にリセットします。', 'backbone-seo-llmo'),
         )));
     } else {
         // フォールバック: 標準のボタン（テキストなし）
         $wp_customize->add_control('custom_color_reset', array(
-            'label'       => __('色をリセット', 'kashiwazaki-searchcraft'),
+            'label'       => __('色をリセット', 'backbone-seo-llmo'),
             'section'     => 'backbone_custom_color_theme',
             'type'        => 'button',
-            'description' => __('選択したベーステーマの色にリセットします。このボタンをクリックしてください。', 'kashiwazaki-searchcraft'),
+            'description' => __('選択したベーステーマの色にリセットします。このボタンをクリックしてください。', 'backbone-seo-llmo'),
             'input_attrs' => array(
                 'class' => 'button button-secondary custom-color-reset-button',
             ),
@@ -214,7 +214,7 @@ function backbone_is_custom_color_theme_active() {
  */
 function backbone_get_base_theme_choices() {
     $choices = array(
-        'none' => __('未選択', 'kashiwazaki-searchcraft')
+        'none' => __('未選択', 'backbone-seo-llmo')
     );
     $color_themes = backbone_get_color_themes();
     

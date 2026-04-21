@@ -41,7 +41,7 @@ function backbone_add_navigation_settings($wp_customize) {
 
     // 3階層目以降のサブメニューの表示方向
     $wp_customize->add_setting('submenu_third_level_direction', array(
-        'default' => 'vertical',  // デフォルトを縦表示に変更
+        'default' => 'horizontal',
         'sanitize_callback' => 'backbone_sanitize_submenu_direction',
         'transport' => 'refresh',
     ));

@@ -71,10 +71,10 @@ function backbone_customize_register($wp_customize) {
     ));
 
     $wp_customize->add_control('header_message', array(
-        'label'       => __('ヘッダーメッセージ', 'kashiwazaki-searchcraft'),
+        'label'       => __('ヘッダーメッセージ', 'backbone-seo-llmo'),
         'section'     => 'title_tagline',
         'type'        => 'textarea',
-        'description' => __('ヘッダーに表示するメッセージを入力してください。HTMLタグも使用できます。', 'kashiwazaki-searchcraft'),
+        'description' => __('ヘッダーに表示するメッセージを入力してください。HTMLタグも使用できます。', 'backbone-seo-llmo'),
         'input_attrs' => array(
             'rows' => 3,
         ),
@@ -87,10 +87,10 @@ function backbone_customize_register($wp_customize) {
     ));
 
     $wp_customize->add_control('footer_message', array(
-        'label'       => __('フッターメッセージ', 'kashiwazaki-searchcraft'),
+        'label'       => __('フッターメッセージ', 'backbone-seo-llmo'),
         'section'     => 'title_tagline',
         'type'        => 'textarea',
-        'description' => __('フッターに表示するメッセージを入力してください。HTMLタグも使用できます。', 'kashiwazaki-searchcraft'),
+        'description' => __('フッターに表示するメッセージを入力してください。HTMLタグも使用できます。', 'backbone-seo-llmo'),
         'input_attrs' => array(
             'rows' => 3,
         ),
@@ -102,10 +102,10 @@ function backbone_customize_register($wp_customize) {
     ));
 
     $wp_customize->add_control('custom_logo_description', array(
-        'label'       => __('ロゴ設定の説明', 'kashiwazaki-searchcraft'),
+        'label'       => __('ロゴ設定の説明', 'backbone-seo-llmo'),
         'section'     => 'title_tagline',
         'type'        => 'hidden',
-        'description' => __('ロゴ画像をアップロードするか、テキストロゴを設定できます。', 'kashiwazaki-searchcraft'),
+        'description' => __('ロゴ画像をアップロードするか、テキストロゴを設定できます。', 'backbone-seo-llmo'),
     ));
 
     // サイトアイコンの説明
@@ -114,15 +114,15 @@ function backbone_customize_register($wp_customize) {
     ));
 
     $wp_customize->add_control('site_icon_description', array(
-        'label'       => __('サイトアイコンの説明', 'kashiwazaki-searchcraft'),
+        'label'       => __('サイトアイコンの説明', 'backbone-seo-llmo'),
         'section'     => 'title_tagline',
         'type'        => 'hidden',
-        'description' => __('ブラウザのタブやブックマークに表示されるアイコンを設定できます。推奨サイズ：512x512px', 'kashiwazaki-searchcraft'),
+        'description' => __('ブラウザのタブやブックマークに表示されるアイコンを設定できます。推奨サイズ：512x512px', 'backbone-seo-llmo'),
     ));
 
     // 開発者向けセクション追加
     $wp_customize->add_section('developer_settings', array(
-        'title'    => __('開発者設定', 'kashiwazaki-searchcraft'),
+        'title'    => __('開発者設定', 'backbone-seo-llmo'),
         'priority' => 200,
     ));
 

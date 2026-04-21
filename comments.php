@@ -17,7 +17,7 @@ if (post_password_required()) {
             <?php
             $comment_count = get_comments_number();
             if ('1' === $comment_count) {
-                printf(__('「%1$s」への1件のコメント', 'backbone-seo-llmo'), '<span>' . get_the_title() . '</span>');
+                printf(__('「%1$s」への1件のコメント', 'backbone-seo-llmo'), '<span>' . esc_html(get_the_title()) . '</span>');
             } else {
                 printf(
                     _nx(
@@ -27,7 +27,7 @@ if (post_password_required()) {
                         'comments title',
                         'backbone-seo-llmo'
                     ),
-                    '<span>' . get_the_title() . '</span>',
+                    '<span>' . esc_html(get_the_title()) . '</span>',
                     number_format_i18n($comment_count)
                 );
             }

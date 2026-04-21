@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 function backbone_add_layout_settings($wp_customize) {
     // レイアウト設定セクション
     $wp_customize->add_section('backbone_layout', array(
-        'title'    => __('レイアウト設定', 'kashiwazaki-searchcraft'),
+        'title'    => __('レイアウト設定', 'backbone-seo-llmo'),
         'priority' => 40,
     ));
 
@@ -27,7 +27,7 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('site_layout', array(
-        'label'   => __('フロントページレイアウト', 'kashiwazaki-searchcraft'),
+        'label'   => __('フロントページレイアウト', 'backbone-seo-llmo'),
         'section' => 'backbone_layout',
         'type'    => 'select',
         'choices' => backbone_get_layout_choices(),
@@ -40,12 +40,12 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('sidebar_position', array(
-        'label'   => __('サイドバー位置', 'kashiwazaki-searchcraft'),
+        'label'   => __('サイドバー位置', 'backbone-seo-llmo'),
         'section' => 'backbone_layout',
         'type'    => 'select',
         'choices' => array(
-            'left'  => __('左', 'kashiwazaki-searchcraft'),
-            'right' => __('右', 'kashiwazaki-searchcraft'),
+            'left'  => __('左', 'backbone-seo-llmo'),
+            'right' => __('右', 'backbone-seo-llmo'),
         ),
     ));
 
@@ -55,10 +55,10 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('post_type_layout_info', array(
-        'label'       => __('投稿タイプ別レイアウト設定', 'kashiwazaki-searchcraft'),
+        'label'       => __('投稿タイプ別レイアウト設定', 'backbone-seo-llmo'),
         'section'     => 'backbone_layout',
         'type'        => 'hidden',
-        'description' => __('各投稿タイプごとに個別のレイアウトを設定できます。', 'kashiwazaki-searchcraft'),
+        'description' => __('各投稿タイプごとに個別のレイアウトを設定できます。', 'backbone-seo-llmo'),
     ));
 
     // 投稿タイプ別レイアウト設定の詳細
@@ -74,7 +74,7 @@ function backbone_add_layout_settings($wp_customize) {
         ));
 
         $wp_customize->add_control("post_type_layout_{$post_type_name}", array(
-            'label'   => sprintf(__('%s レイアウト', 'kashiwazaki-searchcraft'), $post_type_label),
+            'label'   => sprintf(__('%s レイアウト', 'backbone-seo-llmo'), $post_type_label),
             'section' => 'backbone_layout',
             'type'    => 'select',
             'choices' => backbone_get_post_type_layout_choices(),
@@ -87,10 +87,10 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('archive_layout_info', array(
-        'label'       => __('アーカイブページレイアウト設定', 'kashiwazaki-searchcraft'),
+        'label'       => __('アーカイブページレイアウト設定', 'backbone-seo-llmo'),
         'section'     => 'backbone_layout',
         'type'        => 'hidden',
-        'description' => __('各種アーカイブページのレイアウトを設定できます。', 'kashiwazaki-searchcraft'),
+        'description' => __('各種アーカイブページのレイアウトを設定できます。', 'backbone-seo-llmo'),
     ));
 
     // カテゴリーアーカイブレイアウト
@@ -100,11 +100,11 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('post_type_layout_category', array(
-        'label'   => __('カテゴリーアーカイブ レイアウト', 'kashiwazaki-searchcraft'),
+        'label'   => __('カテゴリーアーカイブ レイアウト', 'backbone-seo-llmo'),
         'section' => 'backbone_layout',
         'type'    => 'select',
         'choices' => backbone_get_post_type_layout_choices(),
-        'description' => __('カテゴリー一覧ページのレイアウトを設定します。', 'kashiwazaki-searchcraft'),
+        'description' => __('カテゴリー一覧ページのレイアウトを設定します。', 'backbone-seo-llmo'),
     ));
 
     // タグアーカイブレイアウト
@@ -114,11 +114,11 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('post_type_layout_tag', array(
-        'label'   => __('タグアーカイブ レイアウト', 'kashiwazaki-searchcraft'),
+        'label'   => __('タグアーカイブ レイアウト', 'backbone-seo-llmo'),
         'section' => 'backbone_layout',
         'type'    => 'select',
         'choices' => backbone_get_post_type_layout_choices(),
-        'description' => __('タグ一覧ページのレイアウトを設定します。', 'kashiwazaki-searchcraft'),
+        'description' => __('タグ一覧ページのレイアウトを設定します。', 'backbone-seo-llmo'),
     ));
 
     // その他のアーカイブレイアウト（日付、著者など）
@@ -128,11 +128,11 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('post_type_layout_archive', array(
-        'label'   => __('その他のアーカイブ レイアウト', 'kashiwazaki-searchcraft'),
+        'label'   => __('その他のアーカイブ レイアウト', 'backbone-seo-llmo'),
         'section' => 'backbone_layout',
         'type'    => 'select',
         'choices' => backbone_get_post_type_layout_choices(),
-        'description' => __('日付アーカイブ、著者アーカイブなど、その他のアーカイブページのレイアウトを設定します。', 'kashiwazaki-searchcraft'),
+        'description' => __('日付アーカイブ、著者アーカイブなど、その他のアーカイブページのレイアウトを設定します。', 'backbone-seo-llmo'),
     ));
 
     // 検索結果ページレイアウト
@@ -142,11 +142,11 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('post_type_layout_search', array(
-        'label'   => __('検索結果ページ レイアウト', 'kashiwazaki-searchcraft'),
+        'label'   => __('検索結果ページ レイアウト', 'backbone-seo-llmo'),
         'section' => 'backbone_layout',
         'type'    => 'select',
         'choices' => backbone_get_post_type_layout_choices(),
-        'description' => __('検索結果ページのレイアウトを設定します。', 'kashiwazaki-searchcraft'),
+        'description' => __('検索結果ページのレイアウトを設定します。', 'backbone-seo-llmo'),
     ));
 
     // ヘッダーメッセージ
@@ -156,10 +156,10 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('header_message', array(
-        'label'       => __('ヘッダーメッセージ', 'kashiwazaki-searchcraft'),
+        'label'       => __('ヘッダーメッセージ', 'backbone-seo-llmo'),
         'section'     => 'backbone_layout',
         'type'        => 'textarea',
-        'description' => __('ヘッダーに表示するメッセージを入力してください。HTMLタグも使用できます。', 'kashiwazaki-searchcraft'),
+        'description' => __('ヘッダーに表示するメッセージを入力してください。HTMLタグも使用できます。', 'backbone-seo-llmo'),
         'input_attrs' => array(
             'rows' => 3,
         ),
@@ -172,10 +172,10 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('footer_message', array(
-        'label'       => __('フッターメッセージ', 'kashiwazaki-searchcraft'),
+        'label'       => __('フッターメッセージ', 'backbone-seo-llmo'),
         'section'     => 'backbone_layout',
         'type'        => 'textarea',
-        'description' => __('フッターに表示するメッセージを入力してください。HTMLタグも使用できます。', 'kashiwazaki-searchcraft'),
+        'description' => __('フッターに表示するメッセージを入力してください。HTMLタグも使用できます。', 'backbone-seo-llmo'),
         'input_attrs' => array(
             'rows' => 3,
         ),
@@ -229,10 +229,10 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('search_button_enabled', array(
-        'label'       => __('検索ボタン設定', 'kashiwazaki-searchcraft'),
+        'label'       => __('検索ボタン設定', 'backbone-seo-llmo'),
         'section'     => 'backbone_layout',
         'type'        => 'checkbox',
-        'description' => __('ヘッダーに検索ボタンを表示します。クリックすると検索ポップアップが開きます。', 'kashiwazaki-searchcraft'),
+        'description' => __('ヘッダーに検索ボタンを表示します。クリックすると検索ポップアップが開きます。', 'backbone-seo-llmo'),
     ));
 
     // サイドバーの幅
@@ -242,10 +242,10 @@ function backbone_add_layout_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('sidebar_width', array(
-        'label'       => __('サイドバーの幅', 'kashiwazaki-searchcraft'),
+        'label'       => __('サイドバーの幅', 'backbone-seo-llmo'),
         'section'     => 'backbone_layout',
         'type'        => 'number',
-        'description' => __('サイドバーの幅を設定します（px）。コンテンツエリアの幅は自動的に調整されます。', 'kashiwazaki-searchcraft'),
+        'description' => __('サイドバーの幅を設定します（px）。コンテンツエリアの幅は自動的に調整されます。', 'backbone-seo-llmo'),
         'input_attrs' => array(
             'min'  => 200,
             'max'  => 500,

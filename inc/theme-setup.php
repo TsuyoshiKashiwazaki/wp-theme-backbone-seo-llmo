@@ -114,6 +114,7 @@ function backbone_scripts() {
     // 検索ポップアップのCSS（検索ボタンが有効の場合のみ）
     if (get_theme_mod('search_button_enabled', true)) {
         wp_enqueue_style('seo-optimus-search-popup', get_template_directory_uri() . '/css/search-popup.css', array('seo-optimus-style'), backbone_get_file_version('/css/search-popup.css', $cache_busting_frontend));
+        wp_enqueue_style('seo-optimus-components-search', get_template_directory_uri() . '/css/components-search.css', array('seo-optimus-style'), backbone_get_file_version('/css/components-search.css', $cache_busting_frontend));
     }
 
     // メインビジュアル（ヒーローイメージ）のCSS
@@ -248,21 +249,23 @@ add_action('wp_enqueue_scripts', 'backbone_scripts');
  */
 function backbone_fallback_menu() {
     echo '<ul id="primary-menu">';
-    echo '<li><a href="' . esc_url(home_url('/')) . '">' . __('ホーム', 'seo-optimus-general') . '</a></li>';
+    echo '<li><a href="' . esc_url(home_url('/')) . '">' . __('ホーム', 'backbone-seo-llmo') . '</a></li>';
 
     $pages = get_pages();
     foreach ($pages as $page) {
-        echo '<li><a href="' . get_permalink($page->ID) . '">' . $page->post_title . '</a></li>';
+        echo '<li><a href="' . esc_url(get_permalink($page->ID)) . '">' . esc_html($page->post_title) . '</a></li>';
     }
 
     // 検索ボタンが有効の場合、メニューの最後に追加（メインレベルのみ）
     if (get_theme_mod('search_button_enabled', true)) {
         echo '<li class="menu-item menu-item-search menu-item-depth-0">
-            <button class="search-toggle" aria-label="検索を開く" aria-expanded="false">
-                <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                </svg>
-            </button>
+            <div class="search-toggle-container" aria-label="検索を開く" aria-expanded="false" role="button" tabindex="0">
+                <div class="search-toggle">
+                    <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" role="img">
+                        <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path>
+                    </svg>
+                </div>
+            </div>
         </li>';
     }
 

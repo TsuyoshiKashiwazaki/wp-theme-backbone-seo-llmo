@@ -40,7 +40,7 @@ get_header(); ?>
                             <?php if ($show_author) : ?>
                                 <span class="meta-label"><?php echo __('著者', 'backbone-seo-llmo'); ?>:</span>
                                 <span class="meta-badge author-badge">
-                                    <?php echo get_the_author(); ?>
+                                    <?php echo esc_html(get_the_author()); ?>
                                 </span>
                             <?php endif; ?>
 

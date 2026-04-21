@@ -236,11 +236,13 @@ function backbone_generate_subdirectory_design_css() {
 
     $css = '';
 
-    // デバッグ情報をコメントで出力
-    $css .= sprintf("/* Subdirectory Settings Found: path=%s, index=%d */\n", $settings['path'], $settings['index']);
-
-    // デバッグ：現在のURLを出力
-    $css .= sprintf("/* Current URL: %s */\n", $_SERVER['REQUEST_URI']);
+    // デバッグ情報（本番では出力しない）
+    if (defined('WP_DEBUG') && WP_DEBUG) {
+        $safe_uri = str_replace('*', '', $_SERVER['REQUEST_URI']);
+        $safe_path = str_replace('*', '', $settings['path']);
+        $css .= sprintf("/* Subdirectory Settings Found: path=%s, index=%d */\n", esc_html($safe_path), $settings['index']);
+        $css .= sprintf("/* Current URL: %s */\n", esc_html($safe_uri));
+    }
 
     // カラーテーマのCSS
     if (!empty($settings['color_theme']) && $settings['color_theme'] !== 'none') {

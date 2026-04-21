@@ -39,8 +39,8 @@ function backbone_pagination() {
         'format' => '?paged=%#%',
         'current' => max(1, get_query_var('paged')),
         'total' => $wp_query->max_num_pages,
-        'prev_text' => __('&laquo; 前へ', 'kashiwazaki-searchcraft'),
-        'next_text' => __('次へ &raquo;', 'kashiwazaki-searchcraft'),
+        'prev_text' => __('&laquo; 前へ', 'backbone-seo-llmo'),
+        'next_text' => __('次へ &raquo;', 'backbone-seo-llmo'),
         'type' => 'list',
     ));
 

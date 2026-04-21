@@ -2,6 +2,35 @@
 
 Backbone Theme for SEO + LLMO のすべての重要な変更はこのファイルに記録されます。
 
+## [1.2.0] - 2026-04-21
+
+### セキュリティ修正
+- `wp_redirect()` → `wp_safe_redirect()` に変更し、`$_SERVER['REQUEST_URI']` を `esc_url_raw(wp_unslash())` でサニタイズ (functions.php)
+- 未公開投稿（下書き・非公開）のコンテンツ漏洩防止: ソースページの `post_status` を `publish` のみ許可に変更 (functions.php, hero.php)
+- `localStorage.clear()` → テーマ固有キー (`backbone_*`) のみ削除に変更、`sessionStorage.clear()` を削除 (header.php)
+- Service Worker 全登録解除・全キャッシュ削除 → テーマ固有キャッシュのみ削除に変更、`location.reload(true)` 強制リロード削除 (header.php)
+- REST API: `while (ob_get_level())` 無制限バッファクリア → 最大3レベルに制限 (inc/rest-api-fix.php)
+- REST API: `@error_reporting(0)` 削除、`@ini_set('display_errors', '0')` のみに変更 (inc/rest-api-fix.php)
+- デバッグ用HTMLコメント出力を `WP_DEBUG` 条件付きに変更し、値を `esc_html()` でエスケープ (inc/css-layout.php, inc/customizer/subdirectory-design-settings.php)
+- 出力エスケープ追加: `esc_html(get_the_title())` (comments.php, home.php), `esc_html(get_the_author())` (single.php), `esc_url(get_permalink())` (inc/theme-setup.php, template-parts/sections/individual-section.php, template-parts/sections/pickup.php)
+- カスタムスキーマメタボックスに `current_user_can('unfiltered_html')` 権限チェック追加 (inc/meta-boxes/custom-schema-meta.php)
+- 検索フォーム: `uniqid()` の二重呼び出しを修正し、`label[for]` と `input[id]` の一致を保証 (searchform.php)
+
+### 修正
+- テキストドメイン `kashiwazaki-searchcraft` → `backbone-seo-llmo` に統一 (inc/customizer/ 配下の全ファイル, inc/utilities/core-utilities.php)
+- 検索ボタンのアクセシビリティ改善: `button` → `div[role="button"][tabindex="0"]` に変更、SVGに `role="img"` 属性追加 (header.php, inc/theme-setup.php)
+- 3階層サブメニューのデフォルト方向を `vertical` → `horizontal` に修正 (inc/customizer/navigation-settings.php)
+- フロントページセクション見出し・投稿タイトルに `color: var(--text-primary)` を追加しダークテーマでの視認性改善 (css/front-page-sections.css)
+- 検索ポップアップのクリックイベントセレクタを `.search-toggle` → `.search-toggle-container` に修正 (js/search-popup-simple.js)
+
+### 削除
+- 未使用の `js/search-popup.js` (207行) を削除
+- `css/components-header.css` から未使用の検索ボタンCSS (38行) を削除（`css/components-search.css` に移行）
+
+### 追加
+- `css/components-search.css` (検索コンポーネント用スタイル分離)
+- `.gitattributes` (改行コード・バイナリファイル管理)
+
 ## [1.0.40] - 2026-02-11
 
 ### 修正

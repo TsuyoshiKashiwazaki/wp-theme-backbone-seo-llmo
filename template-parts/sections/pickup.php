@@ -43,7 +43,7 @@ if (!empty($pickup_ids)) :
                     <article class="pickup-item">
                         <?php if (has_post_thumbnail($post_id)) : ?>
                             <div class="pickup-thumbnail">
-                                <a href="<?php echo get_permalink($post_id); ?>">
+                                <a href="<?php echo esc_url(get_permalink($post_id)); ?>">
                                     <?php echo get_the_post_thumbnail($post_id, 'medium'); ?>
                                 </a>
                             </div>
@@ -51,8 +51,8 @@ if (!empty($pickup_ids)) :
 
                         <div class="pickup-content">
                             <h3 class="pickup-title">
-                                <a href="<?php echo get_permalink($post_id); ?>">
-                                    <?php echo get_the_title($post_id); ?>
+                                <a href="<?php echo esc_url(get_permalink($post_id)); ?>">
+                                    <?php echo esc_html(get_the_title($post_id)); ?>
                                 </a>
                             </h3>
 

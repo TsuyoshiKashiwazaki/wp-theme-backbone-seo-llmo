@@ -130,7 +130,7 @@ function backbone_setup_hero_block_context() {
     }
 
     $source_post = get_post($source_page_id);
-    if (!$source_post || !in_array($source_post->post_status, array('publish', 'draft', 'private'), true)) {
+    if (!$source_post || $source_post->post_status !== 'publish') {
         return;
     }
 
@@ -212,7 +212,7 @@ function backbone_front_page_source_title($title_parts) {
     }
 
     $source_post = get_post($source_page_id);
-    if (!$source_post || !in_array($source_post->post_status, array('publish', 'draft', 'private'), true)) {
+    if (!$source_post || $source_post->post_status !== 'publish') {
         return $title_parts;
     }
 
@@ -553,12 +553,11 @@ add_action('parse_query', 'backbone_taxonomy_root_set_404');
  */
 function backbone_redirect_old_pagination() {
     if (get_query_var('old_pagination') == '1' && get_query_var('paged')) {
-        $paged = get_query_var('paged');
-        $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $new_url = preg_replace('#/page/(\d+)/?#', '/page-$1/', $current_url);
+        $request_uri = esc_url_raw(wp_unslash($_SERVER['REQUEST_URI']));
+        $new_uri = preg_replace('#/page/(\d+)/?#', '/page-$1/', $request_uri);
 
-        if ($new_url !== $current_url) {
-            wp_redirect($new_url, 301);
+        if ($new_uri !== $request_uri) {
+            wp_safe_redirect($new_uri, 301);
             exit;
         }
     }

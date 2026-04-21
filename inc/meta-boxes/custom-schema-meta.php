@@ -20,6 +20,10 @@ function backbone_add_custom_schema_meta_box() {
     $custom_post_types = get_post_types(array('public' => true, '_builtin' => false), 'names');
     $post_types = array_merge($post_types, $custom_post_types);
 
+    if (!current_user_can('unfiltered_html')) {
+        return;
+    }
+
     foreach ($post_types as $post_type) {
         add_meta_box(
             'backbone_custom_schema_meta',
@@ -111,7 +115,10 @@ function backbone_save_custom_schema_meta_box($post_id) {
         }
     }
 
-    // カスタムヘッダーコードの保存
+    // カスタムヘッダーコードの保存 (unfiltered_html権限チェック)
+    if (!current_user_can('unfiltered_html')) {
+        return;
+    }
     if (isset($_POST['custom_json_ld'])) {
         $custom_code = wp_unslash($_POST['custom_json_ld']);
         update_post_meta($post_id, '_custom_json_ld', $custom_code);

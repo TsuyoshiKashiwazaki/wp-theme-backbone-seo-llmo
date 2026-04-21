@@ -16,7 +16,7 @@ if (!defined('ABSPATH')) {
 function backbone_add_design_settings($wp_customize) {
     // セクション：デザイン設定
     $wp_customize->add_section('backbone_design', array(
-        'title'    => __('デザイン設定', 'kashiwazaki-searchcraft'),
+        'title'    => __('デザイン設定', 'backbone-seo-llmo'),
         'priority' => 30,
     ));
 
@@ -27,11 +27,11 @@ function backbone_add_design_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('color_theme', array(
-        'label'    => __('カラーテーマ', 'kashiwazaki-searchcraft'),
+        'label'    => __('カラーテーマ', 'backbone-seo-llmo'),
         'section'  => 'backbone_design',
         'type'     => 'select',
         'choices'  => backbone_get_color_theme_choices(),
-        'description' => __('サイト全体の色彩設計を選択できます。「設定なし」を選択すると詳細なカラー設定が表示されます。', 'kashiwazaki-searchcraft'),
+        'description' => __('サイト全体の色彩設計を選択できます。「設定なし」を選択すると詳細なカラー設定が表示されます。', 'backbone-seo-llmo'),
     ));
 
     // デザインパターンの選択
@@ -41,11 +41,11 @@ function backbone_add_design_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('design_pattern', array(
-        'label'    => __('デザインパターン', 'kashiwazaki-searchcraft'),
+        'label'    => __('デザインパターン', 'backbone-seo-llmo'),
         'section'  => 'backbone_design',
         'type'     => 'select',
         'choices'  => backbone_get_design_pattern_choices(),
-        'description' => __('サイト全体のレイアウトデザインを選択できます。', 'kashiwazaki-searchcraft'),
+        'description' => __('サイト全体のレイアウトデザインを選択できます。', 'backbone-seo-llmo'),
     ));
 
     // タイポグラフィパターンの選択
@@ -55,11 +55,11 @@ function backbone_add_design_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('text_pattern', array(
-        'label'    => __('タイポグラフィパターン', 'kashiwazaki-searchcraft'),
+        'label'    => __('タイポグラフィパターン', 'backbone-seo-llmo'),
         'section'  => 'backbone_design',
         'type'     => 'select',
         'choices'  => backbone_get_typography_pattern_choices(),
-        'description' => __('サイト全体の文字スタイルを選択できます。「設定なし」を選択すると詳細なタイポグラフィ設定が表示されます。', 'kashiwazaki-searchcraft'),
+        'description' => __('サイト全体の文字スタイルを選択できます。「設定なし」を選択すると詳細なタイポグラフィ設定が表示されます。', 'backbone-seo-llmo'),
     ));
 
     // デコレーションパターンの選択
@@ -69,11 +69,11 @@ function backbone_add_design_settings($wp_customize) {
     ));
 
     $wp_customize->add_control('decoration_pattern', array(
-        'label'    => __('デコレーションパターン', 'kashiwazaki-searchcraft'),
+        'label'    => __('デコレーションパターン', 'backbone-seo-llmo'),
         'section'  => 'backbone_design',
         'type'     => 'select',
         'choices'  => backbone_get_decoration_pattern_choices(),
-        'description' => __('見出しやリストの装飾スタイルを選択できます。', 'kashiwazaki-searchcraft'),
+        'description' => __('見出しやリストの装飾スタイルを選択できます。', 'backbone-seo-llmo'),
     ));
 
     // デフォルトアイキャッチ画像

@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
     'use strict';
 
     // 検索ボタンクリック
-    $(document).on('click', '.search-toggle', function(e) {
+    $(document).on('click', '.search-toggle-container', function(e) {
         e.preventDefault();
         $('.search-popup-overlay').addClass('active');
         $('body').css('overflow', 'hidden');

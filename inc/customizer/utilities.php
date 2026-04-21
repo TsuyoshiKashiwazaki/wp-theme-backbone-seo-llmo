@@ -16,10 +16,10 @@ if (!defined('ABSPATH')) {
 if (!function_exists('backbone_get_layout_choices')) {
     function backbone_get_layout_choices() {
         return array(
-            'single-column'  => __('1カラム', 'kashiwazaki-searchcraft'),
-            'two-columns'    => __('2カラム', 'kashiwazaki-searchcraft'),
-            'three-columns'  => __('3カラム', 'kashiwazaki-searchcraft'),
-            'full-width'     => __('全幅レイアウト（フルワイド）', 'kashiwazaki-searchcraft'),
+            'single-column'  => __('1カラム', 'backbone-seo-llmo'),
+            'two-columns'    => __('2カラム', 'backbone-seo-llmo'),
+            'three-columns'  => __('3カラム', 'backbone-seo-llmo'),
+            'full-width'     => __('全幅レイアウト（フルワイド）', 'backbone-seo-llmo'),
         );
     }
 }
@@ -27,11 +27,11 @@ if (!function_exists('backbone_get_layout_choices')) {
 if (!function_exists('backbone_get_post_type_layout_choices')) {
     function backbone_get_post_type_layout_choices() {
         return array(
-            'inherit'        => __('フロントページ設定に従う', 'kashiwazaki-searchcraft'),
-            'single-column'  => __('1カラム', 'kashiwazaki-searchcraft'),
-            'two-columns'    => __('2カラム', 'kashiwazaki-searchcraft'),
-            'three-columns'  => __('3カラム', 'kashiwazaki-searchcraft'),
-            'full-width'     => __('全幅レイアウト（フルワイド）', 'kashiwazaki-searchcraft'),
+            'inherit'        => __('フロントページ設定に従う', 'backbone-seo-llmo'),
+            'single-column'  => __('1カラム', 'backbone-seo-llmo'),
+            'two-columns'    => __('2カラム', 'backbone-seo-llmo'),
+            'three-columns'  => __('3カラム', 'backbone-seo-llmo'),
+            'full-width'     => __('全幅レイアウト（フルワイド）', 'backbone-seo-llmo'),
         );
     }
 }
@@ -48,7 +48,7 @@ if (!function_exists('backbone_get_default_layout')) {
  * デザインパターンの選択肢を取得
  */
 function backbone_get_design_pattern_choices() {
-    $choices = array('none' => __('設定なし', 'kashiwazaki-searchcraft'));
+    $choices = array('none' => __('設定なし', 'backbone-seo-llmo'));
 
     $design_patterns = backbone_get_design_patterns();
     if ($design_patterns) {
@@ -64,7 +64,7 @@ function backbone_get_design_pattern_choices() {
  * タイポグラフィパターンの選択肢を取得
  */
 function backbone_get_typography_pattern_choices() {
-    $choices = array('none' => __('設定なし', 'kashiwazaki-searchcraft'));
+    $choices = array('none' => __('設定なし', 'backbone-seo-llmo'));
 
     $typography_patterns = backbone_get_typography_patterns();
     if ($typography_patterns) {
@@ -80,7 +80,7 @@ function backbone_get_typography_pattern_choices() {
  * デコレーションパターンの選択肢を取得
  */
 function backbone_get_decoration_pattern_choices() {
-    $choices = array('none' => __('設定なし', 'kashiwazaki-searchcraft'));
+    $choices = array('none' => __('設定なし', 'backbone-seo-llmo'));
 
     $decoration_patterns = backbone_get_decoration_patterns();
     if ($decoration_patterns) {

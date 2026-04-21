@@ -1,0 +1,61 @@
+/* ========================================
+   検索機能（ヘッダーアイコン・ポップアップ）
+======================================== */
+
+/* メニュー内の検索アイコンコンテナ */
+.menu-item-search {
+    list-style: none;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 12px;
+}
+
+/* サブメニュー内の検索アイコンは非表示 */
+.sub-menu .menu-item-search {
+    display: none !important;
+}
+
+/* 検索アイコン全体のコンテナ */
+.search-toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 8px; /* クリック領域を確保 */
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.search-toggle-container:hover {
+    background-color: rgba(var(--header-link-color-rgb), 0.1);
+}
+
+/* アイコン自体のラッパー */
+.search-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--header-link-color);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.search-toggle-container:hover .search-toggle {
+    color: var(--header-link-hover-color);
+    transform: scale(1.1);
+}
+
+/* 検索SVGアイコン */
+.search-toggle .search-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* キーボードフォーカス時のスタイル */
+.search-toggle-container:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    background-color: rgba(var(--header-link-color-rgb), 0.1);
+}

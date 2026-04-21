@@ -240,45 +240,7 @@ body.layout-three-columns .site-header .container {
     max-height: none;
 }
 
-/* メニュー内検索ボタン（メインレベルのみ表示） */
-.menu-item-search {
-    list-style: none;
-    display: inline-block;
-}
 
-/* サブメニュー内の検索ボタンを非表示 */
-.sub-menu .menu-item-search {
-    display: none !important;
-}
-
-.menu-item-search .search-toggle {
-    background: transparent;
-    border: 2px solid var(--header-link-color);
-    cursor: pointer;
-    padding: 5px;
-    color: var(--header-link-color);
-    transition: all 0.3s ease;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    vertical-align: middle;
-    margin-left: 4px;
-}
-
-.menu-item-search .search-toggle:hover {
-    background: var(--accent-color);
-    border-color: var(--accent-color);
-    color: var(--header-link-hover-color);
-}
-
-.menu-item-search .search-icon {
-    width: 12px;
-    height: 12px;
-    fill: currentColor;
-}
 
 .site-branding {
     display: block;

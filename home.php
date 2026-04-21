@@ -14,7 +14,7 @@ get_header(); ?>
             if ($posts_page) : ?>
                 <article id="posts-page-<?php echo $posts_page_id; ?>" class="posts-page-content">
                     <header class="page-header">
-                        <h1 class="page-title"><?php echo get_the_title($posts_page); ?></h1>
+                        <h1 class="page-title"><?php echo esc_html(get_the_title($posts_page)); ?></h1>
                     </header>
 
                     <?php if (has_post_thumbnail($posts_page_id)) : ?>

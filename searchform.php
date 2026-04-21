@@ -6,14 +6,15 @@
  */
 ?>
 
+<?php $search_field_id = 'search-field-' . uniqid(); ?>
 <form role="search" method="get" class="search-form" action="<?php echo esc_url(home_url('/')); ?>">
-    <label for="search-field-<?php echo uniqid(); ?>" class="screen-reader-text">
+    <label for="<?php echo esc_attr($search_field_id); ?>" class="screen-reader-text">
         <?php _e('検索:', 'backbone-seo-llmo'); ?>
     </label>
     <div class="search-form-wrapper">
         <input
             type="search"
-            id="search-field-<?php echo uniqid(); ?>"
+            id="<?php echo esc_attr($search_field_id); ?>"
             class="search-field"
             placeholder="<?php echo esc_attr_x('キーワードを入力...', 'placeholder', 'backbone-seo-llmo'); ?>"
             value="<?php echo get_search_query(); ?>"

@@ -10,48 +10,35 @@
 
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
-<!-- 既存訪問者のキャッシュを一度だけクリア（Service Worker含む） -->
+<!-- 既存訪問者のテーマ固有キャッシュを一度だけクリア -->
 <script>
 (function forceClearLegacyCache() {
     var clearFlag = 'backbone_cache_cleared_20250111_v1';
 
     if (!localStorage.getItem(clearFlag)) {
         try {
-            // LocalStorage/SessionStorageをクリア
-            localStorage.clear();
-            sessionStorage.clear();
+            var keysToRemove = [];
+            for (var i = 0; i < localStorage.length; i++) {
+                var key = localStorage.key(i);
+                if (key && key.indexOf('backbone_') === 0) {
+                    keysToRemove.push(key);
+                }
+            }
+            keysToRemove.forEach(function(key) { localStorage.removeItem(key); });
 
-            // Service Workerのキャッシュもクリア
-            if ('serviceWorker' in navigator && 'caches' in window) {
+            if ('caches' in window) {
                 caches.keys().then(function(cacheNames) {
                     return Promise.all(
-                        cacheNames.map(function(cacheName) {
+                        cacheNames.filter(function(name) {
+                            return name.indexOf('backbone') !== -1;
+                        }).map(function(cacheName) {
                             return caches.delete(cacheName);
                         })
                     );
-                }).then(function() {
-                    console.log('All caches cleared successfully');
-                    // Service Workerも登録解除
-                    return navigator.serviceWorker.getRegistrations();
-                }).then(function(registrations) {
-                    return Promise.all(
-                        registrations.map(function(registration) {
-                            return registration.unregister();
-                        })
-                    );
-                }).then(function() {
-                    console.log('Service Workers unregistered');
-                    localStorage.setItem(clearFlag, 'true');
-                    // ページをリロードして完全にクリア
-                    location.reload(true);
-                }).catch(function(error) {
-                    console.error('Failed to clear Service Worker cache:', error);
-                    localStorage.setItem(clearFlag, 'true');
                 });
-            } else {
-                localStorage.setItem(clearFlag, 'true');
-                console.log('Legacy cache cleared successfully');
             }
+
+            localStorage.setItem(clearFlag, 'true');
         } catch (e) {
             console.error('Failed to clear cache:', e);
         }
@@ -142,11 +129,13 @@
                     // 検索ボタンが有効の場合、メニューの最後に追加
                     if (get_theme_mod('search_button_enabled', true)) {
                         $search_button = '<li class="menu-item menu-item-search menu-item-depth-0">
-                            <button class="search-toggle" aria-label="検索を開く" aria-expanded="false">
-                                <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                                </svg>
-                            </button>
+                            <div class="search-toggle-container" aria-label="検索を開く" aria-expanded="false" role="button" tabindex="0">
+                                <div class="search-toggle">
+                                    <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" role="img">
+                                        <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path>
+                                    </svg>
+                                </div>
+                            </div>
                         </li>';
                         
                         // </ul>の直前に検索ボタンを挿入
@@ -178,8 +167,8 @@
                            aria-label="検索キーワード"
                            autocomplete="off">
                     <button type="submit" class="search-popup-submit" aria-label="検索実行">
-                        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true" role="img">
+                            <path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"></path>
                         </svg>
                     </button>
                 </form>

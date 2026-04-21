@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
  */
 function backbone_get_color_theme_choices() {
     $themes = backbone_get_color_themes();
-    $choices = array('none' => __('設定なし', 'kashiwazaki-searchcraft'));
+    $choices = array('none' => __('設定なし', 'backbone-seo-llmo'));
 
     foreach ($themes as $key => $theme) {
         $choices[$key] = $theme['name'];

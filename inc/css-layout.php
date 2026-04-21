@@ -649,14 +649,13 @@ function backbone_dynamic_layout_output() {
         echo $css;
         echo '</style>' . "\n";
 
-        // デバッグ用：設定値の確認
-        echo "<!-- レイアウト設定デバッグ -->\n";
-        echo "<!-- sidebar_width (raw): " . $sidebar_width_raw . " -->\n";
-        echo "<!-- sidebar_width (processed): " . $sidebar_width . " -->\n";
-        echo "<!-- is_numeric check: " . (is_numeric($sidebar_width_raw) ? 'true' : 'false') . " -->\n";
-        echo "<!-- 適用されるレイアウト: " . backbone_get_layout() . " -->\n";
-        echo "<!-- 計算されたコンテンツエリア幅: " . (isset($content_width) ? $content_width : 'N/A') . " -->\n";
-        echo "<!-- 生成されたCSS: " . strlen($css) . " 文字 -->\n";
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            echo "<!-- レイアウト設定デバッグ -->\n";
+            echo "<!-- sidebar_width (raw): " . esc_html($sidebar_width_raw) . " -->\n";
+            echo "<!-- sidebar_width (processed): " . esc_html($sidebar_width) . " -->\n";
+            echo "<!-- 適用されるレイアウト: " . esc_html(backbone_get_layout()) . " -->\n";
+            echo "<!-- 生成されたCSS: " . strlen($css) . " 文字 -->\n";
+        }
     }
 }
 add_action('wp_head', 'backbone_dynamic_layout_output', 999);

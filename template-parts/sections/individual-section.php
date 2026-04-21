@@ -45,7 +45,7 @@ $layout = get_query_var('individual_layout', '2col');
             <article class="individual-item">
                 <?php if ($show_thumbnail && has_post_thumbnail($post_id)) : ?>
                     <div class="item-thumbnail">
-                        <a href="<?php echo get_permalink($post_id); ?>">
+                        <a href="<?php echo esc_url(get_permalink($post_id)); ?>">
                             <?php echo get_the_post_thumbnail($post_id, 'medium'); ?>
                         </a>
                     </div>
@@ -53,8 +53,8 @@ $layout = get_query_var('individual_layout', '2col');
 
                 <div class="item-content">
                     <h3 class="item-title">
-                        <a href="<?php echo get_permalink($post_id); ?>">
-                            <?php echo get_the_title($post_id); ?>
+                        <a href="<?php echo esc_url(get_permalink($post_id)); ?>">
+                            <?php echo esc_html(get_the_title($post_id)); ?>
                         </a>
                     </h3>
 
