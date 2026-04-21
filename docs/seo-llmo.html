@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEOとLLMO - Backbone Theme マニュアル</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <button class="hamburger-btn" aria-label="メニューを開く">&#9776;</button>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2 style="color:#fff;">Backbone Theme</h2>
+            <span class="version">v1.2.0</span>
+            <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
+        </div>
+        <ul>
+            <li><a href="index.html">概要</a></li>
+            <li><a href="setup.html">インストール・初期設定</a></li>
+            <li><a href="layout-design.html">レイアウトとデザイン</a></li>
+            <li><a href="content-display.html">コンテンツ表示</a></li>
+            <li><a href="seo-llmo.html">SEOとLLMO</a></li>
+            <li><a href="troubleshooting.html">トラブルシューティング</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <h1>SEOとLLMO</h1>
+        <p class="lead">メタディスクリプション・キーワード自動生成、セマンティックHTML、構造化データ（JSON-LD）、ページネーション、タクソノミー、開発者向け機能について解説します。</p>
+
+        <section>
+            <h2>LLMO / GEO とは</h2>
+            <p><strong>LLMO（Large Language Model Optimization）</strong>は、ChatGPT・Claude等の大規模言語モデルがコンテンツを正確に理解・引用できるように最適化する手法です。<strong>GEO（Generative Engine Optimization）</strong>は、Perplexity・Google AI Overview等のAI搭載検索エンジンからの引用精度を高める手法です。</p>
+            <p>従来のSEOがGoogle検索のランキングを対象とするのに対し、LLMO/GEOはAIがコンテンツを「正確に理解して引用する」ことを目的とします。Backbone Theme は以下の要素でLLMO/GEO対応を支援します。</p>
+            <ul>
+                <li><strong>セマンティックHTML</strong>: AIがコンテンツ構造を正しく解析できる意味的なマークアップ</li>
+                <li><strong>構造化データ（JSON-LD）</strong>: Schema.orgに基づく機械可読なメタデータ</li>
+                <li><strong>メタ情報の自動生成</strong>: AIがページの要約を取得するためのディスクリプション・キーワード</li>
+                <li><strong>明確な内部リンク構造</strong>: タクソノミー横断表示とルートページによるコンテンツ間の関連性表現</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>メタディスクリプション自動生成</h2>
+            <p>Backbone Theme は、各ページタイプに応じたメタディスクリプション（<code>&lt;meta name="description"&gt;</code>）を自動生成します。カスタマイザーの「記事メタ情報設定」→「メタディスクリプション自動生成」で有効/無効を切り替えられます（デフォルト: 有効）。</p>
+
+            <h3>ページタイプ別の生成ルール</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ページタイプ</th>
+                        <th>生成方法</th>
+                        <th>フォールバック</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>投稿・固定ページ</td><td>投稿の抜粋（excerpt）を優先使用</td><td>本文の先頭25語（約160文字）を自動抽出</td></tr>
+                    <tr><td>フロントページ</td><td>サイトのキャッチフレーズ（blogdescription）</td><td>「{サイト名} - 最新の投稿と更新情報」</td></tr>
+                    <tr><td>カテゴリアーカイブ</td><td>カテゴリの説明文（WordPress管理画面で設定）</td><td>「{カテゴリ名}の記事一覧」</td></tr>
+                    <tr><td>タグアーカイブ</td><td>タグの説明文</td><td>「{タグ名}のタグが付いた記事一覧」</td></tr>
+                    <tr><td>著者アーカイブ</td><td>著者のプロフィール説明文</td><td>「{著者名}が執筆した記事一覧」</td></tr>
+                    <tr><td>日付アーカイブ</td><td>自動生成のみ</td><td>「{年月}に公開された記事一覧」</td></tr>
+                    <tr><td>404ページ</td><td>自動生成のみ</td><td>汎用的な「ページが見つかりません」メッセージ</td></tr>
+                </tbody>
+            </table>
+
+            <div class="callout callout-note">
+                <p>SEOプラグイン（Yoast SEO、All in One SEO、Rank Math等）を使用する場合は、カスタマイザーの「記事メタ情報設定」から「メタディスクリプション自動生成」を手動で無効化してください。テーマとプラグインの両方がメタディスクリプションを出力するとタグが重複します。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>メタキーワード自動生成</h2>
+            <p>テーマはメタキーワード（<code>&lt;meta name="keywords"&gt;</code>）も自動生成します。カスタマイザーの「記事メタ情報設定」→「メタキーワード自動生成」で有効/無効を切り替えられます（デフォルト: 有効）。</p>
+            <h3>キーワード抽出の優先順位（個別投稿・固定ページ）</h3>
+            <ol>
+                <li><code>focus_keyword</code> カスタムフィールド（最優先）</li>
+                <li>投稿に付けられたタグ・カテゴリ（投稿の場合）/ ページタグ（固定ページの場合）</li>
+                <li>投稿タイトルからの自動抽出（補助的）</li>
+            </ol>
+            <p>ホームページではカテゴリ（上位5件）→ タグ（上位3件）→ サイトタイトル → キャッチフレーズの順に抽出されます。アーカイブページではそのタクソノミー名が使用されます。</p>
+            <div class="callout callout-tip">
+                <p>メタキーワードはGoogle検索では現在ランキング要因として使用されていませんが、一部の検索エンジンやAIシステムがコンテンツの分類に参照する場合があります。不要な場合はカスタマイザーから無効化できます。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>タイトルタグ</h2>
+            <p>テーマはWordPress標準の<code>title-tag</code>サポート（<code>add_theme_support('title-tag')</code>）を使用してタイトルタグを生成します。<code>document_title_separator</code>フィルターによりセパレーター（ページタイトルとサイト名の区切り文字）をWordPressデフォルトの「–」から「<strong>|</strong>」（パイプ）に変更しています。</p>
+            <p>出力例: <code>&lt;title&gt;記事タイトル | サイト名&lt;/title&gt;</code></p>
+        </section>
+
+        <section>
+            <h2>セマンティックHTML</h2>
+            <p>テーマは適切なHTML5セマンティックタグを使用して、検索エンジンやAIがコンテンツの構造を正しく理解できるようにしています。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>HTML要素</th>
+                        <th>用途</th>
+                        <th>LLMO/GEOへの効果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>&lt;header&gt;</code></td><td>サイトヘッダー（ロゴ・ナビゲーション）</td><td>AIがサイト情報とナビゲーション構造を識別</td></tr>
+                    <tr><td><code>&lt;nav&gt;</code></td><td>グローバルナビゲーション・パンくずリスト</td><td>AIがサイト階層構造を理解</td></tr>
+                    <tr><td><code>&lt;main&gt;</code></td><td>ページのメインコンテンツ領域</td><td>AIが主要コンテンツを正確に抽出（広告・サイドバーと区別）</td></tr>
+                    <tr><td><code>&lt;article&gt;</code></td><td>個別の記事コンテンツ</td><td>AIが独立した記事単位を認識し、正確に引用</td></tr>
+                    <tr><td><code>&lt;aside&gt;</code></td><td>サイドバー領域</td><td>AIが補助的コンテンツと主要コンテンツを区別</td></tr>
+                    <tr><td><code>&lt;footer&gt;</code></td><td>サイトフッター</td><td>AIがフッター情報（著作権・連絡先等）を識別</td></tr>
+                    <tr><td><code>&lt;time&gt;</code></td><td>投稿日・更新日（datetime属性付き）</td><td>AIがコンテンツの鮮度・時系列を正確に把握</td></tr>
+                </tbody>
+            </table>
+
+            <p>これらのセマンティックな構造は、Google検索のクローラーだけでなく、ChatGPT・Gemini・Perplexity等のAI検索エンジンがコンテンツを正確に引用する際にも有効です。特に <code>&lt;main&gt;</code> と <code>&lt;article&gt;</code> の適切な使用は、AIがサイドバーや広告を除いた「記事本文」を正確に抽出するために重要です。</p>
+        </section>
+
+        <section>
+            <h2>カスタムヘッダーコード（JSON-LD）</h2>
+            <p>投稿・固定ページ・カスタム投稿タイプの編集画面に「カスタムヘッダーコード」メタボックスが表示されます。ここにJSON-LDやmetaタグ等を記述すると、そのページの<code>&lt;head&gt;</code>内に出力されます。</p>
+
+            <figure class="screenshot">
+                <img src="images/screenshots/10-schema-metabox.png" alt="カスタムヘッダーコード メタボックス" class="lightbox-trigger">
+                <figcaption>図: カスタムヘッダーコード メタボックス（投稿編集画面）</figcaption>
+            </figure>
+
+            <h3>入力例: Article Schema</h3>
+<pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "記事タイトル",
+  "author": {
+    "@type": "Person",
+    "name": "著者名"
+  },
+  "datePublished": "2026-01-01",
+  "description": "記事の説明"
+}
+&lt;/script&gt;</code></pre>
+
+            <h3>入力例: FAQPage Schema</h3>
+<pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "質問1",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "回答1"
+    }
+  }]
+}
+&lt;/script&gt;</code></pre>
+
+            <h3>入力例: HowTo Schema</h3>
+<pre><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "手順のタイトル",
+  "step": [{
+    "@type": "HowToStep",
+    "name": "ステップ1",
+    "text": "ステップ1の説明"
+  }, {
+    "@type": "HowToStep",
+    "name": "ステップ2",
+    "text": "ステップ2の説明"
+  }]
+}
+&lt;/script&gt;</code></pre>
+
+            <div class="callout callout-tip">
+                <p>JSON-LDだけでなく、<code>&lt;meta&gt;</code>タグや<code>&lt;link&gt;</code>タグも入力可能です。OGPタグの追加やcanonical URLの指定にも使えます。例: <code>&lt;link rel="canonical" href="https://example.com/page/"&gt;</code></p>
+            </div>
+
+            <h3>対応する構造化データの種類</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Schemaタイプ</th>
+                        <th>用途</th>
+                        <th>Google検索での効果</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Article / NewsArticle</td><td>ブログ記事・ニュース記事</td><td>記事のリッチリザルト表示</td></tr>
+                    <tr><td>FAQPage</td><td>よくある質問ページ</td><td>FAQ リッチリザルト（質問と回答の展開表示）</td></tr>
+                    <tr><td>HowTo</td><td>手順・チュートリアル記事</td><td>ステップバイステップのリッチリザルト</td></tr>
+                    <tr><td>Product</td><td>商品・サービスページ</td><td>価格・在庫・レビューのリッチリザルト</td></tr>
+                    <tr><td>LocalBusiness</td><td>店舗・事業所情報</td><td>ナレッジパネル、Google マップ連携</td></tr>
+                    <tr><td>BreadcrumbList</td><td>パンくずリスト</td><td>検索結果にパンくずパスを表示</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>ページネーション</h2>
+            <p>テーマは独自のページネーション（ページ送り）システムを実装しています。</p>
+
+            <h3>URL構造</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>形式</th>
+                        <th>URL例</th>
+                        <th>備考</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>新形式（テーマ標準）</td><td><code>/category/news/page-2/</code></td><td>ハイフン区切りのSEOフレンドリーURL</td></tr>
+                    <tr><td>旧形式（WordPress標準）</td><td><code>/category/news/page/2/</code></td><td>自動的に301リダイレクトで新形式に転送</td></tr>
+                </tbody>
+            </table>
+
+            <h3>対応するアーカイブタイプ</h3>
+            <p>以下のすべてのアーカイブタイプでカスタムページネーションが動作します。</p>
+            <ul>
+                <li>カテゴリアーカイブ: <code>/category/{name}/page-N/</code></li>
+                <li>タグアーカイブ: <code>/tag/{name}/page-N/</code></li>
+                <li>著者アーカイブ: <code>/author/{name}/page-N/</code></li>
+                <li>日付アーカイブ: <code>/YYYY/MM/DD/page-N/</code></li>
+                <li>カスタム投稿タイプアーカイブ: <code>/{slug}/page-N/</code></li>
+            </ul>
+
+            <div class="callout callout-note">
+                <p>旧形式 <code>/page/N/</code> から新形式 <code>/page-N/</code> への301リダイレクトにより、既存のインデックスやブックマークが自動的に新URLに転送されます。重複コンテンツの問題は発生しません。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>タクソノミー横断表示</h2>
+            <p>カテゴリアーカイブやタグアーカイブでは、投稿（post）だけでなく、同じカテゴリ/タグが付けられたすべてのカスタム投稿タイプの記事も一覧に表示されます。</p>
+            <p>例えば「ニュース」カテゴリに、通常の投稿とカスタム投稿タイプ「プレスリリース」の両方が属している場合、カテゴリアーカイブページにはその両方が表示されます。これによりサイト内のコンテンツ関連性が強化され、内部リンク構造が改善されます。</p>
+        </section>
+
+        <section>
+            <h2>タクソノミールートページ</h2>
+            <p>テーマは <code>/tag/</code> と <code>/category/</code> のルートURL（末尾に特定のタグ名/カテゴリ名がないURL）に対して、すべてのタグ/カテゴリを一覧表示するルートページを提供します。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>URL</th>
+                        <th>表示内容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>/tag/</code></td><td>サイト内のすべてのタグの一覧（タグクラウド）</td></tr>
+                    <tr><td><code>/category/</code></td><td>サイト内のすべてのカテゴリの一覧</td></tr>
+                </tbody>
+            </table>
+            <p>これらのルートページはSEO上のハブページとして機能し、内部リンク構造を強化します。AIがサイトのコンテンツ分類体系を理解するためにも有効です。</p>
+        </section>
+
+        <section>
+            <h2>ページのタグ・抜粋機能</h2>
+            <p>固定ページ（page）でもタグと抜粋（excerpt）を使えるようにテーマが拡張しています。</p>
+            <ul>
+                <li><strong>タグ対応</strong>: 固定ページにタグを付けることで、タグアーカイブに固定ページも表示されるようになります。例えば「料金」タグを料金ページと料金に関するブログ記事の両方に付けると、タグアーカイブでまとめて表示されます。</li>
+                <li><strong>抜粋対応</strong>: 固定ページの編集画面に抜粋メタボックスが追加され、メタディスクリプションの自動生成やアーカイブ一覧での表示に利用されます。REST APIでも抜粋フィールドが返されます。</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>開発者向け機能</h2>
+
+            <h3>キャッシュバスティング</h3>
+            <p>「開発者設定」セクションで、CSS/JSファイルにキャッシュバスターを付与できます。フロントエンドと管理画面を個別に制御可能です。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>フロントエンドキャッシュバスティング</td><td>フロントエンド（訪問者向け画面）のCSS/JSファイルにタイムスタンプを付与</td><td>無効</td></tr>
+                    <tr><td>管理画面キャッシュバスティング</td><td>WordPress管理画面のCSS/JSファイルにタイムスタンプを付与</td><td>無効</td></tr>
+                </tbody>
+            </table>
+            <div class="callout callout-tip">
+                <p>テーマやプラグインの更新後にデザインが崩れる場合は、キャッシュバスティングを一時的に有効にすることで、ブラウザに最新のファイルを強制読み込みさせることができます。</p>
+            </div>
+
+            <h3>カスタムJS注入</h3>
+            <p>「追加JS」セクションで、カスタムJavaScriptをサイトに注入できます。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>全体共通JS</td><td>すべてのページに適用されるJavaScript。Google Analytics等のトラッキングコードに最適</td></tr>
+                    <tr><td>投稿タイプ別JS</td><td>特定の投稿タイプ（投稿・固定ページ・カスタム投稿タイプ）のシングルページにのみ適用</td></tr>
+                    <tr><td>注入位置</td><td>各JSの注入位置を<strong>ヘッダー</strong>（<code>&lt;head&gt;</code>内）または<strong>フッター</strong>（<code>&lt;/body&gt;</code>直前）から選択</td></tr>
+                </tbody>
+            </table>
+
+            <h3>カスタムCSS注入</h3>
+            <p>「追加CSS」セクションで、カスタムCSSをサイトに注入できます。WordPress標準のカスタムCSS（追加CSS）とは別に管理されます。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>全体共通CSS</td><td>すべてのページに適用されるCSS</td></tr>
+                    <tr><td>投稿タイプ別CSS</td><td>特定の投稿タイプのシングルページにのみ適用されるCSS</td></tr>
+                    <tr><td>注入位置</td><td>各CSSの注入位置を<strong>ヘッダー</strong>（<code>&lt;head&gt;</code>内）または<strong>フッター</strong>（<code>&lt;/body&gt;</code>直前）から選択</td></tr>
+                </tbody>
+            </table>
+
+            <div class="callout callout-warning">
+                <p>カスタムJS/CSSは入力内容がそのまま出力されます（<code>&lt;script&gt;</code>/<code>&lt;style&gt;</code>タグは自動的に除去されます）。構文エラーがあるとサイトの表示に影響する場合があります。<code>unfiltered_html</code>権限を持つユーザー（通常は管理者）のみが入力可能です。変更後は必ずフロントエンドで動作確認を行ってください。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>プラグイン連携</h2>
+            <p>Backbone Theme は「テーマは基盤、プラグインで拡張」の設計思想に基づいています。テーマ単体でも基本的なSEO/LLMO対策が可能ですが、高度な機能は専用プラグインで拡張することを推奨します。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>拡張領域</th>
+                        <th>テーマが提供する基盤</th>
+                        <th>プラグインで追加できる機能</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>SEO最適化</td><td>メタディスクリプション/キーワード自動生成、セマンティックHTML、タイトルセパレーター</td><td>高度なメタタグ管理、XMLサイトマップ生成、内部リンク最適化、ソーシャルメディア設定</td></tr>
+                    <tr><td>LLMO対応</td><td>セマンティックHTML、JSON-LD手動入力</td><td>構造化データの自動生成、AI検索向けコンテンツ最適化、FAQスキーマ自動生成</td></tr>
+                    <tr><td>GEO対応</td><td>タクソノミー横断表示、ルートページ、明確なHTML構造</td><td>AI検索エンジンからの引用精度向上、エンティティ管理、ナレッジグラフ連携</td></tr>
+                    <tr><td>AIO（AI Optimization）</td><td>SEO・LLMO・GEOの基盤機能</td><td>SEO・LLMO・GEOを統合的に管理する専用ダッシュボード</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <nav class="page-nav">
+            <a href="content-display.html" class="prev">&laquo; コンテンツ表示</a>
+            <a href="troubleshooting.html" class="next">トラブルシューティング &raquo;</a>
+        </nav>
+
+        <footer class="manual-footer">
+            <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.0</p>
+        </footer>
+    </main>
+
+    <div class="lightbox"></div>
+    <script src="js/manual.js"></script>
+</body>
+</html>

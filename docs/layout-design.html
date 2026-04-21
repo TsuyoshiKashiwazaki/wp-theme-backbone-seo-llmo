@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>レイアウトとデザイン - Backbone Theme マニュアル</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <button class="hamburger-btn" aria-label="メニューを開く">&#9776;</button>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2 style="color:#fff;">Backbone Theme</h2>
+            <span class="version">v1.2.0</span>
+            <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
+        </div>
+        <ul>
+            <li><a href="index.html">概要</a></li>
+            <li><a href="setup.html">インストール・初期設定</a></li>
+            <li><a href="layout-design.html">レイアウトとデザイン</a></li>
+            <li><a href="content-display.html">コンテンツ表示</a></li>
+            <li><a href="seo-llmo.html">SEOとLLMO</a></li>
+            <li><a href="troubleshooting.html">トラブルシューティング</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <h1>レイアウトとデザイン</h1>
+        <p class="lead">サイトのレイアウト構造、カラーテーマ、デザインパターン、スティッキーUI、サブディレクトリ別ブランディングについて解説します。</p>
+
+        <section>
+            <h2>サイトレイアウト</h2>
+            <p>「レイアウト設定」セクションでは、フロントページのカラム数とサイドバー位置を設定します。</p>
+
+            <figure class="screenshot">
+                <img src="images/screenshots/03-layout-settings.png" alt="レイアウト設定画面" class="lightbox-trigger">
+                <figcaption>図: レイアウト設定画面</figcaption>
+            </figure>
+
+            <h3>レイアウトの種類</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>レイアウト</th>
+                        <th>説明</th>
+                        <th>適した用途</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1カラム</td><td>サイドバーなしの1カラムレイアウト。コンテンツを画面中央に集中表示します。最大幅は600〜1920px（デフォルト1200px）で調整可能。</td><td>ブログ記事、ランディングページ</td></tr>
+                    <tr><td>2カラム</td><td>メインコンテンツ + サイドバーの標準的なレイアウト。サイドバーは左右どちらにも配置可能です。</td><td>企業サイト、情報サイト</td></tr>
+                    <tr><td>3カラム</td><td>メインコンテンツ + 左右サイドバーのレイアウト。情報量の多いサイト向けです。</td><td>ポータルサイト、ニュースサイト</td></tr>
+                    <tr><td>フルワイド</td><td>サイドバーなしで画面幅いっぱいに表示するレイアウトです。</td><td>ページビルダー使用時、写真サイト</td></tr>
+                </tbody>
+            </table>
+
+            <h3>サイドバー設定</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>値</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>サイドバー位置</td><td>左 / 右</td><td>右</td></tr>
+                    <tr><td>サイドバー幅</td><td>200〜500px（25px刻み）</td><td>300px</td></tr>
+                    <tr><td>1カラム時の最大幅</td><td>600〜1920px（50px刻み）</td><td>1200px</td></tr>
+                </tbody>
+            </table>
+
+            <h3>投稿タイプ別レイアウト</h3>
+            <p>投稿（post）、固定ページ（page）、カスタム投稿タイプ、およびカテゴリ・タグ・アーカイブ・検索結果の各ページタイプに対して個別のレイアウトを設定できます。「継承（フロントページ設定を使用）」を選択すると、フロントページのレイアウト設定が適用されます。</p>
+
+            <div class="callout callout-tip">
+                <p>ブログ記事は1カラムで読みやすく、固定ページは2カラムでサイドナビ付きといった使い分けが可能です。投稿の個別ページではサイドバーのレイアウトメタボックスで記事単位での上書きもできます。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>スティッキーヘッダー</h2>
+            <p>「レイアウト設定」セクションで、ヘッダーのスクロール追従動作を設定します。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>スティッキーヘッダー有効</td><td>スクロール時にヘッダーを画面上部に固定表示</td><td>有効</td></tr>
+                    <tr><td>不透明度</td><td>スクロール時のヘッダー不透明度（0〜100%、5%刻み）。値を下げると背景が透けて見えます</td><td>80%</td></tr>
+                    <tr><td>自動非表示</td><td>下スクロール時にヘッダーを自動的に非表示にし、上スクロール時に再表示</td><td>有効</td></tr>
+                </tbody>
+            </table>
+            <div class="callout callout-note">
+                <p>自動非表示が有効の場合、ページを下にスクロールするとヘッダーが画面外にスライドアウトし、上にスクロールすると再びスライドインします。コンテンツの閲覧領域を最大化しつつ、ナビゲーションへの素早いアクセスを維持できます。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>スティッキーサイドバー</h2>
+            <p>デスクトップ表示（画面幅1280px以上）でサイドバーをスクロール追従させることができます。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>スティッキーサイドバー有効</td><td>サイドバーがページスクロールに追従して常に表示領域内に留まります</td><td>有効</td></tr>
+                </tbody>
+            </table>
+            <p>検索ウィジェットやカテゴリ一覧など、常にアクセス可能にしたいサイドバーコンテンツがある場合に有効です。2カラムまたは3カラムレイアウト選択時のみ動作します。</p>
+        </section>
+
+        <section>
+            <h2>スクロールトップボタン</h2>
+            <p>ページ下部にスクロールした際に表示される「ページ先頭に戻る」ボタンの外観を設定できます。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>値の範囲</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>表示/非表示</td><td>有効 / 無効</td><td>有効</td></tr>
+                    <tr><td>ボタンサイズ</td><td>30〜80px（5px刻み）</td><td>50px</td></tr>
+                    <tr><td>下端からの距離</td><td>10〜100px（5px刻み）</td><td>30px</td></tr>
+                    <tr><td>水平位置</td><td>左 / 中央 / 右</td><td>右</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>カラーテーマ</h2>
+            <p>「デザイン設定」セクションで、サイト全体の色彩設計を選択できます。44種類のプリセットカラーテーマが用意されています。</p>
+
+            <figure class="screenshot">
+                <img src="images/screenshots/02-design-settings.png" alt="デザイン設定画面" class="lightbox-trigger">
+                <figcaption>図: デザイン設定画面（カラーテーマ・パターン選択）</figcaption>
+            </figure>
+
+            <h3>プリセットカラーテーマ</h3>
+            <p>天体名をモチーフにした22種（各ライト/ダークの2バリエーション、計44種）のカラーテーマから選択するだけで、サイト全体の配色が一括で変更されます。各テーマは21のカラープロパティ（プライマリ、セカンダリ、アクセント、背景、テキスト、リンク、ヘッダーリンク、フッターリンク、ボーダー、ボタン、フォーム等）を含み、すべてのUI要素に統一的なカラースキームが適用されます。</p>
+
+            <h3>独自カラーテーマ</h3>
+            <p>カラーテーマで「設定なし」を選択すると、「独自カラーテーマの設定」セクションが有効になります。以下のCSS変数を個別にカスタマイズできます。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>CSS変数</th>
+                        <th>用途</th>
+                        <th>適用箇所</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>--primary-color</td><td>プライマリカラー</td><td>ヘッダー背景、主要ボタン、アクティブ要素</td></tr>
+                    <tr><td>--secondary-color</td><td>セカンダリカラー</td><td>サブメニュー背景、補助的なアクセント要素</td></tr>
+                    <tr><td>--accent-color</td><td>アクセントカラー</td><td>リンクホバー、ハイライト、フォーカスリング</td></tr>
+                    <tr><td>--background-color</td><td>メインコンテンツエリアの背景色</td><td>body背景、ページ全体</td></tr>
+                    <tr><td>--background-secondary</td><td>セカンダリ背景色</td><td>サイドバー、補助的なエリア</td></tr>
+                    <tr><td>--text-primary</td><td>メインテキスト色</td><td>段落、リスト、テーブルセル</td></tr>
+                    <tr><td>--text-secondary</td><td>セカンダリテキスト色</td><td>見出し、重要な文字</td></tr>
+                    <tr><td>--text-light</td><td>薄いテキスト色</td><td>日付、著者名、キャプション</td></tr>
+                    <tr><td>--link-color</td><td>リンク色</td><td>テキスト内リンク（通常状態）</td></tr>
+                    <tr><td>--link-hover-color</td><td>リンクホバー色</td><td>テキスト内リンク（ホバー状態）</td></tr>
+                    <tr><td>--header-link-color</td><td>ヘッダーリンク色</td><td>ヘッダー内リンク</td></tr>
+                    <tr><td>--header-link-hover-color</td><td>ヘッダーリンクホバー色</td><td>ヘッダー内リンク（ホバー）</td></tr>
+                    <tr><td>--footer-link-color</td><td>フッターリンク色</td><td>フッター内リンク</td></tr>
+                    <tr><td>--footer-link-hover-color</td><td>フッターリンクホバー色</td><td>フッター内リンク（ホバー）</td></tr>
+                    <tr><td>--border-color</td><td>ボーダー色</td><td>区切り線、テーブル罫線、カード枠線</td></tr>
+                    <tr><td>--button-background-color</td><td>ボタン背景色</td><td>送信ボタン、ページネーション</td></tr>
+                    <tr><td>--button-text-color</td><td>ボタンテキスト色</td><td>ボタン内文字</td></tr>
+                    <tr><td>--button-hover-background-color</td><td>ボタンホバー背景色</td><td>ボタン（ホバー状態）</td></tr>
+                    <tr><td>--form-background-color</td><td>フォーム背景色</td><td>入力フォーム背景</td></tr>
+                    <tr><td>--form-focus-color</td><td>フォームフォーカス色</td><td>フォーカス時の枠線</td></tr>
+                    <tr><td>--search-button-color</td><td>検索ボタン色</td><td>検索ボタン</td></tr>
+                </tbody>
+            </table>
+
+            <div class="callout callout-note">
+                <p>上記の21種類のCSS変数がカスタマイザーで個別に設定できます。プリセットカラーテーマのJSONファイルにも同じ21プロパティが定義されており、「ベーステーマ」を選択すると各変数の初期値がプリセットの値で自動設定されます。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>デザインパターン</h2>
+            <p>カラーテーマとは別に、3種類のパターンを選択してサイトの見た目をさらにカスタマイズできます。各パターンは独立して選択でき、カラーテーマと自由に組み合わせることで多様なデザインバリエーションを実現できます。</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>パターン種別</th>
+                        <th>内容</th>
+                        <th>影響範囲</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>デザインパターン</td><td>角丸、シャドウ、ボーダースタイル、カードデザイン等のレイアウト装飾を一括変更</td><td>サイト全体のカード・ボタン・パネル</td></tr>
+                    <tr><td>タイポグラフィパターン</td><td>フォントファミリー、サイズ、行間（line-height）、文字間隔（letter-spacing）を一括変更</td><td>本文・見出し・ナビゲーション等すべてのテキスト</td></tr>
+                    <tr><td>デコレーションパターン</td><td>見出しの装飾スタイル（下線、背景色、左ボーダー、アイコン等）やリストの装飾を変更</td><td>h2〜h6見出し、リスト要素</td></tr>
+                </tbody>
+            </table>
+
+            <div class="callout callout-tip">
+                <p>各パターンは「設定なし」を選ぶとデフォルトのスタイルが適用されます。例えば「シンプルなカラーテーマ × モダンなデザインパターン × セリフ体のタイポグラフィ × ボーダー装飾のデコレーション」のような組み合わせが可能です。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>サブディレクトリ別設定</h2>
+            <p>最大10個のサブディレクトリに対して、個別のロゴやデザイン設定を適用できます。1つのサイト内で複数のブランドやコンテンツカテゴリを視覚的に区別する場合に便利です。</p>
+
+            <figure class="screenshot">
+                <img src="images/screenshots/08-subdirectory-settings.png" alt="サブディレクトリ別デザイン設定" class="lightbox-trigger">
+                <figcaption>図: サブディレクトリ別デザイン設定</figcaption>
+            </figure>
+
+            <h3>サブディレクトリ別ロゴ・ブランディング</h3>
+            <p>「サブディレクトリ別ロゴ」セクションで、各サブディレクトリ（例: <code>/blog/</code>、<code>/shop/</code>）に固有のブランディングを設定できます。各スロットには以下の項目を設定します。</p>
+            <ul>
+                <li><strong>サブディレクトリパス</strong>: URL内のディレクトリ名（例: <code>blog</code>）</li>
+                <li><strong>サイトタイトル</strong>: サブディレクトリ専用のサイトタイトル（テキストロゴとして表示）</li>
+                <li><strong>ロゴ画像</strong>: 画像ファイルをメディアライブラリから選択</li>
+                <li><strong>ロゴクリック先URL</strong>: ロゴクリック時のリンク先（デフォルト: サイトホーム）</li>
+                <li><strong>ヘッダーメッセージ</strong>: ヘッダーに表示する短いメッセージ</li>
+                <li><strong>フッターメッセージ</strong>: フッターに表示する短いメッセージ</li>
+            </ul>
+
+            <h3>サブディレクトリ別デザイン</h3>
+            <p>「サブディレクトリ別デザイン」セクションでは、各サブディレクトリに対して以下の4項目を個別に設定できます。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>内容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>カラーテーマ</td><td>44種類のプリセットまたは「設定なし」（サイト全体の設定を継承）</td></tr>
+                    <tr><td>デザインパターン</td><td>サブディレクトリ固有のデザインパターンを適用</td></tr>
+                    <tr><td>タイポグラフィパターン</td><td>サブディレクトリ固有のフォント設定を適用</td></tr>
+                    <tr><td>デコレーションパターン</td><td>サブディレクトリ固有の見出し装飾を適用</td></tr>
+                </tbody>
+            </table>
+
+            <h3>パス検出の仕組み</h3>
+            <p>テーマは現在のURLパスを解析し、登録されたサブディレクトリパスと照合します。一致するパスが見つかった場合、そのサブディレクトリの設定が適用されます。一致しない場合はサイト全体の設定が使用されます。</p>
+
+            <div class="callout callout-tip">
+                <p>例えば <code>/blog/</code> はカジュアルなライトテーマ、<code>/service/</code> はフォーマルなダークテーマ、<code>/shop/</code> はブランドカラーのカスタムテーマといった使い分けが可能です。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>ナビゲーション設定</h2>
+            <p>「メニュー」セクションで、グローバルナビゲーションの動作を設定できます。</p>
+
+            <figure class="screenshot">
+                <img src="images/screenshots/09-navigation-settings.png" alt="ナビゲーション設定" class="lightbox-trigger">
+                <figcaption>図: ナビゲーション設定</figcaption>
+            </figure>
+
+            <h3>サブメニュー展開方向</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>方向</th>
+                        <th>動作</th>
+                        <th>適した場面</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>横方向（デフォルト）</td><td>3階層目以降のサブメニューが親メニューの右側に展開</td><td>メニュー項目が少なく画面幅に余裕がある場合</td></tr>
+                    <tr><td>縦方向</td><td>3階層目以降のサブメニューが親メニューの下に展開</td><td>メニュー項目が多い場合や画面幅が狭い場合</td></tr>
+                </tbody>
+            </table>
+
+            <h3>モバイルメニュー非表示ブレークポイント</h3>
+            <p>デスクトップ用のナビゲーションメニューを特定の画面幅以下で非表示にする設定です。ハンバーガーメニュープラグインとの併用を想定しています。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定値</th>
+                        <th>動作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>なし（デフォルト）</td><td>デスクトップメニューを常に表示</td></tr>
+                    <tr><td>モバイル（767px）</td><td>画面幅767px以下でデスクトップメニューを非表示</td></tr>
+                    <tr><td>タブレット（1279px）</td><td>画面幅1279px以下でデスクトップメニューを非表示</td></tr>
+                </tbody>
+            </table>
+
+            <h3>検索ボタン</h3>
+            <p>ヘッダーの検索ボタン（ポップアップ検索フォーム）の表示/非表示を切り替えることができます。デフォルトは表示です。</p>
+        </section>
+
+        <section>
+            <h2>フッター設定</h2>
+            <p>「レイアウト設定」セクション内で、フッターの表示内容を設定できます。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>フッターメッセージ</td><td>フッターエリアに表示するカスタムメッセージ（HTMLタグ使用可）</td><td>空</td></tr>
+                    <tr><td>コピーライトテキスト</td><td>コピーライト表示の文言を変更</td><td>&copy; YEAR SITENAME. All rights reserved.</td></tr>
+                    <tr><td>コピーライト表示</td><td>コピーライト表記の表示/非表示</td><td>表示</td></tr>
+                    <tr><td>クレジット表示</td><td>テーマクレジットの表示/非表示</td><td>表示</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>フォーム表示設定</h2>
+            <p>「フォーム表示設定」セクションでは、サイト内の入力フォーム（検索フォーム、コメントフォーム、Contact Form 7等）の外観を細かく調整できます。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>値の範囲</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>垂直パディング</td><td>0〜30px</td><td>12px</td></tr>
+                    <tr><td>水平パディング</td><td>0〜50px</td><td>15px</td></tr>
+                    <tr><td>フォントサイズ</td><td>12〜24px</td><td>16px</td></tr>
+                    <tr><td>ボーダー幅</td><td>0〜5px</td><td>2px</td></tr>
+                    <tr><td>下マージン</td><td>0〜50px</td><td>15px</td></tr>
+                    <tr><td>テキストエリア最小高</td><td>50〜500px</td><td>150px</td></tr>
+                    <tr><td>行間</td><td>1.0〜2.0</td><td>1.5</td></tr>
+                    <tr><td>入力欄の最大幅</td><td>0〜1200px</td><td>600px</td></tr>
+                </tbody>
+            </table>
+            <div class="callout callout-note">
+                <p>これらの設定は、ネイティブHTML入力要素だけでなく、Contact Form 7などのフォームプラグインの入力フィールドにも適用されます。0を指定するとブラウザのデフォルト値が使用されます。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>フロントエンド表示例</h2>
+            <figure class="screenshot">
+                <img src="images/screenshots/11-frontend-top.png" alt="フロントエンド表示例（トップページ）" class="lightbox-trigger">
+                <figcaption>図: フロントエンド表示例（トップページ）</figcaption>
+            </figure>
+        </section>
+
+        <nav class="page-nav">
+            <a href="setup.html" class="prev">&laquo; インストール・初期設定</a>
+            <a href="content-display.html" class="next">コンテンツ表示 &raquo;</a>
+        </nav>
+
+        <footer class="manual-footer">
+            <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.0</p>
+        </footer>
+    </main>
+
+    <div class="lightbox"></div>
+    <script src="js/manual.js"></script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>コンテンツ表示 - Backbone Theme マニュアル</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <button class="hamburger-btn" aria-label="メニューを開く">&#9776;</button>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2 style="color:#fff;">Backbone Theme</h2>
+            <span class="version">v1.2.0</span>
+            <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
+        </div>
+        <ul>
+            <li><a href="index.html">概要</a></li>
+            <li><a href="setup.html">インストール・初期設定</a></li>
+            <li><a href="layout-design.html">レイアウトとデザイン</a></li>
+            <li><a href="content-display.html">コンテンツ表示</a></li>
+            <li><a href="seo-llmo.html">SEOとLLMO</a></li>
+            <li><a href="troubleshooting.html">トラブルシューティング</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <h1>コンテンツ表示</h1>
+        <p class="lead">メインビジュアル、フロントページビルダー、アーカイブページ、記事メタ情報の表示設定について解説します。</p>
+
+        <section>
+            <h2>メインビジュアル（ヒーローイメージ）</h2>
+            <p>「メインビジュアル設定」セクションで、投稿・固定ページのアイキャッチ画像の表示方法を設定します。</p>
+
+            <figure class="screenshot">
+                <img src="images/screenshots/04-hero-image-settings.png" alt="メインビジュアル設定画面" class="lightbox-trigger">
+                <figcaption>図: メインビジュアル設定画面</figcaption>
+            </figure>
+
+            <h3>設定モード</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>モード</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>共通設定（デフォルト）</td><td>すべての投稿タイプで同じ表示スタイルを適用</td></tr>
+                    <tr><td>個別設定</td><td>投稿タイプごとに異なるスタイル・装飾・アニメーションを設定</td></tr>
+                </tbody>
+            </table>
+
+            <h3>表示スタイル</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>スタイル</th>
+                        <th>説明</th>
+                        <th>適した用途</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>標準</td><td>コンテンツ幅に合わせた標準的な画像表示</td><td>ブログ記事、一般的な投稿</td></tr>
+                    <tr><td>フルワイド</td><td>画面幅いっぱいに画像を表示</td><td>写真メイン記事、LP</td></tr>
+                    <tr><td>サークル（円形）</td><td>画像を円形にクロップして表示</td><td>プロフィールページ、人物紹介</td></tr>
+                    <tr><td>カード型</td><td>画像をカード型のフレーム内に表示</td><td>製品紹介、ポートフォリオ</td></tr>
+                </tbody>
+            </table>
+
+            <h3>装飾設定</h3>
+            <p>表示スタイルに加えて、以下の装飾オプションを設定できます。共通モード/個別モードのいずれでも利用可能です。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>選択肢</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>ボーダー</td><td>なし / 細線（thin）/ 太線（thick）</td><td>なし</td></tr>
+                    <tr><td>ボーダー色</td><td>カラーピッカーで任意の色を選択</td><td>なし</td></tr>
+                    <tr><td>角丸（border-radius）</td><td>なし / 小 / 中 / 大 / 円形</td><td>なし</td></tr>
+                    <tr><td>アニメーション</td><td>なし / フェードイン / スライドアップ / ズームイン</td><td>なし</td></tr>
+                    <tr><td>配置</td><td>左寄せ / 中央 / 右寄せ</td><td>中央</td></tr>
+                </tbody>
+            </table>
+
+            <h3>投稿単位での上書き</h3>
+            <p>各投稿・固定ページの編集画面にあるメタボックスから、カスタマイザーの設定を記事単位で上書きできます。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>メタボックスの項目</th>
+                        <th>選択肢</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>メインビジュアル表示</td><td>グローバル設定に従う / 表示する / 非表示にする</td></tr>
+                    <tr><td>表示スタイル</td><td>グローバル設定に従う / 標準 / フルワイド / サークル / カード型</td></tr>
+                </tbody>
+            </table>
+
+            <div class="callout callout-note">
+                <p>投稿単位の設定はカスタマイザーの設定より優先されます。特定の記事だけメインビジュアルを非表示にしたい場合や、特定の記事だけフルワイド表示にしたい場合に活用できます。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>フロントページ設定</h2>
+            <p>「フロントページ設定」セクションで、トップページの表示方法を選択します。</p>
+
+            <figure class="screenshot">
+                <img src="images/screenshots/06-frontpage-settings.png" alt="フロントページ設定画面" class="lightbox-trigger">
+                <figcaption>図: フロントページ設定画面</figcaption>
+            </figure>
+
+            <h3>表示モード</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>モード</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>カスタムフロントページ（デフォルト）</td><td>テーマ独自のフロントページビルダーを使用。ヒーローイメージとセクションを組み合わせたトップページを構築できます。選択すると、WordPress標準の「ホームページの表示」設定は無効化されます。</td></tr>
+                    <tr><td>既存のページを使用</td><td>WordPress標準のページ設定を使用。任意の固定ページをトップページに設定できます。タイトル表示/非表示とアイキャッチ画像表示/非表示を個別に設定可能。</td></tr>
+                </tbody>
+            </table>
+
+            <h3>ヒーロー画像</h3>
+            <p>カスタムフロントページのトップに表示する大型バナー画像です。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>値</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>ヒーロー画像</td><td>メディアライブラリから画像を選択</td><td>なし</td></tr>
+                    <tr><td>画像の高さ</td><td>200〜800px</td><td>400px</td></tr>
+                    <tr><td>オーバーレイ不透明度</td><td>0（なし）〜 0.7（濃い）、0.1刻み</td><td>0.3</td></tr>
+                </tbody>
+            </table>
+
+            <h3>タイトルとキャッチフレーズ</h3>
+            <p>ヒーロー画像の上に重ねて表示するテキストです。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>タイトル</td><td>ヒーロー画像上に大きく表示される見出しテキスト</td></tr>
+                    <tr><td>キャッチフレーズ</td><td>タイトル下に表示されるサブテキスト</td></tr>
+                </tbody>
+            </table>
+
+            <h3>説明文の取得元</h3>
+            <p>フロントページに表示する説明文の取得方法を選択します。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>モード</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>手動入力（デフォルト）</td><td>WYSIWYGエディターで説明文を直接入力</td></tr>
+                    <tr><td>ページから取得</td><td>既存の固定ページのコンテンツを説明文として表示。ソースページのタイトルやアイキャッチ画像の表示/非表示も設定可能</td></tr>
+                </tbody>
+            </table>
+
+            <h3>セクション構成</h3>
+            <p>ヒーロー画像の下に配置するコンテンツセクションです。3種類のセクションタイプが用意されています。</p>
+
+            <h4>リストセクション（5枠）</h4>
+            <p>カテゴリ・タグ・投稿タイプ・著者・日付範囲でフィルタリングした投稿一覧を表示するセクションです。各枠ごとに以下を設定できます。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>セクションタイトル</td><td>セクションの見出し（例:「最新記事」「おすすめ記事」）</td></tr>
+                    <tr><td>表示件数</td><td>表示する投稿の数</td></tr>
+                    <tr><td>表示タイプ</td><td>カテゴリ / タグ / 投稿タイプ / 著者 / 日付範囲 から絞り込み方法を選択</td></tr>
+                    <tr><td>フィルタ条件</td><td>選択した表示タイプに応じて、特定のカテゴリ/タグ/投稿タイプ/著者/日付範囲を指定</td></tr>
+                    <tr><td>レイアウト</td><td>1カラム / 2カラム / 3カラム / 4カラム / リスト</td></tr>
+                    <tr><td>並び順</td><td>投稿日順 / 更新日順 / ランダム</td></tr>
+                    <tr><td>サムネイル表示</td><td>アイキャッチ画像の表示/非表示</td></tr>
+                    <tr><td>投稿日表示</td><td>投稿日の表示/非表示</td></tr>
+                    <tr><td>カテゴリ表示</td><td>カテゴリ名の表示/非表示</td></tr>
+                    <tr><td>抜粋表示</td><td>抜粋文の表示/非表示</td></tr>
+                    <tr><td>一覧リンク</td><td>「もっと見る」リンクの表示/非表示とリンク先URL</td></tr>
+                </tbody>
+            </table>
+
+            <h4>個別セクション（5枠）</h4>
+            <p>特定の投稿・固定ページを手動で選んで表示するセクションです。検索可能なセレクトボックスで複数の投稿を選択できます。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>セクションタイトル</td><td>セクションの見出し</td></tr>
+                    <tr><td>表示する投稿</td><td>検索可能なセレクトボックスで複数の投稿/固定ページを選択</td></tr>
+                    <tr><td>レイアウト</td><td>表示形式を選択</td></tr>
+                </tbody>
+            </table>
+
+            <h4>フリーコンテンツ</h4>
+            <p>WYSIWYGエディターで自由なHTMLコンテンツを入力できるセクションです。お知らせ、バナー、カスタムHTML等を配置する際に使用します。</p>
+
+            <h3>セクション表示順の変更</h3>
+            <p>カスタマイザー内の「セクション順序」コントロールで、リストセクション（5枠）と個別セクション（5枠）の表示順をドラッグ&amp;ドロップで変更できます。デフォルトの順序は「リスト1 → 個別1 → リスト2 → 個別2 → ...」です。フリーコンテンツは常にすべてのセクションの後に表示されます。</p>
+
+            <div class="callout callout-tip">
+                <p>例えば「ヒーロー画像 → おすすめ記事（個別セクション）→ 最新ニュース（リストセクション、カテゴリ「ニュース」）→ 人気記事（リストセクション、タグ「人気」）→ お知らせ（フリーコンテンツ、常に最後）」のようなトップページが構築できます。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>アーカイブページ設定</h2>
+            <p>「アーカイブページ設定」セクションで、カテゴリ・タグ・著者などの一覧ページの表示方法を設定します。</p>
+
+            <figure class="screenshot">
+                <img src="images/screenshots/05-archive-settings.png" alt="アーカイブページ設定画面" class="lightbox-trigger">
+                <figcaption>図: アーカイブページ設定画面</figcaption>
+            </figure>
+
+            <h3>設定モード</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>モード</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>すべて共通設定を使用（デフォルト）</td><td>すべてのアーカイブページに同じ設定を適用</td></tr>
+                    <tr><td>個別設定</td><td>アーカイブタイプごとに個別の設定が可能（カテゴリ/タグ/著者/日付/検索/カスタム投稿タイプ別）</td></tr>
+                </tbody>
+            </table>
+
+            <h3>設定項目一覧</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>選択肢</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>グリッドカラム数</td><td>2列 / 3列 / 4列</td><td>3列</td></tr>
+                    <tr><td>並び順</td><td>新しい順（date）/ 更新日順（modified）/ ランダム（rand）</td><td>新しい順</td></tr>
+                    <tr><td>アイキャッチ画像の表示</td><td>表示 / 非表示</td><td>表示</td></tr>
+                    <tr><td>サムネイルサイズ</td><td>フル / 大 / 中大 / 中 / サムネイル</td><td>フル</td></tr>
+                    <tr><td>投稿日の表示</td><td>表示 / 非表示</td><td>表示</td></tr>
+                    <tr><td>更新日の表示</td><td>表示 / 非表示</td><td>非表示</td></tr>
+                    <tr><td>カテゴリの表示</td><td>表示 / 非表示</td><td>非表示</td></tr>
+                    <tr><td>抜粋の表示</td><td>表示 / 非表示</td><td>表示</td></tr>
+                </tbody>
+            </table>
+
+            <h3>個別設定で対応するアーカイブタイプ</h3>
+            <ul>
+                <li><strong>カテゴリアーカイブ</strong>（category）</li>
+                <li><strong>タグアーカイブ</strong>（tag）</li>
+                <li><strong>著者アーカイブ</strong>（author）</li>
+                <li><strong>日付アーカイブ</strong>（date）</li>
+                <li><strong>検索結果</strong>（search）— 並び順はWordPressの関連度順が使用されるため選択不可</li>
+                <li><strong>カスタム投稿タイプアーカイブ</strong>（cpt_[投稿タイプ名]）— has_archive が有効なカスタム投稿タイプごとに自動生成</li>
+            </ul>
+
+            <figure class="screenshot">
+                <img src="images/screenshots/12-frontend-archive.png" alt="アーカイブページのフロントエンド表示例" class="lightbox-trigger">
+                <figcaption>図: アーカイブページのフロントエンド表示例</figcaption>
+            </figure>
+        </section>
+
+        <section>
+            <h2>記事メタ情報設定</h2>
+            <p>「記事メタ情報設定」セクションで、個別記事ページに表示するメタ情報を設定します。記事のヘッダーエリア（コンテンツの直前）に表示されます。</p>
+
+            <figure class="screenshot">
+                <img src="images/screenshots/07-post-meta-settings.png" alt="記事メタ情報設定画面" class="lightbox-trigger">
+                <figcaption>図: 記事メタ情報設定画面</figcaption>
+            </figure>
+
+            <h3>設定モード</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>モード</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>すべて共通設定を使用（デフォルト）</td><td>すべての投稿タイプに同じメタ情報表示を適用</td></tr>
+                    <tr><td>個別設定</td><td>投稿タイプごとに表示するメタ情報を個別に設定。投稿（post）、固定ページ（page）、カスタム投稿タイプそれぞれに独立した設定</td></tr>
+                </tbody>
+            </table>
+
+            <h3>表示/非表示の切り替え</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>メタ情報</th>
+                        <th>説明</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>投稿日</td><td>記事の公開日を表示</td><td>表示</td></tr>
+                    <tr><td>更新日</td><td>記事の最終更新日を表示。SEO上、更新日の表示は検索エンジンにコンテンツの鮮度を伝える効果があります</td><td>表示</td></tr>
+                    <tr><td>著者</td><td>記事の著者名を表示</td><td>非表示</td></tr>
+                    <tr><td>カテゴリ</td><td>記事が属するカテゴリを表示</td><td>非表示</td></tr>
+                    <tr><td>タグ</td><td>記事に付けられたタグを表示</td><td>非表示</td></tr>
+                    <tr><td>タグ表示上限</td><td>表示するタグの最大数（1〜50件）</td><td>5件</td></tr>
+                </tbody>
+            </table>
+
+            <h3>SEOメタタグ設定</h3>
+            <p>同じ「記事メタ情報設定」セクションに、SEOメタタグの有効/無効切り替えも含まれています。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                        <th>デフォルト</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>メタディスクリプション自動生成</td><td>各ページタイプに応じた <code>&lt;meta name="description"&gt;</code> を自動出力</td><td>有効</td></tr>
+                    <tr><td>メタキーワード自動生成</td><td>focus_keyword・タグ・カテゴリ・タイトルから <code>&lt;meta name="keywords"&gt;</code> を自動生成</td><td>有効</td></tr>
+                </tbody>
+            </table>
+            <div class="callout callout-warning">
+                <p>SEOプラグイン（Yoast SEO、All in One SEO、Rank Math等）を使用する場合は、メタタグの重複を避けるためにテーマ側の自動生成を無効化することを推奨します。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>デフォルトアイキャッチ画像</h2>
+            <p>「デザイン設定」セクションで、アイキャッチ画像が未設定の投稿に表示するデフォルト画像を設定できます。以下の場面で使用されます。</p>
+            <ul>
+                <li>アーカイブページの記事カードでサムネイルが空にならないようにする</li>
+                <li>SNS共有時にOGP画像が未設定の場合のフォールバック</li>
+                <li>メインビジュアル表示が有効だがアイキャッチが未設定の場合の代替</li>
+            </ul>
+            <p>推奨サイズは 1200×800px です。</p>
+        </section>
+
+        <nav class="page-nav">
+            <a href="layout-design.html" class="prev">&laquo; レイアウトとデザイン</a>
+            <a href="seo-llmo.html" class="next">SEOとLLMO &raquo;</a>
+        </nav>
+
+        <footer class="manual-footer">
+            <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.0</p>
+        </footer>
+    </main>
+
+    <div class="lightbox"></div>
+    <script src="js/manual.js"></script>
+</body>
+</html>

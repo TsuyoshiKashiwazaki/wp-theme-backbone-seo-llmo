@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>トラブルシューティング - Backbone Theme マニュアル</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <button class="hamburger-btn" aria-label="メニューを開く">&#9776;</button>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2 style="color:#fff;">Backbone Theme</h2>
+            <span class="version">v1.2.0</span>
+            <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
+        </div>
+        <ul>
+            <li><a href="index.html">概要</a></li>
+            <li><a href="setup.html">インストール・初期設定</a></li>
+            <li><a href="layout-design.html">レイアウトとデザイン</a></li>
+            <li><a href="content-display.html">コンテンツ表示</a></li>
+            <li><a href="seo-llmo.html">SEOとLLMO</a></li>
+            <li><a href="troubleshooting.html">トラブルシューティング</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <h1>トラブルシューティング</h1>
+        <p class="lead">テーマの使用中に発生しうる問題と解決方法をまとめています。</p>
+
+        <section>
+            <h2>デザイン・レイアウトの問題</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>問題</th>
+                        <th>原因</th>
+                        <th>解決方法</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>カラーテーマを変更してもデザインが反映されない</td>
+                        <td>ブラウザキャッシュが残っている</td>
+                        <td>ブラウザのキャッシュをクリアするか、「開発者設定」のキャッシュバスティングを有効にしてください。キャッシュプラグインを使用している場合はプラグインのキャッシュもクリアしてください。</td>
+                    </tr>
+                    <tr>
+                        <td>サイドバーが表示されない</td>
+                        <td>1カラムまたはフルワイドレイアウトが選択されている</td>
+                        <td>「レイアウト設定」で2カラムまたは3カラムを選択してください。投稿タイプ別の設定で「継承」以外が選択されている場合もあります。また、個別投稿のレイアウトメタボックスで上書きされている可能性も確認してください。</td>
+                    </tr>
+                    <tr>
+                        <td>メインビジュアルが表示されない</td>
+                        <td>複数の原因が考えられます</td>
+                        <td>以下を順に確認してください: (1) 投稿のアイキャッチ画像が設定されているか (2)「メインビジュアル設定」で表示が有効になっているか (3) 個別モードの場合、該当する投稿タイプで有効になっているか (4) 投稿の編集画面でメインビジュアル表示が「非表示」に上書きされていないか</td>
+                    </tr>
+                    <tr>
+                        <td>サブディレクトリ別のデザインが適用されない</td>
+                        <td>パスの設定が間違っている</td>
+                        <td>「サブディレクトリ別ロゴ」セクションのパスがURLパスと一致しているか確認してください（例: <code>/blog/</code> → パスは <code>blog</code>）。先頭・末尾のスラッシュは不要です。</td>
+                    </tr>
+                    <tr>
+                        <td>スティッキーヘッダーが動作しない</td>
+                        <td>設定が無効になっている、またはJavaScriptエラー</td>
+                        <td>「レイアウト設定」でスティッキーヘッダーが有効になっているか確認してください。ブラウザの開発者ツール（F12）でJavaScriptエラーがないかも確認してください。カスタムJS注入のコードにエラーがあると動作しない場合があります。</td>
+                    </tr>
+                    <tr>
+                        <td>スクロールトップボタンが見えない</td>
+                        <td>設定が無効、またはページ内容が短い</td>
+                        <td>「レイアウト設定」でスクロールトップボタンが有効になっているか確認してください。ページの内容がビューポートより短い場合はスクロールが発生しないため表示されません。</td>
+                    </tr>
+                    <tr>
+                        <td>モバイルでデスクトップメニューが表示されない</td>
+                        <td>モバイルメニュー非表示ブレークポイントが設定されている</td>
+                        <td>「メニュー」セクションの「モバイルメニュー非表示ブレークポイント」を確認してください。「モバイル（767px）」や「タブレット（1279px）」が選択されている場合、該当幅以下でデスクトップメニューが非表示になります。ハンバーガーメニュープラグインとの併用を想定した機能です。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>フロントページの問題</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>問題</th>
+                        <th>原因</th>
+                        <th>解決方法</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>カスタムフロントページが表示されない</td>
+                        <td>フロントページモードが「既存のページを使用」になっている</td>
+                        <td>「フロントページ設定」で「カスタムフロントページを使用」を選択してください。</td>
+                    </tr>
+                    <tr>
+                        <td>フロントページのセクションが表示されない</td>
+                        <td>セクションが無効になっている</td>
+                        <td>各リストセクション/個別セクションの「有効」チェックボックスがオンになっているか確認してください。また、セクション順序コントロールでセクションが配置されているかも確認してください。</td>
+                    </tr>
+                    <tr>
+                        <td>フロントページの説明文が空</td>
+                        <td>取得元の設定が不一致</td>
+                        <td>説明文の取得元が「手動入力」の場合はWYSIWYGエディターに内容を入力してください。「ページから取得」の場合はソースページが選択されているか確認してください。</td>
+                    </tr>
+                    <tr>
+                        <td>ヒーロー画像が表示されない</td>
+                        <td>画像が未設定</td>
+                        <td>「フロントページ設定」のヒーロー画像でメディアライブラリから画像を選択してください。推奨サイズは1920×800px以上です。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>SEO・メタ情報の問題</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>問題</th>
+                        <th>原因</th>
+                        <th>解決方法</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>メタディスクリプションが二重に出力される</td>
+                        <td>SEOプラグインとテーマの両方がメタディスクリプションを出力している</td>
+                        <td>カスタマイザーの「記事メタ情報設定」→「メタディスクリプション自動生成」を手動で無効化してください。テーマにはSEOプラグインの自動検知機能はないため、手動での切り替えが必要です。</td>
+                    </tr>
+                    <tr>
+                        <td>JSON-LDが出力されない</td>
+                        <td>カスタムヘッダーコードの入力形式に問題がある</td>
+                        <td>投稿編集画面の「カスタムヘッダーコード」メタボックスに <code>&lt;script type="application/ld+json"&gt;</code> タグを含む完全なJSON-LD形式で入力されているか確認してください。JSONの構文が正しいことを <a href="https://search.google.com/test/rich-results" target="_blank" rel="noopener">Google リッチリザルトテスト</a> で検証できます。</td>
+                    </tr>
+                    <tr>
+                        <td>メタキーワードが出力されない</td>
+                        <td>設定が無効になっている</td>
+                        <td>「記事メタ情報設定」→「メタキーワード自動生成」が有効になっているか確認してください。</td>
+                    </tr>
+                    <tr>
+                        <td>旧形式のページネーションURL（<code>/page/2/</code>）でアクセスできない</td>
+                        <td>リダイレクトが正常に動作していない</td>
+                        <td>パーマリンク設定を一度「変更を保存」してリライトルールを再生成してください（「設定」→「パーマリンク」→「変更を保存」）。</td>
+                    </tr>
+                    <tr>
+                        <td><code>/tag/</code> や <code>/category/</code> ルートページが404になる</td>
+                        <td>リライトルールが登録されていない</td>
+                        <td>パーマリンク設定を一度「変更を保存」してリライトルールを再生成してください。テーマを再有効化することでも修正されます。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>カスタムJS/CSSの問題</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>問題</th>
+                        <th>原因</th>
+                        <th>解決方法</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>カスタムJS/CSSが動作しない</td>
+                        <td>構文エラーまたはキャッシュの影響</td>
+                        <td>ブラウザの開発者ツール（F12）でConsoleタブのエラーを確認してください。キャッシュをクリアし、「有効」チェックボックスがオンになっていることも確認してください。</td>
+                    </tr>
+                    <tr>
+                        <td>カスタムJS/CSSの入力欄が表示されない</td>
+                        <td>権限が不足している</td>
+                        <td>カスタムJS/CSSの入力には <code>unfiltered_html</code> 権限が必要です。通常は管理者ロールに付与されています。マルチサイトの場合はスーパー管理者のみが利用可能です。</td>
+                    </tr>
+                    <tr>
+                        <td>投稿タイプ別JS/CSSがアーカイブページで適用されない</td>
+                        <td>仕様による制限</td>
+                        <td>投稿タイプ別のJS/CSSはシングルページ（個別投稿/固定ページの表示）でのみ適用されます。アーカイブページ（一覧ページ）には全体共通JS/CSSを使用してください。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>プラグインとの互換性</h2>
+
+            <h3>SEOプラグイン</h3>
+            <p>テーマは一般的なSEOプラグイン（Yoast SEO、All in One SEO、Rank Math等）との共存を想定しています。SEOプラグインを使用する場合は、カスタマイザーの「記事メタ情報設定」から「メタディスクリプション自動生成」および「メタキーワード自動生成」を手動で無効化してください。</p>
+            <div class="callout callout-warning">
+                <p>テーマの「カスタムヘッダーコード」機能とSEOプラグインの構造化データ出力を併用する場合、同じタイプのJSON-LD（例: Article Schema）が重複しないように注意してください。重複はGoogle Search Consoleでエラーとして報告されます。</p>
+            </div>
+
+            <h3>キャッシュプラグイン</h3>
+            <p>WP Super Cache、W3 Total Cache、LiteSpeed Cache等のキャッシュプラグインと併用できます。カスタマイザーで設定を変更した後はキャッシュをクリアしてください。キャッシュプラグインの「HTMLの最小化」機能がJSON-LDの出力を壊す場合があるため、問題が発生した場合はJSON-LD出力の最小化対象からの除外を検討してください。</p>
+
+            <h3>ページビルダー</h3>
+            <p>Elementor、Beaver Builder等のページビルダーは、テーマのレイアウト設定と干渉する場合があります。</p>
+            <ul>
+                <li>ページビルダー使用時はフルワイドレイアウトの使用を推奨します</li>
+                <li>ページビルダーが出力するCSSとテーマのデザインパターンが競合する場合は、該当ページでテーマのデザインパターンを「設定なし」にしてください</li>
+                <li>ページビルダー使用ページではメインビジュアルを非表示にすることを推奨します（投稿編集画面のメタボックスで「非表示」を選択）</li>
+            </ul>
+
+            <h3>フォームプラグイン</h3>
+            <p>Contact Form 7、WPForms等のフォームプラグインと併用できます。「フォーム表示設定」セクションの設定がフォームプラグインの入力フィールドにも適用されます。フォームプラグイン独自のスタイルと競合する場合は、フォーム表示設定の値を0（ブラウザデフォルト）に設定してください。</p>
+        </section>
+
+        <section>
+            <h2>パフォーマンスに関する注意</h2>
+            <ul>
+                <li><strong>スクリプト結合の無効化</strong>: テーマは <code>CONCATENATE_SCRIPTS</code> と <code>CONCATENATE_STYLES</code> を <code>false</code> に設定しています。これはWordPressの管理画面でスクリプト結合によるエラー（ERR_INCOMPLETE_CHUNKED_ENCODING）を防止するためです。</li>
+                <li><strong>アイキャッチ画像サイズ</strong>: アイキャッチ画像は1200×800pxを推奨しています。極端に大きな画像を使用するとページの読み込み速度に影響します。WordPressの画像最適化機能やWebP変換プラグインの併用を推奨します。</li>
+                <li><strong>カラーテーマのCSS</strong>: カラーテーマ選択時にインラインCSSが動的に生成されます。独自カラーテーマで多数のCSS変数を変更する場合、インラインCSSのサイズが若干増加しますが、パフォーマンスへの影響は軽微です。</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>動作要件</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>要件</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>WordPress</td><td>5.0 以上</td></tr>
+                    <tr><td>PHP</td><td>7.2 以上</td></tr>
+                    <tr><td>推奨ブラウザ</td><td>Chrome、Firefox、Safari、Edge の最新版</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>テーマのファイル構成</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ディレクトリ/ファイル</th>
+                        <th>内容</th>
+                        <th>主要ファイル</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>style.css</code></td><td>テーマ情報ヘッダー</td><td>-</td></tr>
+                    <tr><td><code>functions.php</code></td><td>テーマの機能定義・フック登録・テーマサポート宣言</td><td>-</td></tr>
+                    <tr><td><code>inc/customizer/</code></td><td>カスタマイザーの設定ファイル群</td><td>design-settings.php, layout-settings.php, hero-image-settings.php, archive-settings.php, post-meta-settings.php, front-page-settings.php, custom-js-settings.php, custom-css-settings.php, subdirectory-*.php 等</td></tr>
+                    <tr><td><code>inc/utilities/</code></td><td>ヘルパー関数群</td><td>core-utilities.php（メタディスクリプション、ページネーション）, hero-image-utilities.php 等</td></tr>
+                    <tr><td><code>inc/meta-boxes/</code></td><td>投稿編集画面のメタボックス</td><td>custom-schema-meta.php（カスタムヘッダーコード）, hero-image-meta.php, layout-meta.php</td></tr>
+                    <tr><td><code>inc/color-themes/</code></td><td>カラーテーマのJSONファイル</td><td>44種類のJSON（天体名×ライト/ダーク）</td></tr>
+                    <tr><td><code>template-parts/</code></td><td>テンプレートパーツ</td><td>hero-image.php, front-page-custom.php, sections/（ヒーロー, リスト, 個別, フリーコンテンツ）</td></tr>
+                    <tr><td><code>css/</code></td><td>CSSアセット（27ファイル）</td><td>base.css, layouts.css, responsive.css, hero-image-styles.css, front-page-sections.css, archive-grid.css 等</td></tr>
+                    <tr><td><code>js/</code></td><td>JavaScriptアセット（17ファイル）</td><td>customizer-*.js（9ファイル）, search-popup-simple.js, subdirectory-*.js 等</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>デバッグ方法</h2>
+            <h3>HTMLソースの確認</h3>
+            <p>メタディスクリプションやJSON-LDの出力を確認するには、ブラウザでページを表示し、右クリック→「ページのソースを表示」で <code>&lt;head&gt;</code> 内を確認してください。</p>
+
+            <h3>カスタマイザー設定値の確認</h3>
+            <p>テーマの設定値はWordPressの <code>theme_mods</code> として保存されています。問題の切り分けにはブラウザの開発者ツール（F12）のConsoleタブで以下を実行することで現在の設定値を確認できます。</p>
+
+            <h3>テーマの再有効化</h3>
+            <p>設定が正しいにもかかわらず問題が発生する場合、テーマを一度別のテーマに切り替えてから再度有効化することで、リライトルールやキャッシュがリセットされます。カスタマイザーの設定値は保持されます。</p>
+        </section>
+
+        <section>
+            <h2>サポート</h2>
+            <p>テーマに関する問題や質問は、GitHubリポジトリのIssuesページで受け付けています。</p>
+            <h3>報告時に記載してほしい情報</h3>
+            <ul>
+                <li>WordPress のバージョン</li>
+                <li>PHP のバージョン</li>
+                <li>テーマのバージョン（v1.2.0等）</li>
+                <li>使用中のプラグイン一覧（特にSEO・キャッシュ・ページビルダー系）</li>
+                <li>問題の再現手順をできるだけ詳しく記載してください</li>
+                <li>ブラウザの開発者ツールのコンソールにエラーが表示されている場合はそのスクリーンショットも添付してください</li>
+                <li>該当ページのHTMLソース（<code>&lt;head&gt;</code>部分）があると調査が迅速になります</li>
+            </ul>
+        </section>
+
+        <nav class="page-nav">
+            <a href="seo-llmo.html" class="prev">&laquo; SEOとLLMO</a>
+            <span></span>
+        </nav>
+
+        <footer class="manual-footer">
+            <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.0</p>
+        </footer>
+    </main>
+
+    <div class="lightbox"></div>
+    <script src="js/manual.js"></script>
+</body>
+</html>

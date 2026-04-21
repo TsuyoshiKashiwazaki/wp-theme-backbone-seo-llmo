@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>概要 - Backbone Theme マニュアル</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <button class="hamburger-btn" aria-label="メニューを開く">&#9776;</button>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2 style="color:#fff;">Backbone Theme</h2>
+            <span class="version">v1.2.0</span>
+            <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
+        </div>
+        <ul>
+            <li><a href="index.html">概要</a></li>
+            <li><a href="setup.html">インストール・初期設定</a></li>
+            <li><a href="layout-design.html">レイアウトとデザイン</a></li>
+            <li><a href="content-display.html">コンテンツ表示</a></li>
+            <li><a href="seo-llmo.html">SEOとLLMO</a></li>
+            <li><a href="troubleshooting.html">トラブルシューティング</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <h1>Backbone Theme for SEO + LLMO マニュアル</h1>
+        <img src="images/main-visual.png" alt="Backbone Theme メインビジュアル" style="width:100%; border-radius:8px; margin-bottom:24px;">
+        <img src="images/screenshot.png.webp" alt="Backbone Theme スクリーンショット" style="width:100%; border-radius:8px; margin-bottom:24px;">
+        <p class="lead">メディア運用に特化したシンプルなベーステーマです。基本的なSEO対応とレイアウト機能を提供し、高度な機能は専用プラグインでの拡張を前提とした設計になっています。</p>
+        <p>Backbone Theme は「テーマは基盤、プラグインで拡張」という思想のもと開発されました。カスタマイザーによる100以上の設定項目で、コードを書くことなくサイトの外観・レイアウト・コンテンツ表示を細かく調整できます。SEO基本機能（メタディスクリプション・メタキーワード自動生成）やLLMO対応機能（セマンティックHTML・カスタムJSON-LD）も内蔵しており、プラグインなしでも基礎的なSEO/LLMO対策が可能です。</p>
+
+        <section>
+            <h2>設計思想</h2>
+            <p>Backbone Theme は「テーマは基盤（Backbone）、プラグインで拡張」という思想に基づいています。テーマ単体でサイトの見た目・レイアウト・基本SEOを完結させ、高度なSEO・LLMO・GEO・AIO（AI Optimization）機能は専用プラグインで後付けする構造です。</p>
+            <p>この設計により、テーマ更新時にプラグインの機能が失われるリスクを排除し、テーマとプラグインの責任範囲を明確に分離しています。テーマが提供するのは「表示基盤」と「最低限のSEO」であり、構造化データの自動生成やAI検索向け最適化などの専門機能はプラグイン側に委譲します。</p>
+        </section>
+
+        <section>
+            <h2>主要機能</h2>
+            <div class="feature-cards">
+                <div class="feature-card">
+                    <h3>柔軟なレイアウト</h3>
+                    <p>1カラム・2カラム・3カラム・フルワイドの4種類から選択。投稿タイプごとに個別設定が可能で、サイドバーの左右位置・幅（200〜500px）も変更できます。1カラム時のコンテンツ最大幅（600〜1920px）も調整可能です。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>44種類のカラーテーマ</h3>
+                    <p>天体名をモチーフにした22種（各ライト/ダーク）のプリセットに加え、独自カラーテーマ機能で21のCSS変数（プライマリ、セカンダリ、アクセント、背景、テキスト、リンク、ボタン、フォーム等）を個別にカスタマイズできます。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>SEO + LLMO対応</h3>
+                    <p>メタディスクリプション・メタキーワード自動生成、セマンティックHTML、タイトルセパレーター（|）、カスタムヘッダーコード（JSON-LD等）の投稿別入力に対応。AI検索エンジン（ChatGPT・Gemini・Perplexity等）からの引用精度も向上します。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>フロントページビルダー</h3>
+                    <p>リストセクション5枠＋個別セクション5枠＋フリーコンテンツの組み合わせで、トップページを自由に構築。セクションの表示順はドラッグ&amp;ドロップで変更できます。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>メインビジュアル</h3>
+                    <p>標準・フルワイド・サークル・カード型の4スタイルに加え、ボーダー・角丸・アニメーション（フェードイン・スライドアップ・ズームイン等）・配置を投稿タイプ別に設定可能です。</p>
+                </div>
+                <div class="feature-card">
+                    <h3>サブディレクトリ別ブランディング</h3>
+                    <p>最大10個のサブディレクトリに対して、個別のロゴ・カラーテーマ・デザインパターン・タイポグラフィ・デコレーションを設定。1つのサイト内で複数のブランドを表現できます。</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>その他の機能</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>スティッキーヘッダー</td><td>スクロール時にヘッダーを固定表示。不透明度（0〜100%）と自動非表示の設定が可能</td></tr>
+                    <tr><td>スティッキーサイドバー</td><td>デスクトップ（1280px以上）でサイドバーを追従表示</td></tr>
+                    <tr><td>スクロールトップボタン</td><td>サイズ（30〜80px）・位置（左/中央/右）・下端マージン（10〜100px）を調整可能</td></tr>
+                    <tr><td>カスタムページネーション</td><td><code>/page-N/</code> 形式のURL（旧<code>/page/N/</code>は301リダイレクト）</td></tr>
+                    <tr><td>タクソノミールートページ</td><td><code>/tag/</code>（タグ一覧）、<code>/category/</code>（カテゴリ一覧）の独立ルートページ</td></tr>
+                    <tr><td>ページのタグ・抜粋対応</td><td>固定ページにもタグと抜粋機能を追加。タグアーカイブに固定ページも表示</td></tr>
+                    <tr><td>モバイルメニュー制御</td><td>デスクトップメニューの非表示ブレークポイント（なし/767px/1279px）</td></tr>
+                    <tr><td>フォーム表示調整</td><td>入力フィールドのパディング・フォントサイズ・ボーダー幅・行間・最大幅をカスタマイズ</td></tr>
+                    <tr><td>カスタムJS/CSS注入</td><td>全体共通＋投稿タイプ別、header/footer選択でコードを注入</td></tr>
+                    <tr><td>キャッシュバスティング</td><td>フロントエンド・管理画面それぞれのCSS/JSに個別にキャッシュバスターを付与</td></tr>
+                    <tr><td>検索ボタン制御</td><td>ヘッダーの検索ボタン表示/非表示を切替</td></tr>
+                    <tr><td>デフォルトアイキャッチ</td><td>アイキャッチ未設定時に表示するデフォルト画像を指定</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>SEO / GEO / LLMO における強み</h2>
+            <p>Backbone Theme は、従来の検索エンジン最適化（SEO）だけでなく、AI検索エンジンからの引用精度を高めるGEO（Generative Engine Optimization）やLLMO（Large Language Model Optimization）にも対応する基盤を提供します。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>対策領域</th>
+                        <th>テーマが提供する機能</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>メタ情報</td>
+                        <td>メタディスクリプション自動生成（投稿・固定ページ・各種アーカイブ対応）、メタキーワード自動生成（focus_keyword・タグ・カテゴリ・タイトルから抽出）、タイトルセパレーター「|」</td>
+                    </tr>
+                    <tr>
+                        <td>セマンティックHTML</td>
+                        <td><code>&lt;article&gt;</code> / <code>&lt;header&gt;</code> / <code>&lt;nav&gt;</code> / <code>&lt;main&gt;</code> / <code>&lt;aside&gt;</code> / <code>&lt;footer&gt;</code> / <code>&lt;time&gt;</code> の適切な使用。クローラーとAIの両方がコンテンツ構造を正しく理解可能</td>
+                    </tr>
+                    <tr>
+                        <td>構造化データ</td>
+                        <td>投稿ごとのJSON-LD直接入力。Article / FAQPage / HowTo / Product / LocalBusiness / BreadcrumbList等のSchemaに対応</td>
+                    </tr>
+                    <tr>
+                        <td>内部リンク構造</td>
+                        <td>タクソノミー横断表示（カテゴリ・タグアーカイブに全投稿タイプの記事を統合表示）でサイト内の関連性を強化。タクソノミールートページで一覧ハブを提供</td>
+                    </tr>
+                    <tr>
+                        <td>ページネーション</td>
+                        <td><code>/page-N/</code>形式のSEOフレンドリーURL。旧形式は301リダイレクトで重複コンテンツを防止</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <figure class="infographic">
+            <img src="images/infographics/overview-flow.png" alt="テーマ全体の構成と主要機能">
+            <figcaption>図: テーマの全体構成</figcaption>
+        </figure>
+
+        <section>
+            <h2>テーマサポート</h2>
+            <p>Backbone Theme は以下のWordPress標準機能をサポートしています。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>設定値</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>アイキャッチ画像</td><td>推奨サイズ 1200×800px</td></tr>
+                    <tr><td>カスタムロゴ</td><td>推奨サイズ 400×100px</td></tr>
+                    <tr><td>HTML5マークアップ</td><td>検索フォーム、コメント、ギャラリー等</td></tr>
+                    <tr><td>エディタースタイル</td><td>ブロックエディターでテーマのスタイルを反映</td></tr>
+                    <tr><td>幅広・全幅ブロック</td><td>align-wide / align-full 対応</td></tr>
+                    <tr><td>レスポンシブ埋め込み</td><td>YouTube・Twitter等の埋め込みが自動的にレスポンシブ化</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>目次</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ページ</th>
+                        <th>内容</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><a href="index.html">概要</a></td><td>テーマの設計思想、主要機能一覧、SEO/GEO/LLMO対応、動作要件</td></tr>
+                    <tr><td><a href="setup.html">インストール・初期設定</a></td><td>テーマのインストール手順、カスタマイザーのセクション構成、推奨画像サイズ、初期設定フロー</td></tr>
+                    <tr><td><a href="layout-design.html">レイアウトとデザイン</a></td><td>4種類のレイアウト、44種カラーテーマ、デザインパターン、スティッキーヘッダー/サイドバー、サブディレクトリ設定、フォーム設定</td></tr>
+                    <tr><td><a href="content-display.html">コンテンツ表示</a></td><td>メインビジュアル（4スタイル＋装飾設定）、フロントページビルダー、アーカイブ設定、記事メタ情報</td></tr>
+                    <tr><td><a href="seo-llmo.html">SEOとLLMO</a></td><td>メタディスクリプション/キーワード自動生成、構造化データ、ページネーション、タクソノミー、開発者機能</td></tr>
+                    <tr><td><a href="troubleshooting.html">トラブルシューティング</a></td><td>よくある問題と解決方法、プラグイン互換性、動作要件、ファイル構成</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>動作要件</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>項目</th>
+                        <th>要件</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>WordPress</td><td>5.0 以上</td></tr>
+                    <tr><td>PHP</td><td>7.2 以上</td></tr>
+                    <tr><td>推奨ブラウザ</td><td>Chrome、Firefox、Safari、Edge の最新版</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <nav class="page-nav">
+            <span></span>
+            <a href="setup.html" class="next">インストール・初期設定 &raquo;</a>
+        </nav>
+
+        <footer class="manual-footer">
+            <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.0</p>
+        </footer>
+    </main>
+
+    <div class="lightbox"></div>
+    <script src="js/manual.js"></script>
+</body>
+</html>

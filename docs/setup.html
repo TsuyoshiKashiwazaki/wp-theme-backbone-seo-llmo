@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>インストール・初期設定 - Backbone Theme マニュアル</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <button class="hamburger-btn" aria-label="メニューを開く">&#9776;</button>
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <h2 style="color:#fff;">Backbone Theme</h2>
+            <span class="version">v1.2.0</span>
+            <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
+        </div>
+        <ul>
+            <li><a href="index.html">概要</a></li>
+            <li><a href="setup.html">インストール・初期設定</a></li>
+            <li><a href="layout-design.html">レイアウトとデザイン</a></li>
+            <li><a href="content-display.html">コンテンツ表示</a></li>
+            <li><a href="seo-llmo.html">SEOとLLMO</a></li>
+            <li><a href="troubleshooting.html">トラブルシューティング</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <h1>インストール・初期設定</h1>
+        <p class="lead">テーマのインストールから初期設定まで、ステップバイステップで解説します。</p>
+
+        <section>
+            <h2>インストール方法</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-body">
+                    <h3>テーマファイルをアップロード</h3>
+                    <p>テーマのZIPファイルを WordPress管理画面の「外観」→「テーマ」→「新しいテーマを追加」→「テーマのアップロード」からアップロードします。または、解凍したフォルダを <code>/wp-content/themes/backbone-seo-llmo/</code> に直接配置します。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-body">
+                    <h3>テーマを有効化</h3>
+                    <p>「外観」→「テーマ」一覧から「Backbone Theme for SEO + LLMO」を見つけ、「有効化」ボタンをクリックします。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-body">
+                    <h3>カスタマイザーを開く</h3>
+                    <p>「外観」→「カスタマイズ」をクリックすると、テーマのカスタマイザーが開きます。ここからすべての設定を行います。</p>
+                </div>
+            </div>
+            <div class="callout callout-tip">
+                <p>テーマを有効化すると、カスタマイザーに「デザイン設定」「レイアウト設定」「メインビジュアル設定」など、テーマ固有のセクションが追加されます。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>テーマが有効化する機能</h2>
+            <p>テーマを有効化すると、以下のWordPress標準機能が自動的に有効になります。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>機能</th>
+                        <th>詳細</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>アイキャッチ画像</td><td>推奨サイズ 1200×800px。メインビジュアルやアーカイブ一覧で使用されます</td></tr>
+                    <tr><td>カスタムロゴ</td><td>推奨サイズ 400×100px（最大幅400px / 最大高100px）。ヘッダーに表示されます</td></tr>
+                    <tr><td>HTML5マークアップ</td><td>検索フォーム、コメントフォーム、コメントリスト、ギャラリー、キャプションにHTML5タグを使用</td></tr>
+                    <tr><td>エディタースタイル</td><td>ブロックエディターにテーマのスタイルを反映し、編集画面とフロントエンドの見た目を統一</td></tr>
+                    <tr><td>幅広/全幅ブロック</td><td><code>align-wide</code>・<code>align-full</code> ブロックに対応</td></tr>
+                    <tr><td>レスポンシブ埋め込み</td><td>YouTube・Twitter等の埋め込みを自動的にレスポンシブ化</td></tr>
+                    <tr><td>固定ページのタグ対応</td><td>固定ページ（page）にタグを付与可能。タグアーカイブに固定ページも表示されます</td></tr>
+                    <tr><td>固定ページの抜粋対応</td><td>固定ページで抜粋メタボックスが有効に。メタディスクリプション自動生成にも利用されます</td></tr>
+                    <tr><td>タイトルセパレーター</td><td>ページタイトルのセパレーターをWordPress標準の「–」から「|」に変更</td></tr>
+                </tbody>
+            </table>
+            <div class="callout callout-note">
+                <p>テーマはWordPressの<code>custom-background</code>機能を無効化しています。背景色の変更はカラーテーマまたは独自カラーテーマの <code>--background-color</code> で行ってください。</p>
+            </div>
+        </section>
+
+        <section>
+            <h2>推奨画像サイズ</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>用途</th>
+                        <th>推奨サイズ</th>
+                        <th>備考</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>アイキャッチ画像</td><td>1200×800px</td><td>メインビジュアル・アーカイブカード・SNS共有で使用</td></tr>
+                    <tr><td>カスタムロゴ</td><td>400×100px以内</td><td>最大幅400px / 最大高100px。SVGは非対応</td></tr>
+                    <tr><td>フロントページヒーロー</td><td>1920×800px以上</td><td>画面幅に応じて自動リサイズ。高さは200〜800pxで設定可能</td></tr>
+                    <tr><td>サブディレクトリ別ロゴ</td><td>400×100px以内</td><td>カスタムロゴと同じサイズ推奨</td></tr>
+                    <tr><td>デフォルトアイキャッチ</td><td>1200×800px</td><td>アイキャッチ未設定時のフォールバック画像</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>カスタマイザーの構成</h2>
+            <figure class="screenshot">
+                <img src="images/screenshots/01-customizer-overview.png" alt="カスタマイザーのセクション一覧" class="lightbox-trigger">
+                <figcaption>図: カスタマイザーのセクション一覧</figcaption>
+            </figure>
+            <p>テーマのカスタマイザーには以下のセクションがあります。各セクションの詳細は該当するマニュアルページで解説しています。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>セクション名</th>
+                        <th>内容</th>
+                        <th>詳細ページ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>サイト基本情報</td><td>サイト名、キャッチフレーズ、ロゴ画像、サイトアイコン、ヘッダーメッセージ、フッターメッセージ、コピーライト表示</td><td>-</td></tr>
+                    <tr><td>デザイン設定</td><td>カラーテーマ（44種）、デザインパターン、タイポグラフィパターン、デコレーションパターン、デフォルトアイキャッチ画像</td><td><a href="layout-design.html">レイアウトとデザイン</a></td></tr>
+                    <tr><td>独自カラーテーマの設定</td><td>21のCSS変数を個別にカスタマイズ（プライマリ、背景、テキスト、リンク、ボタン、フォーム等）</td><td><a href="layout-design.html">レイアウトとデザイン</a></td></tr>
+                    <tr><td>レイアウト設定</td><td>カラム数（1/2/3/フルワイド）、サイドバー位置・幅、1カラム最大幅、投稿タイプ別レイアウト、スティッキーヘッダー/サイドバー、スクロールトップ、検索ボタン、フッター設定</td><td><a href="layout-design.html">レイアウトとデザイン</a></td></tr>
+                    <tr><td>メニュー</td><td>ナビゲーションメニュー設定、深階層サブメニューの展開方向（横/縦）、モバイルメニュー非表示ブレークポイント</td><td><a href="layout-design.html">レイアウトとデザイン</a></td></tr>
+                    <tr><td>サブディレクトリ別ロゴ</td><td>最大10個のサブディレクトリに個別ロゴ画像またはテキストロゴを設定</td><td><a href="layout-design.html">レイアウトとデザイン</a></td></tr>
+                    <tr><td>サブディレクトリ別デザイン</td><td>サブディレクトリごとにカラーテーマ・デザイン・タイポグラフィ・デコレーションパターンを個別設定</td><td><a href="layout-design.html">レイアウトとデザイン</a></td></tr>
+                    <tr><td>メインビジュアル設定</td><td>表示スタイル（4種）、ボーダー・角丸・アニメーション・配置、共通/個別モード、オーバーレイ</td><td><a href="content-display.html">コンテンツ表示</a></td></tr>
+                    <tr><td>アーカイブページ設定</td><td>グリッドカラム数・並び順・サムネイルサイズ・表示要素、共通/個別モード（カテゴリ・タグ・著者・日付・検索・CPT別）</td><td><a href="content-display.html">コンテンツ表示</a></td></tr>
+                    <tr><td>記事メタ情報設定</td><td>投稿日・更新日・著者・カテゴリ・タグの表示/非表示、タグ表示上限数、SEOメタタグ（ディスクリプション/キーワード）有効/無効、共通/個別モード</td><td><a href="content-display.html">コンテンツ表示</a></td></tr>
+                    <tr><td>フォーム表示設定</td><td>パディング（縦/横）、フォントサイズ、ボーダー幅、行間、下マージン、テキストエリア最小高、最大幅</td><td><a href="layout-design.html">レイアウトとデザイン</a></td></tr>
+                    <tr><td>フロントページ設定</td><td>カスタムフロントページ/既存ページ選択、ヒーロー画像・テキスト、リストセクション5枠＋個別セクション5枠＋フリーコンテンツ、セクション順序（D&amp;D）</td><td><a href="content-display.html">コンテンツ表示</a></td></tr>
+                    <tr><td>追加JS</td><td>カスタムJavaScriptの注入。全体共通＋投稿タイプ別、header/footer選択</td><td><a href="seo-llmo.html">SEOとLLMO</a></td></tr>
+                    <tr><td>追加CSS</td><td>カスタムCSSの注入。全体共通＋投稿タイプ別、header/footer選択</td><td><a href="seo-llmo.html">SEOとLLMO</a></td></tr>
+                    <tr><td>開発者設定</td><td>キャッシュバスティング（フロントエンド/管理画面の個別ON/OFF）</td><td><a href="seo-llmo.html">SEOとLLMO</a></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <figure class="infographic">
+            <img src="images/infographics/architecture.png" alt="テーマの内部アーキテクチャ（4層構造）">
+            <figcaption>図: テーマの内部アーキテクチャ</figcaption>
+        </figure>
+
+        <section>
+            <h2>内部アーキテクチャ</h2>
+            <p>テーマは以下の4層構造で設計されています。各層が独立して機能し、カスタマイザーの設定がリアルタイムにフロントエンドに反映される仕組みです。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>層</th>
+                        <th>役割</th>
+                        <th>主要ファイル</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>テンプレート層</td><td>HTMLの出力構造を決定。ヘッダー・フッター・サイドバー・記事カード・ヒーロー画像等のテンプレートパーツ</td><td><code>template-parts/</code>, <code>header.php</code>, <code>footer.php</code></td></tr>
+                    <tr><td>設定層</td><td>カスタマイザーの全セクション・コントロール・設定値を管理。カスタムコントロール（リピーター、WYSIWYG、セクション順序、検索可能セレクト等）も含む</td><td><code>inc/customizer/</code></td></tr>
+                    <tr><td>ユーティリティ層</td><td>メタディスクリプション生成、ヒーロー画像制御、レイアウト判定、カラーテーマCSS生成等のヘルパー関数群</td><td><code>inc/utilities/</code></td></tr>
+                    <tr><td>アセット層</td><td>CSS（レイアウト、コンポーネント、レスポンシブ等27ファイル）とJS（カスタマイザープレビュー、検索ポップアップ等17ファイル）</td><td><code>css/</code>, <code>js/</code></td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section>
+            <h2>初期設定の流れ</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-body">
+                    <h3>カラーテーマを選択</h3>
+                    <p>「デザイン設定」→「カラーテーマ」から44種類のプリセットテーマを選択します。天体名をモチーフにした22種（各ライト/ダーク）が用意されています。「設定なし」を選ぶと独自カラーテーマモードが有効になり、21のCSS変数を個別に調整できます。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-body">
+                    <h3>レイアウトを設定</h3>
+                    <p>「レイアウト設定」からフロントページのカラム数（1カラム/2カラム/3カラム/フルワイド）とサイドバー位置（左/右）を設定します。サイドバー幅（200〜500px、デフォルト300px）、1カラム時のコンテンツ最大幅（600〜1920px、デフォルト1200px）も調整可能です。投稿タイプごとに個別レイアウトも指定でき、「継承」を選ぶとフロントページの設定が適用されます。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-body">
+                    <h3>ロゴとサイト情報を設定</h3>
+                    <p>「サイト基本情報」でサイト名、キャッチフレーズ、ロゴ画像（推奨400×100px）、サイトアイコンを設定します。ヘッダーメッセージ（HTMLタグ可）やフッターメッセージ、コピーライト表示（テキスト変更可・表示/非表示切替）も入力できます。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-body">
+                    <h3>フロントページを設定</h3>
+                    <p>「フロントページ設定」で「カスタムフロントページを使用」か「既存のページを使用」を選択します。カスタムフロントページでは、ヒーロー画像・テキスト・リストセクション・個別セクション・フリーコンテンツを組み合わせてトップページを構築できます。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <div class="step-body">
+                    <h3>メインビジュアルを設定</h3>
+                    <p>「メインビジュアル設定」でアイキャッチ画像の表示スタイルを選択します。「共通設定」モードなら全投稿タイプ統一、「個別設定」モードなら投稿タイプごとにスタイル・ボーダー・角丸・アニメーション・配置を設定できます。</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">6</div>
+                <div class="step-body">
+                    <h3>SEO設定を確認</h3>
+                    <p>「記事メタ情報設定」セクションで、メタディスクリプション自動生成とメタキーワード自動生成がデフォルトで有効になっていることを確認します。SEOプラグインを使用する場合は、重複を避けるためにテーマのメタ出力を無効化することも可能です。</p>
+                </div>
+            </div>
+            <div class="callout callout-note">
+                <p>すべての設定はカスタマイザーのプレビューでリアルタイムに確認できます。「公開」ボタンを押すまで変更は反映されません。</p>
+            </div>
+        </section>
+
+        <nav class="page-nav">
+            <a href="index.html" class="prev">&laquo; 概要</a>
+            <a href="layout-design.html" class="next">レイアウトとデザイン &raquo;</a>
+        </nav>
+
+        <footer class="manual-footer">
+            <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.0</p>
+        </footer>
+    </main>
+
+    <div class="lightbox"></div>
+    <script src="js/manual.js"></script>
+</body>
+</html>
