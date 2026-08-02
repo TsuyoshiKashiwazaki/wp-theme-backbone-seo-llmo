@@ -68,7 +68,10 @@ function backbone_meta_description() {
         if ($post->post_excerpt) {
             $description = $post->post_excerpt;
         } else {
-            $description = wp_trim_words($post->post_content, 25, '');
+            // wp_trim_words は「語」で数えるため、単語の区切りがない日本語では
+            // 25 文字で切れてしまう（「株式会社〇〇は、2」のような末尾になる）。
+            // ディスクリプションとして意味を成す長さを文字数で確保する。
+            $description = mb_substr(wp_strip_all_tags($post->post_content), 0, 160);
         }
     }
     // ホームページ/ブログページ
@@ -152,7 +155,10 @@ function backbone_meta_description() {
         // HTMLタグを除去し、改行を空白に置換、連続する空白を1つにまとめる
         $description = preg_replace('/\s+/', ' ', trim(strip_tags($description)));
         // 最大160文字に制限（SEO推奨長）
-        if (strlen($description) > 160) {
+        // 判定と切り出しの単位を揃える。strlen はバイト数を返すため、1文字3バイトの
+        // 日本語では54文字を超えた時点で必ずこの分岐に入り、実際には切り詰めていない
+        // のに末尾へ「...」だけが付いていた。
+        if (mb_strlen($description) > 160) {
             $description = mb_substr($description, 0, 157) . '...';
         }
         echo '<meta name="description" content="' . esc_attr($description) . '">' . "\n";

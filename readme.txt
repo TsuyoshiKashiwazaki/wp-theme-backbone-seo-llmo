@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,11 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.2.1 - 2026-08-02 =
+* 修正: メタディスクリプションが日本語で25文字に切り詰められる問題を修正
+* 修正: メタディスクリプション末尾に不要な「...」が付く問題を修正（バイト数と文字数の判定不一致）
+* ドキュメント: メタディスクリプション生成ルールの記述を実装に合わせて修正
 
 = 1.2.0 - 2026-04-21 =
 * セキュリティ: wp_redirect() → wp_safe_redirect() + REQUEST_URI サニタイズ
