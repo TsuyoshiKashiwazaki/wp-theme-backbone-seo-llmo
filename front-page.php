@@ -27,6 +27,11 @@ if ($front_page_mode === 'custom') {
 
     $post_to_display = ($selected_id > 0) ? get_post($selected_id) : null;
 
+    // 選択後に非公開・下書きになった投稿は、閲覧権限のない訪問者には表示しない
+    if ($post_to_display && !backbone_is_post_displayable($post_to_display)) {
+        $post_to_display = null;
+    }
+
     if ($post_to_display) {
         // 選択されたページまたは投稿を表示
         setup_postdata($GLOBALS['post'] =& $post_to_display);

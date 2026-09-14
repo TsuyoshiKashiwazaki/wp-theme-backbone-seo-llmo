@@ -138,9 +138,13 @@
                             </div>
                         </li>';
                         
-                        // </ul>の直前に検索ボタンを挿入
+                        // メニュー全体を閉じる最後の </ul> の直前にだけ検索ボタンを挿入
+                        // （str_replace だとサブメニューの </ul> にも挿入され、検索ボタンが重複する）
                         if ($menu_items) {
-                            $menu_items = str_replace('</ul>', $search_button . '</ul>', $menu_items);
+                            $last_ul_pos = strrpos($menu_items, '</ul>');
+                            if ($last_ul_pos !== false) {
+                                $menu_items = substr_replace($menu_items, $search_button . '</ul>', $last_ul_pos, strlen('</ul>'));
+                            }
                         }
                     }
                     

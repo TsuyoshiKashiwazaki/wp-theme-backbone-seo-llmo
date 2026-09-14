@@ -28,7 +28,8 @@ if ($description_source === 'page') {
 
     if ($source_page_id) {
         $source_post = get_post($source_page_id);
-        if ($source_post && $source_post->post_status === 'publish') {
+        // パスワード保護されたページの本文は、保護を迂回してトップページに出さない
+        if ($source_post && $source_post->post_status === 'publish' && !post_password_required($source_post)) {
             // タイトルを取得（オプション）
             if ($show_title) {
                 $description_title = $source_post->post_title;

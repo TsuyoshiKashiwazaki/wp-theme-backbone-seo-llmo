@@ -289,11 +289,18 @@ add_filter('body_class', 'backbone_add_sticky_header_body_class');
 
 /**
  * テーマアクティベート時にパーマリンク構造を設定
+ *
+ * 既にパーマリンク構造が設定されているサイトでは変更しない。
+ * テーマの切り替えだけで既存記事の URL が変わると、被リンク切れや 404 が大量に発生するため。
  */
 function backbone_set_default_permalink_structure() {
+    if (get_option('permalink_structure')) {
+        return;
+    }
+
     // パーマリンク構造を /%category%/%postname%/ に設定
     update_option('permalink_structure', '/%category%/%postname%/');
-    
+
     // リライトルールをフラッシュ
     flush_rewrite_rules();
 }

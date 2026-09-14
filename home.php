@@ -11,7 +11,8 @@ get_header(); ?>
         $posts_page_id = get_option('page_for_posts');
         if ($posts_page_id) {
             $posts_page = get_post($posts_page_id);
-            if ($posts_page) : ?>
+            // 投稿ページに指定した固定ページが非公開・下書きになった場合は、閲覧権限のない訪問者に本文を出さない
+            if ($posts_page && backbone_is_post_displayable($posts_page)) : ?>
                 <article id="posts-page-<?php echo $posts_page_id; ?>" class="posts-page-content">
                     <header class="page-header">
                         <h1 class="page-title"><?php echo esc_html(get_the_title($posts_page)); ?></h1>
@@ -24,7 +25,14 @@ get_header(); ?>
                     <?php endif; ?>
 
                     <div class="page-content">
-                        <?php echo apply_filters('the_content', $posts_page->post_content); ?>
+                        <?php
+                        // パスワード保護されている場合は本文ではなくパスワード入力フォームを出す（the_content() と同じ扱い）
+                        if (post_password_required($posts_page)) {
+                            echo get_the_password_form($posts_page);
+                        } else {
+                            echo apply_filters('the_content', $posts_page->post_content);
+                        }
+                        ?>
                     </div>
                 </article>
             <?php endif;

@@ -11,6 +11,35 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * 設定で選ばれた投稿を、現在の閲覧者に表示してよいかを判定する
+ *
+ * カスタマイザー等で投稿 ID を保存しておき、あとからその投稿を非公開・下書き・ゴミ箱に移した場合に、
+ * 未ログインの訪問者へ内容を出さないためのもの。公開投稿は誰にでも、非公開投稿は閲覧権限を持つユーザーにだけ表示する。
+ * パスワード保護の判定は含めない（本文を出す箇所で post_password_required() を確認すること）。
+ *
+ * @param int|WP_Post|null $post 投稿 ID または投稿オブジェクト
+ * @return bool
+ */
+function backbone_is_post_displayable($post) {
+    $post = get_post($post);
+    if (!$post) {
+        return false;
+    }
+
+    // is_post_publicly_viewable() は WordPress 5.7 以降。テーマの対応範囲 (5.0 以降) では同等の判定で代替する
+    if (function_exists('is_post_publicly_viewable')) {
+        $is_public = is_post_publicly_viewable($post);
+    } else {
+        $is_public = $post->post_status === 'publish' && is_post_type_viewable($post->post_type);
+    }
+    if ($is_public) {
+        return true;
+    }
+
+    return $post->post_status === 'private' && current_user_can('read_post', $post->ID);
+}
+
+/**
  * 抜粋の長さを変更
  */
 function backbone_excerpt_length($length) {
@@ -65,13 +94,18 @@ function backbone_meta_description() {
     // 個別投稿・固定ページ
     if (is_single() || is_page()) {
         global $post;
-        if ($post->post_excerpt) {
+        if (!$post || post_password_required($post)) {
+            // パスワード保護された投稿は、抜粋・本文を head に出さない（保護を迂回して本文冒頭が公開されるため）
+            $description = '';
+        } elseif ($post->post_excerpt) {
             $description = $post->post_excerpt;
         } else {
             // wp_trim_words は「語」で数えるため、単語の区切りがない日本語では
             // 25 文字で切れてしまう（「株式会社〇〇は、2」のような末尾になる）。
             // ディスクリプションとして意味を成す長さを文字数で確保する。
-            $description = mb_substr(wp_strip_all_tags($post->post_content), 0, 160);
+            // ショートコードとブロックは展開前の記法が混ざらないよう取り除いてから切り出す。
+            $content = excerpt_remove_blocks(strip_shortcodes($post->post_content));
+            $description = mb_substr(wp_strip_all_tags($content), 0, 160);
         }
     }
     // ホームページ/ブログページ
@@ -80,6 +114,12 @@ function backbone_meta_description() {
         if (empty($description)) {
             $description = get_bloginfo('name') . ' - ' . __('Latest posts and updates', 'backbone-seo-llmo');
         }
+    }
+    // 検索結果ページ
+    // カテゴリや投稿タイプで絞り込んだ検索では is_category() / is_post_type_archive() も真になるため、アーカイブより先に判定する
+    elseif (is_search()) {
+        $search_query = get_search_query();
+        $description = sprintf(__('Search results for "%s"', 'backbone-seo-llmo'), $search_query);
     }
     // カテゴリーアーカイブ
     elseif (is_category()) {
@@ -103,11 +143,18 @@ function backbone_meta_description() {
     }
     // カスタム投稿タイプアーカイブ
     elseif (is_post_type_archive()) {
-        $post_type = get_queried_object();
-        if ($post_type && isset($post_type->description) && !empty($post_type->description)) {
-            $description = $post_type->description;
-        } else {
-            $post_type_obj = get_post_type_object(get_post_type());
+        // 投稿タイプは表示中の記事ではなくクエリから取得する（記事が 0 件のアーカイブでも名前を出すため）
+        $post_type_obj = get_queried_object();
+        if (!($post_type_obj instanceof WP_Post_Type)) {
+            $query_post_type = get_query_var('post_type');
+            if (is_array($query_post_type)) {
+                $query_post_type = reset($query_post_type);
+            }
+            $post_type_obj = $query_post_type ? get_post_type_object($query_post_type) : null;
+        }
+        if ($post_type_obj && !empty($post_type_obj->description)) {
+            $description = $post_type_obj->description;
+        } elseif ($post_type_obj) {
             $description = sprintf(__('Archive for %s', 'backbone-seo-llmo'), $post_type_obj->labels->name);
         }
     }
@@ -116,7 +163,7 @@ function backbone_meta_description() {
         $term = get_queried_object();
         if ($term && !empty($term->description)) {
             $description = strip_tags($term->description);
-        } else {
+        } elseif ($term) {
             $description = sprintf(__('Archive for %s', 'backbone-seo-llmo'), $term->name);
         }
     }
@@ -139,11 +186,6 @@ function backbone_meta_description() {
         } elseif (is_day()) {
             $description = sprintf(__('Posts from %s', 'backbone-seo-llmo'), get_the_date('F j, Y'));
         }
-    }
-    // 検索結果ページ
-    elseif (is_search()) {
-        $search_query = get_search_query();
-        $description = sprintf(__('Search results for "%s"', 'backbone-seo-llmo'), $search_query);
     }
     // 404ページ
     elseif (is_404()) {

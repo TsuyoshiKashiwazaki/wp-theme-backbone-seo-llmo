@@ -26,6 +26,7 @@ require_once get_template_directory() . '/inc/customizer/archive-settings.php';
 require_once get_template_directory() . '/inc/customizer/post-meta-settings.php';
 require_once get_template_directory() . '/inc/customizer/form-settings.php';
 require_once get_template_directory() . '/inc/customizer/front-page-settings.php';
+require_once get_template_directory() . '/inc/customizer/custom-tags-settings.php';
 require_once get_template_directory() . '/inc/customizer/custom-js-settings.php';
 require_once get_template_directory() . '/inc/customizer/custom-css-settings.php';
 // require_once get_template_directory() . '/inc/ajax/save-color-theme.php'; // カスタムカラー機能削除
@@ -55,6 +56,7 @@ function backbone_customize_register($wp_customize) {
     backbone_add_single_post_settings($wp_customize);
     backbone_add_form_settings($wp_customize);
     backbone_add_front_page_settings($wp_customize);
+    backbone_add_custom_tags_settings($wp_customize);
     backbone_add_custom_js_settings($wp_customize);
     backbone_add_custom_css_settings($wp_customize);
 

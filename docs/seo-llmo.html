@@ -11,7 +11,7 @@
     <nav class="sidebar">
         <div class="sidebar-header">
             <h2 style="color:#fff;">Backbone Theme</h2>
-            <span class="version">v1.2.1</span>
+            <span class="version">v1.2.2</span>
             <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
         </div>
         <ul>
@@ -54,15 +54,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>投稿・固定ページ</td><td>投稿の抜粋（excerpt）を優先使用</td><td>本文の先頭160文字を自動抽出</td></tr>
-                    <tr><td>フロントページ</td><td>サイトのキャッチフレーズ（blogdescription）</td><td>「{サイト名} - 最新の投稿と更新情報」</td></tr>
-                    <tr><td>カテゴリアーカイブ</td><td>カテゴリの説明文（WordPress管理画面で設定）</td><td>「{カテゴリ名}の記事一覧」</td></tr>
-                    <tr><td>タグアーカイブ</td><td>タグの説明文</td><td>「{タグ名}のタグが付いた記事一覧」</td></tr>
-                    <tr><td>著者アーカイブ</td><td>著者のプロフィール説明文</td><td>「{著者名}が執筆した記事一覧」</td></tr>
-                    <tr><td>日付アーカイブ</td><td>自動生成のみ</td><td>「{年月}に公開された記事一覧」</td></tr>
-                    <tr><td>404ページ</td><td>自動生成のみ</td><td>汎用的な「ページが見つかりません」メッセージ</td></tr>
+                    <tr><td>投稿・固定ページ</td><td>投稿の抜粋（excerpt）を優先使用</td><td>本文の先頭160文字を自動抽出（ショートコードとブロックの記法は除去）。パスワード保護された投稿では、パスワードを入力していない訪問者（検索エンジンのクローラーを含む）には出力しません</td></tr>
+                    <tr><td>フロントページ（表示設定が「最新の投稿」の場合）・投稿ページ</td><td>サイトのキャッチフレーズ（blogdescription）</td><td>「{サイト名} - Latest posts and updates」</td></tr>
+                    <tr><td>カテゴリアーカイブ</td><td>カテゴリの説明文（WordPress管理画面で設定）</td><td>「Archive for {カテゴリ名} category」</td></tr>
+                    <tr><td>タグアーカイブ</td><td>タグの説明文</td><td>「Posts tagged with {タグ名}」</td></tr>
+                    <tr><td>カスタム投稿タイプ・カスタムタクソノミーのアーカイブ</td><td>投稿タイプ／タームの説明文</td><td>「Archive for {投稿タイプ名／ターム名}」</td></tr>
+                    <tr><td>著者アーカイブ</td><td>著者のプロフィール説明文</td><td>「Posts by {著者名}」</td></tr>
+                    <tr><td>日付アーカイブ</td><td>自動生成のみ</td><td>「Posts from {年／年月／年月日}」</td></tr>
+                    <tr><td>検索結果</td><td>自動生成のみ</td><td>「Search results for "{検索語}"」</td></tr>
+                    <tr><td>404ページ</td><td>自動生成のみ</td><td>「Page not found - The page you are looking for does not exist.」</td></tr>
                 </tbody>
             </table>
+            <p>フォールバックの定型文は英語です（テーマに日本語の翻訳ファイルは同梱していません）。表示設定でホームページに固定ページを指定している場合、フロントページには「投稿・固定ページ」のルール（そのページの抜粋または本文）が適用されます。</p>
 
             <div class="callout callout-note">
                 <p>SEOプラグイン（Yoast SEO、All in One SEO、Rank Math等）を使用する場合は、カスタマイザーの「記事メタ情報設定」から「メタディスクリプション自動生成」を手動で無効化してください。テーマとプラグインの両方がメタディスクリプションを出力するとタグが重複します。</p>
@@ -287,6 +290,25 @@
                 <p>テーマやプラグインの更新後にデザインが崩れる場合は、キャッシュバスティングを一時的に有効にすることで、ブラウザに最新のファイルを強制読み込みさせることができます。</p>
             </div>
 
+            <h3>追加タグ（メタタグ・計測タグ）</h3>
+            <p>「追加タグ」セクションで、サイト所有権の確認用メタタグや、外部スクリプトを読み込む計測タグなどのHTMLタグを、入力したとおりにページへ出力できます。「追加JS」と違い、<code>&lt;script&gt;</code> や <code>&lt;meta&gt;</code> などのタグをそのまま記述します。</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>設定項目</th>
+                        <th>説明</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>全体共通タグ</td><td>すべてのページに出力されるタグ</td></tr>
+                    <tr><td>トップページのみのタグ</td><td>サイトのトップページ（WordPressのホームURL。表示設定が「最新の投稿」の場合は2ページ目以降も含む）だけに出力されるタグ。WordPressをサブディレクトリに設置している場合は、そのサブディレクトリのトップが対象です。サイト所有権の確認用メタタグなどに使用</td></tr>
+                    <tr><td>出力位置</td><td>それぞれ <strong><code>&lt;head&gt;</code>内</strong>・<strong><code>&lt;body&gt;</code>の直後</strong>・<strong><code>&lt;/body&gt;</code>の直前</strong> の3か所に入力欄があります。空欄の位置には何も出力されません</td></tr>
+                </tbody>
+            </table>
+            <div class="callout callout-warning">
+                <p>入力したタグは加工されずに出力されるため、タグの閉じ忘れなどがあるとページの表示が崩れることがあります。<code>unfiltered_html</code>権限を持つユーザー（通常は管理者）のみが入力可能で、カスタマイザーのプレビューでは出力されません。出力を止めたいときは内容を空にしてください。</p>
+            </div>
+
             <h3>カスタムJS注入</h3>
             <p>「追加JS」セクションで、カスタムJavaScriptをサイトに注入できます。</p>
             <table>
@@ -352,7 +374,7 @@
 
         <footer class="manual-footer">
             <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
-            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.1</p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.2</p>
         </footer>
     </main>
 

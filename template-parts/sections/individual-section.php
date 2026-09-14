@@ -29,7 +29,7 @@ $layout = get_query_var('individual_layout', '2col');
             }
 
             $post = get_post($post_id);
-            if (!$post) {
+            if (!$post || !backbone_is_post_displayable($post)) {
                 continue;
             }
 

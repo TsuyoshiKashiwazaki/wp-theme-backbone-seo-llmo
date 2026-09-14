@@ -11,7 +11,7 @@
     <nav class="sidebar">
         <div class="sidebar-header">
             <h2 style="color:#fff;">Backbone Theme</h2>
-            <span class="version">v1.2.1</span>
+            <span class="version">v1.2.2</span>
             <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
         </div>
         <ul>
@@ -254,6 +254,7 @@
 
             <h3>パス検出の仕組み</h3>
             <p>テーマは現在のURLパスを解析し、登録されたサブディレクトリパスと照合します。一致するパスが見つかった場合、そのサブディレクトリの設定が適用されます。一致しない場合はサイト全体の設定が使用されます。</p>
+            <p>照合はWordPressのホームURLを基準にしたパスで、<code>/</code> の区切り単位で行います。例えばパス <code>blog</code> は <code>/blog/</code> とその配下（<code>/blog/article/</code> など）に一致し、<code>/blog-news/</code> や <code>/news/blog/</code> には一致しません。WordPressをサブディレクトリに設置している場合も、パスには設置ディレクトリを含めずに入力します。</p>
 
             <div class="callout callout-tip">
                 <p>例えば <code>/blog/</code> はカジュアルなライトテーマ、<code>/service/</code> はフォーマルなダークテーマ、<code>/shop/</code> はブランドカラーのカスタムテーマといった使い分けが可能です。</p>
@@ -366,7 +367,7 @@
 
         <footer class="manual-footer">
             <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
-            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.1</p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.2</p>
         </footer>
     </main>
 

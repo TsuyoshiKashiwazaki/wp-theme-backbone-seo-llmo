@@ -153,46 +153,8 @@ function backbone_add_subdirectory_design_settings($wp_customize) {
  * 現在のサブディレクトリ用のデザイン設定を取得
  */
 function backbone_get_current_subdirectory_design_settings() {
-    // REQUEST_URIから現在のパスを取得
-    $current_url = $_SERVER['REQUEST_URI'];
-    $current_path = $current_url;
-
-    // wp-json, wp-admin, wp-content などのWordPressディレクトリを検出して、その前の部分を除去
-    if (preg_match('#^(.*?)(/wp-json/|/wp-admin/|/wp-content/|/wp-includes/)#', $current_url, $matches)) {
-        $wp_base = $matches[1]; // /campany など
-        if (!empty($wp_base)) {
-            // WordPressのベースディレクトリを除去
-            $current_path = substr($current_url, strlen($wp_base));
-        }
-    } else {
-        // 通常のページの場合、最初のディレクトリがWordPressのインストールディレクトリの可能性を考慮
-        // /campany/seo-note/... のような構造の場合
-        if (preg_match('#^/[^/]+(/.*)?$#', $current_url, $matches)) {
-            // 最初のディレクトリを一時的に除去してテスト
-            $test_path = isset($matches[1]) ? $matches[1] : '/';
-
-            // 保存されているサブディレクトリと照合してみる
-            $subdirectory_count = get_theme_mod('subdirectory_count', 1);
-            for ($i = 1; $i <= min($subdirectory_count, 10); $i++) {
-                $subdirectory_path = get_theme_mod("subdirectory_path_{$i}");
-                if (!empty($subdirectory_path)) {
-                    $normalized = '/' . trim($subdirectory_path, '/');
-                    // テストパスがサブディレクトリ設定にマッチするか確認
-                    if (strpos($test_path, $normalized) === 0) {
-                        // マッチした場合、このパスを使用
-                        $current_path = $test_path;
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    // クエリパラメータを除去
-    $current_path = parse_url($current_path, PHP_URL_PATH);
-    if (empty($current_path) || $current_path === null || $current_path === false) {
-        $current_path = '/';
-    }
+    // ホーム URL を基準にした現在のパス（WordPress の設置ディレクトリとクエリ文字列は除かれる）
+    $current_path = backbone_get_request_path_relative_to_home();
 
     // 保存されているサブディレクトリの数を取得
     $subdirectory_count = get_theme_mod('subdirectory_count', 0);
@@ -205,9 +167,9 @@ function backbone_get_current_subdirectory_design_settings() {
             // スラッシュの正規化
             $subdirectory_path = '/' . trim($subdirectory_path, '/');
 
-            // パスが一致するかチェック（前方一致）
-            // /seo-note は /seo-note, /seo-note/, /seo-note/article01/ などにマッチ
-            if ($current_path !== null && strpos($current_path, $subdirectory_path) === 0) {
+            // パスが一致するかチェック（区切り単位の前方一致）
+            // /seo-note は /seo-note, /seo-note/, /seo-note/article01/ などにマッチし、/seo-note-2/ にはマッチしない
+            if (backbone_path_matches_subdirectory($current_path, $subdirectory_path)) {
                 // このサブディレクトリの設定を返す
                 return array(
                     'index' => $i,

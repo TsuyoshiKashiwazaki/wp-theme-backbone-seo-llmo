@@ -10,6 +10,55 @@ if (!defined('ABSPATH')) {
 }
 
 /**
+ * 現在のリクエストのパスを、WordPress のホーム URL を基準にした形で返す
+ *
+ * 例: ホーム URL が https://example.com/campany/ で /campany/seo-note/a/ にアクセスした場合は /seo-note/a/ を返す。
+ * クエリ文字列は含めない。
+ *
+ * @return string 先頭が / のパス
+ */
+function backbone_get_request_path_relative_to_home() {
+    $request_uri = isset($_SERVER['REQUEST_URI']) ? wp_unslash($_SERVER['REQUEST_URI']) : '/';
+    $request_path = wp_parse_url($request_uri, PHP_URL_PATH);
+    if (!is_string($request_path) || $request_path === '') {
+        $request_path = '/';
+    }
+    $request_path = '/' . ltrim($request_path, '/');
+
+    // WordPress をサブディレクトリに設置している場合は、その部分を除く
+    $home_path = wp_parse_url(home_url('/'), PHP_URL_PATH);
+    $home_path = is_string($home_path) ? '/' . trim($home_path, '/') : '/';
+    if ($home_path !== '/') {
+        if ($request_path === $home_path) {
+            $request_path = '/';
+        } elseif (strpos($request_path, $home_path . '/') === 0) {
+            $request_path = substr($request_path, strlen($home_path));
+        }
+    }
+
+    return $request_path;
+}
+
+/**
+ * パスがサブディレクトリ設定のパスに一致するかを判定する
+ *
+ * 前方一致は「/」の区切り単位で行う。/blog は /blog と /blog/... に一致し、/blog-creator/ には一致しない。
+ *
+ * @param string $path              判定するパス（backbone_get_request_path_relative_to_home() の戻り値）
+ * @param string $subdirectory_path サブディレクトリ設定のパス
+ * @return bool
+ */
+function backbone_path_matches_subdirectory($path, $subdirectory_path) {
+    $subdirectory_path = '/' . trim((string) $subdirectory_path, '/');
+    if ($subdirectory_path === '/') {
+        return true;
+    }
+
+    $path = '/' . ltrim((string) $path, '/');
+    return $path === $subdirectory_path || strpos($path, $subdirectory_path . '/') === 0;
+}
+
+/**
  * サブディレクトリ設定を追加
  */
 function backbone_add_subdirectory_logo_settings($wp_customize) {
@@ -194,10 +243,17 @@ function backbone_subdirectory_customizer_scripts() {
         });
     }
 
+    var backboneSubdirectoryRequestPending = false;
+
     function backboneDeleteSubdirectory(index) {
+        // 送信中の再クリックで同じ削除要求が重ねて送られないようにする
+        if (backboneSubdirectoryRequestPending) {
+            return;
+        }
         if (!confirm('サブディレクトリ ' + index + ' の設定を削除しますか？\nこの操作は元に戻せません。')) {
             return;
         }
+        backboneSubdirectoryRequestPending = true;
 
         // 通知を表示
         var notice = jQuery('<div class="notice notice-info" style="position:fixed;top:46px;left:50%;transform:translateX(-50%);z-index:100000;padding:12px 20px;background:#2196F3;color:white;border-radius:4px;box-shadow:0 2px 5px rgba(0,0,0,0.3);"><p>サブディレクトリ設定を削除中...</p></div>');
@@ -210,12 +266,17 @@ function backbone_subdirectory_customizer_scripts() {
             _wpnonce: wp.customize.settings.nonce.save
         }, function(response) {
             if (response.success) {
-                // 成功したらリロード
+                // 成功したらリロード（リロードまで再送は受け付けない）
                 window.location.reload();
             } else {
+                backboneSubdirectoryRequestPending = false;
                 alert('エラーが発生しました。');
                 notice.remove();
             }
+        }).fail(function() {
+            backboneSubdirectoryRequestPending = false;
+            alert('エラーが発生しました。');
+            notice.remove();
         });
     }
 
@@ -290,14 +351,16 @@ function backbone_handle_delete_subdirectory() {
         return;
     }
 
+    // 現在のカウントを取得
+    $current_count = intval(get_theme_mod('subdirectory_count', 0));
+
+    // 存在しない番号は拒否する（ボタンの二重クリックで同じ番号が再送されると、
+    // 範囲外の番号でも末尾の設定が削除され、選んでいない設定まで消えてしまうため）
     $index = isset($_POST['index']) ? intval($_POST['index']) : 0;
-    if ($index < 1 || $index > 10) {
+    if ($index < 1 || $index > min($current_count, 10)) {
         wp_send_json_error('Invalid index');
         return;
     }
-
-    // 現在のカウントを取得
-    $current_count = get_theme_mod('subdirectory_count', 0);
 
     // 削除する設定をクリア
     remove_theme_mod("subdirectory_path_{$index}");
@@ -503,42 +566,8 @@ function backbone_get_subdirectory_settings() {
 
     $processing = true;
 
-    $current_url = $_SERVER['REQUEST_URI'];
-
-    // WordPressのインストールディレクトリを考慮（デザイン設定と同じロジックを使用）
-    // wp-json, wp-admin, wp-content などのWordPressディレクトリを検出して、その前の部分を除去
-    $current_path = $current_url;
-    if (preg_match('#^(.*?)(/wp-json/|/wp-admin/|/wp-content/|/wp-includes/)#', $current_url, $matches)) {
-        $wp_base = $matches[1]; // /campany など
-        if (!empty($wp_base)) {
-            // WordPressのベースディレクトリを除去
-            $current_path = substr($current_url, strlen($wp_base));
-        }
-    } else {
-        // 通常のページの場合、最初のディレクトリがWordPressのインストールディレクトリの可能性を考慮
-        // /campany/seo-note/... のような構造の場合
-        if (preg_match('#^/[^/]+(/.*)?$#', $current_url, $matches)) {
-            // 最初のディレクトリを一時的に除去してテスト
-            $test_path = isset($matches[1]) ? $matches[1] : '/';
-
-            // 保存されているサブディレクトリと照合してみる
-            $subdirectory_count_test = get_theme_mod('subdirectory_count', 1);
-            for ($j = 1; $j <= min($subdirectory_count_test, 10); $j++) {
-                $subdirectory_path_test = get_theme_mod("subdirectory_path_{$j}");
-                if (!empty($subdirectory_path_test)) {
-                    $normalized = '/' . trim($subdirectory_path_test, '/');
-                    // テストパスがサブディレクトリ設定にマッチするか確認
-                    if (strpos($test_path, $normalized) === 0) {
-                        // マッチした場合、このパスを使用
-                        $current_path = $test_path;
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    $current_path = parse_url($current_path, PHP_URL_PATH);
+    // ホーム URL を基準にした現在のパス（WordPress の設置ディレクトリは除かれる）
+    $current_path = backbone_get_request_path_relative_to_home();
 
     // デフォルト設定（get_option を使用して無限ループを回避）
     $default_settings = array(
@@ -561,8 +590,8 @@ function backbone_get_subdirectory_settings() {
             // スラッシュの正規化
             $subdirectory_path = '/' . trim($subdirectory_path, '/');
 
-            // パスが一致するかチェック（前方一致）
-            if ($current_path !== null && strpos($current_path, $subdirectory_path) === 0) {
+            // パスが一致するかチェック（区切り単位の前方一致）
+            if (backbone_path_matches_subdirectory($current_path, $subdirectory_path)) {
                 // ロゴ設定
                 $subdirectory_logo = get_theme_mod("subdirectory_logo_{$i}");
                 $logo_id = $subdirectory_logo ? $subdirectory_logo : $default_settings['logo_id'];
@@ -764,14 +793,8 @@ add_filter('document_title_parts', function($title_parts) {
 add_filter('bloginfo', function($output, $show) {
     // nameパラメータの場合のみ処理
     if ($show === 'name') {
-        // 現在のURLを直接チェック
-        $current_url = $_SERVER['REQUEST_URI'];
-        $current_path = parse_url($current_url, PHP_URL_PATH);
-
-        // current_pathがnullの場合は早期リターン
-        if ($current_path === null || $current_path === false) {
-            return $output;
-        }
+        // ホーム URL を基準にした現在のパス
+        $current_path = backbone_get_request_path_relative_to_home();
 
         // 保存されている設定数を取得
         $subdirectory_count = get_theme_mod('subdirectory_count', 1);
@@ -782,8 +805,8 @@ add_filter('bloginfo', function($output, $show) {
             $subdirectory_title = get_theme_mod("subdirectory_title_{$i}");
 
             if ($subdirectory_path && $subdirectory_title) {
-                // パスが一致するかチェック（前方一致）
-                if (strpos($current_path, $subdirectory_path) === 0) {
+                // パスが一致するかチェック（区切り単位の前方一致）
+                if (backbone_path_matches_subdirectory($current_path, $subdirectory_path)) {
                     return $subdirectory_title;
                 }
             }

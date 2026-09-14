@@ -209,6 +209,11 @@ function backbone_reset_theme_settings() {
     // すべてのtheme_modsを削除
     remove_theme_mods();
 
+    // サブディレクトリ設定の独立バックアップも削除する
+    // 残しておくと、次のリクエストで backbone_subdirectory_fallback_check() が「設定が消えた」と判断して復活させてしまう
+    // （リセット前の設定は上で作成した通常のバックアップに含まれている）
+    delete_option('backbone_subdirectory_settings');
+
     // 変更ログに記録
     backbone_log_customizer_change(__('テーマ設定をリセット', 'backbone-seo-llmo'));
 }
@@ -248,8 +253,13 @@ function backbone_diagnostics_page() {
                 $restore_warnings = $warnings;
             }
             // 復元を実行
-            backbone_restore_settings_backup($index, false);
-            echo '<div class="notice notice-success"><p>' . __('バックアップを復元しました。', 'backbone-seo-llmo') . '</p></div>';
+            if (backbone_restore_settings_backup($index, false) === true) {
+                echo '<div class="notice notice-success"><p>' . __('バックアップを復元しました。', 'backbone-seo-llmo') . '</p></div>';
+            } elseif (!current_user_can('unfiltered_html')) {
+                echo '<div class="notice notice-error"><p>' . __('バックアップを復元する権限がありません（HTMLを無制限に扱う権限が必要です）。', 'backbone-seo-llmo') . '</p></div>';
+            } else {
+                echo '<div class="notice notice-error"><p>' . __('バックアップを復元できませんでした。', 'backbone-seo-llmo') . '</p></div>';
+            }
             if (!empty($restore_warnings)) {
                 echo '<div class="notice notice-warning"><p><strong>' . __('注意: 以下の問題が検出されました:', 'backbone-seo-llmo') . '</strong></p><ul style="margin-left: 20px; list-style: disc;">';
                 foreach ($restore_warnings as $warning) {
@@ -472,9 +482,15 @@ function backbone_create_settings_backup() {
  * @return array|bool 検証モードの場合は警告配列、復元モードの場合はtrue/false
  */
 function backbone_restore_settings_backup($index, $validate_only = false) {
+    // バックアップの値はカスタマイザーのサニタイズを通らずに theme_mod へ書き込まれ、
+    // 一部はそのまま <style> やページに出力される。HTML を無制限に扱える権限を持つユーザーだけが復元できる。
+    if (!current_user_can('unfiltered_html')) {
+        return false;
+    }
+
     $backups = get_option('backbone_settings_backups', array());
 
-    if (!isset($backups[$index]) || !isset($backups[$index]['data'])) {
+    if (!isset($backups[$index]) || !isset($backups[$index]['data']) || !is_array($backups[$index]['data'])) {
         return false;
     }
 
@@ -617,6 +633,12 @@ function backbone_restore_settings_backup($index, $validate_only = false) {
         }
     }
 
+    // サブディレクトリ設定の独立バックアップを、復元後の theme_mods から作り直す
+    // 古いままだと、復元でサブディレクトリ設定が消えた場合に、次のリクエストで
+    // backbone_subdirectory_fallback_check() が「設定が消えた」と判断して復元前の設定を書き戻してしまう
+    delete_option('backbone_subdirectory_settings');
+    backbone_save_independent_backup();
+
     // 変更ログに記録
     backbone_log_customizer_change(sprintf(__('バックアップ #%d を復元', 'backbone-seo-llmo'), $index + 1));
 
@@ -744,6 +766,11 @@ function backbone_delete_all_backups() {
  * @return true|WP_Error 成功時はtrue、失敗時はWP_Error
  */
 function backbone_import_backup_json() {
+    // インポートしたデータは復元時にサニタイズを通らずに書き込まれるため、復元と同じ権限を要求する
+    if (!current_user_can('unfiltered_html')) {
+        return new WP_Error('forbidden', __('バックアップをインポートする権限がありません（HTMLを無制限に扱う権限が必要です）。', 'backbone-seo-llmo'));
+    }
+
     // ファイルがアップロードされているか確認
     if (!isset($_FILES['backbone_import_file']) || $_FILES['backbone_import_file']['error'] !== UPLOAD_ERR_OK) {
         return new WP_Error('no_file', __('ファイルがアップロードされていません。', 'backbone-seo-llmo'));

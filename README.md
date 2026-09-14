@@ -3,7 +3,7 @@
 [![WordPress](https://img.shields.io/badge/WordPress-5.0%2B-blue.svg)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-7.2%2B-purple.svg)](https://php.net/)
 [![License](https://img.shields.io/badge/License-GPL--2.0--or--later-green.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
-[![Version](https://img.shields.io/badge/Version-1.2.1-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
+[![Version](https://img.shields.io/badge/Version-1.2.2-orange.svg)](https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo/releases)
 
 ![Backbone Theme Screenshot](screenshot.png)
 
@@ -84,7 +84,7 @@ WordPressカスタマイザーから以下の設定にアクセスできます:
 
 ### 内蔵SEO機能
 
-- **メタディスクリプション自動抽出** - 抜粋または本文の最初の25語から抽出
+- **メタディスクリプション自動抽出** - 抜粋または本文の先頭160文字から抽出
 - **タイトルタグ最適化** - カスタマイズ可能な区切り文字、自動タイトル生成
 - **固定ページSEO拡張** - 抜粋フィールドとタグのサポート
 - **SEOフレンドリーURL** - パーマリンク構造の自動最適化

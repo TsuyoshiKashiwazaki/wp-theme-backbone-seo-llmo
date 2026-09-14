@@ -37,7 +37,7 @@ if (!empty($pickup_ids)) :
         <div class="pickup-list pickup-layout-<?php echo esc_attr($layout); ?>">
             <?php foreach ($pickup_ids as $post_id) :
                 $post = get_post($post_id);
-                if ($post) :
+                if ($post && backbone_is_post_displayable($post)) :
                     setup_postdata($post);
             ?>
                     <article class="pickup-item">

@@ -43,6 +43,7 @@ $inc_files = array(
     'customizer/index.php',     // カスタマイザー設定（utilities.phpの関数を使用）
     'color-file-storage.php',   // ファイルベースカラー保存
     'css-output.php',           // CSS出力関数（utilities.phpの関数を使用）
+    'custom-tags-output.php',   // 追加タグ出力（カスタマイザー設定を使用）
     'custom-js-output.php',     // カスタムJS出力（カスタマイザー設定を使用）
     'custom-css-output.php',    // カスタムCSS出力（カスタマイザー設定を使用）
     'admin-pages.php',          // 管理画面設定
@@ -259,28 +260,6 @@ function backbone_page_excerpt_metabox() {
     );
 }
 add_action('add_meta_boxes', 'backbone_page_excerpt_metabox');
-
-/**
- * ブロックエディタでも固定ページの抜粋を有効化
- */
-function backbone_rest_api_page_excerpt() {
-    register_rest_field('page', 'excerpt', array(
-        'get_callback' => function($post) {
-            return get_the_excerpt($post['id']);
-        },
-        'update_callback' => function($value, $post) {
-            return wp_update_post(array(
-                'ID' => $post->ID,
-                'post_excerpt' => $value
-            ));
-        },
-        'schema' => array(
-            'type' => 'string',
-            'context' => array('view', 'edit')
-        )
-    ));
-}
-add_action('rest_api_init', 'backbone_rest_api_page_excerpt');
 
 /**
  * タクソノミーアーカイブに、全ての公開投稿タイプを含める
@@ -614,7 +593,8 @@ function backbone_force_correct_post_order() {
     global $wp_query;
 
     // カスタム投稿タイプのアーカイブページのみ対象
-    if (!is_admin() && is_post_type_archive() && $wp_query->is_main_query()) {
+    // 検索結果は関連度などの並びを保つため対象外（is_search と is_post_type_archive は同時に立つことがある）
+    if (!is_admin() && is_post_type_archive() && !is_search() && $wp_query->is_main_query()) {
         // 現在の投稿タイプを取得
         $post_type = get_query_var('post_type');
         if (empty($post_type) && isset($wp_query->query_vars['post_type'])) {
@@ -629,27 +609,25 @@ function backbone_force_correct_post_order() {
         $orderby = backbone_get_archive_setting('orderby', 'date');
 
         if ($orderby && in_array($orderby, array('date', 'modified', 'rand'))) {
-            $paged = max(1, get_query_var('paged'));
-            $posts_per_page = get_query_var('posts_per_page');
-
             // orderby設定を準備
             $query_orderby = ($orderby === 'rand')
                 ? 'rand'
                 : array($orderby => 'DESC', 'ID' => 'DESC');
 
             // 正しい順序で投稿を再取得
-            $fix_query = new WP_Query(array(
-                'post_type' => $post_type,
-                'post_status' => 'publish',
-                'posts_per_page' => $posts_per_page,
-                'paged' => $paged,
-                'orderby' => $query_orderby,
-                'no_found_rows' => false,
-            ));
+            // メインクエリの条件（カテゴリ・著者・日付などの絞り込みや他フックで追加された条件）を引き継ぎ、並び順だけを差し替える
+            $fix_args = $wp_query->query_vars;
+            $fix_args['orderby'] = $query_orderby;
+            $fix_args['no_found_rows'] = false;
+            $fix_query = new WP_Query($fix_args);
 
-            // メインクエリの投稿を置き換え
+            // メインクエリの投稿と件数を置き換え（件数を更新しないと、ページ送りや「N件」の表示が実際の一覧と食い違う）
             $wp_query->posts = $fix_query->posts;
             $wp_query->post_count = $fix_query->post_count;
+            $wp_query->found_posts = $fix_query->found_posts;
+            $wp_query->max_num_pages = $fix_query->max_num_pages;
+            $wp_query->current_post = -1;
+            $wp_query->post = !empty($fix_query->posts) ? $fix_query->posts[0] : null;
         }
     }
 }

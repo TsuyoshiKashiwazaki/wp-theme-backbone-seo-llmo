@@ -53,3 +53,10 @@ screenshots/
 .playwright-mcp/
 playwright-report/
 test-results/
+
+# 開発ツールの設定ファイル
+.codex
+.cursor/
+.aider*
+.copilot/
+.github/copilot/
