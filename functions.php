@@ -46,6 +46,7 @@ $inc_files = array(
     'custom-tags-output.php',   // 追加タグ出力（カスタマイザー設定を使用）
     'custom-js-output.php',     // カスタムJS出力（カスタマイザー設定を使用）
     'custom-css-output.php',    // カスタムCSS出力（カスタマイザー設定を使用）
+    'seo-robots.php',           // robotsメタタグ出力（カスタマイザー設定を使用）
     'admin-pages.php',          // 管理画面設定
     'rest-api-fix.php',         // REST API JSONエラー修正
     'meta-boxes/hero-image-meta.php', // メインビジュアルのメタボックス
@@ -484,10 +485,47 @@ function backbone_add_query_vars($vars) {
 add_filter('query_vars', 'backbone_add_query_vars');
 
 /**
+ * rewrite 規則が生成した taxonomy_root だけを返す
+ *
+ * taxonomy_root は query_vars フィルタで公開登録されているため、get_query_var() の値は
+ * 外部から操作できる。WP::parse_request() は $_POST → $_GET の順に公開 query var を
+ * 取り込むので、$_GET だけを弾いても POST での注入は防げない。また「$_GET があれば無視」
+ * という実装は、正規の /tag/ に無関係な ?taxonomy_root=x を付けるだけで
+ * root 用 noindex を外せてしまう（回避経路になる）。
+ *
+ * そこで外部入力を一切見ず、rewrite 規則がマッチしたときに WP が組み立てる
+ * $wp->matched_query（例 'taxonomy_root=post_tag'）からのみ導出する。
+ * matched_query は URL のクエリ文字列ではなく rewrite の置換結果なので、
+ * リクエスト側から値を差し込むことはできない。
+ *
+ * @return string rewrite 由来なら 'post_tag' / 'category'、それ以外は空文字
+ */
+function backbone_get_trusted_taxonomy_root() {
+    global $wp;
+
+    if (!isset($wp) || !is_object($wp) || empty($wp->matched_query)) {
+        return '';
+    }
+
+    $vars = array();
+    parse_str($wp->matched_query, $vars);
+
+    if (empty($vars['taxonomy_root']) || !is_string($vars['taxonomy_root'])) {
+        return '';
+    }
+
+    // テーマが生やしている taxonomy_root ページは post_tag / category の 2 種類だけ
+    $allowed = array('post_tag', 'category');
+
+    return in_array($vars['taxonomy_root'], $allowed, true) ? $vars['taxonomy_root'] : '';
+}
+
+/**
  * タクソノミールートページ（/tag/, /category/）のテンプレート読み込み
  */
 function backbone_taxonomy_root_template($template) {
-    $taxonomy_root = get_query_var('taxonomy_root');
+    // 外部入力 ($_GET/$_POST) からではなく rewrite の置換結果から導出する
+    $taxonomy_root = backbone_get_trusted_taxonomy_root();
     if ($taxonomy_root) {
         // taxonomy-root.php があれば使用、なければ archive.php
         $new_template = locate_template('taxonomy-root.php');
@@ -504,7 +542,7 @@ add_filter('template_include', 'backbone_taxonomy_root_template');
  * タクソノミールートページのドキュメントタイトルを設定
  */
 function backbone_taxonomy_root_document_title($title) {
-    $taxonomy_root = get_query_var('taxonomy_root');
+    $taxonomy_root = backbone_get_trusted_taxonomy_root();
     if ($taxonomy_root) {
         $taxonomy_obj = get_taxonomy($taxonomy_root);
         $page_title = $taxonomy_obj ? $taxonomy_obj->labels->name : __('タクソノミー', 'backbone-seo-llmo');
@@ -518,7 +556,7 @@ add_filter('document_title_parts', 'backbone_taxonomy_root_document_title');
  * タクソノミールートページでis_404をfalseに設定
  */
 function backbone_taxonomy_root_set_404($wp_query) {
-    $taxonomy_root = get_query_var('taxonomy_root');
+    $taxonomy_root = backbone_get_trusted_taxonomy_root();
     if ($taxonomy_root && $wp_query->is_main_query()) {
         $wp_query->is_404 = false;
         $wp_query->is_archive = true;

@@ -42,7 +42,7 @@ function backbone_get_layout() {
     $current_type = '';
 
     // タクソノミールートページ（/tag/, /category/）は最優先で「その他のアーカイブ」扱い
-    if (get_query_var('taxonomy_root')) {
+    if (backbone_get_trusted_taxonomy_root()) {
         $current_type = 'archive';
     } elseif (is_home() || is_front_page()) {
         // URLパス解析でカスタム投稿タイプアーカイブの可能性をチェック
@@ -78,6 +78,12 @@ function backbone_get_layout() {
     } elseif (is_archive()) {
         // カスタム投稿タイプのアーカイブかチェック（複数の方法で検出）
         $post_type = get_query_var('post_type');
+
+        // post_type クエリ変数は配列になりうる（タクソノミーアーカイブに全投稿タイプを
+        // 含める pre_get_posts など）。文字列として扱うため先頭の値へ正規化する。
+        if (is_array($post_type)) {
+            $post_type = reset($post_type);
+        }
 
         if (is_post_type_archive() && !empty($post_type)) {
             // 標準的なカスタム投稿タイプアーカイブ

@@ -128,7 +128,9 @@ function backbone_meta_description() {
             $description = strip_tags($term_description);
         } else {
             $category = get_queried_object();
-            $description = sprintf(__('Archive for %s category', 'backbone-seo-llmo'), $category->name);
+            if ($category instanceof WP_Term) {
+                $description = sprintf(__('Archive for %s category', 'backbone-seo-llmo'), $category->name);
+            }
         }
     }
     // タグアーカイブ
@@ -138,7 +140,9 @@ function backbone_meta_description() {
             $description = strip_tags($term_description);
         } else {
             $tag = get_queried_object();
-            $description = sprintf(__('Posts tagged with %s', 'backbone-seo-llmo'), $tag->name);
+            if ($tag instanceof WP_Term) {
+                $description = sprintf(__('Posts tagged with %s', 'backbone-seo-llmo'), $tag->name);
+            }
         }
     }
     // カスタム投稿タイプアーカイブ
@@ -161,20 +165,23 @@ function backbone_meta_description() {
     // カスタムタクソノミーアーカイブ
     elseif (is_tax()) {
         $term = get_queried_object();
-        if ($term && !empty($term->description)) {
+        if ($term instanceof WP_Term && !empty($term->description)) {
             $description = strip_tags($term->description);
-        } elseif ($term) {
+        } elseif ($term instanceof WP_Term) {
             $description = sprintf(__('Archive for %s', 'backbone-seo-llmo'), $term->name);
         }
     }
     // 著者アーカイブ
     elseif (is_author()) {
+        // 存在しない著者スラッグでも is_author() は真になり、get_queried_object() は false を返す
         $author = get_queried_object();
-        $author_description = get_the_author_meta('description', $author->ID);
-        if ($author_description) {
-            $description = strip_tags($author_description);
-        } else {
-            $description = sprintf(__('Posts by %s', 'backbone-seo-llmo'), $author->display_name);
+        if ($author instanceof WP_User) {
+            $author_description = get_the_author_meta('description', $author->ID);
+            if ($author_description) {
+                $description = strip_tags($author_description);
+            } else {
+                $description = sprintf(__('Posts by %s', 'backbone-seo-llmo'), $author->display_name);
+            }
         }
     }
     // 日付アーカイブ
@@ -305,41 +312,56 @@ function backbone_meta_keywords() {
     // カテゴリーアーカイブ
     elseif (is_category()) {
         $category = get_queried_object();
-        $keywords[] = $category->name;
+        if ($category instanceof WP_Term) {
+            $keywords[] = $category->name;
 
-        // 親カテゴリーがある場合は追加
-        if ($category->parent) {
-            $parent_category = get_category($category->parent);
-            $keywords[] = $parent_category->name;
-        }
+            // 親カテゴリーがある場合は追加
+            if ($category->parent) {
+                $parent_category = get_category($category->parent);
+                if ($parent_category instanceof WP_Term) {
+                    $keywords[] = $parent_category->name;
+                }
+            }
 
-        // カテゴリー説明からキーワードを抽出
-        if (!empty($category->description)) {
-            $desc_keywords = backbone_extract_keywords_from_text($category->description);
-            $keywords = array_merge($keywords, $desc_keywords);
+            // カテゴリー説明からキーワードを抽出
+            if (!empty($category->description)) {
+                $desc_keywords = backbone_extract_keywords_from_text($category->description);
+                $keywords = array_merge($keywords, $desc_keywords);
+            }
         }
     }
     // タグアーカイブ
     elseif (is_tag()) {
         $tag = get_queried_object();
-        $keywords[] = $tag->name;
+        if ($tag instanceof WP_Term) {
+            $keywords[] = $tag->name;
 
-        // 関連するタグを取得
-        $related_tags = get_tags(array(
-            'number' => 5,
-            'orderby' => 'count',
-            'order' => 'DESC'
-        ));
-        foreach ($related_tags as $related_tag) {
-            if ($related_tag->term_id !== $tag->term_id) {
-                $keywords[] = $related_tag->name;
+            // 関連するタグを取得
+            $related_tags = get_tags(array(
+                'number' => 5,
+                'orderby' => 'count',
+                'order' => 'DESC'
+            ));
+            foreach ($related_tags as $related_tag) {
+                if ($related_tag->term_id !== $tag->term_id) {
+                    $keywords[] = $related_tag->name;
+                }
             }
         }
     }
     // カスタム投稿タイプアーカイブ
     elseif (is_post_type_archive()) {
+        // get_queried_object() は WP_Post_Type 以外を返すことがある。
+        // 真偽値だけで判定すると ->labels が null になり警告になるため型で確認する。
         $post_type = get_queried_object();
-        if ($post_type) {
+        if (!($post_type instanceof WP_Post_Type)) {
+            $query_post_type = get_query_var('post_type');
+            if (is_array($query_post_type)) {
+                $query_post_type = reset($query_post_type);
+            }
+            $post_type = $query_post_type ? get_post_type_object($query_post_type) : null;
+        }
+        if ($post_type instanceof WP_Post_Type) {
             $keywords[] = $post_type->labels->name;
             $keywords[] = $post_type->labels->singular_name;
         }
@@ -347,20 +369,23 @@ function backbone_meta_keywords() {
     // カスタムタクソノミーアーカイブ
     elseif (is_tax()) {
         $term = get_queried_object();
-        if ($term) {
+        if ($term instanceof WP_Term) {
             $keywords[] = $term->name;
 
             // タクソノミー名も追加
             $taxonomy = get_taxonomy($term->taxonomy);
-            if ($taxonomy) {
+            if ($taxonomy instanceof WP_Taxonomy) {
                 $keywords[] = $taxonomy->labels->singular_name;
             }
         }
     }
     // 著者アーカイブ
     elseif (is_author()) {
+        // 存在しない著者スラッグでは get_queried_object() が false を返す
         $author = get_queried_object();
-        $keywords[] = $author->display_name;
+        if ($author instanceof WP_User) {
+            $keywords[] = $author->display_name;
+        }
         $keywords[] = 'author';
         $keywords[] = '著者';
     }
@@ -589,7 +614,7 @@ function backbone_get_current_archive_type() {
     } elseif (is_tax()) {
         // カスタムタクソノミーの場合は、関連する投稿タイプを取得
         $tax = get_queried_object();
-        if ($tax) {
+        if ($tax instanceof WP_Term) {
             $taxonomies = get_object_taxonomies($tax->taxonomy, 'objects');
             if (!empty($taxonomies)) {
                 $taxonomy_obj = reset($taxonomies);

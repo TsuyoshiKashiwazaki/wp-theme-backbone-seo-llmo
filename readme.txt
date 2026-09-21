@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.2.2
+Stable tag: 1.2.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,14 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.2.3 - 2026-09-21 =
+* 追加: カスタマイザー「インデックス設定（noindex）」セクション（タグ・カテゴリの個別アーカイブ、タグ一覧・カテゴリ一覧、著者・日付・2ページ目以降を個別にnoindex設定可能。記事数のしきい値指定に対応）
+* セキュリティ: taxonomy_root クエリ変数を外部入力から操作できる問題を修正（任意のURLでタグ一覧テンプレートが描画され、内容・タイトル・canonical・レイアウトが差し替わる問題）
+* 修正: アーカイブ系ページで get_queried_object() の戻り値により PHP 警告が発生する問題を修正
+* 修正: post_type クエリ変数が配列の場合にレイアウト判定・bodyクラス生成で警告が発生する問題を修正
+* 修正: get_the_archive_title() が null を返す場合に PHP 警告が発生する問題を修正
+* 修正: robots メタタグで follow を明示出力しないよう変更（他の拡張との矛盾を防止）
 
 = 1.2.2 - 2026-09-14 =
 * 追加: カスタマイザー「追加タグ」セクション（<head>内・<body>直後・</body>直前に任意のタグを出力。全体共通／トップページのみ）

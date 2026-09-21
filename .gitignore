@@ -60,3 +60,10 @@ test-results/
 .aider*
 .copilot/
 .github/copilot/
+
+# 作業バックアップ (web root 内に残すと公開・リポジトリ混入の事故要因)
+*.bak*
+*.lf-*
+*.orig
+*.rej
+*.DISABLED-*

@@ -8,7 +8,7 @@
 
 get_header();
 
-$taxonomy_root = get_query_var('taxonomy_root');
+$taxonomy_root = backbone_get_trusted_taxonomy_root();
 $taxonomy_obj = get_taxonomy($taxonomy_root);
 
 // 全タームを取得（投稿があるもののみ）

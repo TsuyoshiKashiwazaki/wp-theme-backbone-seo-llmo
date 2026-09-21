@@ -52,7 +52,9 @@ get_header(); ?>
 
                     // フォールバック
                     if (empty($archive_title)) {
-                        $archive_title = get_the_archive_title();
+                        // get_the_archive_title() は同名フィルタ次第で null を返しうる。
+                        // そのまま preg_replace に渡すと PHP 8.1 以降で Deprecated になる。
+                        $archive_title = (string) get_the_archive_title();
                         // 「アーカイブ:」を削除
                         $archive_title = preg_replace('/^.*:\s*/', '', $archive_title);
                     }

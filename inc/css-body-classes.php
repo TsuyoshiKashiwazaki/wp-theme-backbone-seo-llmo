@@ -102,7 +102,7 @@ function backbone_body_classes($classes) {
     $page_type = '';
 
     // タクソノミールートページ（/tag/, /category/）は最優先で「その他のアーカイブ」扱い
-    if (get_query_var('taxonomy_root')) {
+    if (backbone_get_trusted_taxonomy_root()) {
         $page_type = 'archive';
     } elseif (is_home() || is_front_page()) {
         // URLパス解析でカスタム投稿タイプアーカイブの可能性をチェック（utilities.phpと同じロジック）
@@ -137,6 +137,12 @@ function backbone_body_classes($classes) {
     } elseif (is_archive()) {
         // カスタム投稿タイプのアーカイブかチェック（utilities.phpと同じロジック）
         $post_type = get_query_var('post_type');
+
+        // post_type クエリ変数は配列になりうる（タクソノミーアーカイブに全投稿タイプを
+        // 含める pre_get_posts など）。文字列として扱うため先頭の値へ正規化する。
+        if (is_array($post_type)) {
+            $post_type = reset($post_type);
+        }
 
         if (is_post_type_archive() && !empty($post_type)) {
             // 標準的なカスタム投稿タイプアーカイブ
@@ -189,6 +195,12 @@ function backbone_custom_archive_title($title) {
     if (is_post_type_archive()) {
         $post_type = get_query_var('post_type');
 
+        // post_type クエリ変数は配列になりうる（タクソノミーアーカイブに全投稿タイプを
+        // 含める pre_get_posts など）。文字列として扱うため先頭の値へ正規化する。
+        if (is_array($post_type)) {
+            $post_type = reset($post_type);
+        }
+
         // URLパス解析でのフォールバック
         if (empty($post_type) && !empty($_SERVER['REQUEST_URI'])) {
             $path_parts = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
@@ -230,6 +242,12 @@ function backbone_remove_archive_prefix($title) {
         $title = get_the_date('F j, Y');
     } elseif (is_post_type_archive()) {
         $post_type = get_query_var('post_type');
+
+        // post_type クエリ変数は配列になりうる（タクソノミーアーカイブに全投稿タイプを
+        // 含める pre_get_posts など）。文字列として扱うため先頭の値へ正規化する。
+        if (is_array($post_type)) {
+            $post_type = reset($post_type);
+        }
 
         // URLパス解析でのフォールバック
         if (empty($post_type) && !empty($_SERVER['REQUEST_URI'])) {
