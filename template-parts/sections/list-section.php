@@ -56,6 +56,13 @@ switch ($display_type) {
     case 'post_type':
         $post_type = isset($section['post_type_filter']) ? $section['post_type_filter'] : 'post';
         $args['post_type'] = $post_type;
+        // 子階層の投稿タイプの記事も含める（$post_type は一覧リンク用に文字列のまま残す）
+        if (!empty($section['include_child_post_types']) && function_exists('backbone_get_child_post_types')) {
+            $child_post_types = backbone_get_child_post_types($post_type);
+            if (!empty($child_post_types)) {
+                $args['post_type'] = array_merge(array($post_type), $child_post_types);
+            }
+        }
         break;
 
     case 'author':

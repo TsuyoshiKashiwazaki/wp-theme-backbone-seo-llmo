@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.2.3
+Stable tag: 1.2.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,9 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.2.4 - 2026-09-24 =
+* 追加: フロントページ設定の一覧表示セクションに「子階層の投稿タイプの記事も含める」オプションを追加（表示対象が投稿タイプのとき、子階層・孫階層の投稿タイプの記事もまとめて表示）
 
 = 1.2.3 - 2026-09-21 =
 * 追加: カスタマイザー「インデックス設定（noindex）」セクション（タグ・カテゴリの個別アーカイブ、タグ一覧・カテゴリ一覧、著者・日付・2ページ目以降を個別にnoindex設定可能。記事数のしきい値指定に対応）

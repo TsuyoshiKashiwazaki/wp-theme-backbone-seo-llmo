@@ -428,6 +428,10 @@ function backbone_add_front_page_settings($wp_customize) {
                 'label' => __('投稿タイプ', 'backbone-seo-llmo'),
                 'choices' => array('post' => __('投稿', 'backbone-seo-llmo')),
             ),
+            'include_child_post_types' => array(
+                'type' => 'checkbox',
+                'label' => __('子階層の投稿タイプの記事も含める', 'backbone-seo-llmo'),
+            ),
             'author' => array(
                 'type' => 'select',
                 'label' => __('作成者', 'backbone-seo-llmo'),
@@ -580,6 +584,10 @@ function backbone_add_front_page_settings($wp_customize) {
                 'type' => 'select',
                 'label' => __('投稿タイプ', 'backbone-seo-llmo'),
                 'choices' => array('post' => __('投稿', 'backbone-seo-llmo')),
+            ),
+            'include_child_post_types' => array(
+                'type' => 'checkbox',
+                'label' => __('子階層の投稿タイプの記事も含める', 'backbone-seo-llmo'),
             ),
             'author' => array(
                 'type' => 'select',
@@ -734,6 +742,10 @@ function backbone_add_front_page_settings($wp_customize) {
                 'label' => __('投稿タイプ', 'backbone-seo-llmo'),
                 'choices' => array('post' => __('投稿', 'backbone-seo-llmo')),
             ),
+            'include_child_post_types' => array(
+                'type' => 'checkbox',
+                'label' => __('子階層の投稿タイプの記事も含める', 'backbone-seo-llmo'),
+            ),
             'author' => array(
                 'type' => 'select',
                 'label' => __('作成者', 'backbone-seo-llmo'),
@@ -887,6 +899,10 @@ function backbone_add_front_page_settings($wp_customize) {
                 'label' => __('投稿タイプ', 'backbone-seo-llmo'),
                 'choices' => array('post' => __('投稿', 'backbone-seo-llmo')),
             ),
+            'include_child_post_types' => array(
+                'type' => 'checkbox',
+                'label' => __('子階層の投稿タイプの記事も含める', 'backbone-seo-llmo'),
+            ),
             'author' => array(
                 'type' => 'select',
                 'label' => __('作成者', 'backbone-seo-llmo'),
@@ -1039,6 +1055,10 @@ function backbone_add_front_page_settings($wp_customize) {
                 'type' => 'select',
                 'label' => __('投稿タイプ', 'backbone-seo-llmo'),
                 'choices' => array('post' => __('投稿', 'backbone-seo-llmo')),
+            ),
+            'include_child_post_types' => array(
+                'type' => 'checkbox',
+                'label' => __('子階層の投稿タイプの記事も含める', 'backbone-seo-llmo'),
             ),
             'author' => array(
                 'type' => 'select',
@@ -1824,6 +1844,70 @@ function backbone_get_post_types_for_dropdown() {
 }
 
 /**
+ * 子階層の投稿タイプを再帰的に取得する（孫階層も含む）
+ *
+ * Kashiwazaki SEO Custom Post Types の「親ディレクトリ」設定を優先して使い、
+ * プラグインが無い場合はパーマリンクの階層（rewrite slug）で親子を判定する。
+ *
+ * @param string $parent_post_type 親の投稿タイプ
+ * @return array 子階層の投稿タイプ名の配列（公開状態で登録済みのもののみ）
+ */
+function backbone_get_child_post_types($parent_post_type) {
+    // 子 => 親 の対応表を作る
+    $parent_map = array();
+
+    if (class_exists('KSTB_Database') && method_exists('KSTB_Database', 'get_all_post_types')) {
+        try {
+            foreach ((array) KSTB_Database::get_all_post_types() as $pt) {
+                if (!empty($pt->slug) && !empty($pt->parent_directory)) {
+                    $parent_map[$pt->slug] = trim($pt->parent_directory, '/');
+                }
+            }
+        } catch (Exception $e) {
+            $parent_map = array();
+        }
+    } else {
+        $rewrite_slugs = array();
+        foreach (get_post_types(array('public' => true), 'objects') as $pt) {
+            if (!empty($pt->rewrite['slug'])) {
+                $rewrite_slugs[$pt->name] = trim($pt->rewrite['slug'], '/');
+            }
+        }
+        foreach ($rewrite_slugs as $name => $slug) {
+            $pos = strrpos($slug, '/');
+            if ($pos === false) {
+                continue;
+            }
+            $parent_slug = substr($slug, 0, $pos);
+            $parent_name = array_search($parent_slug, $rewrite_slugs, true);
+            if ($parent_name !== false) {
+                $parent_map[$name] = $parent_name;
+            }
+        }
+    }
+
+    // 親から辿って子・孫を集める（循環参照防止つき）
+    $children = array();
+    $queue = array($parent_post_type);
+    $visited = array($parent_post_type => true);
+    while ($queue) {
+        $current = array_shift($queue);
+        foreach ($parent_map as $child => $parent) {
+            if ($parent === $current && !isset($visited[$child])) {
+                $visited[$child] = true;
+                $queue[] = $child;
+                $pt_object = get_post_type_object($child);
+                if ($pt_object && $pt_object->public) {
+                    $children[] = $child;
+                }
+            }
+        }
+    }
+
+    return $children;
+}
+
+/**
  * WYSIWYGコンテンツのサニタイズ関数
  * TinyMCEのブックマークタグを除去
  *
@@ -1981,6 +2065,7 @@ function backbone_sanitize_list_sections_json($value) {
         $sanitized_section['category'] = isset($section['category']) ? absint($section['category']) : 0;
         $sanitized_section['tag'] = isset($section['tag']) ? absint($section['tag']) : 0;
         $sanitized_section['post_type_filter'] = isset($section['post_type_filter']) ? sanitize_key($section['post_type_filter']) : 'post';
+        $sanitized_section['include_child_post_types'] = isset($section['include_child_post_types']) ? rest_sanitize_boolean($section['include_child_post_types']) : false;
         $sanitized_section['author'] = isset($section['author']) ? absint($section['author']) : 0;
         $sanitized_section['date_range'] = isset($section['date_range']) ? sanitize_key($section['date_range']) : 'current_month';
         $sanitized_section['layout'] = isset($section['layout']) ? backbone_sanitize_layout_unified($section['layout']) : '3col';

@@ -334,6 +334,7 @@
                             $item.find('[data-field="category"]').closest('.repeater-field').hide();
                             $item.find('[data-field="tag"]').closest('.repeater-field').hide();
                             $item.find('[data-field="post_type_filter"]').closest('.repeater-field').hide();
+                            $item.find('[data-field="include_child_post_types"]').closest('.repeater-field').hide();
                             $item.find('[data-field="author"]').closest('.repeater-field').hide();
                             $item.find('[data-field="date_range"]').closest('.repeater-field').hide();
 
@@ -347,6 +348,7 @@
                                     break;
                                 case 'post_type':
                                     $item.find('[data-field="post_type_filter"]').closest('.repeater-field').show();
+                                    $item.find('[data-field="include_child_post_types"]').closest('.repeater-field').show();
                                     break;
                                 case 'author':
                                     $item.find('[data-field="author"]').closest('.repeater-field').show();
@@ -481,7 +483,9 @@
                 var newItem = {};
                 Object.keys(fieldsConfig).forEach(function(fieldKey) {
                     var field = fieldsConfig[fieldKey];
-                    if (field.type === 'checkbox') {
+                    if (fieldKey === 'include_child_post_types') {
+                        newItem[fieldKey] = false;
+                    } else if (field.type === 'checkbox') {
                         newItem[fieldKey] = true;
                     } else if (fieldKey === 'post_type') {
                         newItem[fieldKey] = 'post';
