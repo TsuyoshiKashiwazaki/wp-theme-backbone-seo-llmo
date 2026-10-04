@@ -121,7 +121,9 @@ function backbone_save_custom_schema_meta_box($post_id) {
     }
     if (isset($_POST['custom_json_ld'])) {
         $custom_code = wp_unslash($_POST['custom_json_ld']);
-        update_post_meta($post_id, '_custom_json_ld', $custom_code);
+        // update_post_meta は値が「スラッシュ付き」で渡される前提で、保存時に stripslashes() する。
+        // そのまま渡すと JSON-LD の \" や JavaScript のエスケープが消えるので、wp_slash() で 1 段戻してから渡す
+        update_post_meta($post_id, '_custom_json_ld', wp_slash($custom_code));
     } else {
         delete_post_meta($post_id, '_custom_json_ld');
     }

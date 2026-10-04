@@ -56,22 +56,49 @@ function backbone_excerpt_more($more) {
 add_filter('excerpt_more', 'backbone_excerpt_more');
 
 /**
- * ページネーション
+ * ページ送りのリンクの base と format（このテーマのページ送りの形 /page-N/。/page/N/ は使わない）
+ * パーマリンクが基本設定（?cat=1 のような URL）のときは rewrite の規則が使われないので空の配列を返し、
+ * paginate_links() の既定（?paged=N）に任せる。
+ * 今の URL のクエリ（?s=… など）は base から外す。paginate_links() が今の URL のクエリを add_args に足して付け直す
+ *
+ * @return array paginate_links() に足す引数（base・format）
+ */
+function backbone_page_n_pagination_args() {
+    global $wp_rewrite;
+    if (!($wp_rewrite instanceof WP_Rewrite) || !$wp_rewrite->using_permalinks()) {
+        return array();
+    }
+    $url = get_pagenum_link(1);
+    $url = explode('?', $url, 2);
+    $url = $url[0];
+    // 今のページ番号のページ送り（/page-N/）だけを外す（get_pagenum_link() は /page/N/ を外すが /page-N/ は知らない）。
+    // 番号が今のページと一致するときだけ外すので、検索語やスラッグの "page-2024" は消さない
+    $paged = (int) get_query_var('paged');
+    if ($paged > 1) {
+        $url = preg_replace('#/page-' . $paged . '/?$#', '/', $url);
+    }
+    // index.php 形式のパーマリンク（/index.php/%postname%/）では、本体の paginate_links() と同じく、base に index.php が無ければ format に補う
+    $format = ($wp_rewrite->using_index_permalinks() && strpos($url, 'index.php') === false) ? 'index.php/' : '';
+    $format .= 'page-%#%/';
+    return array(
+        'base'   => trailingslashit($url) . '%_%',
+        'format' => $format,
+    );
+}
+
+/**
+ * ページネーション（ブログのトップ・検索結果・index.php）
  */
 function backbone_pagination() {
     global $wp_query;
 
-    $big = 999999999; // 大きな数値
-
-    $paginate_links = paginate_links(array(
-        'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-        'format' => '?paged=%#%',
+    $paginate_links = paginate_links(array_merge(array(
         'current' => max(1, get_query_var('paged')),
         'total' => $wp_query->max_num_pages,
         'prev_text' => __('&laquo; 前へ', 'backbone-seo-llmo'),
         'next_text' => __('次へ &raquo;', 'backbone-seo-llmo'),
         'type' => 'list',
-    ));
+    ), backbone_page_n_pagination_args()));
 
     if ($paginate_links) {
         echo '<nav class="pagination-wrapper">';

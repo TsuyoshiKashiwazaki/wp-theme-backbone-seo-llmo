@@ -11,7 +11,7 @@
     <nav class="sidebar">
         <div class="sidebar-header">
             <h2 style="color:#fff;">Backbone Theme</h2>
-            <span class="version">v1.2.4</span>
+            <span class="version">v1.2.5</span>
             <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
         </div>
         <ul>
@@ -145,6 +145,11 @@
                         <td>パーマリンク設定を一度「変更を保存」してリライトルールを再生成してください（「設定」→「パーマリンク」→「変更を保存」）。</td>
                     </tr>
                     <tr>
+                        <td>固定ページ・投稿の2ページ目（<code>/xxx/page-2/</code>）が404になる</td>
+                        <td>ページ送りの無いページの重複URLとして404にしている（仕様）</td>
+                        <td>本文やテンプレートで独自の一覧とページ送りを出している場合は、フィルター <code>backbone_paged_url_has_no_pages</code> で <code>false</code> を返すと404にしません。詳しくは <a href="seo-llmo.html">SEOとLLMO</a> のページネーションの節を参照してください。</td>
+                    </tr>
+                    <tr>
                         <td><code>/tag/</code> や <code>/category/</code> ルートページが404になる</td>
                         <td>リライトルールが登録されていない</td>
                         <td>パーマリンク設定を一度「変更を保存」してリライトルールを再生成してください。テーマを再有効化することでも修正されます。</td>
@@ -276,7 +281,7 @@
             <ul>
                 <li>WordPress のバージョン</li>
                 <li>PHP のバージョン</li>
-                <li>テーマのバージョン（v1.2.4等）</li>
+                <li>テーマのバージョン（v1.2.5等）</li>
                 <li>使用中のプラグイン一覧（特にSEO・キャッシュ・ページビルダー系）</li>
                 <li>問題の再現手順をできるだけ詳しく記載してください</li>
                 <li>ブラウザの開発者ツールのコンソールにエラーが表示されている場合はそのスクリーンショットも添付してください</li>
@@ -291,7 +296,7 @@
 
         <footer class="manual-footer">
             <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
-            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.4</p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.5</p>
         </footer>
     </main>
 

@@ -11,7 +11,7 @@
     <nav class="sidebar">
         <div class="sidebar-header">
             <h2 style="color:#fff;">Backbone Theme</h2>
-            <span class="version">v1.2.4</span>
+            <span class="version">v1.2.5</span>
             <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
         </div>
         <ul>
@@ -220,15 +220,29 @@
                 </tbody>
             </table>
 
-            <h3>対応するアーカイブタイプ</h3>
-            <p>以下のすべてのアーカイブタイプでカスタムページネーションが動作します。</p>
+            <h3>対応するページ</h3>
+            <p>WordPress がそのサイトの設定から作るページ送りの規則（<code>/page/N/</code>）をすべて写して <code>/page-N/</code> の規則を作るため、ページ送りのあるすべての一覧で動作します。</p>
             <ul>
-                <li>カテゴリアーカイブ: <code>/category/{name}/page-N/</code></li>
-                <li>タグアーカイブ: <code>/tag/{name}/page-N/</code></li>
+                <li>カテゴリ・タグ・カスタムタクソノミー・投稿フォーマットのアーカイブ: <code>/category/{name}/page-N/</code> など（ベースを変えた設定にも対応）</li>
                 <li>著者アーカイブ: <code>/author/{name}/page-N/</code></li>
-                <li>日付アーカイブ: <code>/YYYY/MM/DD/page-N/</code></li>
-                <li>カスタム投稿タイプアーカイブ: <code>/{slug}/page-N/</code></li>
+                <li>日付アーカイブ: <code>/YYYY/MM/page-N/</code>（パーマリンクの構造に合わせた形。「数字ベース」の <code>/archives/date/YYYY/MM/page-N/</code> も含む）</li>
+                <li>カスタム投稿タイプアーカイブ: <code>/{slug}/page-N/</code>（<code>has_archive</code> に別名を指定した場合も含む）</li>
+                <li>表示設定の「最新の投稿」・「投稿ページ」の一覧: <code>/page-N/</code>、<code>/{投稿ページのスラッグ}/page-N/</code></li>
+                <li>検索結果: <code>/search/{語}/page-N/</code>、<code>/page-N/?s={語}</code></li>
             </ul>
+            <p>パーマリンクが基本設定（<code>/?cat=1</code> のようなURL）のサイトでは、WordPress 標準の <code>?paged=N</code> のリンクになります。</p>
+
+            <h3>ページ送りの無いページの2ページ目</h3>
+            <p>固定ページ・投稿・トップページの2ページ目のURL（<code>/privacy-policy/page-2/</code> など）は、1ページ目と同じ内容を返す重複URLになるため 404 を返します。次の場合は 404 にしません。</p>
+            <ul>
+                <li>本文を <code>&lt;!--nextpage--&gt;</code> で分割しているページ</li>
+                <li>本文の中の一覧（ショートコード・ブロック。同期パターンの中に置いたものも含む）がページ送りを使っているページ</li>
+                <li>子テーマやプラグインのテンプレートで表示しているページ（テンプレートの側で一覧とページ送りを出すことがあるため）</li>
+            </ul>
+            <p>それ以外で独自のページ送りを付けている場合は、フィルター <code>backbone_paged_url_has_no_pages</code> で <code>false</code> を返すと 404 にしません。</p>
+
+            <h3>スラッグが <code>page-N</code> の投稿</h3>
+            <p>既存の投稿・固定ページのスラッグが <code>page-2</code> のような形でも、スラッグは変えずにそのまま表示します。ただし同じURLが一覧の2ページ目にもなる場合は、一覧にそのページがあれば一覧を表示します。新しく付けるスラッグは、ページ送りと紛らわしくないよう <code>page-2-2</code> のような形になります。</p>
 
             <div class="callout callout-note">
                 <p>旧形式 <code>/page/N/</code> から新形式 <code>/page-N/</code> への301リダイレクトにより、既存のインデックスやブックマークが自動的に新URLに転送されます。重複コンテンツの問題は発生しません。</p>
@@ -407,7 +421,7 @@
 
         <footer class="manual-footer">
             <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
-            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.4</p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.5</p>
         </footer>
     </main>
 

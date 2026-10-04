@@ -9,7 +9,14 @@
 </head>
 
 <body <?php body_class(); ?>>
-<?php wp_body_open(); ?>
+<?php
+// wp_body_open() は WordPress 5.2 から。対応範囲（5.0 以上）の 5.0・5.1 でも落ちないよう、無ければフックを直接呼ぶ
+if (function_exists('wp_body_open')) {
+    wp_body_open();
+} else {
+    do_action('wp_body_open');
+}
+?>
 <!-- 既存訪問者のテーマ固有キャッシュを一度だけクリア -->
 <script>
 (function forceClearLegacyCache() {

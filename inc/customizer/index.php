@@ -309,6 +309,20 @@ function backbone_customize_controls_js() {
         true
     );
 
+    // リピーターが記事・カテゴリー等の一覧を取る REST API の起点と、投稿タイプごとの REST のパス。
+    // rest_url() はサブディレクトリ設置や基本のパーマリンク（?rest_route=）でも正しい URL を返す。
+    // 投稿タイプのパスはスラッグではなく rest_namespace / rest_base で組む（rest_base がスラッグと違う投稿タイプがある）
+    $backbone_rest_paths = array();
+    foreach (get_post_types(array('show_in_rest' => true), 'objects') as $backbone_rest_post_type) {
+        $backbone_rest_base = !empty($backbone_rest_post_type->rest_base) ? $backbone_rest_post_type->rest_base : $backbone_rest_post_type->name;
+        $backbone_rest_namespace = !empty($backbone_rest_post_type->rest_namespace) ? $backbone_rest_post_type->rest_namespace : 'wp/v2';
+        $backbone_rest_paths[$backbone_rest_post_type->name] = trim($backbone_rest_namespace, '/') . '/' . trim($backbone_rest_base, '/');
+    }
+    wp_localize_script('customizer-repeater', 'backboneRepeaterData', array(
+        'restRoot' => esc_url_raw(rest_url()),
+        'restPaths' => $backbone_rest_paths,
+    ));
+
     // WordPress REST APIをエンキュー（利用可能な場合）
     if (wp_script_is('wp-api', 'registered')) {
         wp_enqueue_script('wp-api');

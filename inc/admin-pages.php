@@ -202,9 +202,8 @@ function backbone_settings_page() {
  * テーマ設定をリセット
  */
 function backbone_reset_theme_settings() {
-    // リセット前にバックアップを作成
-    backbone_create_settings_backup();
-    backbone_log_customizer_change(__('リセット前の自動バックアップを作成', 'backbone-seo-llmo'));
+    // リセット前にバックアップを作成（変更ログへの記録は backbone_create_settings_backup が行う）
+    backbone_create_settings_backup('reset');
 
     // すべてのtheme_modsを削除
     remove_theme_mods();
@@ -324,11 +323,24 @@ function backbone_diagnostics_page() {
                 echo '</tr></thead>';
                 echo '<tbody>';
                 foreach ($backups as $index => $backup) {
-                    $date = isset($backup['date']) ? $backup['date'] : __('日時不明', 'backbone-seo-llmo');
-                    $meta = isset($backup['meta']) ? $backup['meta'] : array();
+                    // 保存済みのデータが壊れていても（インポートした値の型が違う等）一覧を表示できるよう、型を確かめてから使う
+                    $date = (isset($backup['date']) && is_scalar($backup['date'])) ? (string) $backup['date'] : __('日時不明', 'backbone-seo-llmo');
+                    $meta = (isset($backup['meta']) && is_array($backup['meta'])) ? $backup['meta'] : array();
+
+                    // バックアップの種類（自動のものと、手動・リセット前などのものを見分けられるように）
+                    $type_labels = array(
+                        'auto' => __('自動（公開時）', 'backbone-seo-llmo'),
+                        'manual' => __('手動', 'backbone-seo-llmo'),
+                        'reset' => __('リセット前', 'backbone-seo-llmo'),
+                        'theme_switch' => __('テーマ切り替え前', 'backbone-seo-llmo'),
+                        'import' => __('インポート', 'backbone-seo-llmo'),
+                    );
+                    $type_label = (isset($backup['type']) && is_string($backup['type']) && isset($type_labels[$backup['type']]))
+                        ? $type_labels[$backup['type']]
+                        : '';
 
                     echo '<tr>';
-                    echo '<td>' . esc_html($date) . '</td>';
+                    echo '<td>' . esc_html($date) . ($type_label !== '' ? '<br><small style="color:#666;">' . esc_html($type_label) . '</small>' : '') . '</td>';
 
                     // メタ情報を表示
                     echo '<td>';
@@ -338,12 +350,12 @@ function backbone_diagnostics_page() {
                         $display_version = isset($meta['parent_theme_version'])
                             ? $meta['parent_theme_version']
                             : (isset($meta['theme_version']) ? $meta['theme_version'] : null);
-                        if ($display_version) {
-                            $info_parts[] = 'Backbone SEO LLMO v' . esc_html($display_version);
+                        if ($display_version && is_scalar($display_version)) {
+                            $info_parts[] = 'Backbone SEO LLMO v' . esc_html((string) $display_version);
                         }
-                        if (isset($meta['site_url'])) {
+                        if (isset($meta['site_url']) && is_string($meta['site_url'])) {
                             $parsed = parse_url($meta['site_url']);
-                            if (isset($parsed['host'])) {
+                            if (is_array($parsed) && isset($parsed['host'])) {
                                 $info_parts[] = '<small style="color:#666;">' . esc_html($parsed['host']) . '</small>';
                             }
                         }
@@ -427,20 +439,81 @@ function backbone_diagnostics_page() {
 }
 
 /**
- * 設定バックアップを作成
+ * バックアップの種類ごとの最大件数
+ *
+ * カスタマイザーで「公開」するたびに作られる自動バックアップ（auto）と、それ以外
+ * （手動・リセット前・テーマ切り替え前・インポート、および種類の記録が無い既存のもの）を分けて数える。
+ * 一緒に数えると、5 回公開するだけで手動のバックアップやリセット前の退避が押し出されて黙って消える。
  */
-function backbone_create_settings_backup() {
-    $theme_mods = get_theme_mods();
-    // 数値インデックスや空の値を除外してクリーンな配列にする
+if (!defined('BACKBONE_BACKUP_MAX_AUTO')) {
+    define('BACKBONE_BACKUP_MAX_AUTO', 5);
+}
+if (!defined('BACKBONE_BACKUP_MAX_KEPT')) {
+    define('BACKBONE_BACKUP_MAX_KEPT', 5);
+}
+
+/**
+ * バックアップの一覧を、種類ごとの最大件数まで減らす（新しい順に並んでいる前提）
+ *
+ * @param array $backups バックアップの配列（新しい順）
+ * @return array 減らした配列（並び順はそのまま）
+ */
+function backbone_trim_settings_backups($backups) {
+    if (!is_array($backups)) {
+        return array();
+    }
+    $auto_count = 0;
+    $kept_count = 0;
+    $trimmed = array();
+    foreach ($backups as $backup) {
+        $is_auto = is_array($backup) && isset($backup['type']) && $backup['type'] === 'auto';
+        if ($is_auto) {
+            if ($auto_count >= BACKBONE_BACKUP_MAX_AUTO) {
+                continue;
+            }
+            $auto_count++;
+        } else {
+            if ($kept_count >= BACKBONE_BACKUP_MAX_KEPT) {
+                continue;
+            }
+            $kept_count++;
+        }
+        $trimmed[] = $backup;
+    }
+    return $trimmed;
+}
+
+/**
+ * 設定バックアップを作成
+ *
+ * @param string        $type  バックアップの種類（auto = カスタマイザーの公開時 / manual / reset / theme_switch）
+ * @param WP_Theme|null $theme バックアップするテーマ。省略時は今のテーマ。
+ *                             テーマ切り替えのフック（switch_theme）は切り替えた後に呼ばれるので、
+ *                             切り替え前のテーマを渡して、そのテーマの設定を読む
+ */
+function backbone_create_settings_backup($type = 'manual', $theme = null) {
+    $is_current_theme = !($theme instanceof WP_Theme) || $theme->get_stylesheet() === get_stylesheet();
+    if (!($theme instanceof WP_Theme)) {
+        $theme = wp_get_theme();
+    }
+
+    // テーマの設定（theme_mods）。今のテーマでなければ、そのテーマの theme_mods_<stylesheet> を直接読む
+    $theme_mods = $is_current_theme ? get_theme_mods() : get_option('theme_mods_' . $theme->get_stylesheet(), array());
+    // 数値インデックスを除外してクリーンな配列にする。
+    // 空文字の値は捨てない（意図して空にした設定が、復元で既定値に戻らないように。復元はバックアップに無い設定を削除する）
     if (is_array($theme_mods)) {
-        $theme_mods = array_filter($theme_mods, function($value, $key) {
-            return !is_numeric($key) && $value !== '';
-        }, ARRAY_FILTER_USE_BOTH);
+        $theme_mods = array_filter($theme_mods, function($key) {
+            return !is_numeric($key);
+        }, ARRAY_FILTER_USE_KEY);
+    } else {
+        $theme_mods = array();
     }
     $backups = get_option('backbone_settings_backups', array());
+    if (!is_array($backups)) {
+        $backups = array();
+    }
 
     // テーマ情報を取得
-    $theme = wp_get_theme();
     $parent_theme = $theme->parent();
 
     // 親テーマのバージョンを取得（子テーマの場合は親テーマから、親テーマの場合は自身から）
@@ -449,29 +522,37 @@ function backbone_create_settings_backup() {
     // 新しいバックアップを先頭に追加（メタ情報を含む）
     array_unshift($backups, array(
         'date' => current_time('Y-m-d H:i:s'),
+        'type' => $type,
         'data' => $theme_mods,
         'meta' => array(
             'theme_version' => $theme->get('Version'),
             'theme_name' => $theme->get('Name'),
-            'theme_stylesheet' => get_stylesheet(),
+            'theme_stylesheet' => $theme->get_stylesheet(),
             'parent_theme' => $parent_theme ? $parent_theme->get_stylesheet() : null,
             'parent_theme_version' => $parent_version, // 親テーマのバージョン（設定互換性の判定に使用）
-            'is_child_theme' => is_child_theme(),
+            'is_child_theme' => (bool) $parent_theme,
             'site_url' => home_url(),
             'wp_version' => get_bloginfo('version'),
         ),
     ));
 
-    // 最大5件まで保持
-    $backups = array_slice($backups, 0, 5);
+    // 種類ごとの最大件数まで保持（自動バックアップが手動などを押し出さない）
+    $backups = backbone_trim_settings_backups($backups);
 
     update_option('backbone_settings_backups', $backups);
 
-    // サブディレクトリ設定の独立バックアップも保存
-    backbone_save_independent_backup();
+    // サブディレクトリ設定の独立バックアップも保存（今のテーマの設定から作るので、今のテーマのときだけ）
+    if ($is_current_theme) {
+        backbone_save_independent_backup();
+    }
 
     // 変更ログに記録
-    backbone_log_customizer_change(__('手動バックアップを作成', 'backbone-seo-llmo'));
+    $log_messages = array(
+        'auto' => __('自動バックアップを作成（カスタマイザーの公開）', 'backbone-seo-llmo'),
+        'reset' => __('リセット前のバックアップを作成', 'backbone-seo-llmo'),
+        'theme_switch' => __('テーマ切り替え前のバックアップを作成', 'backbone-seo-llmo'),
+    );
+    backbone_log_customizer_change(isset($log_messages[$type]) ? $log_messages[$type] : __('手動バックアップを作成', 'backbone-seo-llmo'));
 }
 
 /**
@@ -495,7 +576,14 @@ function backbone_restore_settings_backup($index, $validate_only = false) {
     }
 
     $backup_data = $backups[$index]['data'];
-    $backup_meta = isset($backups[$index]['meta']) ? $backups[$index]['meta'] : array();
+    $backup_meta = (isset($backups[$index]['meta']) && is_array($backups[$index]['meta'])) ? $backups[$index]['meta'] : array();
+    // 保存済みのメタ情報が壊れていても（以前にインポートした値の型が違う等）検証で止まらないよう、
+    // 文字列として使う値は文字列だけを残す（配列を sprintf・version_compare に渡すと PHP 8 で TypeError になる）
+    foreach (array('site_url', 'theme_stylesheet', 'parent_theme', 'parent_theme_version', 'theme_version') as $meta_key) {
+        if (isset($backup_meta[$meta_key]) && !is_scalar($backup_meta[$meta_key])) {
+            unset($backup_meta[$meta_key]);
+        }
+    }
     $warnings = array();
 
     // サイト固有データの検証
@@ -820,36 +908,55 @@ function backbone_import_backup_json() {
 
     $backup = $import_data['backup'];
 
-    // メタ情報がなければ追加
-    if (!isset($backup['meta'])) {
-        $backup['meta'] = array();
+    // 設定の本体は連想配列でなければならない（文字列・数値などは復元できない）
+    if (!is_array($backup['data'])) {
+        return new WP_Error('invalid_format', __('バックアップデータの形式が正しくありません。', 'backbone-seo-llmo'));
+    }
+
+    // メタ情報は、一覧の表示と復元の互換性の判定で使う値だけを、決まった型（文字列か真偽値）で取り込む。
+    // 配列などがそのまま保存されると、一覧の表示（parse_url 等）が PHP 8 で TypeError になり、一覧の操作に届かなくなる
+    $raw_meta = (isset($backup['meta']) && is_array($backup['meta'])) ? $backup['meta'] : array();
+    $meta = array();
+    $string_meta_keys = array('theme_version', 'theme_name', 'theme_stylesheet', 'parent_theme', 'parent_theme_version', 'site_url', 'wp_version');
+    foreach ($string_meta_keys as $meta_key) {
+        if (isset($raw_meta[$meta_key]) && is_scalar($raw_meta[$meta_key])) {
+            $meta[$meta_key] = (string) $raw_meta[$meta_key];
+        }
+    }
+    if (isset($raw_meta['is_child_theme'])) {
+        $meta['is_child_theme'] = (bool) $raw_meta['is_child_theme'];
     }
 
     // インポート元の情報を追加
-    $backup['meta']['imported_from'] = isset($import_data['backup']['meta']['site_url'])
-        ? $import_data['backup']['meta']['site_url']
-        : __('不明', 'backbone-seo-llmo');
-    $backup['meta']['import_date'] = current_time('Y-m-d H:i:s');
+    $meta['imported_from'] = isset($meta['site_url']) ? $meta['site_url'] : __('不明', 'backbone-seo-llmo');
+    $meta['import_date'] = current_time('Y-m-d H:i:s');
+
+    $date = (isset($backup['date']) && is_scalar($backup['date'])) ? (string) $backup['date'] : current_time('Y-m-d H:i:s');
 
     // 既存のバックアップを取得
     $backups = get_option('backbone_settings_backups', array());
+    if (!is_array($backups)) {
+        $backups = array();
+    }
 
     // インポートしたバックアップを先頭に追加
     array_unshift($backups, array(
-        'date' => isset($backup['date']) ? $backup['date'] . ' (imported)' : current_time('Y-m-d H:i:s') . ' (imported)',
+        'date' => $date . ' (imported)',
+        'type' => 'import',
         'data' => $backup['data'],
-        'meta' => $backup['meta'],
+        'meta' => $meta,
     ));
 
-    // 最大5件まで保持
-    $backups = array_slice($backups, 0, 5);
+    // 種類ごとの最大件数まで保持（自動バックアップが手動・インポートなどを押し出さない）
+    $backups = backbone_trim_settings_backups($backups);
 
     update_option('backbone_settings_backups', $backups);
 
     // 変更ログに記録
+    // インポート元は型を確かめた後の値を使う（生の値が配列だと sprintf が警告を出す）
     backbone_log_customizer_change(sprintf(
         __('バックアップをインポート（元: %s）', 'backbone-seo-llmo'),
-        isset($import_data['backup']['meta']['site_url']) ? $import_data['backup']['meta']['site_url'] : __('不明', 'backbone-seo-llmo')
+        $meta['imported_from']
     ));
 
     return true;
@@ -898,7 +1005,7 @@ function backbone_log_customizer_change($message) {
  * カスタマイザー保存時に自動バックアップ
  */
 function backbone_auto_backup_on_customizer_save() {
-    backbone_create_settings_backup();
+    backbone_create_settings_backup('auto');
 }
 add_action('customize_save_after', 'backbone_auto_backup_on_customizer_save');
 
@@ -920,8 +1027,9 @@ function backbone_auto_backup_on_theme_switch($new_name, $new_theme, $old_theme)
                          in_array($old_template, $parent_theme_slugs, true);
 
     if ($is_backbone_theme) {
-        backbone_create_settings_backup();
-        backbone_log_customizer_change(__('テーマ切り替え前の自動バックアップ', 'backbone-seo-llmo'));
+        // switch_theme は切り替えた後に呼ばれるので、切り替え前のテーマ（$old_theme）の設定をバックアップする
+        // （変更ログへの記録は backbone_create_settings_backup が行う）
+        backbone_create_settings_backup('theme_switch', $old_theme);
     }
 }
 add_action('switch_theme', 'backbone_auto_backup_on_theme_switch', 10, 3);

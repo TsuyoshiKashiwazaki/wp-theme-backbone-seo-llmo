@@ -266,9 +266,23 @@
 
                 $form.find('input[required], textarea[required], select[required]').each(function () {
                     var $field = $(this);
-                    var value = $field.val().trim();
 
-                    if (!value) {
+                    // disabled などで入力チェックの対象外の項目は見ない（ブラウザの入力チェックと同じ扱い）
+                    if (this.willValidate === false) {
+                        $field.removeClass('error');
+                        return;
+                    }
+
+                    // 値が無いかはブラウザの判定（validity.valueMissing）に任せる。
+                    // チェックボックス・ラジオ・複数選択の select も正しく扱える。
+                    // 文字の欄だけは、空白だけの入力も未入力とみなす（従来の動作）。
+                    var missing = this.validity ? this.validity.valueMissing : false;
+                    var value = $field.val();
+                    if (!missing && typeof value === 'string' && !$field.is(':checkbox, :radio') && value.trim() === '') {
+                        missing = true;
+                    }
+
+                    if (missing) {
                         $field.addClass('error');
                         isValid = false;
                     } else {
@@ -448,6 +462,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
         var sidebarData = [];
 
+        // サイトのフッターを探す。ページで最初の <footer> を使うと、サイドバーの「最新のコメント」ブロックや
+        // 本文末尾の .entry-footer（編集リンク）をサイトのフッターと取り違え、サイドバーが途中で止まる。
+        // テーマのフッターは footer.php の .site-footer。無ければ、サイドバー・記事・ウィジェットの中に無い最後の <footer> を使う。
+        var findSiteFooter = function () {
+            var siteFooter = document.querySelector('.site-footer');
+            if (siteFooter) {
+                return siteFooter;
+            }
+            var footers = document.querySelectorAll('footer');
+            for (var i = footers.length - 1; i >= 0; i--) {
+                if (!footers[i].closest('.sidebar, article, .entry-content, .widget')) {
+                    return footers[i];
+                }
+            }
+            return null;
+        };
+
+        // absolute にしたサイドバーの横位置を、追従前の位置（画面の左端からの距離 targetLeft）に合わせる。
+        // left を消して Grid の列に任せると、ブラウザや環境によっては左端に置かれる（一番下でサイドバーが左へ飛ぶ不具合）。
+        // いったん left: 0 にして実際に置かれた位置を測り、その差だけずらすので、包含ブロックが何であっても元の列の位置になる
+        var pinSidebarLeft = function (sidebar, targetLeft) {
+            sidebar.style.left = '0px';
+            var placedLeft = sidebar.getBoundingClientRect().left;
+            sidebar.style.left = (targetLeft - placedLeft) + 'px';
+        };
+
         // 各サイドバーの初期位置を記録
         sidebars.forEach(function (sidebar) {
             sidebarData.push({
@@ -554,7 +594,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 // フッターを突き抜けないように制御
                 if (data.isSticky) {
-                    var footer = document.querySelector('footer, .site-footer');
+                    var footer = findSiteFooter();
                     if (footer) {
                         var footerRect = footer.getBoundingClientRect();
                         var footerTop = footerRect.top + scrollTop;
@@ -604,7 +644,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 sidebar.style.position = 'absolute';
                                 sidebar.style.top = maxSidebarTopRelative + 'px';
                                 sidebar.style.bottom = 'auto';
-                                sidebar.style.left = ''; // Grid レイアウトでは left を削除
 
                                 // Grid レイアウトの列位置を明示的に保持
                                 if (gridColumn && gridColumn !== 'auto') {
@@ -613,9 +652,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (gridArea && gridArea !== 'auto') {
                                     sidebar.style.gridArea = gridArea;
                                 }
+                                // 横位置は追従前の位置に合わせる（left を空にして Grid に任せると、環境によって左端へ飛ぶ）
+                                pinSidebarLeft(sidebar, data.originalLeft);
                             } else {
                                 // フッターから離れている：固定位置で追従
                                 sidebar.style.position = 'fixed';
+                                sidebar.style.left = data.originalLeft + 'px'; // absolute で消した left を戻す（未指定だと Safari は左端に置く）
                                 sidebar.style.top = totalHeaderHeight + 'px';
                                 sidebar.style.bottom = 'auto';
                             }
@@ -636,7 +678,6 @@ document.addEventListener('DOMContentLoaded', function () {
                                 sidebar.style.position = 'absolute';
                                 sidebar.style.top = maxSidebarTopRelative + 'px';
                                 sidebar.style.bottom = 'auto';
-                                sidebar.style.left = ''; // Grid レイアウトでは left を削除
 
                                 // Grid レイアウトの列位置を明示的に保持
                                 if (gridColumn && gridColumn !== 'auto') {
@@ -645,9 +686,12 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (gridArea && gridArea !== 'auto') {
                                     sidebar.style.gridArea = gridArea;
                                 }
+                                // 横位置は追従前の位置に合わせる（left を空にして Grid に任せると、環境によって左端へ飛ぶ）
+                                pinSidebarLeft(sidebar, data.originalLeft);
                             } else {
                                 // フッターから離れている：画面下端に固定
                                 sidebar.style.position = 'fixed';
+                                sidebar.style.left = data.originalLeft + 'px'; // absolute で消した left を戻す（未指定だと Safari は左端に置く）
                                 sidebar.style.top = 'auto';
                                 sidebar.style.bottom = '0';
                             }

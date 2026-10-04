@@ -162,19 +162,11 @@ get_header(); ?>
                     if ($wp_query->max_num_pages > 1) {
                         $current_page = max(1, get_query_var('paged'));
 
-                        // 現在のアーカイブURLを取得（ページネーション部分を除去）
-                        $current_url = get_pagenum_link(1);
-                        $current_url = preg_replace('#/page/\d+/?#', '', $current_url);
-                        $current_url = preg_replace('#/page-\d+/?#', '', $current_url);
-                        $current_url = trailingslashit($current_url);
-
                         echo '<nav class="navigation pagination" aria-label="Posts pagination">';
                         echo '<h2 class="screen-reader-text">Posts pagination</h2>';
                         echo '<div class="nav-links">';
 
                         $pagination_args = array(
-                            'base' => $current_url . '%_%',
-                            'format' => 'page-%#%/',
                             'current' => $current_page,
                             'total' => $wp_query->max_num_pages,
                             'prev_text' => __('前のページ', 'backbone-seo-llmo'),
@@ -183,6 +175,9 @@ get_header(); ?>
                             'end_size' => 1,
                             'add_args' => false,
                         );
+
+                        // /page-N/ 形式の base・format（基本パーマリンクでは指定せず、既定の ?paged=N。inc/utilities/core-utilities.php）
+                        $pagination_args = array_merge($pagination_args, backbone_page_n_pagination_args());
 
                         echo paginate_links($pagination_args);
                         echo '</div></nav>';

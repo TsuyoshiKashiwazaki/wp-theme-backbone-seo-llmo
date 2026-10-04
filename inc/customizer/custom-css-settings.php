@@ -67,8 +67,11 @@ function backbone_add_custom_css_settings($wp_customize) {
     ));
 
     // 全体共通CSSコード
+    // 生の CSS を保存するため、unfiltered_html 権限を持つユーザーだけが編集できる（追加タグと同じ）。
+    // 権限の無いユーザーに欄を見せると、sanitize が空文字を返して既存のコードまで黙って消える
     $wp_customize->add_setting('custom_css_global_code', array(
         'default'           => '',
+        'capability'        => 'unfiltered_html',
         'sanitize_callback' => 'backbone_sanitize_css_code',
     ));
 
@@ -151,6 +154,7 @@ function backbone_add_custom_css_settings($wp_customize) {
         // CSSコード入力
         $wp_customize->add_setting("custom_css_code_{$post_type_name}", array(
             'default'           => '',
+            'capability'        => 'unfiltered_html',
             'sanitize_callback' => 'backbone_sanitize_css_code',
         ));
 

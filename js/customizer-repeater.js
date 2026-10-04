@@ -14,6 +14,128 @@
         initRepeater();
     }
 
+    /**
+     * REST API の rendered（HTML）やエンティティを含む文字列を、表示用のプレーンテキストにする。
+     * DOMParser の文書ではスクリプトもイベントハンドラーも動かない。結果は .text() で入れるので HTML として解釈されない。
+     */
+    function plainText(value) {
+        if (value === null || value === undefined) {
+            return '';
+        }
+        var doc = new DOMParser().parseFromString(String(value), 'text/html');
+        return doc.body ? doc.body.textContent : '';
+    }
+
+    /**
+     * <option> を作る。値も表示名も文字列の連結で HTML に入れない（保存値や REST の名前に " や < があっても壊れない）
+     */
+    function makeOption(value, label) {
+        return $('<option></option>').val(String(value)).text(label);
+    }
+
+    /**
+     * REST API の URL。PHP の rest_url() で作った起点を使うので、サブディレクトリ設置や
+     * 基本のパーマリンク（?rest_route=）のサイトでも正しい URL になる。
+     * 起点にクエリが付いていても（rest_url フィルターで ?lang=ja を足す構成など）壊さないよう、文字列の連結ではなく URL として組み立てる:
+     * ?rest_route= の形ならその値の後ろに、そうでなければパスの後ろにルートを足し、引数はクエリに入れる
+     */
+    function restUrl(path, params) {
+        var data = window.backboneRepeaterData || {};
+        var root = data.restRoot || (window.location.origin + '/wp-json/');
+        var route = String(path).replace(/^\/+/, '');
+        var url = new URL(root, window.location.href);
+        if (url.searchParams.has('rest_route')) {
+            url.searchParams.set('rest_route', url.searchParams.get('rest_route').replace(/\/+$/, '') + '/' + route);
+        } else {
+            url.pathname = url.pathname.replace(/\/+$/, '') + '/' + route;
+        }
+        $.each(params || {}, function (key, value) {
+            url.searchParams.set(key, String(value));
+        });
+        return url.toString();
+    }
+
+    /**
+     * 投稿タイプの一覧の REST パス（rest_namespace / rest_base。PHP から渡す）。無ければ wp/v2/<スラッグ>
+     */
+    function postTypeRestPath(postType) {
+        var data = window.backboneRepeaterData || {};
+        if (data.restPaths && data.restPaths[postType]) {
+            return data.restPaths[postType];
+        }
+        if (postType === 'post') {
+            return 'wp/v2/posts';
+        }
+        if (postType === 'page') {
+            return 'wp/v2/pages';
+        }
+        return 'wp/v2/' + postType;
+    }
+
+    /**
+     * 一覧をすべてのページ取得する。per_page の上限は 100 なので、X-WP-TotalPages を見て順に取る
+     */
+    function fetchAllPages(path, params) {
+        var all = [];
+        var maxPages = 100;
+        function getPage(page) {
+            var query = $.extend({}, params || {}, { per_page: 100, page: page });
+            // restUrl() は起点が URL として不正だと例外を投げるので、Promise の中で呼び、呼び出し元の .catch（保存値を残す）に流す
+            return Promise.resolve()
+                .then(function() {
+                    return fetch(restUrl(path, query), { credentials: 'same-origin' });
+                })
+                .then(function(response) {
+                    if (!response.ok) {
+                        throw new Error('HTTP ' + response.status);
+                    }
+                    var totalPages = parseInt(response.headers.get('X-WP-TotalPages'), 10) || 1;
+                    return response.json().then(function(rows) {
+                        if (Array.isArray(rows)) {
+                            all = all.concat(rows);
+                        }
+                        if (page < totalPages && page < maxPages) {
+                            return getPage(page + 1);
+                        }
+                        return all;
+                    });
+                });
+        }
+        return getPage(1);
+    }
+
+    /**
+     * 1 回だけ取得する（投稿タイプの一覧など、ページ送りの無いもの）
+     */
+    function fetchJson(path) {
+        return Promise.resolve()
+            .then(function() {
+                return fetch(restUrl(path), { credentials: 'same-origin' });
+            })
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error('HTTP ' + response.status);
+                }
+                return response.json();
+            });
+    }
+
+    /**
+     * 保存済みの値が選択肢に無いとき（非公開になった記事・削除されたターム等）、値を消さずに残す
+     */
+    function keepSavedValue($select, savedValue) {
+        if (savedValue === undefined || savedValue === null || savedValue === '' || String(savedValue) === '0') {
+            return;
+        }
+        var exists = $select.find('option').filter(function() {
+            return $(this).val() === String(savedValue);
+        }).length > 0;
+        if (!exists) {
+            $select.append(makeOption(savedValue, '（保存済み: ' + savedValue + '・一覧に無い項目）'));
+        }
+        $select.val(String(savedValue));
+    }
+
     function initRepeater() {
         /**
          * リピーターコントロールの初期化
@@ -73,49 +195,30 @@
                 $selectField.empty();
                 $selectField.append('<option value="0">— 読み込み中... —</option>');
 
-                // REST APIで記事を取得（絶対URLを使用）
-                var baseUrl = window.location.origin;
-                var endpoint = baseUrl + '/wp-json/wp/v2/';
-                if (postType === 'post') {
-                    endpoint += 'posts';
-                } else if (postType === 'page') {
-                    endpoint += 'pages';
-                } else {
-                    endpoint += postType;
-                }
-
+                // REST APIで記事を取得（rest_url() 起点・投稿タイプの rest_base・全ページ）
                 // カスタマイザーのコンテキストを回避するため、fetchを使用
-                var fullUrl = endpoint + '?per_page=100&orderby=date&order=desc&_fields=id,title';
-
-                fetch(fullUrl, {
-                    method: 'GET',
-                    credentials: 'same-origin'
-                })
-                .then(function(response) {
-                    return response.json();
-                })
+                fetchAllPages(postTypeRestPath(postType), { orderby: 'date', order: 'desc', _fields: 'id,title' })
                 .then(function(posts) {
                     $selectField.empty();
-                    $selectField.append('<option value="0">— 選択してください —</option>');
+                    $selectField.append(makeOption(0, '— 選択してください —'));
 
                     if (posts && posts.length > 0) {
                         $.each(posts, function(index, post) {
-                            var title = (post.title && post.title.rendered) ? post.title.rendered : '（タイトルなし）';
-                            var $option = $('<option value="' + post.id + '">' + title + '</option>');
-                            $selectField.append($option);
+                            var title = (post.title && post.title.rendered) ? plainText(post.title.rendered) : '';
+                            $selectField.append(makeOption(post.id, title !== '' ? title : '（タイトルなし）'));
                         });
-
-                        // 選択されていた値を復元
-                        if (selectedValue && selectedValue !== '0') {
-                            $selectField.val(selectedValue);
-                        }
                     } else {
-                        $selectField.append('<option value="0">— 記事がありません —</option>');
+                        $selectField.append(makeOption(0, '— 記事がありません —'));
                     }
+
+                    // 選択されていた値を復元（一覧に無くなっていても値は残す）
+                    keepSavedValue($selectField, selectedValue);
                 })
                 .catch(function() {
                     $selectField.empty();
-                    $selectField.append('<option value="0">— 読み込みに失敗しました —</option>');
+                    $selectField.append(makeOption(0, '— 読み込みに失敗しました —'));
+                    // 取得に失敗しても、保存済みの選択は消さない（そのまま保存しても失われないように）
+                    keepSavedValue($selectField, selectedValue);
                 });
             }
 
@@ -138,108 +241,83 @@
                     var field = fieldsConfig[fieldKey];
                     var fieldValue = itemData[fieldKey] || '';
                     var $fieldWrapper = $('<div class="repeater-field"></div>');
-                    var $label = $('<label>' + field.label + '</label>');
+                    var $label = $('<label></label>').text(field.label);
                     var $input;
 
                     switch(field.type) {
                         case 'select':
-                            $input = $('<select class="widefat" data-field="' + fieldKey + '"></select>');
+                            $input = $('<select class="widefat"></select>').attr('data-field', fieldKey);
 
                             // カテゴリー選択の特別処理
                             if (fieldKey === 'category') {
-                                $input.append('<option value="0">全カテゴリー</option>');
-                                var baseUrl = window.location.origin;
-                                fetch(baseUrl + '/wp-json/wp/v2/categories?per_page=100', {
-                                    credentials: 'same-origin'
-                                })
-                                .then(function(response) { return response.json(); })
+                                $input.append(makeOption(0, '全カテゴリー'));
+                                fetchAllPages('wp/v2/categories', { _fields: 'id,name' })
                                 .then(function(categories) {
                                     $.each(categories, function(i, cat) {
-                                        var $option = $('<option value="' + cat.id + '">' + cat.name + '</option>');
-                                        if (cat.id == fieldValue) {
-                                            $option.prop('selected', true);
-                                        }
-                                        $input.append($option);
+                                        $input.append(makeOption(cat.id, plainText(cat.name)));
                                     });
+                                    keepSavedValue($input, fieldValue);
+                                })
+                                .catch(function() {
+                                    keepSavedValue($input, fieldValue);
                                 });
                             }
                             // タグ選択の特別処理
                             else if (fieldKey === 'tag') {
-                                $input.append('<option value="0">全タグ</option>');
-                                var baseUrl = window.location.origin;
-                                fetch(baseUrl + '/wp-json/wp/v2/tags?per_page=100', {
-                                    credentials: 'same-origin'
-                                })
-                                .then(function(response) { return response.json(); })
+                                $input.append(makeOption(0, '全タグ'));
+                                fetchAllPages('wp/v2/tags', { _fields: 'id,name' })
                                 .then(function(tags) {
                                     $.each(tags, function(i, tag) {
-                                        var $option = $('<option value="' + tag.id + '">' + tag.name + '</option>');
-                                        if (tag.id == fieldValue) {
-                                            $option.prop('selected', true);
-                                        }
-                                        $input.append($option);
+                                        $input.append(makeOption(tag.id, plainText(tag.name)));
                                     });
+                                    keepSavedValue($input, fieldValue);
+                                })
+                                .catch(function() {
+                                    keepSavedValue($input, fieldValue);
                                 });
                             }
                             // 投稿タイプフィルター選択の特別処理
                             else if (fieldKey === 'post_type_filter') {
-                                var baseUrl = window.location.origin;
-                                fetch(baseUrl + '/wp-json/wp/v2/types', {
-                                    credentials: 'same-origin'
-                                })
-                                .then(function(response) { return response.json(); })
+                                // デフォルトで投稿を追加
+                                $input.append(makeOption('post', '投稿'));
+                                fetchJson('wp/v2/types')
                                 .then(function(types) {
-                                    // デフォルトで投稿を追加
-                                    $input.append('<option value="post">投稿</option>');
-
                                     $.each(types, function(slug, type) {
                                         var isInternal = slug.startsWith('wp_') || slug === 'attachment' || slug === 'nav_menu_item';
                                         var hasRestApi = type.rest_base && type.rest_base.length > 0;
 
                                         if (!isInternal && hasRestApi && slug !== 'post') {
-                                            var $option = $('<option value="' + slug + '">' + type.name + '</option>');
-                                            if (slug === fieldValue) {
-                                                $option.prop('selected', true);
-                                            }
-                                            $input.append($option);
+                                            $input.append(makeOption(slug, plainText(type.name)));
                                         }
                                     });
-
-                                    if (fieldValue) {
-                                        $input.val(fieldValue);
-                                    }
+                                    keepSavedValue($input, fieldValue);
+                                })
+                                .catch(function() {
+                                    keepSavedValue($input, fieldValue);
                                 });
                             }
                             // 作成者選択の特別処理
                             else if (fieldKey === 'author') {
-                                $input.append('<option value="0">全作成者</option>');
-                                var baseUrl = window.location.origin;
-                                fetch(baseUrl + '/wp-json/wp/v2/users?per_page=100', {
-                                    credentials: 'same-origin'
-                                })
-                                .then(function(response) { return response.json(); })
+                                $input.append(makeOption(0, '全作成者'));
+                                fetchAllPages('wp/v2/users', { _fields: 'id,name' })
                                 .then(function(users) {
                                     $.each(users, function(i, user) {
-                                        var $option = $('<option value="' + user.id + '">' + user.name + '</option>');
-                                        if (user.id == fieldValue) {
-                                            $option.prop('selected', true);
-                                        }
-                                        $input.append($option);
+                                        $input.append(makeOption(user.id, plainText(user.name)));
                                     });
+                                    keepSavedValue($input, fieldValue);
+                                })
+                                .catch(function() {
+                                    keepSavedValue($input, fieldValue);
                                 });
                             }
                             // 投稿タイプ選択の特別処理
                             else if (fieldKey === 'post_type') {
                                 // デフォルトの投稿タイプ
-                                $input.append('<option value="post">投稿</option>');
-                                $input.append('<option value="page">固定ページ</option>');
+                                $input.append(makeOption('post', '投稿'));
+                                $input.append(makeOption('page', '固定ページ'));
 
                                 // カスタム投稿タイプを取得
-                                var baseUrl = window.location.origin;
-                                fetch(baseUrl + '/wp-json/wp/v2/types', {
-                                    credentials: 'same-origin'
-                                })
-                                .then(function(response) { return response.json(); })
+                                fetchJson('wp/v2/types')
                                 .then(function(types) {
                                     $.each(types, function(slug, type) {
                                         // 内部的な投稿タイプを除外し、REST APIが有効な投稿タイプのみ表示
@@ -247,14 +325,18 @@
                                         var hasRestApi = type.rest_base && type.rest_base.length > 0;
 
                                         if (!isInternal && hasRestApi && slug !== 'post' && slug !== 'page') {
-                                            var $option = $('<option value="' + slug + '">' + type.name + '</option>');
-                                            $input.append($option);
+                                            $input.append(makeOption(slug, plainText(type.name)));
                                         }
                                     });
 
                                     // 値を設定
                                     if (fieldValue) {
-                                        $input.val(fieldValue);
+                                        keepSavedValue($input, fieldValue);
+                                    }
+                                })
+                                .catch(function() {
+                                    if (fieldValue) {
+                                        keepSavedValue($input, fieldValue);
                                     }
                                 });
 
@@ -290,7 +372,7 @@
                             // その他の通常の選択フィールド
                             else if (field.choices) {
                                 Object.keys(field.choices).forEach(function(choiceKey) {
-                                    var $option = $('<option value="' + choiceKey + '">' + field.choices[choiceKey] + '</option>');
+                                    var $option = makeOption(choiceKey, field.choices[choiceKey]);
                                     if (choiceKey == fieldValue) {
                                         $option.prop('selected', true);
                                     }
@@ -299,27 +381,29 @@
                             }
                             break;
 
+                        // 保存値は文字列の連結で HTML に入れない（" や < を含む見出しで属性が壊れたり、
+                        // 属性を抜け出したイベントハンドラーが動いたりしないよう、.attr() と .val() で入れる）
                         case 'checkbox':
-                            $input = $('<input type="checkbox" data-field="' + fieldKey + '" />');
+                            $input = $('<input type="checkbox" />').attr('data-field', fieldKey);
                             if (fieldValue === true || fieldValue === 'true' || fieldValue === '1' || fieldValue === 1) {
                                 $input.prop('checked', true);
                             }
                             break;
 
                         case 'textarea':
-                            $input = $('<textarea class="widefat" data-field="' + fieldKey + '" rows="3">' + fieldValue + '</textarea>');
+                            $input = $('<textarea class="widefat" rows="3"></textarea>').attr('data-field', fieldKey).val(String(fieldValue));
                             break;
 
                         case 'url':
-                            $input = $('<input type="url" class="widefat" data-field="' + fieldKey + '" value="' + fieldValue + '" />');
+                            $input = $('<input type="url" class="widefat" />').attr('data-field', fieldKey).val(String(fieldValue));
                             break;
 
                         case 'number':
-                            $input = $('<input type="number" class="widefat" data-field="' + fieldKey + '" value="' + fieldValue + '" min="1" max="100" />');
+                            $input = $('<input type="number" class="widefat" min="1" max="100" />').attr('data-field', fieldKey).val(String(fieldValue));
                             break;
 
                         default:
-                            $input = $('<input type="text" class="widefat" data-field="' + fieldKey + '" value="' + fieldValue + '" />');
+                            $input = $('<input type="text" class="widefat" />').attr('data-field', fieldKey).val(String(fieldValue));
                     }
 
                     $fieldWrapper.append($label, $input);
@@ -480,6 +564,15 @@
                     return;
                 }
 
+                // select は、画面で最初に表示される選択肢を初期値にする。
+                // 空文字のままだと、画面の表示（例「1カラム」「今月」）と保存される値が食い違う
+                var selectFirstValues = {
+                    category: '0',
+                    tag: '0',
+                    author: '0',
+                    post_type_filter: 'post',
+                    post_id: '0'
+                };
                 var newItem = {};
                 Object.keys(fieldsConfig).forEach(function(fieldKey) {
                     var field = fieldsConfig[fieldKey];
@@ -489,6 +582,10 @@
                         newItem[fieldKey] = true;
                     } else if (fieldKey === 'post_type') {
                         newItem[fieldKey] = 'post';
+                    } else if (field.type === 'select' && field.choices && Object.keys(field.choices).length > 0) {
+                        newItem[fieldKey] = Object.keys(field.choices)[0];
+                    } else if (field.type === 'select' && selectFirstValues.hasOwnProperty(fieldKey)) {
+                        newItem[fieldKey] = selectFirstValues[fieldKey];
                     } else {
                         newItem[fieldKey] = '';
                     }
