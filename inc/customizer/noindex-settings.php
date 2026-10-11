@@ -134,6 +134,45 @@ function backbone_add_noindex_settings($wp_customize) {
         'priority' => $priority++,
     ));
 
+    // ━━━ カスタム投稿タイプの一覧 ━━━
+    $priority = 150;
+    $wp_customize->add_setting('noindex_post_type_archive_heading', array(
+        'sanitize_callback' => 'sanitize_text_field',
+    ));
+    $wp_customize->add_control(new Backbone_Customize_Heading_Control($wp_customize, 'noindex_post_type_archive_heading', array(
+        'label' => __('カスタム投稿タイプの一覧', 'backbone-seo-llmo'),
+        'section' => 'noindex_settings',
+        'priority' => $priority++,
+    )));
+
+    $wp_customize->add_setting('noindex_post_type_archive', array(
+        'default' => 'off',
+        'sanitize_callback' => 'backbone_sanitize_noindex_mode',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('noindex_post_type_archive', array(
+        'label' => __('投稿タイプの一覧ページ（/dictionary/ など）', 'backbone-seo-llmo'),
+        'section' => 'noindex_settings',
+        'type' => 'select',
+        'choices' => $mode_choices,
+        'priority' => $priority++,
+    ));
+
+    $wp_customize->add_setting('noindex_post_type_archive_threshold', array(
+        'default' => 1,
+        'sanitize_callback' => 'backbone_sanitize_noindex_threshold',
+        'transport' => 'refresh',
+    ));
+    $wp_customize->add_control('noindex_post_type_archive_threshold', array(
+        'label' => __('しきい値（記事数がこの数以下）', 'backbone-seo-llmo'),
+        'section' => 'noindex_settings',
+        'type' => 'number',
+        'input_attrs' => array('min' => 0, 'max' => 100, 'step' => 1),
+        'description' => __('例：1 にすると、公開記事が1本しかない投稿タイプの一覧だけをnoindexにします。記事が増えれば自動的にindexへ戻ります。', 'backbone-seo-llmo'),
+        'priority' => $priority++,
+        'active_callback' => 'backbone_is_noindex_post_type_archive_thin_mode',
+    ));
+
     // ━━━ その他のアーカイブ ━━━
     $priority = 200;
     $wp_customize->add_setting('noindex_other_heading', array(
@@ -214,6 +253,15 @@ function backbone_is_noindex_tag_thin_mode() {
  */
 function backbone_is_noindex_category_thin_mode() {
     return get_theme_mod('noindex_category', 'off') === 'thin';
+}
+
+/**
+ * カスタム投稿タイプの一覧が「しきい値モード」かどうかを判定
+ *
+ * @return bool しきい値モードの場合true
+ */
+function backbone_is_noindex_post_type_archive_thin_mode() {
+    return get_theme_mod('noindex_post_type_archive', 'off') === 'thin';
 }
 
 /**

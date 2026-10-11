@@ -11,7 +11,7 @@
     <nav class="sidebar">
         <div class="sidebar-header">
             <h2 style="color:#fff;">Backbone Theme</h2>
-            <span class="version">v1.2.5</span>
+            <span class="version">v1.2.6</span>
             <img src="images/main-visual.png" alt="" style="width:100%;border-radius:4px;margin-top:8px;">
         </div>
         <ul>
@@ -287,7 +287,8 @@
                 <tbody>
                     <tr><td>個別タグアーカイブ</td><td>noindexにしない／記事数がしきい値以下のものだけ／すべて</td><td><code>/tag/○○/</code></td></tr>
                     <tr><td>個別カテゴリアーカイブ</td><td>同上</td><td><code>/category/○○/</code></td></tr>
-                    <tr><td>しきい値</td><td>数値（0〜100）</td><td>「記事数がしきい値以下のものだけ」を選んだときに表示</td></tr>
+                    <tr><td>投稿タイプの一覧ページ</td><td>同上</td><td><code>/dictionary/</code> など、カスタム投稿タイプの一覧ページ</td></tr>
+                    <tr><td>しきい値</td><td>数値（0〜100）</td><td>「記事数がしきい値以下のものだけ」を選んだときに表示（タグ・カテゴリ・投稿タイプの一覧ごとに設定）</td></tr>
                     <tr><td>タグ一覧ページ</td><td>オン／オフ</td><td><code>/tag/</code></td></tr>
                     <tr><td>カテゴリ一覧ページ</td><td>オン／オフ</td><td><code>/category/</code></td></tr>
                     <tr><td>著者アーカイブ</td><td>オン／オフ</td><td><code>/author/○○/</code></td></tr>
@@ -298,6 +299,7 @@
 
             <h3>しきい値モードの使いどころ</h3>
             <p>記事が1本しかぶら下がっていないタグは、その記事とほとんど同じ内容のページになりがちです。「記事数がしきい値以下のものだけ」を選び、しきい値に <code>1</code> を指定すると、そうした薄いタグだけをインデックス対象から外せます。記事が増えてしきい値を超えれば<strong>自動的にインデックス対象へ戻る</strong>ため、個別の管理は不要です。</p>
+            <p>カスタム投稿タイプの一覧ページ（辞書など）も同じ考え方で設定できます。「投稿タイプの一覧ページ」で「記事数がしきい値以下のものだけ」を選ぶと、公開済みの記事がしきい値以下の投稿タイプの一覧ページだけが noindex になります（記事数は投稿タイプごとの公開記事の数で判定します）。</p>
 
             <h3>follow は維持されます</h3>
             <p>noindex を付けたページでもリンクはたどられます（robotsの既定動作がfollowのため）。タグ一覧ページを noindex にしても、そこから各タグページへのクロール経路は維持されます。ただしハブページとしての役割を考えると、<code>/tag/</code> や <code>/category/</code> は通常オフのままを推奨します。</p>
@@ -421,7 +423,7 @@
 
         <footer class="manual-footer">
             <p>作者: <a href="https://www.tsuyoshikashiwazaki.jp/profile/" target="_blank" rel="noopener">Tsuyoshi Kashiwazaki</a></p>
-            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.5</p>
+            <p>テーマ: Backbone Theme for SEO + LLMO v1.2.6</p>
         </footer>
     </main>
 

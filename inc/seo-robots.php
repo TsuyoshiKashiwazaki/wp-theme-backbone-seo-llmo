@@ -43,6 +43,42 @@ function backbone_should_noindex_term($type) {
 }
 
 /**
+ * カスタム投稿タイプの一覧ページをnoindexにすべきか判定
+ *
+ * タグ・カテゴリと同じく、しきい値モードは公開記事数で判定する。
+ *
+ * @return bool noindexにする場合true
+ */
+function backbone_should_noindex_post_type_archive() {
+    $mode = get_theme_mod('noindex_post_type_archive', 'off');
+
+    if ($mode === 'off') {
+        return false;
+    }
+
+    if ($mode === 'all') {
+        return true;
+    }
+
+    // しきい値モード：公開済みの記事数で判定
+    $post_type = get_queried_object();
+
+    if (!($post_type instanceof WP_Post_Type)) {
+        return false;
+    }
+
+    $counts = wp_count_posts($post_type->name);
+
+    if (!isset($counts->publish)) {
+        return false;
+    }
+
+    $threshold = (int) get_theme_mod('noindex_post_type_archive_threshold', 1);
+
+    return ((int) $counts->publish <= $threshold);
+}
+
+/**
  * カスタマイザー設定にもとづいて noindex を付与
  *
  * follow は常に維持する。noindexにしてもリンクはたどらせたいため。
@@ -82,6 +118,9 @@ function backbone_apply_noindex_settings($robots) {
         $noindex = true;
     }
     if (is_category() && backbone_should_noindex_term('category')) {
+        $noindex = true;
+    }
+    if (is_post_type_archive() && backbone_should_noindex_post_type_archive()) {
         $noindex = true;
     }
     if (is_author() && get_theme_mod('noindex_author', false)) {

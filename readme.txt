@@ -5,7 +5,7 @@ Tags: ブログ, アクセシビリティ対応, カスタムカラー, カス�
 Requires at least: 5.0
 Tested up to: 6.4
 Requires PHP: 7.2
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -182,6 +182,10 @@ https://github.com/TsuyoshiKashiwazaki/wp-theme-backbone-seo-llmo-child
 5. 投稿ページ
 
 == 更新履歴 ==
+
+= 1.2.6 - 2026-10-11 =
+* 追加: カスタマイザー「インデックス設定（noindex）」に「カスタム投稿タイプの一覧」を追加（/dictionary/ など投稿タイプの一覧ページを、noindexにしない／公開記事数がしきい値以下のものだけ／すべて から選択。既定は noindexにしない）
+* 修正: 「記事数がしきい値以下のものだけ noindex」を設定していても、カスタム投稿タイプの一覧ページが対象外で noindex にできなかった問題を修正
 
 = 1.2.5 - 2026-10-04 =
 * セキュリティ: カスタマイザーの一覧表示・個別記事セクションで、見出しなどの値を HTML の文字列に連結していた問題を修正（" を含む値で属性を抜け出せた。値も欠けていた）

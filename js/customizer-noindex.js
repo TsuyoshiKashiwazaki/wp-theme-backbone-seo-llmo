@@ -15,7 +15,8 @@
     // モード選択 → 連動して表示を切り替えるしきい値コントロール
     var pairs = {
         'noindex_tag': 'noindex_tag_threshold',
-        'noindex_category': 'noindex_category_threshold'
+        'noindex_category': 'noindex_category_threshold',
+        'noindex_post_type_archive': 'noindex_post_type_archive_threshold'
     };
 
     wp.customize.bind( 'ready', function () {
